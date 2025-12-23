@@ -1,0 +1,787 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Lexend+Deca:wght@400;500;600;700;800&family=Saira+Condensed:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 22 100% 63%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 69%;
+    --accent: 22 100% 63%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 22 100% 63%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 43 74% 49%;
+    --primary-foreground: 30 20% 10%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 43 74% 49%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-industrial-black text-text-primary antialiased;
+    /* Industrial concrete texture overlay */
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.01) 2px, rgba(255, 255, 255, 0.01) 4px),
+      radial-gradient(circle at 20% 50%, rgba(243, 201, 106, 0.05) 0%, transparent 50%);
+    background-size: 100% 100%, 100% 100%;
+  }
+}
+
+@layer components {
+  .prose {
+    @apply text-foreground;
+  }
+  .prose h1 {
+    @apply text-4xl font-bold mb-4 mt-8;
+  }
+  .prose h2 {
+    @apply text-3xl font-bold mb-3 mt-6;
+  }
+  .prose h3 {
+    @apply text-2xl font-semibold mb-2 mt-4;
+  }
+  .prose p {
+    @apply mb-4;
+    line-height: 1.7;
+  }
+  .prose ul {
+    @apply list-disc list-inside mb-4 space-y-2;
+  }
+  .prose ol {
+    @apply list-decimal list-inside mb-4 space-y-2;
+  }
+  .prose a {
+    @apply text-gold hover:text-gold-light transition-colors font-semibold;
+  }
+  .prose strong {
+    @apply font-bold text-text-primary;
+  }
+  .prose em {
+    @apply italic;
+  }
+  .prose code {
+    @apply bg-industrial-slate px-2 py-1 rounded-sm text-sm text-gold;
+  }
+  .prose pre {
+    @apply bg-industrial-slate p-4 rounded-sm overflow-x-auto mb-4 border border-steel;
+  }
+  .prose blockquote {
+    @apply border-l-4 border-gold pl-4 italic my-4 text-text-secondary;
+  }
+  .prose h1 {
+    @apply font-display font-black uppercase tracking-tight;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+  }
+  .prose h2 {
+    @apply font-display font-black uppercase tracking-tight;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    margin-top: 1.75rem;
+  }
+  .prose h3 {
+    @apply font-display font-bold uppercase tracking-tight;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* ============================================
+     3D REALISTIC GOLD EFFECT SYSTEM
+     Using exact gold colors from aivideoguy project
+     Polished gold bars with bright center highlights
+     ============================================ */
+  
+  /* Base 3D Gold Background - Using aivideoguy gold palette */
+  .gold-3d {
+    position: relative;
+    background: 
+      /* Vertical bright gold highlight in center (like aivideoguy bars) */
+      linear-gradient(90deg,
+        #5C4521 0%,
+        #9A7B3F 15%,
+        #CFA340 30%,
+        #D9A441 40%,
+        #F3C96A 50%,
+        #D9A441 60%,
+        #CFA340 70%,
+        #9A7B3F 85%,
+        #5C4521 100%
+      ),
+      /* Horizontal depth gradient */
+      linear-gradient(180deg,
+        #CFA340 0%,
+        #F3C96A 50%,
+        #CFA340 100%
+      );
+    box-shadow: 
+      /* Inset shadows for depth */
+      inset 0 3px 6px rgba(255, 255, 255, 0.4),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.5),
+      /* Outer glow using aivideoguy gold */
+      0 0 20px rgba(243, 201, 106, 0.4),
+      0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* 3D Gold Buttons - Using aivideoguy gradient-gold-button style */
+  .gold-3d-button {
+    @apply relative overflow-hidden transition-all duration-300;
+    background: linear-gradient(90deg, 
+      #CFA340 0%, 
+      #F3C96A 35%, 
+      #FFD77B 50%, 
+      #F3C96A 65%, 
+      #CFA340 100%
+    );
+    border: 1px solid rgba(243, 201, 106, 0.65);
+    box-shadow: 
+      /* Inset highlights and shadows for 3D depth */
+      inset 0 3px 8px rgba(255, 255, 255, 0.5),
+      inset 0 -3px 8px rgba(0, 0, 0, 0.6),
+      /* Outer glow using aivideoguy gold */
+      0 0 25px rgba(243, 201, 106, 0.55),
+      0 4px 16px rgba(0, 0, 0, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.3);
+    color: #1a1a1a;
+    font-weight: bold;
+    text-shadow: 
+      0 1px 2px rgba(255, 255, 255, 0.6),
+      0 -1px 1px rgba(0, 0, 0, 0.2);
+    transition: transform 180ms ease-out, box-shadow 180ms ease-out, filter 180ms ease-out;
+  }
+  
+  .gold-3d-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, 
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 100%
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  
+  .gold-3d-button:hover {
+    transform: translateY(-2px) scale(1.01);
+    filter: brightness(1.05);
+    box-shadow: 
+      inset 0 4px 10px rgba(255, 255, 255, 0.6),
+      inset 0 -4px 10px rgba(0, 0, 0, 0.7),
+      0 0 40px rgba(243, 201, 106, 0.85),
+      0 6px 20px rgba(0, 0, 0, 0.6),
+      0 2px 6px rgba(0, 0, 0, 0.4);
+    border-color: rgba(243, 201, 106, 0.85);
+  }
+  
+  .gold-3d-button:active {
+    transform: scale(0.98);
+    box-shadow: 
+      inset 0 4px 10px rgba(0, 0, 0, 0.7),
+      inset 0 -2px 6px rgba(255, 255, 255, 0.3),
+      0 0 25px rgba(243, 201, 106, 0.5),
+      0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* 3D Gold Borders - Using aivideoguy gold colors */
+  .gold-3d-border {
+    position: relative;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  .gold-3d-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(90deg,
+      #CFA340 0%,
+      #F3C96A 50%,
+      #CFA340 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    box-shadow: 
+      0 0 15px rgba(243, 201, 106, 0.4),
+      inset 0 0 10px rgba(249, 231, 170, 0.3);
+  }
+  
+  /* 3D Gold Text - Premium gold, less holographic, more solid */
+  .gold-3d-text {
+    background: linear-gradient(
+      90deg,
+      #CFA340 0%,
+      #D9A441 25%,
+      #F3C96A 50%,
+      #D9A441 75%,
+      #CFA340 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.5),
+      0 0 15px rgba(243, 201, 106, 0.3);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 12px rgba(243, 201, 106, 0.25));
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .gold-3d-text:hover {
+    background: linear-gradient(
+      90deg,
+      #D9A441 0%,
+      #F3C96A 30%,
+      #FFD77B 50%,
+      #F3C96A 70%,
+      #D9A441 100%
+    );
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 20px rgba(243, 201, 106, 0.4));
+    text-shadow: 
+      0 2px 6px rgba(0, 0, 0, 0.6),
+      0 0 20px rgba(243, 201, 106, 0.35);
+  }
+  
+  /* 3D Gold Icons - Using aivideoguy gold colors */
+  .gold-3d-icon {
+    color: #D9A441;
+    filter: 
+      drop-shadow(0 2px 4px rgba(243, 201, 106, 0.6))
+      drop-shadow(0 0 12px rgba(243, 201, 106, 0.4));
+    transition: all 0.3s ease;
+  }
+  
+  .gold-3d-icon:hover {
+    color: #F3C96A;
+    filter: 
+      drop-shadow(0 2px 6px rgba(243, 201, 106, 0.8))
+      drop-shadow(0 0 20px rgba(249, 231, 170, 0.6));
+    transform: scale(1.1);
+  }
+  
+  /* Apply 3D gold effect to icons with text-gold or fill-gold classes */
+  .text-gold,
+  .fill-gold {
+    filter: 
+      drop-shadow(0 2px 4px rgba(243, 201, 106, 0.5))
+      drop-shadow(0 0 10px rgba(243, 201, 106, 0.3));
+    transition: all 0.3s ease;
+  }
+  
+  .text-gold:hover,
+  .fill-gold:hover {
+    filter: 
+      drop-shadow(0 2px 6px rgba(243, 201, 106, 0.7))
+      drop-shadow(0 0 18px rgba(249, 231, 170, 0.5));
+  }
+  
+  
+  /* Industrial button effects - 3D gold with realistic depth */
+  .btn-premium {
+    @apply gold-3d-button;
+    @apply uppercase tracking-wide;
+  }
+  
+  /* Button with glowing edge/underglow */
+  .btn-glow {
+    position: relative;
+  }
+  
+  .btn-glow::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(45deg, 
+      rgba(243, 201, 106, 0.8),
+      rgba(249, 231, 170, 0.5),
+      rgba(243, 201, 106, 0.8)
+    );
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: blur(8px);
+  }
+  
+  .btn-glow:hover::after {
+    opacity: 1;
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+  
+  /* Industrial card effects - matte with 3D gold border */
+  .card-premium {
+    @apply transition-all duration-500;
+    background: linear-gradient(135deg, rgba(31, 31, 31, 0.95) 0%, rgba(46, 46, 46, 0.95) 100%);
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-premium::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(90deg,
+      rgba(207, 163, 64, 0.5) 0%,
+      rgba(243, 201, 106, 0.7) 50%,
+      rgba(207, 163, 64, 0.5) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 0;
+    box-shadow: 
+      0 0 10px rgba(243, 201, 106, 0.3),
+      inset 0 0 4px rgba(255, 255, 255, 0.2);
+  }
+  
+  .card-premium > * {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .card-premium {
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  .card-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(243, 201, 106, 0.12), 
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+  
+  .card-premium:hover {
+    @apply transform -translate-y-1;
+    transform: translateY(-4px);
+    background: linear-gradient(135deg, rgba(31, 31, 31, 1) 0%, rgba(46, 46, 46, 1) 100%);
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 8px 24px rgba(0, 0, 0, 0.6),
+      0 0 20px rgba(255, 215, 0, 0.3);
+  }
+  
+  .card-premium:hover::after {
+    background: linear-gradient(90deg,
+      rgba(207, 163, 64, 0.7) 0%,
+      rgba(243, 201, 106, 0.9) 50%,
+      rgba(207, 163, 64, 0.7) 100%
+    );
+    box-shadow: 
+      0 0 18px rgba(243, 201, 106, 0.6),
+      inset 0 0 8px rgba(255, 255, 255, 0.4),
+      inset 0 0 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-premium:hover::before {
+    left: 100%;
+  }
+  
+  /* Hero text - industrial white with depth */
+  .hero-text {
+    @apply text-text-primary;
+    text-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.9),
+      0 0 30px rgba(0, 0, 0, 0.6),
+      0 4px 12px rgba(243, 201, 106, 0.2);
+    letter-spacing: -0.02em;
+  }
+  
+  /* Section divider - Using aivideoguy glow-divider style */
+  .section-divider {
+    height: 2px;
+    background: linear-gradient(90deg, 
+      rgba(243, 201, 106, 0.0), 
+      rgba(243, 201, 106, 0.3), 
+      rgba(243, 201, 106, 0.0)
+    );
+    @apply my-20;
+    box-shadow: 
+      0 0 15px rgba(243, 201, 106, 0.4),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.6), 
+      transparent
+    );
+    animation: dividerShine 3s ease-in-out infinite;
+  }
+  
+  @keyframes dividerShine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  /* Industrial spacing */
+  .section-spacing {
+    @apply py-24 md:py-32 lg:py-40;
+  }
+  
+  /* Premium gold glow effect - Using aivideoguy gold */
+  .glow-gold {
+    box-shadow: 
+      0 0 30px rgba(243, 201, 106, 0.7),
+      0 0 60px rgba(243, 201, 106, 0.5),
+      0 0 20px rgba(249, 231, 170, 0.4);
+  }
+  
+  /* Steel button - secondary */
+  .btn-steel {
+    background: linear-gradient(135deg, rgba(74, 74, 74, 0.8) 0%, rgba(46, 46, 46, 0.8) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    @apply transition-all duration-300;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .btn-steel:hover {
+    background: linear-gradient(135deg, rgba(74, 74, 74, 1) 0%, rgba(46, 46, 46, 1) 100%);
+    border-color: rgba(243, 201, 106, 0.5);
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 0 1px rgba(243, 201, 106, 0.3);
+  }
+  
+  /* Scroll indicator - Using aivideoguy gold colors */
+  .scroll-indicator {
+    @apply absolute bottom-8 left-1/2 transform -translate-x-1/2;
+    width: 30px;
+    height: 50px;
+    border: 2px solid rgba(243, 201, 106, 0.5);
+    border-radius: 25px;
+    position: relative;
+    background: linear-gradient(90deg,
+      #CFA340 0%,
+      #F3C96A 50%,
+      #CFA340 100%
+    );
+    box-shadow: 
+      0 0 15px rgba(243, 201, 106, 0.6),
+      inset 0 3px 6px rgba(255, 255, 255, 0.4),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+  }
+  .scroll-indicator::before {
+    content: '';
+    @apply absolute top-2 left-1/2 transform -translate-x-1/2;
+    width: 6px;
+    height: 6px;
+    background: linear-gradient(180deg,
+      rgba(255, 255, 255, 1) 0%,
+      #F9E7AA 30%,
+      #F3C96A 70%,
+      #D9A441 100%
+    );
+    border-radius: 50%;
+    animation: float 2s ease-in-out infinite;
+    box-shadow: 
+      0 0 12px rgba(243, 201, 106, 1),
+      inset 0 2px 3px rgba(255, 255, 255, 0.6);
+  }
+  
+  /* Brushed steel texture for logo */
+  .texture-steel {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 25%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.05) 75%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    background-size: 200% 200%;
+    animation: steelShimmer 3s ease-in-out infinite;
+  }
+  
+  @keyframes steelShimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  /* Premium realistic 3D gold logo text effect */
+  .logo-gold {
+    @apply gold-3d-text;
+    background-size: 200% 100%, 100% 100%;
+  }
+  
+  .logo-gold::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      transparent 0%,
+      rgba(249, 231, 170, 0.4) 50%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  
+  .logo-gold:hover::after {
+    opacity: 1;
+    animation: goldStrike 0.6s ease-out;
+  }
+  
+  @keyframes goldStrike {
+    0% { 
+      background: linear-gradient(135deg, transparent 0%, transparent 50%, transparent 100%);
+      transform: translateX(-100%);
+    }
+    50% {
+      background: linear-gradient(135deg, transparent 0%, rgba(249, 231, 170, 0.9) 50%, transparent 100%);
+      transform: translateX(0%);
+    }
+    100% { 
+      background: linear-gradient(135deg, transparent 0%, transparent 50%, transparent 100%);
+      transform: translateX(100%);
+    }
+  }
+  
+  @keyframes metalStrike {
+    0% { 
+      background: linear-gradient(135deg, transparent 0%, transparent 50%, transparent 100%);
+      transform: translateX(-100%);
+    }
+    50% {
+      background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
+      transform: translateX(0%);
+    }
+    100% { 
+      background: linear-gradient(135deg, transparent 0%, transparent 50%, transparent 100%);
+      transform: translateX(100%);
+    }
+  }
+  
+  @keyframes steelShimmer {
+    0%, 100% {
+      background-position: 0% 50%, 0% 50%, 50% 50%;
+    }
+    50% {
+      background-position: 100% 50%, 0% 50%, 50% 50%;
+    }
+  }
+  
+  /* Concrete texture overlay */
+  .texture-concrete {
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px),
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.01) 2px, rgba(255, 255, 255, 0.01) 4px);
+    background-size: 20px 20px;
+  }
+  
+  /* Blueprint grid overlay - Using aivideoguy gold tones */
+  .texture-blueprint {
+    background-image: 
+      linear-gradient(rgba(243, 201, 106, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(243, 201, 106, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  
+  /* Parallax effects (CSS only) */
+  .hero-parallax {
+    transform-style: preserve-3d;
+  }
+  
+  .parallax-slow {
+    will-change: transform;
+    animation: parallaxSlow 20s ease-in-out infinite alternate;
+  }
+  
+  .parallax-fast {
+    will-change: transform;
+    animation: parallaxFast 15s ease-in-out infinite alternate;
+  }
+  
+  @keyframes parallaxSlow {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(20px, -30px) scale(1.1); }
+  }
+  
+  @keyframes parallaxFast {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-30px, 20px) scale(1.15); }
+  }
+  
+  /* Gallery image hover effects */
+  .gallery-image {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s;
+    filter: brightness(0.85) contrast(1.05);
+  }
+  
+  .gallery-image:hover {
+    transform: scale(1.08);
+    filter: brightness(1.05) contrast(1.15);
+  }
+  
+  .gallery-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.1), 
+      transparent
+    );
+    transition: left 0.6s;
+  }
+  
+  .gallery-image:hover::after {
+    left: 100%;
+  }
+  
+  /* Beveled card style */
+  .card-beveled {
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  .card-beveled::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(90deg,
+      #CFA340 0%,
+      #F3C96A 50%,
+      #CFA340 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    box-shadow: 
+      0 0 10px rgba(243, 201, 106, 0.5),
+      inset 0 0 6px rgba(255, 255, 255, 0.3),
+      inset 0 0 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-beveled:hover::after {
+    opacity: 1;
+  }
+  
+  /* Section title with orange outline/beam */
+  .section-title-beam {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title-beam::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: linear-gradient(90deg,
+      #CFA340 0%,
+      #F3C96A 50%,
+      #CFA340 100%
+    );
+    box-shadow: 
+      0 0 12px rgba(243, 201, 106, 0.6),
+      inset 0 0 6px rgba(255, 255, 255, 0.4),
+      inset 0 0 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  .section-title-beam::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: linear-gradient(90deg,
+      #CFA340 0%,
+      #F3C96A 50%,
+      #CFA340 100%
+    );
+    box-shadow: 
+      0 0 12px rgba(243, 201, 106, 0.6),
+      inset 0 0 6px rgba(255, 255, 255, 0.4),
+      inset 0 0 3px rgba(0, 0, 0, 0.2);
+  }
+}
+
