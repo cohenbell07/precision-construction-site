@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Send, X, MessageCircle, Loader2 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import type { ChatConversation } from "@/lib/aiTools";
 
 export function FloatingChatbot() {
@@ -150,9 +149,7 @@ export function FloatingChatbot() {
   return (
     <>
       {/* Floating Button */}
-      <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
+      <button
         className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-2xl gold-3d-button text-black shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Open chat"
@@ -162,19 +159,13 @@ export function FloatingChatbot() {
         ) : (
           <MessageCircle className="h-6 w-6" />
         )}
-      </motion.button>
+      </button>
 
       {/* Chat Window */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 z-50 w-96 max-w-[calc(100vw-3rem)]"
-          >
-            <Card className="card-premium border-gold/30 h-[600px] flex flex-col rounded-2xl">
-              <CardHeader className="pb-3 border-b border-gold/20">
+      {isOpen && (
+        <div className="fixed bottom-24 right-6 z-50 w-96 max-w-[calc(100vw-3rem)]">
+            <Card className="card-premium border-gold/40 h-[600px] flex flex-col rounded-2xl shadow-2xl">
+              <CardHeader className="pb-3 border-b border-gold/30">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg font-bold text-text-primary uppercase tracking-wide">
                     AI Assistant
@@ -220,7 +211,7 @@ export function FloatingChatbot() {
 
                 {/* Contact Form (if collecting) */}
                 {collectingContact && (
-                  <div className="mb-4 p-4 card-premium border-gold/30 rounded-xl">
+                  <div className="mb-4 p-4 card-premium border-gold/40 rounded-xl shadow-lg">
                     <p className="text-sm font-semibold text-text-primary mb-3 uppercase">
                       Get a Free Consultation
                     </p>
@@ -282,9 +273,8 @@ export function FloatingChatbot() {
                 )}
               </CardContent>
             </Card>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Mail, MapPin } from "lucide-react";
 
@@ -25,14 +26,23 @@ export function Footer() {
   return (
     <footer className="bg-industrial-black text-text-primary relative overflow-hidden border-t border-steel/30 texture-concrete">
         <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gold/3 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gold/3 rounded-full blur-xl"></div>
       </div>
       <div className="container mx-auto px-4 py-16 max-w-7xl relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div>
             <div className="mb-4">
-              <h3 className="text-xl font-display font-black text-text-primary uppercase tracking-tight logo-gold">{BRAND_CONFIG.shortName}</h3>
+              <Link href="/" className="inline-block">
+                <Image
+                  src="/PCNDlogo.png"
+                  alt="PCND"
+                  width={200}
+                  height={60}
+                  className="h-12 md:h-14 w-auto"
+                  priority
+                />
+              </Link>
             </div>
             <p className="text-gold mb-3 text-sm font-bold uppercase tracking-wide">{BRAND_CONFIG.motto}</p>
             <p className="text-text-secondary mb-6 text-xs">{BRAND_CONFIG.tagline}</p>

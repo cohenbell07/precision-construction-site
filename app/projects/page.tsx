@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { X } from "phosphor-react";
@@ -127,18 +126,12 @@ export default function ProjectsPage() {
 
         {/* Project Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="wait">
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className="group cursor-pointer"
-                onClick={() => setSelectedProject(project)}
-              >
+          {filteredProjects.map((project) => (
+            <div
+              key={project.id}
+              className="group cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
+              onClick={() => setSelectedProject(project)}
+            >
                 <Card className="card-premium card-beveled border-gold/20 overflow-hidden p-0 h-full rounded-2xl">
                   <div className="relative h-72 overflow-hidden">
                     <Image
@@ -147,7 +140,7 @@ export default function ProjectsPage() {
                       fill
                       className="object-cover gallery-image"
                     />
-                    <div className="absolute inset-0 bg-industrial-black/90 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                    <div className="absolute inset-0 bg-industrial-black/90 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <span className="text-gold font-bold text-lg uppercase tracking-wide">View Details</span>
                     </div>
                     <div className="absolute top-5 left-5">
@@ -164,9 +157,8 @@ export default function ProjectsPage() {
                     </h3>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
-          </AnimatePresence>
         </div>
 
         {/* Lightbox Dialog */}

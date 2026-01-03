@@ -33,33 +33,36 @@ const serviceIcons: { [key: string]: any } = {
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-industrial-black texture-concrete relative">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 10px,
-            rgba(243, 201, 106, 0.15) 10px,
-            rgba(243, 201, 106, 0.15) 20px
-          )`
-        }}></div>
+    <div className="min-h-screen bg-industrial-black relative">
+      {/* Premium Construction Background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-industrial-black via-industrial-slate/12 to-industrial-black"></div>
+        <div className="absolute inset-0 services-grid-pattern"></div>
+        <div className="absolute top-1/3 right-1/3 w-[500px] h-[500px] bg-gold/3 rounded-full blur-sm opacity-20"></div>
       </div>
 
       <div className="container mx-auto px-4 py-20 max-w-7xl relative z-10">
         <div className="text-center mb-20">
+          {/* Premium Badge */}
+          <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-gold/30 bg-gold/10 mb-8">
+            <span className="text-gold text-sm font-bold uppercase tracking-wider">Comprehensive Services</span>
+            <span className="w-1 h-1 rounded-full bg-gold"></span>
+            <span className="text-gold text-sm font-bold uppercase tracking-wider">Since {BRAND_CONFIG.established}</span>
+          </div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black mb-6 text-text-primary uppercase tracking-tight">
             Our Services
           </h1>
-          <div className="inline-block mb-6">
-            <div className="h-1 w-24 bg-gold mx-auto mb-4"></div>
+          {/* Decorative gold line */}
+          <div className="flex items-center justify-center gap-4 my-6">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-gold"></div>
+            <div className="w-2 h-2 rounded-full bg-gold"></div>
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-gold"></div>
           </div>
-          <p className="text-xl text-text-secondary max-w-3xl mx-auto mb-4 leading-relaxed">
+          <p className="text-xl md:text-2xl text-text-secondary max-w-3xl mx-auto mb-4 leading-relaxed">
             From flooring to full home renovations, we provide comprehensive construction services for
             residential and commercial projects in Calgary and surrounding areas.
           </p>
-          <p className="text-lg text-gold font-bold max-w-3xl mx-auto uppercase tracking-wide">
+          <p className="text-lg md:text-xl text-gold font-bold max-w-3xl mx-auto uppercase tracking-wide">
             {BRAND_CONFIG.motto}
           </p>
         </div>
@@ -121,7 +124,6 @@ export default function ServicesPage() {
                       </div>
                     </div>
                     {/* Overlay for hover effect */}
-                    <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-300"></div>
                     {/* Placeholder text */}
                     <div className="absolute bottom-4 left-4 right-4 text-center">
                       <p className="text-text-secondary text-sm font-semibold uppercase tracking-wide">
@@ -144,8 +146,11 @@ export default function ServicesPage() {
             <h2 className="text-4xl md:text-5xl font-display font-black mb-6 text-text-primary uppercase tracking-tight">
               Ready to Start Your Project?
             </h2>
-            <div className="inline-block mb-6">
-              <div className="h-1 w-32 bg-gold mx-auto"></div>
+            {/* Decorative gold line */}
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-gold"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-gold"></div>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-gold"></div>
             </div>
             <p className="text-lg text-text-secondary mb-4 max-w-2xl mx-auto leading-relaxed">
               We treat every client like family. Contact us today for a free consultation and quote.

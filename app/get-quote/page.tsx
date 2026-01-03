@@ -12,7 +12,6 @@ import { sendEmail } from "@/lib/email";
 import { generateAIResponse } from "@/lib/ai";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-import { motion } from "framer-motion";
 import {
   SquaresFour,
   Drop,
@@ -41,6 +40,7 @@ const serviceIcons: { [key: string]: any } = {
 export default function GetQuotePage() {
   const [step, setStep] = useState<"service" | "details" | "summary">("service");
   const [selectedService, setSelectedService] = useState<string>("");
+  const [customServiceName, setCustomServiceName] = useState<string>("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -64,8 +64,11 @@ export default function GetQuotePage() {
     setLoading(true);
 
     try {
-      const service = getServiceById(selectedService);
-      const projectDescription = `Service: ${service?.title || selectedService}
+      const service = selectedService === "other" ? null : getServiceById(selectedService);
+      const serviceTitle = selectedService === "other" 
+        ? (customServiceName || "Other Project")
+        : (service?.title || selectedService);
+      const projectDescription = `Service: ${serviceTitle}
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
@@ -83,7 +86,7 @@ Budget: ${formData.budget}`;
             name: formData.name,
             email: formData.email,
             phone: formData.phone,
-            projectType: service?.title || selectedService,
+            projectType: serviceTitle,
             message: projectDescription,
             source: "quote_tool",
           }),
@@ -93,7 +96,7 @@ Budget: ${formData.budget}`;
       }
 
       // Generate AI summary
-      const prompt = `Generate a professional quote summary for a ${service?.title || selectedService} project. 
+      const prompt = `Generate a professional quote summary for a ${serviceTitle} project. 
       Project details: ${formData.projectDetails}
       Timeline: ${formData.timeline}
       Budget: ${formData.budget}
@@ -115,10 +118,10 @@ Budget: ${formData.budget}`;
       // Send email to admin
       await sendEmail({
         to: BRAND_CONFIG.contact.email,
-        subject: `New Quote Request - ${service?.title || selectedService}`,
+        subject: `New Quote Request - ${serviceTitle}`,
         html: `
           <h2>New Quote Request</h2>
-          <p><strong>Service:</strong> ${service?.title || selectedService}</p>
+          <p><strong>Service:</strong> ${serviceTitle}</p>
           <p><strong>Name:</strong> ${formData.name}</p>
           <p><strong>Email:</strong> ${formData.email}</p>
           <p><strong>Phone:</strong> ${formData.phone}</p>
@@ -161,12 +164,7 @@ Budget: ${formData.budget}`;
   return (
     <div className="min-h-screen bg-industrial-black texture-concrete">
       <div className="container mx-auto px-4 py-20 max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black mb-6 text-text-primary uppercase tracking-tight">
             Get a Quote
           </h1>
@@ -182,7 +180,7 @@ Budget: ${formData.budget}`;
           <p className="text-base text-text-secondary mt-6 max-w-3xl mx-auto">
             {BRAND_CONFIG.contact.cta}
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Form */}
@@ -202,25 +200,38 @@ Budget: ${formData.budget}`;
                     {services.map((service) => {
                       const IconComponent = serviceIcons[service.id] || serviceIcons.default;
                       return (
-                        <motion.button
+                        <button
                           key={service.id}
                           onClick={() => handleServiceSelect(service.id)}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="text-left p-6 border-2 border-gold/20 rounded-2xl hover:border-gold/60 hover:bg-gold/5 transition-all shadow-lg hover:shadow-xl bg-industrial-slate/50 group"
+                          className="text-left p-6 border-2 border-gold/20 rounded-2xl shadow-lg bg-industrial-slate/50 cursor-pointer relative hover:shadow-[0_0_20px_rgba(243,201,106,0.4)] transition-shadow duration-300"
                         >
                           <div className="flex items-center space-x-4 mb-4">
-                            <div className="p-4 bg-gold/10 rounded-2xl border border-gold/20 group-hover:bg-gold/20 transition-colors">
-                              <IconComponent className="h-8 w-8 text-gold group-hover:scale-110 transition-transform" weight="duotone" />
+                            <div className="p-4 bg-gold/10 rounded-2xl border border-gold/20">
+                              <IconComponent className="h-8 w-8 text-gold" weight="duotone" />
                             </div>
-                            <h3 className="font-display font-black text-xl text-text-primary uppercase tracking-tight group-hover:text-gold transition-colors">
+                            <h3 className="font-display font-black text-xl text-text-primary uppercase tracking-tight">
                               {service.title}
                             </h3>
                           </div>
                           <p className="text-sm text-text-secondary leading-relaxed">{service.description}</p>
-                        </motion.button>
+                        </button>
                       );
                     })}
+                    {/* Other Option */}
+                    <button
+                      onClick={() => handleServiceSelect("other")}
+                      className="text-left p-6 border-2 border-gold/20 rounded-2xl shadow-lg bg-industrial-slate/50 cursor-pointer relative hover:shadow-[0_0_20px_rgba(243,201,106,0.4)] transition-shadow duration-300"
+                    >
+                      <div className="flex items-center space-x-4 mb-4">
+                        <div className="p-4 bg-gold/10 rounded-2xl border border-gold/20">
+                          <Buildings className="h-8 w-8 text-gold" weight="duotone" />
+                        </div>
+                        <h3 className="font-display font-black text-xl text-text-primary uppercase tracking-tight">
+                          Other
+                        </h3>
+                      </div>
+                      <p className="text-sm text-text-secondary leading-relaxed">Have a different project? Select this option and tell us about it.</p>
+                    </button>
                   </div>
                 </CardContent>
               </Card>
@@ -233,8 +244,9 @@ Budget: ${formData.budget}`;
                     Project Details
                   </CardTitle>
                   <CardDescription className="text-lg text-text-secondary">
-                    Tell us more about your {getServiceById(selectedService)?.title.toLowerCase()}{" "}
-                    project
+                    {selectedService === "other" 
+                      ? "Tell us more about your project"
+                      : `Tell us more about your ${getServiceById(selectedService)?.title.toLowerCase()} project`}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -295,6 +307,21 @@ Budget: ${formData.budget}`;
                         />
                       </div>
                     </div>
+                    {selectedService === "other" && (
+                      <div>
+                        <label htmlFor="customServiceName" className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wide">
+                          Project Type *
+                        </label>
+                        <Input
+                          id="customServiceName"
+                          required
+                          value={customServiceName}
+                          onChange={(e) => setCustomServiceName(e.target.value)}
+                          placeholder="e.g., Basement Development, Deck Construction, etc."
+                          className="rounded-xl"
+                        />
+                      </div>
+                    )}
                     <div>
                       <label htmlFor="projectDetails" className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wide">
                         Project Details *
@@ -304,7 +331,7 @@ Budget: ${formData.budget}`;
                         required
                         value={formData.projectDetails}
                         onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
-                        placeholder="Describe your project in detail..."
+                        placeholder={selectedService === "other" ? "Describe your project in detail, including what you need..." : "Describe your project in detail..."}
                         rows={6}
                         className="rounded-xl"
                       />
@@ -383,6 +410,7 @@ Budget: ${formData.budget}`;
                       onClick={() => {
                         setStep("service");
                         setSelectedService("");
+                        setCustomServiceName("");
                         setFormData({
                           name: "",
                           email: "",

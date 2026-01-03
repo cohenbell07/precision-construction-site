@@ -12,6 +12,16 @@ const nextConfig = {
       },
     ],
   },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      // Fix for gray-matter/js-yaml webpack bundling issue
+      config.externals = config.externals || [];
+      config.externals.push({
+        'js-yaml': 'commonjs js-yaml',
+      });
+    }
+    return config;
+  },
 };
 
 module.exports = nextConfig;

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,13 +21,18 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-steel/30 bg-industrial-black/95 backdrop-blur-sm supports-[backdrop-filter]:bg-industrial-black/90">
-      <nav className="container mx-auto flex h-20 items-center justify-between px-6 max-w-7xl">
-      <Link href="/" className="flex items-center group">
-        {/* Brushed Steel Text Logo */}
-        <span className="text-xl md:text-2xl font-display font-black tracking-tight uppercase logo-gold relative">
-          {BRAND_CONFIG.shortName}
-        </span>
+    <header className="sticky top-0 z-50 w-full border-b border-steel/30 bg-industrial-black/95 overflow-visible">
+      <nav className="container mx-auto flex h-20 items-center justify-between px-6 max-w-7xl overflow-visible">
+      <Link href="/" className="flex items-center group overflow-visible">
+        {/* Logo Image */}
+        <Image
+          src="/precisionlogo.png"
+          alt={BRAND_CONFIG.shortName}
+          width={600}
+          height={150}
+          className="h-24 md:h-30 w-auto group-hover:scale-105 transition-transform duration-300"
+          priority
+        />
       </Link>
 
         {/* Desktop Navigation */}

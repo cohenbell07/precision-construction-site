@@ -1,6 +1,44 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+
+// Lazy load gray-matter to avoid webpack bundling issues
+function parseFrontmatter(content: string): { data: any; content: string } {
+  try {
+    // Use dynamic require to avoid webpack issues
+    const matter = require("gray-matter");
+    // Configure gray-matter to use yaml.load instead of safeLoad (for js-yaml 4+)
+    const yaml = require("js-yaml");
+    return matter(content, {
+      engines: {
+        yaml: {
+          parse: (str: string) => yaml.load(str),
+          stringify: (obj: any) => yaml.dump(obj),
+        },
+      },
+    });
+  } catch (error) {
+    // Fallback parser if gray-matter fails
+    console.warn("gray-matter failed, using fallback parser:", error);
+    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+    const match = content.match(frontmatterRegex);
+    if (match) {
+      const data: any = {};
+      const frontmatter = match[1];
+      frontmatter.split('\n').forEach((line: string) => {
+        const colonIndex = line.indexOf(':');
+        if (colonIndex > 0) {
+          const key = line.substring(0, colonIndex).trim();
+          const value = line.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
+          if (key) {
+            data[key] = value;
+          }
+        }
+      });
+      return { data, content: match[2] };
+    }
+    return { data: {}, content };
+  }
+}
 
 export interface BlogPost {
   slug: string;
@@ -33,7 +71,7 @@ export function getBlogPosts(): BlogPost[] {
           }
 
           const fileContents = fs.readFileSync(fullPath, "utf8");
-          const { data, content } = matter(fileContents);
+          const { data, content } = parseFrontmatter(fileContents);
 
           // Ensure all values are strings and serializable
           return {
@@ -73,7 +111,7 @@ export function getBlogPost(slug: string): BlogPost | null {
     }
 
     const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
+    const { data, content } = parseFrontmatter(fileContents);
 
     // Ensure all values are strings and serializable
     return {
