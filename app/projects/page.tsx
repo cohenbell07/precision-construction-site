@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
-import { X } from "phosphor-react";
+import { X } from "lucide-react";
 
 interface Project {
   id: string;
@@ -92,16 +92,20 @@ export default function ProjectsPage() {
       : projects.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-industrial-black texture-concrete">
-      <div className="container mx-auto px-4 py-20 max-w-7xl">
+    <div className="min-h-screen bg-black relative premium-bg-pattern">
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+          backgroundSize: '100px 100px'
+        }}></div>
+      </div>
+      <div className="container mx-auto px-4 py-20 max-w-7xl relative z-10">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black mb-6 text-text-primary uppercase tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
             Project Gallery
           </h1>
-          <div className="inline-block mb-6">
-            <div className="h-1 w-24 bg-gold mx-auto"></div>
-          </div>
-          <p className="text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
+          <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+          <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed premium-text">
             Explore our portfolio of completed projects showcasing our quality craftsmanship and
             attention to detail.
           </p>
@@ -113,10 +117,10 @@ export default function ProjectsPage() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-3 rounded-2xl transition-all font-bold uppercase tracking-wide text-sm ${
+              className={`px-6 py-3 rounded-xl transition-all font-black uppercase tracking-wide text-sm border-2 ${
                 selectedCategory === category
-                  ? "bg-gold text-white shadow-lg btn-glow"
-                  : "bg-industrial-slate text-text-secondary hover:bg-industrial-surface border border-gold/20 hover:border-gold/40 rounded-2xl"
+                  ? "bg-gold text-black shadow-[0_0_20px_rgba(212,175,55,0.5)] border-gold btn-glow"
+                  : "bg-black/50 text-white border-gold/30 hover:bg-black/70 hover:border-gold/60 backdrop-blur-sm"
               }`}
             >
               {category}
@@ -132,41 +136,42 @@ export default function ProjectsPage() {
               className="group cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
               onClick={() => setSelectedProject(project)}
             >
-                <Card className="card-premium card-beveled border-gold/20 overflow-hidden p-0 h-full rounded-2xl">
-                  <div className="relative h-72 overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover gallery-image"
-                    />
-                    <div className="absolute inset-0 bg-industrial-black/90 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <span className="text-gold font-bold text-lg uppercase tracking-wide">View Details</span>
-                    </div>
-                    <div className="absolute top-5 left-5">
-                      <span className="bg-gold text-white px-4 py-2 rounded-2xl text-sm font-bold uppercase tracking-wide shadow-lg">
-                        {project.category}
-                      </span>
-                    </div>
-                    {/* Premium shimmer overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <Card className="card-premium border-gold/30 overflow-hidden p-0 h-full bg-black/60 backdrop-blur-sm">
+                <div className="relative h-72 overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
+                  <div className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="premium-gold-text font-black text-lg uppercase tracking-wide">View Details</span>
                   </div>
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-display font-black text-text-primary uppercase tracking-tight group-hover:text-gold transition-colors">
-                      {project.title}
-                    </h3>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
+                  <div className="absolute top-5 left-5">
+                    <span className="bg-gold text-black px-4 py-2 rounded-xl text-sm font-black uppercase tracking-wide shadow-[0_0_15px_rgba(212,175,55,0.5)]">
+                      {project.category}
+                    </span>
+                  </div>
+                  {/* Premium shimmer overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-display font-black text-white uppercase tracking-tight group-hover:text-gold transition-colors premium-heading-sm">
+                    {project.title}
+                  </h3>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
         </div>
 
         {/* Lightbox Dialog */}
         <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto bg-industrial-slate border-gold/30 rounded-2xl">
+          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto bg-black/95 border-gold/30 rounded-2xl backdrop-blur-sm">
             {selectedProject && (
               <>
-                <div className="relative h-[500px] w-full rounded-2xl overflow-hidden mb-6 shadow-2xl">
+                <div className="relative h-[500px] w-full rounded-2xl overflow-hidden mb-6 shadow-2xl border border-gold/20">
                   <Image
                     src={selectedProject.image}
                     alt={selectedProject.title}
@@ -174,13 +179,13 @@ export default function ProjectsPage() {
                     className="object-cover"
                   />
                 </div>
-                <h2 className="text-4xl md:text-5xl font-display font-black mb-3 text-text-primary uppercase tracking-tight">
+                <h2 className="text-4xl md:text-5xl font-display font-black mb-3 text-white uppercase tracking-tight premium-heading">
                   {selectedProject.title}
                 </h2>
-                <p className="text-gold font-bold mb-6 text-lg uppercase tracking-wide">
+                <p className="premium-gold-text font-black mb-6 text-lg uppercase tracking-wide">
                   {selectedProject.category}
                 </p>
-                <p className="text-text-secondary leading-relaxed text-lg">
+                <p className="text-white/90 leading-relaxed text-lg premium-text">
                   {selectedProject.description}
                 </p>
               </>

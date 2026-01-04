@@ -11,7 +11,7 @@ import { AIChatAssistant } from "@/components/AIChatAssistant";
 import { sendEmail } from "@/lib/email";
 import { generateAIResponse } from "@/lib/ai";
 import { BRAND_CONFIG } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
+import { Loader2, CheckCircle } from "lucide-react";
 import {
   SquaresFour,
   Drop,
@@ -21,7 +21,6 @@ import {
   Buildings,
   Wall,
   PaintBrush,
-  CheckCircle
 } from "phosphor-react";
 
 // Icon mapping for services with phosphor-react
@@ -162,22 +161,26 @@ Budget: ${formData.budget}`;
   };
 
   return (
-    <div className="min-h-screen bg-industrial-black texture-concrete">
-      <div className="container mx-auto px-4 py-20 max-w-7xl">
+    <div className="min-h-screen bg-black relative premium-bg-pattern">
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+          backgroundSize: '100px 100px'
+        }}></div>
+      </div>
+      <div className="container mx-auto px-4 py-20 max-w-7xl relative z-10">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black mb-6 text-text-primary uppercase tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
             Get a Quote
           </h1>
-          <div className="inline-block mb-6">
-            <div className="h-1 w-24 bg-gold mx-auto mb-4"></div>
-          </div>
-          <p className="text-xl text-text-secondary max-w-3xl mx-auto mb-4 leading-relaxed">
+          <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+          <p className="text-xl text-white max-w-3xl mx-auto mb-4 leading-relaxed premium-text">
             Tell us about your project and we&apos;ll provide you with a detailed quote.
           </p>
-          <p className="text-lg text-gold font-bold max-w-3xl mx-auto mb-4 uppercase tracking-wide">
+          <p className="text-lg premium-gold-text font-bold max-w-3xl mx-auto mb-4 uppercase tracking-wide">
             {BRAND_CONFIG.motto}
           </p>
-          <p className="text-base text-text-secondary mt-6 max-w-3xl mx-auto">
+          <p className="text-base text-white/80 mt-6 max-w-3xl mx-auto premium-text">
             {BRAND_CONFIG.contact.cta}
           </p>
         </div>
@@ -186,12 +189,12 @@ Budget: ${formData.budget}`;
           {/* Main Form */}
           <div className="lg:col-span-2">
             {step === "service" && (
-              <Card className="card-premium rounded-2xl border-gold/30">
+              <Card className="card-premium rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-display font-black text-text-primary uppercase tracking-tight">
+                  <CardTitle className="text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                     Select a Service
                   </CardTitle>
-                  <CardDescription className="text-lg text-text-secondary">
+                  <CardDescription className="text-lg text-white/90 premium-text">
                     Choose the service you&apos;re interested in
                   </CardDescription>
                 </CardHeader>
@@ -203,34 +206,34 @@ Budget: ${formData.budget}`;
                         <button
                           key={service.id}
                           onClick={() => handleServiceSelect(service.id)}
-                          className="text-left p-6 border-2 border-gold/20 rounded-2xl shadow-lg bg-industrial-slate/50 cursor-pointer relative hover:shadow-[0_0_20px_rgba(243,201,106,0.4)] transition-shadow duration-300"
+                          className="text-left p-6 border-2 border-gold/30 rounded-2xl shadow-xl bg-black/50 backdrop-blur-sm cursor-pointer relative hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:border-gold/60 transition-all duration-300"
                         >
                           <div className="flex items-center space-x-4 mb-4">
-                            <div className="p-4 bg-gold/10 rounded-2xl border border-gold/20">
-                              <IconComponent className="h-8 w-8 text-gold" weight="duotone" />
+                            <div className="p-4 bg-gold/10 rounded-2xl border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                              <IconComponent className="h-8 w-8 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" weight="duotone" />
                             </div>
-                            <h3 className="font-display font-black text-xl text-text-primary uppercase tracking-tight">
+                            <h3 className="font-display font-black text-xl text-white uppercase tracking-tight premium-heading-sm">
                               {service.title}
                             </h3>
                           </div>
-                          <p className="text-sm text-text-secondary leading-relaxed">{service.description}</p>
+                          <p className="text-sm text-white/80 leading-relaxed premium-text">{service.description}</p>
                         </button>
                       );
                     })}
                     {/* Other Option */}
                     <button
                       onClick={() => handleServiceSelect("other")}
-                      className="text-left p-6 border-2 border-gold/20 rounded-2xl shadow-lg bg-industrial-slate/50 cursor-pointer relative hover:shadow-[0_0_20px_rgba(243,201,106,0.4)] transition-shadow duration-300"
+                      className="text-left p-6 border-2 border-gold/30 rounded-2xl shadow-xl bg-black/50 backdrop-blur-sm cursor-pointer relative hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:border-gold/60 transition-all duration-300"
                     >
                       <div className="flex items-center space-x-4 mb-4">
-                        <div className="p-4 bg-gold/10 rounded-2xl border border-gold/20">
-                          <Buildings className="h-8 w-8 text-gold" weight="duotone" />
+                        <div className="p-4 bg-gold/10 rounded-2xl border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                          <Buildings className="h-8 w-8 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" weight="duotone" />
                         </div>
-                        <h3 className="font-display font-black text-xl text-text-primary uppercase tracking-tight">
+                        <h3 className="font-display font-black text-xl text-white uppercase tracking-tight premium-heading-sm">
                           Other
                         </h3>
                       </div>
-                      <p className="text-sm text-text-secondary leading-relaxed">Have a different project? Select this option and tell us about it.</p>
+                      <p className="text-sm text-white/80 leading-relaxed premium-text">Have a different project? Select this option and tell us about it.</p>
                     </button>
                   </div>
                 </CardContent>
@@ -238,12 +241,12 @@ Budget: ${formData.budget}`;
             )}
 
             {step === "details" && (
-              <Card className="card-premium rounded-2xl border-gold/30">
+              <Card className="card-premium rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-display font-black text-text-primary uppercase tracking-tight">
+                  <CardTitle className="text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                     Project Details
                   </CardTitle>
-                  <CardDescription className="text-lg text-text-secondary">
+                  <CardDescription className="text-lg text-white/90 premium-text">
                     {selectedService === "other" 
                       ? "Tell us more about your project"
                       : `Tell us more about your ${getServiceById(selectedService)?.title.toLowerCase()} project`}
@@ -253,7 +256,7 @@ Budget: ${formData.budget}`;
                   <form onSubmit={handleDetailsSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="name" className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wide">
+                        <label htmlFor="name" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
                           Name *
                         </label>
                         <Input
@@ -262,11 +265,11 @@ Budget: ${formData.budget}`;
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           placeholder="Your name"
-                          className="rounded-xl"
+                          className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wide">
+                        <label htmlFor="email" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
                           Email *
                         </label>
                         <Input
@@ -276,13 +279,13 @@ Budget: ${formData.budget}`;
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="your.email@example.com"
-                          className="rounded-xl"
+                          className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="phone" className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wide">
+                        <label htmlFor="phone" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
                           Phone
                         </label>
                         <Input
@@ -291,11 +294,11 @@ Budget: ${formData.budget}`;
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="(403) 555-0123"
-                          className="rounded-xl"
+                          className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                         />
                       </div>
                       <div>
-                        <label htmlFor="address" className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wide">
+                        <label htmlFor="address" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
                           Address
                         </label>
                         <Input
@@ -303,13 +306,13 @@ Budget: ${formData.budget}`;
                           value={formData.address}
                           onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                           placeholder="Project address"
-                          className="rounded-xl"
+                          className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                         />
                       </div>
                     </div>
                     {selectedService === "other" && (
                       <div>
-                        <label htmlFor="customServiceName" className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wide">
+                        <label htmlFor="customServiceName" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
                           Project Type *
                         </label>
                         <Input
@@ -318,12 +321,12 @@ Budget: ${formData.budget}`;
                           value={customServiceName}
                           onChange={(e) => setCustomServiceName(e.target.value)}
                           placeholder="e.g., Basement Development, Deck Construction, etc."
-                          className="rounded-xl"
+                          className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                         />
                       </div>
                     )}
                     <div>
-                      <label htmlFor="projectDetails" className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wide">
+                      <label htmlFor="projectDetails" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
                         Project Details *
                       </label>
                       <Textarea
@@ -333,12 +336,12 @@ Budget: ${formData.budget}`;
                         onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
                         placeholder={selectedService === "other" ? "Describe your project in detail, including what you need..." : "Describe your project in detail..."}
                         rows={6}
-                        className="rounded-xl"
+                        className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                       />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="timeline" className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wide">
+                        <label htmlFor="timeline" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
                           Timeline
                         </label>
                         <Input
@@ -346,11 +349,11 @@ Budget: ${formData.budget}`;
                           value={formData.timeline}
                           onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
                           placeholder="e.g., 3-6 months"
-                          className="rounded-xl"
+                          className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                         />
                       </div>
                       <div>
-                        <label htmlFor="budget" className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wide">
+                        <label htmlFor="budget" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
                           Budget Range
                         </label>
                         <Input
@@ -358,7 +361,7 @@ Budget: ${formData.budget}`;
                           value={formData.budget}
                           onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                           placeholder="e.g., $50,000 - $75,000"
-                          className="rounded-xl"
+                          className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                         />
                       </div>
                     </div>
@@ -367,11 +370,11 @@ Budget: ${formData.budget}`;
                         type="button"
                         variant="outline"
                         onClick={() => setStep("service")}
-                        className="rounded-2xl"
+                        className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm"
                       >
                         Back
                       </Button>
-                      <Button type="submit" disabled={loading} className="btn-premium btn-glow rounded-2xl flex-1">
+                      <Button type="submit" disabled={loading} className="btn-premium btn-glow flex-1">
                         {loading ? (
                           <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -388,21 +391,21 @@ Budget: ${formData.budget}`;
             )}
 
             {step === "summary" && (
-              <Card className="card-premium rounded-2xl border-gold/30">
+              <Card className="card-premium rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-display font-black text-text-primary uppercase tracking-tight">
+                  <CardTitle className="text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                     Thank You!
                   </CardTitle>
-                  <CardDescription className="text-lg text-text-secondary">
+                  <CardDescription className="text-lg text-white/90 premium-text">
                     Your quote request has been received
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="p-6 bg-gold/5 border-l-4 border-gold rounded-2xl">
-                    <p className="text-text-secondary leading-relaxed text-lg">{summary}</p>
+                  <div className="p-6 bg-gold/10 border-l-4 border-gold rounded-2xl">
+                    <p className="text-white/90 leading-relaxed text-lg premium-text">{summary}</p>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Button asChild className="btn-premium btn-glow rounded-2xl">
+                    <Button asChild className="btn-premium btn-glow">
                       <a href="/">Return Home</a>
                     </Button>
                     <Button
@@ -421,7 +424,7 @@ Budget: ${formData.budget}`;
                           budget: "",
                         });
                       }}
-                      className="rounded-2xl"
+                      className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm"
                     >
                       Request Another Quote
                     </Button>
@@ -433,39 +436,39 @@ Budget: ${formData.budget}`;
 
           {/* Sidebar */}
           <div className="space-y-6">
-            <Card className="card-premium rounded-2xl border-gold/30">
+            <Card className="card-premium rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-2xl font-display font-black text-text-primary uppercase tracking-tight">
+                <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Why Choose Us?
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0" weight="fill" />
+                  <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
                   <div>
-                    <p className="font-bold text-text-primary">Family-Owned Since 1968</p>
-                    <p className="text-sm text-text-secondary">Three generations of experience</p>
+                    <p className="font-black text-white premium-heading-sm">Family-Owned Since 1968</p>
+                    <p className="text-sm text-white/70 premium-text">Three generations of experience</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0" weight="fill" />
+                  <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
                   <div>
-                    <p className="font-bold text-text-primary">Serving Calgary Since 1997</p>
-                    <p className="text-sm text-text-secondary">Over 25 years in the community</p>
+                    <p className="font-black text-white premium-heading-sm">Serving Calgary Since 1997</p>
+                    <p className="text-sm text-white/70 premium-text">Over {new Date().getFullYear() - BRAND_CONFIG.servingSince} years in the community</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0" weight="fill" />
+                  <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
                   <div>
-                    <p className="font-bold text-text-primary">2,400+ Projects</p>
-                    <p className="text-sm text-text-secondary">Completed with excellence</p>
+                    <p className="font-black text-white premium-heading-sm">2,400+ Projects</p>
+                    <p className="text-sm text-white/70 premium-text">Completed with excellence</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0" weight="fill" />
+                  <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
                   <div>
-                    <p className="font-bold text-text-primary">{BRAND_CONFIG.motto}</p>
-                    <p className="text-sm text-text-secondary">We treat every client like family</p>
+                    <p className="font-black text-white premium-heading-sm">{BRAND_CONFIG.motto}</p>
+                    <p className="text-sm text-white/70 premium-text">We treat every client like family</p>
                   </div>
                 </div>
               </CardContent>

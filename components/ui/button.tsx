@@ -10,9 +10,9 @@ const buttonVariants = cva(
       variant: {
         default: "bg-gold text-black hover:bg-gold-dark shadow-lg glow-gold hover:scale-[1.02] font-bold uppercase tracking-wide border-2 border-gold",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-lg hover:shadow-xl hover:scale-[1.02]",
-        outline: "border-2 border-gold/50 bg-industrial-slate/80 hover:bg-industrial-slate hover:border-gold text-gold transition-all font-semibold",
-        secondary: "btn-steel text-text-primary hover:text-text-primary shadow-md hover:shadow-lg hover:scale-[1.02]",
-        ghost: "hover:bg-industrial-slate/50 hover:text-gold transition-colors",
+        outline: "border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold transition-all font-semibold backdrop-blur-sm",
+        secondary: "border-2 border-gold/30 bg-[#1F1F1F]/80 hover:bg-[#1F1F1F] text-white hover:text-gold shadow-md hover:shadow-lg hover:scale-[1.02] backdrop-blur-sm",
+        ghost: "hover:bg-black/50 hover:text-gold transition-colors",
         link: "text-gold underline-offset-4 hover:underline hover:text-gold-light transition-colors",
       },
       size: {

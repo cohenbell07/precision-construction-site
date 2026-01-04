@@ -39,20 +39,20 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Industrial material-inspired palette
+        // Brand palette - DO NOT CHANGE
         industrial: {
-          black: "#0A0A0A",
-          slate: "#1F1F1F",
+          black: "#101820", // Brand Black
+          slate: "#1F1F1F", // Charcoal
           surface: "#2E2E2E",
           concrete: "#B0B0B0",
         },
         gold: {
-          DEFAULT: "#D9A441",
-          dark: "#CFA340",
-          light: "#F3C96A",
-          bright: "#FFD77B",
-          cream: "#F9E7AA",
-          glow: "rgba(243, 201, 106, 0.4)",
+          DEFAULT: "#D4AF37", // Brand Gold - realistic gold for CTAs, hover, accent
+          dark: "#B8941F",
+          light: "#E5C158",
+          bright: "#F5D76E",
+          cream: "#F5F5F5", // Off-white
+          glow: "rgba(212, 175, 55, 0.4)",
         },
         steel: {
           DEFAULT: "#4A4A4A",
@@ -61,8 +61,8 @@ const config: Config = {
         },
         text: {
           primary: "#FFFFFF",
-          secondary: "#B0B0B0",
-          muted: "#808080",
+          secondary: "#F5F5F5", // Off-white
+          muted: "#B0B0B0",
         },
       },
       borderRadius: {

@@ -8,7 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Mail, Phone, MapPin, Send, Calendar, Clock } from "lucide-react";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -66,43 +67,55 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-industrial-black texture-concrete">
-      <div className="container mx-auto px-4 py-20 max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black mb-6 text-text-primary uppercase tracking-tight">
-            Contact Us
-          </h1>
-          <div className="inline-block mb-6">
-            <div className="h-1 w-24 bg-gold mx-auto"></div>
+    <div className="min-h-screen bg-black relative premium-bg-pattern">
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+          backgroundSize: '100px 100px'
+        }}></div>
+      </div>
+      {/* Hero Section with contact-hero.png */}
+      <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/contact-hero.png"
+            alt="Contact Precision Construction & Decora"
+            fill
+            priority
+            className="object-cover"
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
+        </div>
+        <div className="container mx-auto px-4 max-w-7xl relative z-10">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+              Contact Us
+            </h1>
+            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-xl text-white max-w-3xl mx-auto mb-4 leading-relaxed premium-text">
+              Get in touch with us to discuss your project. We treat every client like family.
+            </p>
+            <p className="text-lg premium-gold-text font-bold max-w-3xl mx-auto mb-4 uppercase tracking-wide">
+              {BRAND_CONFIG.motto}
+            </p>
           </div>
-          <p className="text-xl text-text-secondary max-w-3xl mx-auto mb-4 leading-relaxed">
-            Get in touch with us to discuss your project. We treat every client like family.
-          </p>
-          <p className="text-lg text-gold font-bold max-w-3xl mx-auto mb-4 uppercase tracking-wide">
-            {BRAND_CONFIG.motto}
-          </p>
-          <p className="text-base text-text-secondary mt-6 max-w-3xl mx-auto">
-            {BRAND_CONFIG.contact.cta}
-          </p>
-        </motion.div>
+        </div>
+      </section>
 
+      <div className="container mx-auto px-4 py-20 max-w-7xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <Card className="card-premium card-beveled border-gold/30">
+          {/* Contact Form - Restyled with card shadow + glow focus */}
+          <Card className="card-premium border-gold/30 shadow-2xl bg-black/60 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-3xl font-display font-black text-text-primary uppercase tracking-tight">
+              <CardTitle className="text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                 Send us a Message
               </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold mb-2 text-text-primary uppercase tracking-wide">
+                  <label htmlFor="name" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
                     Name *
                   </label>
                   <Input
@@ -111,11 +124,11 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Your name"
-                    className="focus:ring-gold/50 focus:border-gold"
+                    className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-semibold mb-2 text-text-primary uppercase tracking-wide">
+                  <label htmlFor="email" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
                     Email *
                   </label>
                   <Input
@@ -125,11 +138,11 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="your.email@example.com"
-                    className="focus:ring-gold/50 focus:border-gold"
+                    className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                   />
                 </div>
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-semibold mb-2 text-text-primary uppercase tracking-wide">
+                  <label htmlFor="phone" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
                     Phone
                   </label>
                   <Input
@@ -138,11 +151,11 @@ export default function ContactPage() {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="(403) 555-0123"
-                    className="focus:ring-gold/50 focus:border-gold"
+                    className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                   />
                 </div>
                 <div>
-                  <label htmlFor="projectType" className="block text-sm font-semibold mb-2 text-text-primary uppercase tracking-wide">
+                  <label htmlFor="projectType" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
                     Project Type
                   </label>
                   <Input
@@ -150,11 +163,11 @@ export default function ContactPage() {
                     value={formData.projectType}
                     onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                     placeholder="e.g., Kitchen Renovation, Flooring, etc."
-                    className="focus:ring-gold/50 focus:border-gold"
+                    className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-semibold mb-2 text-text-primary uppercase tracking-wide">
+                  <label htmlFor="message" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
                     Message *
                   </label>
                   <Textarea
@@ -164,7 +177,7 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell us about your project..."
                     rows={6}
-                    className="focus:ring-gold/50 focus:border-gold"
+                    className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                   />
                 </div>
                 <Button type="submit" disabled={loading} className="w-full btn-premium btn-glow">
@@ -181,139 +194,122 @@ export default function ContactPage() {
 
           {/* Contact Information */}
           <div className="space-y-6">
-            <Card className="card-premium card-beveled border-gold/30">
+            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-2xl font-display font-black text-text-primary uppercase tracking-tight">
+                <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Contact Information
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-gold/10 rounded-sm border border-gold/20">
-                    <MapPin className="h-6 w-6 text-gold" />
+                  <div className="p-3 bg-gold/10 rounded-sm border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                    <MapPin className="h-6 w-6 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
                   </div>
                   <div>
-                    <p className="font-bold text-text-primary mb-1 uppercase tracking-wide">Address</p>
-                    <p className="text-text-secondary">{BRAND_CONFIG.contact.address}</p>
+                    <p className="font-black text-white mb-1 uppercase tracking-wide premium-heading-sm">Address</p>
+                    <p className="text-white/80">{BRAND_CONFIG.contact.address}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-gold/10 rounded-sm border border-gold/20">
-                    <Phone className="h-6 w-6 text-gold" />
+                  <div className="p-3 bg-gold/10 rounded-sm border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                    <Phone className="h-6 w-6 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
                   </div>
                   <div>
-                    <p className="font-bold text-text-primary mb-1 uppercase tracking-wide">Phone</p>
+                    <p className="font-black text-white mb-1 uppercase tracking-wide premium-heading-sm">Phone</p>
                     <a
                       href={`tel:${BRAND_CONFIG.contact.phone}`}
-                      className="text-gold hover:text-gold-light transition-colors font-semibold"
+                      className="premium-gold-text hover:underline transition-colors font-bold"
                     >
                       {BRAND_CONFIG.contact.phoneFormatted}
                     </a>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-gold/10 rounded-sm border border-gold/20">
-                    <Mail className="h-6 w-6 text-gold" />
+                  <div className="p-3 bg-gold/10 rounded-sm border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                    <Mail className="h-6 w-6 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
                   </div>
                   <div>
-                    <p className="font-bold text-text-primary mb-1 uppercase tracking-wide">Email</p>
+                    <p className="font-black text-white mb-1 uppercase tracking-wide premium-heading-sm">Email</p>
                     <a
                       href={`mailto:${BRAND_CONFIG.contact.email}`}
-                      className="text-gold hover:text-gold-light transition-colors font-semibold"
+                      className="premium-gold-text hover:underline transition-colors font-bold"
                     >
                       {BRAND_CONFIG.contact.email}
                     </a>
                   </div>
                 </div>
                 <div className="pt-4 border-t border-gold/20">
-                  <p className="text-sm text-text-secondary mb-2">
-                    <strong className="text-text-primary">Owner:</strong> {BRAND_CONFIG.owner}
+                  <p className="text-sm text-white/80 mb-2">
+                    <strong className="text-white font-black">Owner:</strong> {BRAND_CONFIG.owner}
                   </p>
-                  <p className="text-sm text-text-secondary">
+                  <p className="text-sm text-white/80">
                     {BRAND_CONFIG.contact.cta}
                   </p>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="card-premium card-beveled border-gold/30">
+            {/* Service Areas - Standard bullet points only */}
+            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-2xl font-display font-black text-text-primary uppercase tracking-tight">
+                <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Service Areas
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-text-secondary">
+              <CardContent>
+                <p className="text-white/80 mb-4 premium-text">
                   We proudly serve Calgary and surrounding areas including:
                 </p>
-                <ul className="space-y-2 text-text-secondary list-none">
-                  <li className="flex items-center space-x-2 bg-transparent">
-                    <span className="text-gold text-lg leading-none">•</span>
-                    <span>Calgary (All Quadrants)</span>
-                  </li>
-                  <li className="flex items-center space-x-2 bg-transparent">
-                    <span className="text-gold text-lg leading-none">•</span>
-                    <span>Airdrie</span>
-                  </li>
-                  <li className="flex items-center space-x-2 bg-transparent">
-                    <span className="text-gold text-lg leading-none">•</span>
-                    <span>Cochrane</span>
-                  </li>
-                  <li className="flex items-center space-x-2 bg-transparent">
-                    <span className="text-gold text-lg leading-none">•</span>
-                    <span>Okotoks</span>
-                  </li>
-                  <li className="flex items-center space-x-2 bg-transparent">
-                    <span className="text-gold text-lg leading-none">•</span>
-                    <span>Chestermere</span>
-                  </li>
-                  <li className="flex items-center space-x-2 bg-transparent">
-                    <span className="text-gold text-lg leading-none">•</span>
-                    <span>And more!</span>
-                  </li>
+                <ul className="space-y-2 text-white/80 list-disc list-inside premium-text">
+                  <li>Calgary (All Quadrants)</li>
+                  <li>Airdrie</li>
+                  <li>Cochrane</li>
+                  <li>Okotoks</li>
+                  <li>Chestermere</li>
+                  <li>And more!</li>
                 </ul>
               </CardContent>
             </Card>
-
           </div>
         </div>
+      </div>
 
-        {/* Booking Calendar Section */}
-        <div className="mt-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-text-primary uppercase tracking-tight">
+      {/* Booking Calendar Section */}
+      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+            backgroundSize: '100px 100px'
+          }}></div>
+        </div>
+        <div className="container mx-auto px-4 max-w-7xl relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
               Schedule a Call
             </h2>
-            <div className="inline-block mb-6">
-              <div className="h-1 w-24 bg-gold mx-auto"></div>
-            </div>
-            <p className="text-lg text-text-secondary max-w-3xl mx-auto leading-relaxed">
+            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-lg text-white max-w-3xl mx-auto leading-relaxed premium-text">
               Book a consultation call to discuss your project. We&apos;ll find a time that works for you.
             </p>
-          </motion.div>
+          </div>
 
-          <Card className="card-premium card-beveled border-gold/30 max-w-5xl mx-auto">
+          <Card className="card-premium border-gold/30 max-w-5xl mx-auto bg-black/60 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-3xl font-display font-black text-text-primary uppercase tracking-tight flex items-center gap-3">
-                <Calendar className="h-8 w-8 text-gold" />
+              <CardTitle className="text-3xl font-display font-black text-white uppercase tracking-tight flex items-center gap-3 premium-heading-sm">
+                <Calendar className="h-8 w-8 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" />
                 Select Date & Time
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-8">
               {/* Calendar Grid */}
               <div>
-                <h3 className="text-xl font-display font-bold text-text-primary mb-4 uppercase tracking-wide">
+                <h3 className="text-xl font-display font-black text-white mb-4 uppercase tracking-wide premium-heading-sm">
                   Choose a Date
                 </h3>
                 <div className="grid grid-cols-7 gap-2 mb-4">
                   {/* Day headers */}
                   {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-                    <div key={day} className="text-center text-sm font-bold text-gold uppercase tracking-wide py-2">
+                    <div key={day} className="text-center text-sm font-black text-gold uppercase tracking-wide py-2 premium-gold-text">
                       {day}
                     </div>
                   ))}
@@ -335,10 +331,10 @@ export default function ContactPage() {
                         className={`
                           aspect-square rounded-lg border-2 transition-all
                           ${isPast 
-                            ? "border-steel/20 text-text-muted bg-industrial-slate/30 cursor-not-allowed" 
+                            ? "border-gold/10 text-white/30 bg-black/30 cursor-not-allowed" 
                             : isSelected
-                            ? "border-gold bg-gold/20 text-gold font-bold shadow-lg scale-105"
-                            : "border-gold/30 text-text-secondary bg-industrial-slate/50 hover:border-gold/60 hover:bg-gold/10 hover:scale-105"
+                            ? "border-gold bg-gold/20 text-gold font-black shadow-[0_0_20px_rgba(212,175,55,0.5)] scale-105"
+                            : "border-gold/30 text-white bg-black/50 hover:border-gold/60 hover:bg-gold/10 hover:scale-105"
                           }
                           ${isToday && !isPast ? "ring-2 ring-gold/50" : ""}
                         `}
@@ -346,7 +342,7 @@ export default function ContactPage() {
                         <div className="flex flex-col items-center justify-center h-full">
                           <span className="text-sm">{day}</span>
                           {isToday && (
-                            <span className="text-xs text-gold mt-0.5">Today</span>
+                            <span className="text-xs text-gold mt-0.5 font-bold">Today</span>
                           )}
                         </div>
                       </button>
@@ -358,8 +354,8 @@ export default function ContactPage() {
               {/* Time Slots */}
               {selectedDate && (
                 <div>
-                  <h3 className="text-xl font-display font-bold text-text-primary mb-4 uppercase tracking-wide flex items-center gap-2">
-                    <Clock className="h-5 w-5 text-gold" />
+                  <h3 className="text-xl font-display font-black text-white mb-4 uppercase tracking-wide flex items-center gap-2 premium-heading-sm">
+                    <Clock className="h-5 w-5 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
                     Available Times
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -372,10 +368,10 @@ export default function ContactPage() {
                         key={time}
                         onClick={() => setSelectedTime(time)}
                         className={`
-                          px-4 py-3 rounded-lg border-2 transition-all text-sm font-semibold
+                          px-4 py-3 rounded-lg border-2 transition-all text-sm font-bold
                           ${selectedTime === time
-                            ? "border-gold bg-gold/20 text-gold shadow-lg"
-                            : "border-gold/30 text-text-secondary bg-industrial-slate/50 hover:border-gold/60 hover:bg-gold/10"
+                            ? "border-gold bg-gold/20 text-gold shadow-[0_0_15px_rgba(212,175,55,0.4)]"
+                            : "border-gold/30 text-white bg-black/50 hover:border-gold/60 hover:bg-gold/10"
                           }
                         `}
                       >
@@ -389,23 +385,23 @@ export default function ContactPage() {
               {/* Booking Form */}
               {selectedDate && selectedTime && (
                 <div className="pt-6 border-t border-gold/20 space-y-4">
-                  <h3 className="text-xl font-display font-bold text-text-primary mb-4 uppercase tracking-wide">
+                  <h3 className="text-xl font-display font-black text-white mb-4 uppercase tracking-wide premium-heading-sm">
                     Your Information
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="bookingName" className="block text-sm font-semibold mb-2 text-text-primary uppercase tracking-wide">
+                      <label htmlFor="bookingName" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
                         Name *
                       </label>
                       <Input
                         id="bookingName"
                         required
                         placeholder="Your name"
-                        className="focus:ring-gold/50 focus:border-gold"
+                        className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                       />
                     </div>
                     <div>
-                      <label htmlFor="bookingEmail" className="block text-sm font-semibold mb-2 text-text-primary uppercase tracking-wide">
+                      <label htmlFor="bookingEmail" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
                         Email *
                       </label>
                       <Input
@@ -413,12 +409,12 @@ export default function ContactPage() {
                         type="email"
                         required
                         placeholder="your.email@example.com"
-                        className="focus:ring-gold/50 focus:border-gold"
+                        className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                       />
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="bookingPhone" className="block text-sm font-semibold mb-2 text-text-primary uppercase tracking-wide">
+                    <label htmlFor="bookingPhone" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
                       Phone *
                     </label>
                     <Input
@@ -426,18 +422,18 @@ export default function ContactPage() {
                       type="tel"
                       required
                       placeholder="(403) 555-0123"
-                      className="focus:ring-gold/50 focus:border-gold"
+                      className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                     />
                   </div>
                   <div>
-                    <label htmlFor="bookingNotes" className="block text-sm font-semibold mb-2 text-text-primary uppercase tracking-wide">
+                    <label htmlFor="bookingNotes" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
                       Project Details (Optional)
                     </label>
                     <Textarea
                       id="bookingNotes"
                       placeholder="Brief description of your project..."
                       rows={3}
-                      className="focus:ring-gold/50 focus:border-gold"
+                      className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                     />
                   </div>
                   <Button
@@ -454,7 +450,7 @@ export default function ContactPage() {
                     <Calendar className="mr-2 h-4 w-4" />
                     Schedule Call
                   </Button>
-                  <p className="text-xs text-text-muted text-center">
+                  <p className="text-xs text-white/60 text-center">
                     * This is a placeholder booking system. A real booking API will be integrated in the future.
                   </p>
                 </div>
@@ -462,7 +458,31 @@ export default function ContactPage() {
             </CardContent>
           </Card>
         </div>
-      </div>
+      </section>
+
+      {/* Optional CTA Block at Bottom */}
+      <section className="py-20 bg-black relative premium-bg-pattern">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+            backgroundSize: '100px 100px'
+          }}></div>
+        </div>
+        <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
+          <Card className="card-premium border-gold/30 p-12 bg-black/60 backdrop-blur-sm">
+            <h2 className="text-3xl md:text-4xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+              Ready to Get Started?
+            </h2>
+            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-lg text-white/90 mb-8 leading-relaxed premium-text">
+              Experience the difference of working with a family-owned company. Get a free consultation today.
+            </p>
+            <Button asChild size="lg" className="btn-premium px-8 py-6 text-lg uppercase tracking-wider">
+              <Link href="/get-quote">Get a Quote</Link>
+            </Button>
+          </Card>
+        </div>
+      </section>
     </div>
   );
 }

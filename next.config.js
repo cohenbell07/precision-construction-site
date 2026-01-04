@@ -12,7 +12,7 @@ const nextConfig = {
       },
     ],
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, dev }) => {
     if (isServer) {
       // Fix for gray-matter/js-yaml webpack bundling issue
       config.externals = config.externals || [];
@@ -20,7 +20,22 @@ const nextConfig = {
         'js-yaml': 'commonjs js-yaml',
       });
     }
+    
+    // Improve chunk loading reliability in development
+    if (dev) {
+      // Prevent aggressive chunk optimization that can cause loading issues
+      config.optimization = {
+        ...config.optimization,
+        removeAvailableModules: false,
+        removeEmptyChunks: false,
+      };
+    }
+    
     return config;
+  },
+  // Compiler options for better stability
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
 };
 
