@@ -1,11 +1,14 @@
+"use client";
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { services, getServiceById } from "@/lib/services";
+import { services, getServiceById, getRelatedServices } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
-import { CheckCircle, Award, Users, Shield } from "lucide-react";
+import { CheckCircle, Award, Users, Shield, ChevronDown, ChevronUp } from "lucide-react";
 
 // Map service IDs to image paths - matches main Services page
 const serviceImageMap: { [key: string]: string } = {
@@ -14,7 +17,7 @@ const serviceImageMap: { [key: string]: string } = {
   countertops: "/service-countertops.png",
   basements: "/basement-development.png",
   carpentry: "/service-trim.png",
-  flooring: "/service-millwork.png", // Default fallback - update when flooring.png is available
+  flooring: "/flooring-service.png",
   framing: "/framing.png",
   drywall: "/drywall-texture.png",
   painting: "/painting.png",
@@ -26,12 +29,14 @@ const serviceImageMap: { [key: string]: string } = {
 
 export default function ServiceDetailPage({ params }: { params: { slug: string } }) {
   const service = getServiceById(params.slug);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   
   if (!service) {
     notFound();
   }
 
   const imagePath = serviceImageMap[service.id] || "/service-millwork.png";
+  const relatedServices = service.relatedServices ? getRelatedServices(service.relatedServices) : [];
 
   return (
     <div className="min-h-screen bg-black relative premium-bg-pattern">
@@ -67,8 +72,26 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         </div>
       </section>
 
+      {/* Service Statistics */}
+      {service.stats && service.stats.length > 0 && (
+        <section className="py-16 bg-[#1F1F1F] relative premium-bg-pattern">
+          <div className="container mx-auto px-4 max-w-7xl relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {service.stats.map((stat, idx) => (
+                <Card key={idx} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
+                  <CardContent className="pt-6">
+                    <p className="text-4xl md:text-5xl font-display font-black premium-gold-text mb-2">{stat.value}</p>
+                    <p className="text-white font-black uppercase tracking-wide premium-heading-sm">{stat.label}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Overview Section */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section className="py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
@@ -92,7 +115,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             <div className="relative h-96 rounded-xl overflow-hidden border border-gold/30 shadow-2xl">
               <Image
                 src={imagePath}
-                alt={`${service.title} project example`}
+                alt={service.id === "flooring" ? "Premium flooring installation" : `${service.title} project example`}
                 fill
                 className="object-cover"
                 loading="lazy"
@@ -104,7 +127,119 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Service-Specific Benefits */}
+      {service.benefits && service.benefits.length > 0 && (
+        <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+              backgroundSize: '100px 100px'
+            }}></div>
+          </div>
+          <div className="container mx-auto px-4 max-w-7xl relative z-10">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+                Why Choose Us for {service.title}
+              </h2>
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {service.benefits.map((benefit, idx) => (
+                <Card key={idx} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+                  <CardContent className="pt-6">
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 rounded-full bg-gold/10 border-2 border-gold/30 flex items-center justify-center">
+                          <CheckCircle className="h-6 w-6 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                        </div>
+                      </div>
+                      <p className="text-white text-base leading-relaxed premium-text flex-1">{benefit}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Our Process */}
+      {service.process && service.process.length > 0 && (
+        <section className="py-20 bg-black relative premium-bg-pattern">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+              backgroundSize: '100px 100px'
+            }}></div>
+          </div>
+          <div className="container mx-auto px-4 max-w-7xl relative z-10">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+                Our Process
+              </h2>
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <p className="text-lg text-white max-w-3xl mx-auto premium-text mt-4">
+                A proven process that ensures your project runs smoothly from start to finish
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {service.process.map((step) => (
+                <Card key={step.step} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+                  <CardHeader>
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-gold/20 border-2 border-gold flex items-center justify-center">
+                        <span className="text-gold font-black text-lg">{step.step}</span>
+                      </div>
+                      <CardTitle className="text-xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                        {step.title}
+                      </CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-white/90 leading-relaxed premium-text">
+                      {step.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Materials & Options */}
+      {service.materials && service.materials.length > 0 && (
+        <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+              backgroundSize: '100px 100px'
+            }}></div>
+          </div>
+          <div className="container mx-auto px-4 max-w-7xl relative z-10">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+                Materials & Options
+              </h2>
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <p className="text-lg text-white max-w-3xl mx-auto premium-text mt-4">
+                We work with premium materials and offer a wide range of options to suit your style and budget
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {service.materials.map((material, idx) => (
+                <Card key={idx} className="card-premium border-gold/20 bg-black/50 backdrop-blur-sm text-center hover:border-gold/40 transition-all">
+                  <CardContent className="pt-6 pb-4">
+                    <p className="text-white font-semibold premium-text">{material}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Detailed Services List */}
       {service.details && service.details.length > 0 && (
         <section className="py-20 bg-black relative premium-bg-pattern">
           <div className="absolute inset-0 opacity-5">
@@ -132,92 +267,114 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         </section>
       )}
 
-      {/* Why Choose Us Section */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-            backgroundSize: '100px 100px'
-          }}></div>
-        </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
-              Why Choose Us for {service.title}
-            </h2>
-            <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+      {/* FAQs */}
+      {service.faqs && service.faqs.length > 0 && (
+        <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+              backgroundSize: '100px 100px'
+            }}></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="card-premium border-gold/30 bg-black/50 backdrop-blur-sm text-center">
-              <CardHeader>
-                <div className="relative inline-block mb-4">
-                  <div className="absolute inset-0 bg-gold/20 blur-xl rounded-full"></div>
-                  <Users className="h-12 w-12 mx-auto text-gold relative z-10 drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" />
-                </div>
-                <CardTitle className="text-lg font-display font-black text-white uppercase tracking-tight premium-heading-sm">
-                  Family-Owned
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-white/90 premium-text">
-                  3rd generation construction company. We treat every client like family.
-                </CardDescription>
-              </CardContent>
-            </Card>
-            <Card className="card-premium border-gold/30 bg-black/50 backdrop-blur-sm text-center">
-              <CardHeader>
-                <div className="relative inline-block mb-4">
-                  <div className="absolute inset-0 bg-gold/20 blur-xl rounded-full"></div>
-                  <Award className="h-12 w-12 mx-auto text-gold relative z-10 drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" />
-                </div>
-                <CardTitle className="text-lg font-display font-black text-white uppercase tracking-tight premium-heading-sm">
-                  Premium Quality
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-white/90 premium-text">
-                  Only the best materials and craftsmanship. We stand behind our work.
-                </CardDescription>
-              </CardContent>
-            </Card>
-            <Card className="card-premium border-gold/30 bg-black/50 backdrop-blur-sm text-center">
-              <CardHeader>
-                <div className="relative inline-block mb-4">
-                  <div className="absolute inset-0 bg-gold/20 blur-xl rounded-full"></div>
-                  <Shield className="h-12 w-12 mx-auto text-gold relative z-10 drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" />
-                </div>
-                <CardTitle className="text-lg font-display font-black text-white uppercase tracking-tight premium-heading-sm">
-                  Trusted & Reliable
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-white/90 premium-text">
-                  Serving Calgary since 1997. Over {new Date().getFullYear() - BRAND_CONFIG.servingSince} years of trusted service.
-                </CardDescription>
-              </CardContent>
-            </Card>
-            <Card className="card-premium border-gold/30 bg-black/50 backdrop-blur-sm text-center">
-              <CardHeader>
-                <div className="relative inline-block mb-4">
-                  <div className="absolute inset-0 bg-gold/20 blur-xl rounded-full"></div>
-                  <CheckCircle className="h-12 w-12 mx-auto text-gold relative z-10 drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" />
-                </div>
-                <CardTitle className="text-lg font-display font-black text-white uppercase tracking-tight premium-heading-sm">
-                  Complete Satisfaction
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-white/90 premium-text">
-                  Your satisfaction is our priority. We build lasting relationships.
-                </CardDescription>
-              </CardContent>
-            </Card>
+          <div className="container mx-auto px-4 max-w-4xl relative z-10">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+                Frequently Asked Questions
+              </h2>
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+            </div>
+            <div className="space-y-4">
+              {service.faqs.map((faq, idx) => (
+                <Card key={idx} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm overflow-hidden">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    className="w-full text-left"
+                  >
+                    <CardHeader className="pb-4">
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-lg font-display font-black text-white uppercase tracking-tight premium-heading-sm pr-4">
+                          {faq.question}
+                        </CardTitle>
+                        {openFaq === idx ? (
+                          <ChevronUp className="h-5 w-5 text-gold flex-shrink-0" />
+                        ) : (
+                          <ChevronDown className="h-5 w-5 text-gold flex-shrink-0" />
+                        )}
+                      </div>
+                    </CardHeader>
+                  </button>
+                  {openFaq === idx && (
+                    <CardContent className="pt-0 pb-6">
+                      <p className="text-white/90 leading-relaxed premium-text">{faq.answer}</p>
+                    </CardContent>
+                  )}
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Related Services */}
+      {relatedServices.length > 0 && (
+        <section className="py-20 bg-black relative premium-bg-pattern">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+              backgroundSize: '100px 100px'
+            }}></div>
+          </div>
+          <div className="container mx-auto px-4 max-w-7xl relative z-10">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+                Related Services
+              </h2>
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <p className="text-lg text-white max-w-3xl mx-auto premium-text mt-4">
+                These services often work together to create complete solutions
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedServices.map((related) => {
+                const relatedImagePath = serviceImageMap[related.id] || "/service-millwork.png";
+                return (
+                  <Link key={related.id} href={`/services/${related.id}`}>
+                    <Card className="card-premium h-full overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-105 border-gold/30 bg-black/60 backdrop-blur-sm">
+                      <div className="relative h-48 w-full overflow-hidden">
+                        <Image
+                          src={relatedImagePath}
+                          alt={related.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                          loading="lazy"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                      </div>
+                      <CardHeader className="pb-4">
+                        <CardTitle className="text-xl font-display font-black text-white mb-2 uppercase tracking-tight premium-heading-sm">
+                          {related.title}
+                        </CardTitle>
+                        <CardDescription className="text-white/90 leading-relaxed premium-text text-sm">
+                          {related.description}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <span className="premium-gold-text font-bold uppercase tracking-wide text-sm group-hover:underline inline-flex items-center gap-2">
+                          Learn More <span className="transition-all duration-300">→</span>
+                        </span>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Block */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
+      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,

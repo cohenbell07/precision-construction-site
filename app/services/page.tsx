@@ -2,7 +2,6 @@
 
 import { services } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,6 +13,7 @@ const serviceImageMap: { [key: string]: string } = {
   countertops: "/service-countertops.png",
   basements: "/basement-development.png",
   carpentry: "/service-trim.png",
+  flooring: "/flooring-service.png",
   framing: "/framing.png",
   drywall: "/drywall-texture.png",
   painting: "/painting.png",
@@ -24,6 +24,34 @@ const serviceImageMap: { [key: string]: string } = {
 };
 
 export default function ServicesPage() {
+  // Generate descriptive alt text based on service
+  const altTextMap: { [key: string]: string } = {
+    framing: "Framing project in progress",
+    drywall: "Drywall, taping and ceiling texture work",
+    painting: "Interior and exterior painting services",
+    basements: "Basement development and finishing",
+    garages: "Garage, deck and fence construction",
+    stone: "Natural stone and stone setting installation",
+    renovations: "Home additions and full home renovations",
+    commercial: "Commercial and multi-unit construction project",
+    cabinets: "Custom cabinets and millwork",
+    showers: "Custom showers and steam showers",
+    countertops: "Premium countertop installation",
+    carpentry: "Interior finishing and carpentry work",
+    flooring: "Premium flooring installation",
+  };
+
+  // Reorder services: move flooring after cabinets
+  const reorderedServices = [...services];
+  const flooringIndex = reorderedServices.findIndex(s => s.id === "flooring");
+  const cabinetsIndex = reorderedServices.findIndex(s => s.id === "cabinets");
+  
+  if (flooringIndex !== -1 && cabinetsIndex !== -1) {
+    const flooring = reorderedServices.splice(flooringIndex, 1)[0];
+    const insertIndex = reorderedServices.findIndex(s => s.id === "cabinets") + 1;
+    reorderedServices.splice(insertIndex, 0, flooring);
+  }
+
   return (
     <div className="min-h-screen bg-black relative premium-bg-pattern">
       <div className="absolute inset-0 opacity-5">
@@ -47,86 +75,109 @@ export default function ServicesPage() {
           </p>
         </div>
 
-        {/* Services Grid - Large Square Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {services.map((service) => {
+        {/* Full-Width Alternating Showcase */}
+        <div className="space-y-20 md:space-y-32 mb-20">
+          {reorderedServices.map((service, index) => {
             const imagePath = serviceImageMap[service.id] || "/service-millwork.png";
-            // Generate descriptive alt text based on service
-            const altTextMap: { [key: string]: string } = {
-              framing: "Framing project in progress",
-              drywall: "Drywall, taping and ceiling texture work",
-              painting: "Interior and exterior painting services",
-              basements: "Basement development and finishing",
-              garages: "Garage, deck and fence construction",
-              stone: "Natural stone and stone setting installation",
-              renovations: "Home additions and full home renovations",
-              commercial: "Commercial and multi-unit construction project",
-              cabinets: "Custom cabinets and millwork",
-              showers: "Custom showers and steam showers",
-              countertops: "Premium countertop installation",
-              carpentry: "Interior finishing and carpentry work",
-              flooring: "Professional flooring installation",
-            };
             const altText = altTextMap[service.id] || service.title;
-            
+            const isEven = index % 2 === 0;
+
             return (
-              <Link key={service.id} href={`/services/${service.id}`}>
-                <Card className="card-premium h-full overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-105 border-gold/30 bg-black/60 backdrop-blur-sm">
-                  <div className="relative h-64 w-full overflow-hidden">
-                    <Image
-                      src={imagePath}
-                      alt={altText}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+              <div key={service.id} className="relative">
+                {/* Service Showcase Section */}
+                <Link href={`/services/${service.id}`} className="block group">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[500px] lg:min-h-[650px]">
+                    {/* Image Section */}
+                    <div className={`relative w-full h-[400px] lg:h-auto lg:min-h-[650px] ${isEven ? 'lg:order-1' : 'lg:order-2'} overflow-hidden`}>
+                      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/20 to-transparent z-10"></div>
+                      <Image
+                        src={imagePath}
+                        alt={altText}
+                        fill
+                        className="object-cover"
+                        loading="lazy"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                      />
+                      {/* Subtle vignette */}
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/30 z-10"></div>
+                    </div>
+
+                    {/* Content Section */}
+                    <div className={`relative w-full ${isEven ? 'lg:order-2' : 'lg:order-1'} bg-gradient-to-br from-[#1F1F1F] via-[#1A1A1A] to-[#1F1F1F] flex items-center p-10 md:p-14 lg:p-20 min-h-[400px] lg:min-h-[650px]`}>
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.03),transparent_70%)] pointer-events-none"></div>
+                      <div className="w-full relative z-10">
+                        <div className="mb-8">
+                          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-6 uppercase tracking-tight premium-heading group-hover:text-gold transition-colors duration-500">
+                            {service.title}
+                          </h2>
+                          <div className="h-[2px] w-32 bg-gradient-to-r from-transparent via-gold to-transparent mb-8 shadow-[0_0_20px_rgba(212,175,55,0.6)]"></div>
+                        </div>
+                        
+                        <p className="text-lg md:text-xl text-white/95 leading-relaxed premium-text mb-8 font-medium">
+                          {service.description}
+                        </p>
+
+                        {/* Key Points */}
+                        {service.details && service.details.length > 0 && (
+                          <div className="mb-10">
+                            <ul className="space-y-4">
+                              {service.details.slice(0, 4).map((detail, idx) => (
+                                <li key={idx} className="flex items-start space-x-4">
+                                  <span className="text-gold mt-1.5 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                                  <span className="text-white/90 premium-text text-base md:text-lg leading-relaxed">{detail}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* CTA */}
+                        <div className="flex items-center gap-6 pt-4 border-t border-gold/20">
+                          <span className="premium-gold-text font-bold uppercase tracking-wider text-sm md:text-base inline-flex items-center gap-3 transition-all duration-300 hover:scale-110 cursor-pointer">
+                            Learn More <span className="text-xl">→</span>
+                          </span>
+                          <div className="h-px flex-1 bg-gradient-to-r from-gold/40 via-gold/60 to-transparent"></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <CardHeader className="pb-4">
-                    <CardTitle className="text-2xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading-sm">
-                      {service.title}
-                    </CardTitle>
-                    <CardDescription className="text-white/90 leading-relaxed premium-text">
-                      {service.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <span className="premium-gold-text font-bold uppercase tracking-wide text-sm group-hover:underline inline-flex items-center gap-2">
-                      Learn More <span className="group-hover:translate-x-1 transition-transform">→</span>
-                    </span>
-                  </CardContent>
-                </Card>
-              </Link>
+                </Link>
+              </div>
             );
           })}
         </div>
 
         {/* CTA Section */}
-        <div className="mt-20 text-center">
-          <Card className="card-premium border-gold/30 p-12 md:p-16 bg-black/60 backdrop-blur-sm">
-            <h2 className="text-3xl md:text-4xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
-              Ready to Start Your Project?
-            </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white/90 mb-4 max-w-2xl mx-auto leading-relaxed premium-text">
-              We treat every client like family. Contact us today for a free consultation and quote.
-            </p>
-            <p className="text-lg premium-gold-text font-bold mb-8 uppercase tracking-wide">
-              {BRAND_CONFIG.motto}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-5 justify-center">
-              <Button asChild size="lg" className="btn-premium btn-glow">
-                <Link href="/get-quote">Request a Quote</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm">
-                <Link href="/contact">Contact Us</Link>
-              </Button>
+        <div className="mt-24 md:mt-32 text-center">
+          <div className="relative overflow-hidden rounded-3xl border-2 border-gold/30 p-12 md:p-20 bg-gradient-to-br from-black/80 via-[#1A1A1A]/90 to-black/80 backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_60px_rgba(212,175,55,0.15)]">
+            {/* Background glow effect */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.08),transparent_70%)] pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent"></div>
+            
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-8 text-white uppercase tracking-tight premium-heading">
+                Ready to Start Your Project?
+              </h2>
+              <div className="h-[2px] w-40 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-8 shadow-[0_0_25px_rgba(212,175,55,0.7)]"></div>
+              <p className="text-lg md:text-xl text-white/95 mb-6 max-w-2xl mx-auto leading-relaxed premium-text font-medium">
+                We treat every client like family. Contact us today for a free consultation and quote.
+              </p>
+              <p className="text-lg md:text-xl premium-gold-text font-bold mb-10 uppercase tracking-wide">
+                {BRAND_CONFIG.motto}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <Button asChild size="lg" className="gold-3d-button btn-glow px-8 py-6 text-base md:text-lg font-bold uppercase tracking-wider min-w-[200px]">
+                  <Link href="/get-quote">Request a Quote</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/60 hover:bg-black/80 hover:border-gold text-gold backdrop-blur-sm px-8 py-6 text-base md:text-lg font-semibold uppercase tracking-wide min-w-[200px] transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                  <Link href="/contact">Contact Us</Link>
+                </Button>
+              </div>
+              <p className="text-sm md:text-base text-white/70 mt-8 font-medium">
+                {BRAND_CONFIG.contact.cta}
+              </p>
             </div>
-            <p className="text-sm text-white/70 mt-6">
-              {BRAND_CONFIG.contact.cta}
-            </p>
-          </Card>
+          </div>
         </div>
       </div>
     </div>

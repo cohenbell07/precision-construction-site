@@ -206,7 +206,7 @@ Budget: ${formData.budget}`;
                         <button
                           key={service.id}
                           onClick={() => handleServiceSelect(service.id)}
-                          className="text-left p-6 border-2 border-gold/30 rounded-2xl shadow-xl bg-black/50 backdrop-blur-sm cursor-pointer relative hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:border-gold/60 transition-all duration-300"
+                          className="service-select-button text-left p-6 border-2 border-gold/30 rounded-2xl shadow-xl bg-black/50 backdrop-blur-sm cursor-pointer relative hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:border-gold/60 transition-all duration-300 hover:bg-black/70"
                         >
                           <div className="flex items-center space-x-4 mb-4">
                             <div className="p-4 bg-gold/10 rounded-2xl border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
@@ -223,7 +223,7 @@ Budget: ${formData.budget}`;
                     {/* Other Option */}
                     <button
                       onClick={() => handleServiceSelect("other")}
-                      className="text-left p-6 border-2 border-gold/30 rounded-2xl shadow-xl bg-black/50 backdrop-blur-sm cursor-pointer relative hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:border-gold/60 transition-all duration-300"
+                      className="service-select-button text-left p-6 border-2 border-gold/30 rounded-2xl shadow-xl bg-black/50 backdrop-blur-sm cursor-pointer relative hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:border-gold/60 transition-all duration-300 hover:bg-black/70"
                     >
                       <div className="flex items-center space-x-4 mb-4">
                         <div className="p-4 bg-gold/10 rounded-2xl border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">

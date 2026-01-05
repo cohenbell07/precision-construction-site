@@ -91,8 +91,8 @@ export default function Home() {
             {/* Headline with premium gold gradient effect */}
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white mb-4 leading-tight premium-heading">
               Crafting Calgary&apos;s Future — One Build at a Time
-            </h1>
-            
+              </h1>
+              
             {/* Subheading with gold accent */}
             <p className="text-lg md:text-xl lg:text-2xl premium-gold-text font-bold mb-8">
               Family-owned since 1968 • Serving Calgary since 1997
@@ -159,7 +159,7 @@ export default function Home() {
                     </CardHeader>
                     <CardContent>
                       <span className="premium-gold-text font-bold uppercase tracking-wide text-sm group-hover:underline inline-flex items-center gap-2">
-                        Learn More <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        Learn More <span className="transition-all duration-300">→</span>
                       </span>
                     </CardContent>
                   </Card>
