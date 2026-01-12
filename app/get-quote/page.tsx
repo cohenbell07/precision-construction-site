@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -36,7 +37,8 @@ const serviceIcons: { [key: string]: any } = {
   default: Buildings,
 };
 
-export default function GetQuotePage() {
+function GetQuoteForm() {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState<"service" | "details" | "summary">("service");
   const [selectedService, setSelectedService] = useState<string>("");
   const [customServiceName, setCustomServiceName] = useState<string>("");
@@ -52,6 +54,17 @@ export default function GetQuotePage() {
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+
+  // Handle product query parameter from products page
+  useEffect(() => {
+    const productParam = searchParams.get("product");
+    if (productParam) {
+      // Set as custom service name and skip to details step
+      setCustomServiceName(productParam);
+      setSelectedService("other");
+      setStep("details");
+    }
+  }, [searchParams]);
 
   const handleServiceSelect = (serviceId: string) => {
     setSelectedService(serviceId);
@@ -479,5 +492,17 @@ Budget: ${formData.budget}`;
         </div>
       </div>
     </div>
+  );
+}
+
+export default function GetQuotePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <Loader2 className="h-8 w-8 text-gold animate-spin" />
+      </div>
+    }>
+      <GetQuoteForm />
+    </Suspense>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import { services } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { AIChatAssistant } from "@/components/AIChatAssistant";
 import { CheckCircle, Star, Hammer, Award, Users } from "lucide-react";
+import Hls from "hls.js";
 
 export default function Home() {
   const testimonials = [
@@ -69,43 +71,103 @@ export default function Home() {
     ["cabinets", "showers", "countertops", "basements", "carpentry", "garages"].includes(s.id)
   );
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
+
+  // Initialize video on mount
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const videoSrc = "https://customer-wlq98rw65iepfe8g.cloudflarestream.com/b9b4746e21a5e892f558d197f91dc068/manifest/video.m3u8";
+
+    // Set video properties
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "auto";
+    video.muted = true;
+
+    const initVideo = () => {
+      try {
+        if (typeof Hls !== "undefined" && Hls.isSupported()) {
+          const hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: false,
+          });
+          hlsRef.current = hls;
+          hls.loadSource(videoSrc);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            video.play().catch((err) => {
+              console.log("Autoplay prevented:", err);
+            });
+          });
+        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+          // Native HLS support (Safari)
+          video.src = videoSrc;
+          video.play().catch((err) => {
+            console.log("Autoplay prevented:", err);
+          });
+        }
+      } catch (err) {
+        console.error("Video initialization error:", err);
+      }
+    };
+
+    initVideo();
+
+    return () => {
+      if (hlsRef.current) {
+        try {
+          hlsRef.current.destroy();
+        } catch (e) {
+          // Ignore destroy errors
+        }
+        hlsRef.current = null;
+      }
+    };
+  }, []);
+
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Full-width image with overlay */}
-      <section className="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/homepage-hero.png"
-            alt="Precision Construction & Decora"
-            fill
-            priority
-            className="object-cover"
-            quality={90}
+      {/* Hero Section - Full-width video with overlay */}
+      <section className="relative w-full bg-black overflow-hidden" style={{ maxHeight: "600px", minHeight: "400px" }}>
+        <div className="relative w-full h-full" style={{ aspectRatio: "16/9", maxHeight: "600px" }}>
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            playsInline
+            autoPlay
+            loop
+            muted
+            preload="auto"
           />
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
         </div>
         
-        <div className="relative z-10 container mx-auto px-4 text-center max-w-6xl">
-          <div className="space-y-8">
-            {/* Headline with premium gold gradient effect */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white mb-4 leading-tight premium-heading">
-              Crafting Calgary&apos;s Future — One Build at a Time
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="container mx-auto px-4 text-center max-w-6xl">
+            <div className="space-y-8">
+              {/* Headline with premium gold gradient effect */}
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white mb-4 leading-tight premium-heading drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+                Crafting Calgary&apos;s Future — One Build at a Time
               </h1>
               
-            {/* Subheading with gold accent */}
-            <p className="text-lg md:text-xl lg:text-2xl premium-gold-text font-bold mb-8">
-              Family-owned since 1968 • Serving Calgary since 1997
-            </p>
-            
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button asChild size="lg" className="btn-premium px-8 py-6 text-lg uppercase tracking-wider">
-                <Link href="/get-quote">Get a Quote</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm px-8 py-6 text-lg uppercase tracking-wider">
-                <Link href="/services">View Services</Link>
-              </Button>
+              {/* Subheading with gold accent */}
+              <p className="text-lg md:text-xl lg:text-2xl premium-gold-text font-bold mb-8 drop-shadow-[0_2px_20px_rgba(0,0,0,0.9)]">
+                Family-owned since 1968 • Serving Calgary since 1997
+              </p>
+              
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button asChild size="lg" className="btn-premium px-8 py-6 text-lg uppercase tracking-wider">
+                  <Link href="/get-quote">Get a Quote</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm px-8 py-6 text-lg uppercase tracking-wider">
+                  <Link href="/services">View Services</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -216,6 +278,56 @@ export default function Home() {
                     </CardDescription>
                   </CardContent>
                 </Card>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+
+      {/* Trusted Brands Section */}
+      <section className="py-24 bg-[#1F1F1F] relative overflow-hidden premium-bg-pattern">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+            backgroundSize: '100px 100px'
+          }}></div>
+        </div>
+        <div className="container mx-auto px-4 max-w-7xl relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+              Trusted Brands We Supply & Work With
+            </h2>
+            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+              We carry all major construction product lines and install with expert precision.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {[
+              { name: "Olympia Tile", file: "olympiatile.png" },
+              { name: "Shaw Flooring", file: "shawfloors.png" },
+              { name: "Caesarstone", file: "caesarstone.png" },
+              { name: "CertainTeed", file: "certainteed.png" },
+              { name: "Formica", file: "formica.png" },
+              { name: "Benjamin Moore", file: "benjaminmoore.png" },
+              { name: "Silestone", file: "silestone.png" },
+              { name: "Arborite", file: "arborite.png" },
+              { name: "James Hardie", file: "jameshardie.png" },
+            ].map((brand) => (
+              <div
+                key={brand.name}
+                className="relative h-32 bg-black/50 border border-gold/20 rounded-xl backdrop-blur-sm hover:border-gold/40 hover:bg-black/70 transition-all duration-300 flex items-center justify-center group grayscale hover:grayscale-0 overflow-hidden"
+              >
+                <Image
+                  src={`/${brand.file}`}
+                  alt={brand.name}
+                  fill
+                  className="object-contain p-4 transition-all duration-300"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
               </div>
             ))}
           </div>
