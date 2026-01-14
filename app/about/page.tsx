@@ -1,10 +1,12 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import Hls from "hls.js";
 import { 
   Medal as PhosphorAward, 
   Users as PhosphorUsers, 
@@ -24,6 +26,62 @@ import { Star, CheckCircle } from "lucide-react";
 export default function AboutPage() {
   const yearsInCalgary = new Date().getFullYear() - BRAND_CONFIG.servingSince;
   const totalYears = new Date().getFullYear() - BRAND_CONFIG.established;
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
+
+  // Initialize video on mount
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const videoSrc = "https://customer-wlq98rw65iepfe8g.cloudflarestream.com/cfd853ff56a468be1c91e78ce77db01f/manifest/video.m3u8";
+
+    // Set video properties
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "auto";
+    video.muted = true;
+
+    const initVideo = () => {
+      try {
+        if (typeof Hls !== "undefined" && Hls.isSupported()) {
+          const hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: false,
+          });
+          hlsRef.current = hls;
+          hls.loadSource(videoSrc);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            video.play().catch((err) => {
+              console.log("Autoplay prevented:", err);
+            });
+          });
+        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+          // Native HLS support (Safari)
+          video.src = videoSrc;
+          video.play().catch((err) => {
+            console.log("Autoplay prevented:", err);
+          });
+        }
+      } catch (err) {
+        console.error("Video initialization error:", err);
+      }
+    };
+
+    initVideo();
+
+    return () => {
+      if (hlsRef.current) {
+        try {
+          hlsRef.current.destroy();
+        } catch (e) {
+          // Ignore destroy errors
+        }
+        hlsRef.current = null;
+      }
+    };
+  }, []);
 
   const testimonials = [
     {
@@ -71,31 +129,33 @@ export default function AboutPage() {
           backgroundSize: '100px 100px'
         }}></div>
       </div>
-      {/* Hero Section with about-hero.png */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/about-hero.png"
-            alt="About Precision Construction & Decora"
-            fill
-            priority
-            className="object-cover"
-            quality={90}
+      {/* Hero Section with video */}
+      <section className="relative w-full bg-black overflow-hidden">
+        <div className="relative w-full" style={{ aspectRatio: "16/9", maxHeight: "600px", minHeight: "400px" }}>
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            playsInline
+            autoPlay
+            loop
+            muted
+            preload="auto"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
-        </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
-              About {BRAND_CONFIG.shortName}
-            </h1>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-2xl md:text-3xl premium-gold-text font-bold mb-4 uppercase tracking-wide">
-              {BRAND_CONFIG.motto}
-            </p>
-            <p className="text-lg md:text-xl text-white max-w-3xl mx-auto leading-relaxed premium-text">
-              {BRAND_CONFIG.description}
-            </p>
+          
+          <div className="absolute inset-0 flex items-center justify-center z-10">
+            <div className="container mx-auto px-4 max-w-7xl text-center">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+                About {BRAND_CONFIG.shortName}
+              </h1>
+              <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+              <p className="text-2xl md:text-3xl premium-gold-text font-bold mb-4 uppercase tracking-wide">
+                {BRAND_CONFIG.motto}
+              </p>
+              <p className="text-lg md:text-xl text-white max-w-3xl mx-auto leading-relaxed premium-text">
+                {BRAND_CONFIG.description}
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -11,79 +11,237 @@ import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { sendEmail } from "@/lib/email";
 import Hls from "hls.js";
-import {
-  SquaresFour,
-  Rectangle,
-  Package,
-  Door,
-  AppWindow,
-  Buildings,
-  Drop,
-  Wrench,
-  PaintBrush,
-  Storefront,
-} from "phosphor-react";
+import { CheckCircle, Hammer, Wrench, ChevronLeft, ChevronRight } from "lucide-react";
 
 const productCategories = [
   {
     title: "Flooring",
-    productTypes: ["Vinyl Plank", "Hardwood", "Tile", "Carpet"],
+    productTypes: [
+      "Luxury Vinyl Plank (LVP)", "Waterproof LVP", "Rigid Core LVP", "SPC Vinyl", "WPC Vinyl",
+      "Hardwood Flooring", "Engineered Hardwood", "Solid Hardwood", "Bamboo Flooring",
+      "Laminate Flooring", "Waterproof Laminate", "High-Gloss Laminate",
+      "Ceramic Tile", "Porcelain Tile", "Large Format Porcelain", "Mosaic Tile", "Subway Tile",
+      "Natural Stone Tile", "Marble Tile", "Granite Tile", "Slate Tile", "Travertine",
+      "Carpet", "Berber Carpet", "Plush Carpet", "Commercial Carpet", "Carpet Tiles",
+      "Marmoleum", "Linoleum", "Cork Flooring", "Rubber Flooring",
+      "Underlayment", "Moisture Barriers", "Transition Strips", "Baseboards"
+    ],
     subtitle: "Brand-name vinyl, hardwood, laminate, carpet, and more — built to handle Calgary's toughest conditions.",
-    icon: SquaresFour,
+    carouselImages: [
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
+    ],
+    valueBadges: [
+      { icon: CheckCircle, text: "5% Price Beat Guarantee" },
+      { icon: Hammer, text: "Supply + Install Available" },
+      { icon: Wrench, text: "Custom Fit & Finishing" },
+    ],
   },
   {
     title: "Countertops",
-    productTypes: ["Quartz", "Granite", "Porcelain Slab", "Laminate", "Concrete"],
+    productTypes: [
+      "Quartz Countertops", "Caesarstone", "Silestone", "Cambria", "Quartzite",
+      "Granite Countertops", "Natural Granite", "Granite Slabs", "Granite Tiles",
+      "Porcelain Slab", "Large Format Porcelain", "Ultra-Compact Surfaces",
+      "Marble Countertops", "Natural Marble", "Marble Slabs",
+      "Laminate Countertops", "Formica", "Wilsonart", "Pionite",
+      "Concrete Countertops", "Stained Concrete", "Polished Concrete",
+      "Stainless Steel", "Butcher Block", "Solid Surface", "Corian",
+      "Edge Profiles", "Backsplashes", "Sink Cutouts", "Installation Hardware"
+    ],
     subtitle: "Quartz, granite, porcelain slab, stainless steel, and beyond — premium surfaces at unbeatable prices.",
-    icon: Rectangle,
+    carouselImages: [
+      "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
+    ],
+    valueBadges: [
+      { icon: CheckCircle, text: "5% Price Beat Guarantee" },
+      { icon: Wrench, text: "Custom Fit & Finishing" },
+      { icon: Hammer, text: "Supply + Install Available" },
+    ],
   },
   {
     title: "Cabinets",
-    productTypes: ["Flat Panel", "MDF", "Wood", "Custom Built-ins"],
+    productTypes: [
+      "Kitchen Cabinets", "Base Cabinets", "Wall Cabinets", "Tall Cabinets", "Pantry Cabinets",
+      "Shaker Style Cabinets", "Flat Panel Cabinets", "Raised Panel Cabinets", "Beadboard Cabinets",
+      "Custom Built-in Cabinets", "Entertainment Centers", "Bookcases", "Display Cabinets",
+      "MDF Cabinets", "Particle Board Cabinets", "Plywood Cabinets", "Solid Wood Cabinets",
+      "Soft-Close Hinges", "Full Extension Drawers", "Pull-Out Shelves", "Lazy Susans",
+      "Cabinet Hardware", "Knobs", "Pulls", "Handles", "Hinges",
+      "Cabinet Doors", "Drawer Fronts", "Filler Strips", "Crown Molding", "Toe Kicks"
+    ],
     subtitle: "Custom cabinetry in all wood species, styles, and finishes — from modern flat panel to classic shaker.",
-    icon: Package,
+    carouselImages: [
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
+      "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
+    ],
+    valueBadges: [
+      { icon: CheckCircle, text: "5% Price Beat Guarantee" },
+      { icon: Wrench, text: "Custom Fit & Finishing" },
+      { icon: Hammer, text: "Supply + Install Available" },
+    ],
   },
   {
     title: "Interior Finishing",
-    productTypes: ["Shaker", "Glass Insert", "Solid Core", "Barn Style"],
+    productTypes: [
+      "Interior Doors", "Solid Core Doors", "Hollow Core Doors", "Shaker Doors", "Panel Doors",
+      "French Doors", "Sliding Doors", "Barn Doors", "Pocket Doors", "Bifold Doors",
+      "Glass Insert Doors", "Frosted Glass", "Clear Glass", "Decorative Glass",
+      "Door Frames", "Door Casings", "Door Jambs", "Door Hardware", "Door Locks",
+      "Baseboards", "Crown Molding", "Chair Rails", "Wainscoting", "Casing",
+      "Window Trim", "Door Trim", "Corner Molding", "Quarter Round", "Shoe Molding",
+      "Stair Parts", "Balusters", "Newel Posts", "Handrails", "Treads"
+    ],
     subtitle: "Door kits, baseboards, trims, and full finish packages — available in standard and luxury profiles.",
-    icon: Door,
+    carouselImages: [
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
+    ],
+    valueBadges: [
+      { icon: CheckCircle, text: "5% Price Beat Guarantee" },
+      { icon: Wrench, text: "Custom Fit & Finishing" },
+      { icon: Hammer, text: "Fast Turnaround" },
+    ],
   },
   {
     title: "Windows",
-    productTypes: ["Sliding", "Casement", "Awning", "Energy Star"],
+    productTypes: [
+      "Sliding Windows", "Double-Hung Windows", "Single-Hung Windows", "Casement Windows",
+      "Awning Windows", "Hopper Windows", "Picture Windows", "Bay Windows", "Bow Windows",
+      "Energy Star Windows", "Triple-Pane Windows", "Double-Pane Windows", "Low-E Glass",
+      "Vinyl Windows", "Wood Windows", "Aluminum Windows", "Fiberglass Windows",
+      "Window Frames", "Window Sills", "Window Grilles", "Window Screens",
+      "Storm Windows", "Replacement Windows", "New Construction Windows"
+    ],
     subtitle: "Energy-efficient windows in all styles.",
-    icon: AppWindow,
+    carouselImages: [
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
+    ],
+    valueBadges: [
+      { icon: CheckCircle, text: "5% Price Beat Guarantee" },
+      { icon: Hammer, text: "Supply + Install Available" },
+      { icon: Wrench, text: "Fast Turnaround" },
+    ],
   },
   {
     title: "Exterior Products",
-    productTypes: ["Siding", "Trim", "Soffits", "Roofing"],
+    productTypes: [
+      "Siding", "Vinyl Siding", "Fiber Cement Siding", "James Hardie Siding", "Wood Siding",
+      "Aluminum Siding", "Steel Siding", "Stone Veneer Siding", "Brick Siding",
+      "Fascia Boards", "Soffits", "Eavestroughs", "Downspouts", "Gutters",
+      "Exterior Trim", "Corner Boards", "Frieze Boards", "Corner Posts",
+      "Roofing Materials", "Shingles", "Metal Roofing", "Flat Roofing", "Roof Underlayment",
+      "Exterior Cladding", "Batten Boards", "Board & Batten", "Lap Siding", "Shake Siding"
+    ],
     subtitle: "Siding, fascia, soffit, and cladding — top-grade materials for any residential or commercial build.",
-    icon: Buildings,
+    carouselImages: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
+    ],
+    valueBadges: [
+      { icon: CheckCircle, text: "5% Price Beat Guarantee" },
+      { icon: Hammer, text: "Supply + Install Available" },
+      { icon: Wrench, text: "Custom Fit & Finishing" },
+    ],
   },
   {
     title: "Bathroom Fixtures",
-    productTypes: ["Tubs", "Steam Showers", "Vanities", "Large Tile"],
+    productTypes: [
+      "Bathtubs", "Alcove Tubs", "Drop-In Tubs", "Freestanding Tubs", "Whirlpool Tubs",
+      "Steam Showers", "Steam Shower Kits", "Steam Generators", "Shower Enclosures",
+      "Shower Bases", "Shower Pans", "Shower Walls", "Shower Doors", "Shower Screens",
+      "Vanities", "Bathroom Vanities", "Double Vanities", "Floating Vanities", "Wall-Mount Vanities",
+      "Bathroom Faucets", "Shower Faucets", "Tub Faucets", "Bathroom Sinks", "Vessel Sinks",
+      "Large Format Tile", "Bathroom Tile", "Shower Tile", "Floor Tile", "Wall Tile",
+      "Toilets", "Bathroom Mirrors", "Medicine Cabinets", "Towel Bars", "Accessories"
+    ],
     subtitle: "Tubs, vanities, shower kits, large-format tile.",
-    icon: Drop,
+    carouselImages: [
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
+    ],
+    valueBadges: [
+      { icon: CheckCircle, text: "5% Price Beat Guarantee" },
+      { icon: Hammer, text: "Supply + Install Available" },
+      { icon: Wrench, text: "Fast Turnaround" },
+    ],
   },
   {
     title: "Hardware",
-    productTypes: ["Hinges", "Drawer Slides", "Rail Systems", "Handles"],
+    productTypes: [
+      "Cabinet Hinges", "Soft-Close Hinges", "Concealed Hinges", "European Hinges", "Butt Hinges",
+      "Drawer Slides", "Full Extension Slides", "Soft-Close Slides", "Undermount Slides",
+      "Rail Systems", "Pocket Door Rails", "Sliding Door Rails", "Barn Door Rails",
+      "Cabinet Handles", "Cabinet Knobs", "Cabinet Pulls", "Bar Pulls", "Cup Pulls",
+      "Door Handles", "Door Knobs", "Lever Handles", "Deadbolts", "Door Locks",
+      "Hooks", "Towel Bars", "Toilet Paper Holders", "Shower Rods", "Curtain Rods",
+      "Drawer Organizers", "Pantry Organizers", "Closet Systems", "Shelf Brackets"
+    ],
     subtitle: "Hinges, drawer slides, rails, and custom handles.",
-    icon: Wrench,
+    carouselImages: [
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
+    ],
+    valueBadges: [
+      { icon: CheckCircle, text: "5% Price Beat Guarantee" },
+      { icon: Wrench, text: "Custom Fit & Finishing" },
+      { icon: Hammer, text: "Fast Turnaround" },
+    ],
   },
   {
     title: "Paint & Finishes",
-    productTypes: ["Interior", "Exterior", "Stain", "Primer"],
+    productTypes: [
+      "Interior Paint", "Latex Paint", "Oil-Based Paint", "Primer", "Sealer",
+      "Exterior Paint", "Siding Paint", "Trim Paint", "Deck Paint", "Fence Paint",
+      "Stain", "Wood Stain", "Deck Stain", "Fence Stain", "Concrete Stain",
+      "Specialty Coatings", "Waterproofing", "Masonry Paint", "Metal Paint", "Rust Inhibitor",
+      "Paint Brushes", "Rollers", "Paint Trays", "Drop Cloths", "Tape",
+      "Caulk", "Sealants", "Adhesives", "Spackle", "Joint Compound"
+    ],
     subtitle: "Interior and exterior paint from top brands.",
-    icon: PaintBrush,
+    carouselImages: [
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
+    ],
+    valueBadges: [
+      { icon: CheckCircle, text: "5% Price Beat Guarantee" },
+      { icon: Hammer, text: "Supply + Install Available" },
+      { icon: Wrench, text: "Fast Turnaround" },
+    ],
   },
   {
     title: "Commercial Materials",
-    productTypes: ["Fire-Rated Board", "T-bar Grid", "Acoustics"],
+    productTypes: [
+      "Fire-Rated Board", "Type X Drywall", "Fire-Rated Panels", "Firestop Materials",
+      "T-bar Grid Systems", "Ceiling Grid", "Suspension Systems", "Main Tees", "Cross Tees",
+      "Acoustic Materials", "Acoustic Panels", "Sound Dampening", "Insulation", "Batt Insulation",
+      "Commercial Ceiling Tiles", "Drop Ceiling Tiles", "Suspended Ceilings",
+      "Commercial Flooring", "VCT Tile", "Commercial Carpet", "Rubber Flooring",
+      "Commercial Doors", "Fire Doors", "Hollow Metal Doors", "Commercial Hardware",
+      "Wall Systems", "Demountable Walls", "Movable Partitions"
+    ],
     subtitle: "T-bar ceilings, fire-rated panels, acoustic materials.",
-    icon: Storefront,
+    carouselImages: [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
+    ],
+    valueBadges: [
+      { icon: CheckCircle, text: "5% Price Beat Guarantee" },
+      { icon: Hammer, text: "Supply + Install Available" },
+      { icon: Wrench, text: "Custom Fit & Finishing" },
+    ],
   },
 ];
 
@@ -91,9 +249,9 @@ const brands = [
   { name: "Olympia Tile", file: "olympiatile.png" },
   { name: "Shaw Flooring", file: "shawfloors.png" },
   { name: "Formica", file: "formica.png" },
-  { name: "Benjamin Moore", file: "benjaminmoore.png" },
-  { name: "Caesarstone", file: "caesarstone.png" },
-  { name: "Silestone", file: "silestone.png" },
+  { name: "Benjamin Moore", file: "bejaminmoorenew.png" },
+  { name: "Caesarstone", file: "ceasarstonenew.png" },
+  { name: "Silestone", file: "silestonenew.png" },
   { name: "Arborite", file: "arborite.png" },
   { name: "CertainTeed", file: "certainteed.png" },
   { name: "James Hardie", file: "jameshardie.png" },
@@ -108,6 +266,7 @@ export default function ProductsPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [prefilledCategory, setPrefilledCategory] = useState<string | null>(null);
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const { toast } = useToast();
   const quoteFormRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -255,6 +414,79 @@ export default function ProductsPage() {
     };
   }, []);
 
+  const toggleCategoryExpansion = (categoryTitle: string) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [categoryTitle]: !prev[categoryTitle],
+    }));
+  };
+
+  // Carousel component for product categories
+  function ProductCarousel({ images }: { images: string[] }) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const nextSlide = () => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    };
+
+    const prevSlide = () => {
+      setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    };
+
+    useEffect(() => {
+      const interval = setInterval(nextSlide, 5000);
+      return () => clearInterval(interval);
+    }, [images.length]);
+
+    return (
+      <div className="relative w-full h-[600px] overflow-hidden rounded-xl border border-gold/20" style={{ aspectRatio: "1/1" }}>
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-500 ${
+              index === currentIndex ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Image
+              src={image}
+              alt={`Product showcase ${index + 1}`}
+              fill
+              className="object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          </div>
+        ))}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-gold p-2 rounded-full transition-all duration-300 z-10 border border-gold/30"
+          aria-label="Previous image"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-gold p-2 rounded-full transition-all duration-300 z-10 border border-gold/30"
+          aria-label="Next image"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex ? "w-8 bg-gold" : "w-2 bg-white/40"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-black relative premium-bg-pattern">
       <div className="absolute inset-0 opacity-5">
@@ -303,8 +535,8 @@ export default function ProductsPage() {
       {/* Premium Divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
-      {/* Product Categories Grid */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      {/* Current Deals Section */}
+      <section id="current-deals" className="py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
@@ -312,45 +544,241 @@ export default function ProductsPage() {
           }}></div>
         </div>
         <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {productCategories.map((category) => {
-              const IconComponent = category.icon;
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+              Current Deals
+            </h2>
+            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+              Limited-time pricing and guarantees to help you save on your build.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Deal A - Trust Builder */}
+            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm hover:border-gold/50 hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-300">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-black uppercase tracking-wide bg-gold/20 text-gold px-3 py-1 rounded-full border border-gold/40">
+                    Guarantee
+                  </span>
+                </div>
+                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                  5% Price Beat Guarantee
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-white/90 premium-text mb-4">
+                  Send us any estimate from a reputable supplier — we&apos;ll beat it by at least 5%.
+                </CardDescription>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Applies to major suppliers</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">24-hour response</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">No hidden fees</span>
+                  </li>
+                </ul>
+                <Button
+                  asChild
+                  className="w-full btn-premium uppercase tracking-wider"
+                >
+                  <a href="#quote-form">Submit a Quote</a>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Deal B - Best Value / Highlighted */}
+            <Card className="card-premium border-gold/50 bg-black/70 backdrop-blur-sm hover:border-gold/70 hover:shadow-[0_0_35px_rgba(212,175,55,0.5)] transition-all duration-300 scale-105 md:scale-105 lg:scale-105">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-black uppercase tracking-wide bg-gold text-black px-3 py-1 rounded-full border border-gold shadow-[0_0_15px_rgba(212,175,55,0.5)]">
+                    Most Popular
+                  </span>
+                </div>
+                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                  Bundle & Save (Supply + Install)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-white/90 premium-text mb-4">
+                  Bundle materials and installation for package pricing that can save thousands.
+                </CardDescription>
+                <p className="text-sm text-white/70 mb-4">From $X (ask for today&apos;s rate)</p>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Flooring + install</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Cabinets + countertops</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Bathroom packages</span>
+                  </li>
+                </ul>
+                <Button
+                  asChild
+                  className="w-full btn-premium uppercase tracking-wider"
+                >
+                  <Link href={`/get-quote?product=${encodeURIComponent("Bundle Savings")}`}>
+                    View Bundle Savings
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Deal C - Urgency */}
+            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm hover:border-gold/50 hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-300">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-black uppercase tracking-wide bg-gold/20 text-gold px-3 py-1 rounded-full border border-gold/40">
+                    Limited Time
+                  </span>
+                </div>
+                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                  Limited-Time Supplier Discounts
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-white/90 premium-text mb-4">
+                  Special pricing on select materials while inventory lasts.
+                </CardDescription>
+                <p className="text-sm text-white/70 mb-4">From $X (ask for today&apos;s rate)</p>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Quartz & porcelain</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">LVP & laminate</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Hardware & fixtures</span>
+                  </li>
+                </ul>
+                <Button
+                  asChild
+                  className="w-full btn-premium uppercase tracking-wider"
+                >
+                  <Link href={`/get-quote?product=${encodeURIComponent("Current Deals")}`}>
+                    See Current Deals
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+
+      {/* Product Categories - Text Above, Carousel Below */}
+      <section className="py-20 bg-black relative premium-bg-pattern">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+            backgroundSize: '100px 100px'
+          }}></div>
+        </div>
+        <div className="container mx-auto px-4 max-w-7xl relative z-10">
+          <div className="space-y-24 md:space-y-32">
+            {productCategories.map((category, index) => {
+              const isEven = index % 2 === 0;
               return (
-                <Card key={category.title} className="card-premium h-full flex flex-col border-gold/30 bg-black/60 backdrop-blur-sm hover:border-gold/50 hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-300">
-                  <CardHeader className="pb-4">
-                    <div className="relative inline-block mb-4">
-                      <div className="absolute inset-0 bg-gold/20 blur-xl rounded-full"></div>
-                      <IconComponent className="h-12 w-12 text-gold relative z-10 drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]" weight="bold" />
-                    </div>
-                    <CardTitle className="text-xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading-sm">
-                      {category.title}
-                    </CardTitle>
-                    {/* Product Types as Tags */}
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {category.productTypes.map((type, index) => (
-                        <span
-                          key={index}
-                          className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gold/10 border border-gold/30 text-gold/90"
+                <div key={category.title} className="relative">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                    {/* Content Section - Text and Products */}
+                    <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+                      <div className="mb-8">
+                        <div className="flex items-center gap-3 mb-6">
+                          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
+                            {category.title}
+                          </h2>
+                          {(category.title === "Flooring" || category.title === "Countertops") && (
+                            <span className="text-xs font-black uppercase tracking-wide bg-gold text-black px-3 py-1 rounded-full border border-gold shadow-[0_0_10px_rgba(212,175,55,0.5)]">
+                              Most Popular
+                            </span>
+                          )}
+                        </div>
+                        <div className="h-[2px] w-32 bg-gradient-to-r from-transparent via-gold to-transparent mb-6 shadow-[0_0_20px_rgba(212,175,55,0.6)]"></div>
+                      </div>
+                      
+                      <p className="text-lg md:text-xl text-white/95 leading-relaxed premium-text mb-8 font-medium">
+                        {category.subtitle}
+                      </p>
+
+                      {/* Value Badges with Icons */}
+                      <div className="flex flex-wrap gap-4 mb-10">
+                        {category.valueBadges.map((badge, idx) => {
+                          const IconComponent = badge.icon;
+                          return (
+                            <div
+                              key={idx}
+                              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gold/10 border border-gold/40 text-gold/90 backdrop-blur-sm"
+                            >
+                              <IconComponent className="h-5 w-5 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                              <span className="text-sm font-bold uppercase tracking-wide">{badge.text}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Product Types List */}
+                      <div className="mb-10">
+                        <h3 className="text-lg font-black text-white mb-6 uppercase tracking-wide premium-heading-sm">
+                          Available Products:
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          {(expandedCategories[category.title] ? category.productTypes : category.productTypes.slice(0, 9)).map((type, idx) => (
+                            <div key={idx} className="flex items-start space-x-3">
+                              <span className="text-gold mt-1.5 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                              <span className="text-white/90 premium-text text-sm md:text-base leading-relaxed">{type}</span>
+                            </div>
+                          ))}
+                        </div>
+                        {category.productTypes.length > 9 && (
+                          <button
+                            onClick={() => toggleCategoryExpansion(category.title)}
+                            className="mt-4 text-gold/90 hover:text-gold text-sm font-bold uppercase tracking-wide underline transition-colors"
+                          >
+                            {expandedCategories[category.title] ? "Show less" : "View full list"}
+                          </button>
+                        )}
+                      </div>
+
+                      {/* CTA */}
+                      <div className="flex items-center gap-6 pt-6 border-t border-gold/20">
+                        <Button
+                          asChild
+                          className="btn-premium uppercase tracking-wider"
                         >
-                          {type}
-                        </span>
-                      ))}
+                          <Link href={`/get-quote?product=${encodeURIComponent(category.title)}`}>
+                            Get a Quote
+                          </Link>
+                        </Button>
+                        <div className="h-px flex-1 bg-gradient-to-r from-gold/40 via-gold/60 to-transparent"></div>
+                      </div>
                     </div>
-                  </CardHeader>
-                  <CardContent className="flex flex-col flex-grow">
-                    <CardDescription className="text-white/90 leading-relaxed premium-text mb-6">
-                      {category.subtitle}
-                    </CardDescription>
-                    <Button
-                      asChild
-                      className="mt-auto btn-premium uppercase tracking-wider"
-                    >
-                      <Link href={`/get-quote?product=${encodeURIComponent(category.title)}`}>
-                        Get a Quote
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+
+                    {/* Carousel Section Beside */}
+                    <div className={`${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                      <div className="w-full" style={{ maxWidth: "600px", maxHeight: "600px" }}>
+                        <ProductCarousel images={category.carouselImages} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               );
             })}
           </div>
@@ -376,13 +804,13 @@ export default function ProductsPage() {
             {brands.map((brand) => (
               <div
                 key={brand.name}
-                className="relative h-32 bg-black/50 border border-gold/20 rounded-xl backdrop-blur-sm hover:border-gold/40 hover:bg-black/70 transition-all duration-300 flex items-center justify-center group grayscale hover:grayscale-0 overflow-hidden"
+                className="relative h-32 bg-white/95 border border-gold/30 rounded-xl backdrop-blur-sm hover:border-gold/60 hover:bg-white transition-all duration-300 flex items-center justify-center group overflow-hidden shadow-lg hover:shadow-xl"
               >
                 <Image
                   src={`/${brand.file}`}
                   alt={brand.name}
                   fill
-                  className="object-contain p-4 transition-all duration-300"
+                  className="object-contain p-4 transition-all duration-300 opacity-80 group-hover:opacity-100"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
               </div>
@@ -395,7 +823,7 @@ export default function ProductsPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Quote Challenge Section */}
-      <section id="quote-form" ref={quoteFormRef} className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section id="quote-form" ref={quoteFormRef} className="py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
@@ -511,6 +939,7 @@ export default function ProductsPage() {
           </Card>
         </div>
       </section>
+
     </div>
   );
 }

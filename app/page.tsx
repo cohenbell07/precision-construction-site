@@ -79,7 +79,7 @@ export default function Home() {
     const video = videoRef.current;
     if (!video) return;
 
-    const videoSrc = "https://customer-wlq98rw65iepfe8g.cloudflarestream.com/b9b4746e21a5e892f558d197f91dc068/manifest/video.m3u8";
+    const videoSrc = "https://customer-wlq98rw65iepfe8g.cloudflarestream.com/9f32426787cbe2b26a14642463b7b817/manifest/video.m3u8";
 
     // Set video properties
     video.loop = true;
@@ -184,7 +184,7 @@ export default function Home() {
         <div className="container mx-auto px-4 max-w-7xl relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
-              What We Do
+              Our Services
             </h2>
             <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
             <p className="text-lg text-white max-w-3xl mx-auto premium-text mb-4">
@@ -200,13 +200,13 @@ export default function Home() {
               const imagePath = serviceImageMap[service.id] || "/service-millwork.png";
               return (
                 <Link key={service.id} href={`/services/${service.id}`}>
-                  <Card className="card-premium h-full overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-105 border-gold/30 bg-black/50 backdrop-blur-sm">
+                  <Card className="card-premium h-full overflow-hidden group cursor-pointer transition-all duration-300 border-gold/30 bg-black/50 backdrop-blur-sm">
                     <div className="relative h-64 w-full overflow-hidden">
                       <Image
                         src={imagePath}
                         alt={service.title}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="object-cover"
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
@@ -287,6 +287,154 @@ export default function Home() {
       {/* Premium Divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
+      {/* Exclusive Offers Section */}
+      <section className="py-24 bg-black relative overflow-hidden premium-bg-pattern">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+            backgroundSize: '100px 100px'
+          }}></div>
+        </div>
+        <div className="container mx-auto px-4 max-w-7xl relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+              Exclusive Offers & Guarantees
+            </h2>
+            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+              Limited-time pricing and guarantees to help you save on your build.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Deal A - Trust Builder */}
+            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm hover:border-gold/50 hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-300">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-black uppercase tracking-wide bg-gold/20 text-gold px-3 py-1 rounded-full border border-gold/40">
+                    Guarantee
+                  </span>
+                </div>
+                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                  5% Price Beat Guarantee
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-white/90 premium-text mb-4">
+                  Send us any estimate from a reputable supplier — we&apos;ll beat it by at least 5%.
+                </CardDescription>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Applies to major suppliers</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">24-hour response</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">No hidden fees</span>
+                  </li>
+                </ul>
+                <Button
+                  asChild
+                  className="w-full btn-premium uppercase tracking-wider"
+                >
+                  <Link href="/products#quote-form">Submit a Quote</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Deal B - Best Value / Highlighted */}
+            <Card className="card-premium border-gold/50 bg-black/70 backdrop-blur-sm hover:border-gold/70 hover:shadow-[0_0_35px_rgba(212,175,55,0.5)] transition-all duration-300 scale-105 md:scale-105 lg:scale-105">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-black uppercase tracking-wide bg-gold text-black px-3 py-1 rounded-full border border-gold shadow-[0_0_15px_rgba(212,175,55,0.5)]">
+                    Most Popular
+                  </span>
+                </div>
+                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                  Bundle & Save (Supply + Install)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-white/90 premium-text mb-4">
+                  Bundle materials and installation for package pricing that can save thousands.
+                </CardDescription>
+                <p className="text-sm text-white/70 mb-4">From $X (ask for today&apos;s rate)</p>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Flooring + install</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Cabinets + countertops</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Bathroom packages</span>
+                  </li>
+                </ul>
+                <Button
+                  asChild
+                  className="w-full btn-premium uppercase tracking-wider"
+                >
+                  <Link href={`/get-quote?product=${encodeURIComponent("Bundle Savings")}`}>
+                    View Bundle Savings
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Deal C - Urgency */}
+            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm hover:border-gold/50 hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-300">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-black uppercase tracking-wide bg-gold/20 text-gold px-3 py-1 rounded-full border border-gold/40">
+                    Limited Time
+                  </span>
+                </div>
+                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                  Limited-Time Supplier Discounts
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-white/90 premium-text mb-4">
+                  Special pricing on select materials while inventory lasts.
+                </CardDescription>
+                <p className="text-sm text-white/70 mb-4">From $X (ask for today&apos;s rate)</p>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Quartz & porcelain</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">LVP & laminate</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-white/90 premium-text text-sm">Hardware & fixtures</span>
+                  </li>
+                </ul>
+                <Button
+                  asChild
+                  className="w-full btn-premium uppercase tracking-wider"
+                >
+                  <Link href={`/get-quote?product=${encodeURIComponent("Current Deals")}`}>
+                    See Current Deals
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+
       {/* Trusted Brands Section */}
       <section className="py-24 bg-[#1F1F1F] relative overflow-hidden premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
@@ -309,23 +457,23 @@ export default function Home() {
             {[
               { name: "Olympia Tile", file: "olympiatile.png" },
               { name: "Shaw Flooring", file: "shawfloors.png" },
-              { name: "Caesarstone", file: "caesarstone.png" },
+              { name: "Caesarstone", file: "ceasarstonenew.png" },
               { name: "CertainTeed", file: "certainteed.png" },
               { name: "Formica", file: "formica.png" },
-              { name: "Benjamin Moore", file: "benjaminmoore.png" },
-              { name: "Silestone", file: "silestone.png" },
+              { name: "Benjamin Moore", file: "bejaminmoorenew.png" },
+              { name: "Silestone", file: "silestonenew.png" },
               { name: "Arborite", file: "arborite.png" },
               { name: "James Hardie", file: "jameshardie.png" },
             ].map((brand) => (
               <div
                 key={brand.name}
-                className="relative h-32 bg-black/50 border border-gold/20 rounded-xl backdrop-blur-sm hover:border-gold/40 hover:bg-black/70 transition-all duration-300 flex items-center justify-center group grayscale hover:grayscale-0 overflow-hidden"
+                className="relative h-32 bg-white/95 border border-gold/30 rounded-xl backdrop-blur-sm hover:border-gold/60 hover:bg-white transition-all duration-300 flex items-center justify-center group overflow-hidden shadow-lg hover:shadow-xl"
               >
                 <Image
                   src={`/${brand.file}`}
                   alt={brand.name}
                   fill
-                  className="object-contain p-4 transition-all duration-300"
+                  className="object-contain p-4 transition-all duration-300 opacity-80 group-hover:opacity-100"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
               </div>

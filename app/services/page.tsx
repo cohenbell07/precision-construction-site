@@ -1,10 +1,12 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { services } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import Hls from "hls.js";
 
 // Map service IDs to image paths
 const serviceImageMap: { [key: string]: string } = {
@@ -23,7 +25,143 @@ const serviceImageMap: { [key: string]: string } = {
   commercial: "/commercial-construction.png",
 };
 
+// Map service IDs to video URLs for hover previews
+const serviceVideoMap: { [key: string]: string } = {
+  showers: "https://customer-wlq98rw65iepfe8g.cloudflarestream.com/c7ad20b13ad2325c2e78adec62e4f81f/manifest/video.m3u8",
+  cabinets: "https://customer-wlq98rw65iepfe8g.cloudflarestream.com/100b6c723854a0a992f973b0e64f7614/manifest/video.m3u8",
+  countertops: "https://customer-wlq98rw65iepfe8g.cloudflarestream.com/e78cf24b44a9ce21c0ecad06407a8b9d/manifest/video.m3u8",
+};
+
+// Service Video Component
+function ServiceVideoPreview({ 
+  serviceId, 
+  imagePath, 
+  altText, 
+  isHovered 
+}: { 
+  serviceId: string; 
+  imagePath: string; 
+  altText: string; 
+  isHovered: boolean;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
+  const [showVideo, setShowVideo] = useState(false);
+  const [hasPlayed, setHasPlayed] = useState(false);
+  const videoSrc = serviceVideoMap[serviceId];
+
+  useEffect(() => {
+    if (!videoSrc || !videoRef.current) return;
+
+    const video = videoRef.current;
+
+    const initVideo = () => {
+      try {
+        if (typeof Hls !== "undefined" && Hls.isSupported()) {
+          const hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: false,
+          });
+          hlsRef.current = hls;
+          hls.loadSource(videoSrc);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            video.muted = true;
+            video.playsInline = true;
+          });
+        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+          video.src = videoSrc;
+          video.muted = true;
+          video.playsInline = true;
+        }
+      } catch (err) {
+        console.error("Video initialization error:", err);
+      }
+    };
+
+    initVideo();
+
+    return () => {
+      if (hlsRef.current) {
+        try {
+          hlsRef.current.destroy();
+        } catch (e) {
+          // Ignore destroy errors
+        }
+        hlsRef.current = null;
+      }
+    };
+  }, [videoSrc]);
+
+  useEffect(() => {
+    if (!videoRef.current || !videoSrc) return;
+
+    const video = videoRef.current;
+
+    if (isHovered && !hasPlayed) {
+      setShowVideo(true);
+      video.currentTime = 0;
+      video.play().catch((err) => {
+        console.log("Video play prevented:", err);
+        setShowVideo(false);
+      });
+    } else if (!isHovered && showVideo) {
+      video.pause();
+      setShowVideo(false);
+      setHasPlayed(false);
+    }
+  }, [isHovered, hasPlayed, showVideo, videoSrc]);
+
+  const handleVideoEnd = () => {
+    setShowVideo(false);
+    setHasPlayed(true);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  if (!videoSrc) {
+    return (
+      <Image
+        src={imagePath}
+        alt={altText}
+        fill
+        className="object-cover"
+        loading="lazy"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+      />
+    );
+  }
+
+  return (
+    <>
+      <Image
+        src={imagePath}
+        alt={altText}
+        fill
+        className={`object-cover transition-opacity duration-500 ${
+          showVideo ? "opacity-0" : "opacity-100"
+        }`}
+        loading="lazy"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+      />
+      <video
+        ref={videoRef}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+          showVideo ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        muted
+        playsInline
+        onEnded={handleVideoEnd}
+        style={{ aspectRatio: "1/1" }}
+      />
+    </>
+  );
+}
+
 export default function ServicesPage() {
+  const [hoveredService, setHoveredService] = useState<string | null>(null);
+
   // Generate descriptive alt text based on service
   const altTextMap: { [key: string]: string } = {
     framing: "Framing project in progress",
@@ -85,25 +223,28 @@ export default function ServicesPage() {
             return (
               <div key={service.id} className="relative">
                 {/* Service Showcase Section */}
-                <Link href={`/services/${service.id}`} className="block group">
+                <Link 
+                  href={`/services/${service.id}`} 
+                  className="block group"
+                  onMouseEnter={() => setHoveredService(service.id)}
+                  onMouseLeave={() => setHoveredService(null)}
+                >
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[500px] lg:min-h-[650px]">
                     {/* Image Section */}
                     <div className={`relative w-full h-[400px] lg:h-auto lg:min-h-[650px] ${isEven ? 'lg:order-1' : 'lg:order-2'} overflow-hidden`}>
                       <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/20 to-transparent z-10"></div>
-                      <Image
-                        src={imagePath}
-                        alt={altText}
-                        fill
-                        className="object-cover"
-                        loading="lazy"
-                        sizes="(max-width: 1024px) 100vw, 50vw"
+                      <ServiceVideoPreview
+                        serviceId={service.id}
+                        imagePath={imagePath}
+                        altText={altText}
+                        isHovered={hoveredService === service.id}
                       />
                       {/* Subtle vignette */}
                       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/30 z-10"></div>
                     </div>
 
                     {/* Content Section */}
-                    <div className={`relative w-full ${isEven ? 'lg:order-2' : 'lg:order-1'} bg-gradient-to-br from-[#1F1F1F] via-[#1A1A1A] to-[#1F1F1F] flex items-center p-10 md:p-14 lg:p-20 min-h-[400px] lg:min-h-[650px]`}>
+                    <div className={`relative w-full ${isEven ? 'lg:order-2' : 'lg:order-1'} bg-black flex items-center p-10 md:p-14 lg:p-20 min-h-[400px] lg:min-h-[650px]`}>
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.03),transparent_70%)] pointer-events-none"></div>
                       <div className="w-full relative z-10">
                         <div className="mb-8">
