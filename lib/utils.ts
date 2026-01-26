@@ -21,9 +21,9 @@ export const BRAND_CONFIG = {
   established: 1968,
   servingSince: 1997,
   contact: {
-    email: process.env.CONTACT_EMAIL || "john@pcnd.ca",
-    phone: "403-219-0806",
-    phoneFormatted: "(403) 219-0806",
+    email: process.env.CONTACT_EMAIL || "johnpcnd@gmail.com",
+    phone: "403-818-7767",
+    phoneFormatted: "(403) 818-7767",
     address: "Calgary, AB and Surrounding Areas",
     cta: "Call or Email to Book a Consultation",
   },

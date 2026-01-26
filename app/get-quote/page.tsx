@@ -306,7 +306,7 @@ Budget: ${formData.budget}`;
                           type="tel"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="(403) 555-0123"
+                          placeholder="(403) 818-7767"
                           className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
                         />
                       </div>
