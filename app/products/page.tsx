@@ -439,7 +439,7 @@ export default function ProductsPage() {
     }, [images.length]);
 
     return (
-      <div className="relative w-full h-[600px] overflow-hidden rounded-xl border border-gold/20" style={{ aspectRatio: "1/1" }}>
+      <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-xl border border-gold/20" style={{ aspectRatio: "1/1" }}>
         {images.map((image, index) => (
           <div
             key={index}
@@ -498,7 +498,7 @@ export default function ProductsPage() {
 
       {/* Hero Video Section */}
       <section className="relative w-full bg-black overflow-hidden">
-        <div className="relative w-full" style={{ aspectRatio: "16/9", maxHeight: "600px", minHeight: "400px" }}>
+        <div className="relative w-full" style={{ aspectRatio: "16/9", maxHeight: "600px", minHeight: "300px" }}>
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
@@ -512,18 +512,18 @@ export default function ProductsPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/75"></div>
           
           <div className="absolute inset-0 flex items-center justify-center z-10">
-            <div className="container mx-auto px-4 max-w-7xl text-center">
-              <div className="space-y-6 md:space-y-8">
+            <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
+              <div className="space-y-4 sm:space-y-6 md:space-y-8">
                 {/* Main Title with enhanced shadow */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-white uppercase tracking-tight premium-heading drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black text-white uppercase tracking-tight premium-heading drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] px-2">
                   Every Product. Every Brand. Built to Outperform.
                 </h1>
                 
                 {/* Gold divider with glow */}
-                <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-2 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+                <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-2 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
                 
                 {/* Subtitle with premium gold styling - clean, no box */}
-                <p className="text-lg md:text-xl lg:text-2xl premium-gold-text font-bold max-w-4xl mx-auto leading-relaxed tracking-wide drop-shadow-[0_2px_20px_rgba(0,0,0,0.9)]">
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl premium-gold-text font-bold max-w-4xl mx-auto leading-relaxed tracking-wide drop-shadow-[0_2px_20px_rgba(0,0,0,0.9)] px-2">
                   Explore the industry&apos;s best materials. We carry everything construction demands — and beat all competitors by 5%.
                 </p>
               </div>
@@ -536,24 +536,24 @@ export default function ProductsPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Current Deals Section */}
-      <section id="current-deals" className="py-20 bg-black relative premium-bg-pattern">
+      <section id="current-deals" className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
               Current Deals
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Limited-time pricing and guarantees to help you save on your build.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
             {/* Deal A - Trust Builder */}
             <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm hover:border-gold/50 hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-300">
               <CardHeader>
@@ -562,7 +562,7 @@ export default function ProductsPage() {
                     Guarantee
                   </span>
                 </div>
-                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   5% Price Beat Guarantee
                 </CardTitle>
               </CardHeader>
@@ -601,7 +601,7 @@ export default function ProductsPage() {
                     Most Popular
                   </span>
                 </div>
-                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Bundle & Save (Supply + Install)
                 </CardTitle>
               </CardHeader>
@@ -643,7 +643,7 @@ export default function ProductsPage() {
                     Limited Time
                   </span>
                 </div>
-                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Limited-Time Supplier Discounts
                 </CardTitle>
               </CardHeader>
@@ -684,25 +684,25 @@ export default function ProductsPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Product Categories - Text Above, Carousel Below */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="space-y-24 md:space-y-32">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="space-y-12 sm:space-y-16 md:space-y-20 lg:space-y-24">
             {productCategories.map((category, index) => {
               const isEven = index % 2 === 0;
               return (
                 <div key={category.title} className="relative">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
                     {/* Content Section - Text and Products */}
                     <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-                      <div className="mb-8">
-                        <div className="flex items-center gap-3 mb-6">
-                          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
+                      <div className="mb-6 sm:mb-8">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
                             {category.title}
                           </h2>
                           {(category.title === "Flooring" || category.title === "Countertops") && (
@@ -714,32 +714,32 @@ export default function ProductsPage() {
                         <div className="h-[2px] w-32 bg-gradient-to-r from-transparent via-gold to-transparent mb-6 shadow-[0_0_20px_rgba(212,175,55,0.6)]"></div>
                       </div>
                       
-                      <p className="text-lg md:text-xl text-white/95 leading-relaxed premium-text mb-8 font-medium">
+                      <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 leading-relaxed premium-text mb-6 sm:mb-8 font-medium">
                         {category.subtitle}
                       </p>
 
                       {/* Value Badges with Icons */}
-                      <div className="flex flex-wrap gap-4 mb-10">
+                      <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8 md:mb-10">
                         {category.valueBadges.map((badge, idx) => {
                           const IconComponent = badge.icon;
                           return (
                             <div
                               key={idx}
-                              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gold/10 border border-gold/40 text-gold/90 backdrop-blur-sm"
+                              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 rounded-full bg-gold/10 border border-gold/40 text-gold/90 backdrop-blur-sm"
                             >
-                              <IconComponent className="h-5 w-5 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
-                              <span className="text-sm font-bold uppercase tracking-wide">{badge.text}</span>
+                              <IconComponent className="h-4 w-4 sm:h-5 sm:w-5 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wide">{badge.text}</span>
                             </div>
                           );
                         })}
                       </div>
 
                       {/* Product Types List */}
-                      <div className="mb-10">
-                        <h3 className="text-lg font-black text-white mb-6 uppercase tracking-wide premium-heading-sm">
+                      <div className="mb-6 sm:mb-8 md:mb-10">
+                        <h3 className="text-base sm:text-lg font-black text-white mb-4 sm:mb-6 uppercase tracking-wide premium-heading-sm">
                           Available Products:
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
                           {(expandedCategories[category.title] ? category.productTypes : category.productTypes.slice(0, 9)).map((type, idx) => (
                             <div key={idx} className="flex items-start space-x-3">
                               <span className="text-gold mt-1.5 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
@@ -773,7 +773,7 @@ export default function ProductsPage() {
 
                     {/* Carousel Section Beside */}
                     <div className={`${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
-                      <div className="w-full" style={{ maxWidth: "600px", maxHeight: "600px" }}>
+                      <div className="w-full mx-auto" style={{ maxWidth: "600px", maxHeight: "600px" }}>
                         <ProductCarousel images={category.carouselImages} />
                       </div>
                     </div>
@@ -789,22 +789,22 @@ export default function ProductsPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Sample Brands Section */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
               Sample Brands We Carry
             </h2>
-            <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Trusted brands you know and love, available at unbeatable prices
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-6xl mx-auto">
             {brands.map((brand) => (
               <div
                 key={brand.name}
-                className="relative h-32 bg-white/95 border border-gold/30 rounded-xl backdrop-blur-sm hover:border-gold/60 hover:bg-white transition-all duration-300 flex items-center justify-center group overflow-hidden shadow-lg hover:shadow-xl"
+                className="relative h-24 sm:h-28 md:h-32 bg-white/95 border border-gold/30 rounded-xl backdrop-blur-sm hover:border-gold/60 hover:bg-white transition-all duration-300 flex items-center justify-center group overflow-hidden shadow-lg hover:shadow-xl"
               >
                 <Image
                   src={`/${brand.file}`}
@@ -823,20 +823,20 @@ export default function ProductsPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Quote Challenge Section */}
-      <section id="quote-form" ref={quoteFormRef} className="py-20 bg-black relative premium-bg-pattern">
+      <section id="quote-form" ref={quoteFormRef} className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-4xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading px-2">
               We Beat All Legitimate Competitor Quotes by 5% or More
             </h2>
-            <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Send us any estimate from a reputable supplier — we&apos;ll beat it.
             </p>
           </div>

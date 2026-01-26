@@ -131,7 +131,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section - Full-width video with overlay */}
-      <section className="relative w-full bg-black overflow-hidden" style={{ maxHeight: "600px", minHeight: "400px" }}>
+      <section className="relative w-full bg-black overflow-hidden" style={{ maxHeight: "600px", minHeight: "300px" }}>
         <div className="relative w-full h-full" style={{ aspectRatio: "16/9", maxHeight: "600px" }}>
           <video
             ref={videoRef}
@@ -147,24 +147,24 @@ export default function Home() {
         </div>
         
         <div className="absolute inset-0 flex items-center justify-center z-10">
-          <div className="container mx-auto px-4 text-center max-w-6xl">
-            <div className="space-y-8">
+          <div className="container mx-auto px-4 sm:px-6 text-center max-w-6xl">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Headline with premium gold gradient effect */}
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white mb-4 leading-tight premium-heading drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+              <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black text-white mb-2 sm:mb-4 leading-tight premium-heading drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] px-2">
                 Crafting Calgary&apos;s Future — One Build at a Time
               </h1>
               
               {/* Subheading with gold accent */}
-              <p className="text-lg md:text-xl lg:text-2xl premium-gold-text font-bold mb-8 drop-shadow-[0_2px_20px_rgba(0,0,0,0.9)]">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl premium-gold-text font-bold mb-4 sm:mb-6 md:mb-8 drop-shadow-[0_2px_20px_rgba(0,0,0,0.9)] px-2">
                 Family-owned since 1968 • Serving Calgary since 1997
               </p>
               
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button asChild size="lg" className="btn-premium px-8 py-6 text-lg uppercase tracking-wider">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-2">
+                <Button asChild size="lg" className="btn-premium px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
                   <Link href="/get-quote">Get a Quote</Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm px-8 py-6 text-lg uppercase tracking-wider">
+                <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
                   <Link href="/services">View Services</Link>
                 </Button>
               </div>
@@ -174,28 +174,28 @@ export default function Home() {
       </section>
 
       {/* What We Do Section - Service Categories */}
-      <section className="py-24 bg-black relative overflow-hidden premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-black relative overflow-hidden premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
               Our Services
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text mb-4">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text mb-3 sm:mb-4 px-2">
               Comprehensive construction and renovation services for residential and commercial projects in Calgary.
             </p>
-            <p className="text-lg premium-gold-text font-bold max-w-3xl mx-auto uppercase tracking-wide">
+            <p className="text-sm sm:text-base md:text-lg premium-gold-text font-bold max-w-3xl mx-auto uppercase tracking-wide px-2">
               {BRAND_CONFIG.motto} — From flooring to full home renovations, we deliver quality you can trust.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {featuredServices.map((service) => {
               const imagePath = serviceImageMap[service.id] || "/service-millwork.png";
               return (
@@ -242,24 +242,24 @@ export default function Home() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Why Work With Us */}
-      <section className="py-24 bg-[#1F1F1F] relative overflow-hidden premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#1F1F1F] relative overflow-hidden premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
               Why Work With Us
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-2xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-2xl mx-auto premium-text px-2">
               Three generations of excellence, family values, and uncompromising quality
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {whyUs.map((item) => (
               <div key={item.title}>
                 <Card className="card-premium h-full text-center border-gold/30 bg-black/50 backdrop-blur-sm">
@@ -288,24 +288,24 @@ export default function Home() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Exclusive Offers Section */}
-      <section className="py-24 bg-black relative overflow-hidden premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-black relative overflow-hidden premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
               Exclusive Offers & Guarantees
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Limited-time pricing and guarantees to help you save on your build.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
             {/* Deal A - Trust Builder */}
             <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm hover:border-gold/50 hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-300">
               <CardHeader>
@@ -314,7 +314,7 @@ export default function Home() {
                     Guarantee
                   </span>
                 </div>
-                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   5% Price Beat Guarantee
                 </CardTitle>
               </CardHeader>
@@ -353,7 +353,7 @@ export default function Home() {
                     Most Popular
                   </span>
                 </div>
-                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Bundle & Save (Supply + Install)
                 </CardTitle>
               </CardHeader>
@@ -395,7 +395,7 @@ export default function Home() {
                     Limited Time
                   </span>
                 </div>
-                <CardTitle className="text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Limited-Time Supplier Discounts
                 </CardTitle>
               </CardHeader>
@@ -436,24 +436,24 @@ export default function Home() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Trusted Brands Section */}
-      <section className="py-24 bg-[#1F1F1F] relative overflow-hidden premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#1F1F1F] relative overflow-hidden premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
               Trusted Brands We Supply & Work With
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               We carry all major construction product lines and install with expert precision.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-6xl mx-auto">
             {[
               { name: "Olympia Tile", file: "olympiatile.png" },
               { name: "Shaw Flooring", file: "shawfloors.png" },
@@ -467,7 +467,7 @@ export default function Home() {
             ].map((brand) => (
               <div
                 key={brand.name}
-                className="relative h-32 bg-white/95 border border-gold/30 rounded-xl backdrop-blur-sm hover:border-gold/60 hover:bg-white transition-all duration-300 flex items-center justify-center group overflow-hidden shadow-lg hover:shadow-xl"
+                className="relative h-24 sm:h-28 md:h-32 bg-white/95 border border-gold/30 rounded-xl backdrop-blur-sm hover:border-gold/60 hover:bg-white transition-all duration-300 flex items-center justify-center group overflow-hidden shadow-lg hover:shadow-xl"
               >
                 <Image
                   src={`/${brand.file}`}
@@ -486,24 +486,24 @@ export default function Home() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Testimonials */}
-      <section className="py-24 bg-[#1F1F1F] relative overflow-hidden premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#1F1F1F] relative overflow-hidden premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
               What Our Customers Say
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-2xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-2xl mx-auto premium-text px-2">
               Real feedback from families we&apos;ve had the honor of serving
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {testimonials.map((testimonial) => (
               <div key={testimonial.name}>
                 <Card className="card-premium h-full border-gold/30 bg-black/50 backdrop-blur-sm">
@@ -532,30 +532,30 @@ export default function Home() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Project Gallery Teaser - Restored Section */}
-      <section className="py-24 bg-black relative overflow-hidden premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-black relative overflow-hidden premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-4 sm:mb-6 text-white uppercase tracking-tight premium-heading">
                 See Our Work
               </h2>
-              <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mb-8 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-              <p className="text-white mb-10 text-lg leading-relaxed premium-text">
+              <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mb-4 sm:mb-6 md:mb-8 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+              <p className="text-white mb-6 sm:mb-8 md:mb-10 text-sm sm:text-base md:text-lg leading-relaxed premium-text">
                 Browse our portfolio of completed projects. From custom kitchens to commercial
                 renovations, we bring your vision to life.
               </p>
-              <Button asChild size="lg" className="btn-premium uppercase tracking-wider">
+              <Button asChild size="lg" className="btn-premium uppercase tracking-wider text-sm sm:text-base px-6 py-4 sm:px-8 sm:py-6">
                 <Link href="/projects">View Gallery</Link>
               </Button>
             </div>
-            <div className="grid grid-cols-2 gap-5">
-              <div className="relative h-56 rounded-xl overflow-hidden shadow-2xl group border border-gold/20">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+              <div className="relative h-40 sm:h-48 md:h-56 rounded-xl overflow-hidden shadow-2xl group border border-gold/20">
                 <Image
                   src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=800&q=80"
                   alt="Kitchen renovation"
@@ -564,7 +564,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
-              <div className="relative h-56 rounded-xl overflow-hidden shadow-2xl group mt-8 border border-gold/20">
+              <div className="relative h-40 sm:h-48 md:h-56 rounded-xl overflow-hidden shadow-2xl group mt-6 sm:mt-8 border border-gold/20">
                 <Image
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
                   alt="Bathroom renovation"
@@ -573,7 +573,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
-              <div className="relative h-56 rounded-xl overflow-hidden shadow-2xl group border border-gold/20">
+              <div className="relative h-40 sm:h-48 md:h-56 rounded-xl overflow-hidden shadow-2xl group border border-gold/20">
                 <Image
                   src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80"
                   alt="Custom cabinets"
@@ -582,7 +582,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
-              <div className="relative h-56 rounded-xl overflow-hidden shadow-2xl group mt-8 border border-gold/20">
+              <div className="relative h-40 sm:h-48 md:h-56 rounded-xl overflow-hidden shadow-2xl group mt-6 sm:mt-8 border border-gold/20">
                 <Image
                   src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80"
                   alt="Flooring installation"
@@ -600,21 +600,21 @@ export default function Home() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* AI Chat Assistant */}
-      <section className="py-24 bg-[#1F1F1F] text-white relative overflow-hidden premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#1F1F1F] text-white relative overflow-hidden premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 text-center max-w-4xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-4 uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 text-center max-w-4xl relative z-10">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
               Need Help Planning Your Project?
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
           </div>
-          <p className="text-lg mb-12 text-white premium-text text-center">
+          <p className="text-sm sm:text-base md:text-lg mb-8 sm:mb-10 md:mb-12 text-white premium-text text-center px-2">
             Ask our AI assistant about your construction project
           </p>
           <AIChatAssistant />

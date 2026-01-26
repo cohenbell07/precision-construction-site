@@ -181,72 +181,72 @@ Budget: ${formData.budget}`;
           backgroundSize: '100px 100px'
         }}></div>
       </div>
-      <div className="container mx-auto px-4 py-20 max-w-7xl relative z-10">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 max-w-7xl relative z-10">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-4 sm:mb-6 text-white uppercase tracking-tight premium-heading">
             Get a Quote
           </h1>
-          <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-          <p className="text-xl text-white max-w-3xl mx-auto mb-4 leading-relaxed premium-text">
+          <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white max-w-3xl mx-auto mb-3 sm:mb-4 leading-relaxed premium-text px-2">
             Tell us about your project and we&apos;ll provide you with a detailed quote.
           </p>
-          <p className="text-lg premium-gold-text font-bold max-w-3xl mx-auto mb-4 uppercase tracking-wide">
+          <p className="text-sm sm:text-base md:text-lg premium-gold-text font-bold max-w-3xl mx-auto mb-3 sm:mb-4 uppercase tracking-wide px-2">
             {BRAND_CONFIG.motto}
           </p>
-          <p className="text-base text-white/80 mt-6 max-w-3xl mx-auto premium-text">
+          <p className="text-xs sm:text-sm md:text-base text-white/80 mt-4 sm:mt-6 max-w-3xl mx-auto premium-text px-2">
             {BRAND_CONFIG.contact.cta}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Main Form */}
           <div className="lg:col-span-2">
             {step === "service" && (
-              <Card className="card-premium rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
+              <Card className="card-premium rounded-xl sm:rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                  <CardTitle className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                     Select a Service
                   </CardTitle>
-                  <CardDescription className="text-lg text-white/90 premium-text">
+                  <CardDescription className="text-sm sm:text-base md:text-lg text-white/90 premium-text">
                     Choose the service you&apos;re interested in
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                     {services.map((service) => {
                       const IconComponent = serviceIcons[service.id] || serviceIcons.default;
                       return (
                         <button
                           key={service.id}
                           onClick={() => handleServiceSelect(service.id)}
-                          className="service-select-button text-left p-6 border-2 border-gold/30 rounded-2xl shadow-xl bg-black/50 backdrop-blur-sm cursor-pointer relative hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:border-gold/60 transition-all duration-300 hover:bg-black/70"
+                          className="service-select-button text-left p-4 sm:p-5 md:p-6 border-2 border-gold/30 rounded-xl sm:rounded-2xl shadow-xl bg-black/50 backdrop-blur-sm cursor-pointer relative hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:border-gold/60 transition-all duration-300 hover:bg-black/70"
                         >
-                          <div className="flex items-center space-x-4 mb-4">
-                            <div className="p-4 bg-gold/10 rounded-2xl border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
-                              <IconComponent className="h-8 w-8 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" weight="duotone" />
+                          <div className="flex items-center space-x-3 sm:space-x-4 mb-3 sm:mb-4">
+                            <div className="p-2 sm:p-3 md:p-4 bg-gold/10 rounded-xl sm:rounded-2xl border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                              <IconComponent className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" weight="duotone" />
                             </div>
-                            <h3 className="font-display font-black text-xl text-white uppercase tracking-tight premium-heading-sm">
+                            <h3 className="font-display font-black text-base sm:text-lg md:text-xl text-white uppercase tracking-tight premium-heading-sm">
                               {service.title}
                             </h3>
                           </div>
-                          <p className="text-sm text-white/80 leading-relaxed premium-text">{service.description}</p>
+                          <p className="text-xs sm:text-sm text-white/80 leading-relaxed premium-text">{service.description}</p>
                         </button>
                       );
                     })}
                     {/* Other Option */}
                     <button
                       onClick={() => handleServiceSelect("other")}
-                      className="service-select-button text-left p-6 border-2 border-gold/30 rounded-2xl shadow-xl bg-black/50 backdrop-blur-sm cursor-pointer relative hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:border-gold/60 transition-all duration-300 hover:bg-black/70"
+                      className="service-select-button text-left p-4 sm:p-5 md:p-6 border-2 border-gold/30 rounded-xl sm:rounded-2xl shadow-xl bg-black/50 backdrop-blur-sm cursor-pointer relative hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:border-gold/60 transition-all duration-300 hover:bg-black/70"
                     >
-                      <div className="flex items-center space-x-4 mb-4">
-                        <div className="p-4 bg-gold/10 rounded-2xl border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
-                          <Buildings className="h-8 w-8 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" weight="duotone" />
+                      <div className="flex items-center space-x-3 sm:space-x-4 mb-3 sm:mb-4">
+                        <div className="p-2 sm:p-3 md:p-4 bg-gold/10 rounded-xl sm:rounded-2xl border border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                          <Buildings className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" weight="duotone" />
                         </div>
-                        <h3 className="font-display font-black text-xl text-white uppercase tracking-tight premium-heading-sm">
+                        <h3 className="font-display font-black text-base sm:text-lg md:text-xl text-white uppercase tracking-tight premium-heading-sm">
                           Other
                         </h3>
                       </div>
-                      <p className="text-sm text-white/80 leading-relaxed premium-text">Have a different project? Select this option and tell us about it.</p>
+                      <p className="text-xs sm:text-sm text-white/80 leading-relaxed premium-text">Have a different project? Select this option and tell us about it.</p>
                     </button>
                   </div>
                 </CardContent>
@@ -254,20 +254,20 @@ Budget: ${formData.budget}`;
             )}
 
             {step === "details" && (
-              <Card className="card-premium rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
+              <Card className="card-premium rounded-xl sm:rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                  <CardTitle className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                     Project Details
                   </CardTitle>
-                  <CardDescription className="text-lg text-white/90 premium-text">
+                  <CardDescription className="text-sm sm:text-base md:text-lg text-white/90 premium-text">
                     {selectedService === "other" 
                       ? "Tell us more about your project"
                       : `Tell us more about your ${getServiceById(selectedService)?.title.toLowerCase()} project`}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleDetailsSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <form onSubmit={handleDetailsSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                       <div>
                         <label htmlFor="name" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
                           Name *
@@ -404,20 +404,20 @@ Budget: ${formData.budget}`;
             )}
 
             {step === "summary" && (
-              <Card className="card-premium rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
+              <Card className="card-premium rounded-xl sm:rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                  <CardTitle className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                     Thank You!
                   </CardTitle>
-                  <CardDescription className="text-lg text-white/90 premium-text">
+                  <CardDescription className="text-sm sm:text-base md:text-lg text-white/90 premium-text">
                     Your quote request has been received
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="p-6 bg-gold/10 border-l-4 border-gold rounded-2xl">
-                    <p className="text-white/90 leading-relaxed text-lg premium-text">{summary}</p>
+                <CardContent className="space-y-4 sm:space-y-5 md:space-y-6">
+                  <div className="p-4 sm:p-5 md:p-6 bg-gold/10 border-l-4 border-gold rounded-xl sm:rounded-2xl">
+                    <p className="text-white/90 leading-relaxed text-sm sm:text-base md:text-lg premium-text">{summary}</p>
                   </div>
-                  <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <Button asChild className="btn-premium btn-glow">
                       <a href="/">Return Home</a>
                     </Button>
@@ -448,14 +448,14 @@ Budget: ${formData.budget}`;
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
-            <Card className="card-premium rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
+          <div className="space-y-4 sm:space-y-5 md:space-y-6">
+            <Card className="card-premium rounded-xl sm:rounded-2xl border-gold/30 bg-black/60 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Why Choose Us?
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3 sm:space-y-4">
                 <div className="flex items-start space-x-3">
                   <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
                   <div>
