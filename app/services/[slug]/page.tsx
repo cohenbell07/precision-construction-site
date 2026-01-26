@@ -47,7 +47,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         }}></div>
       </div>
       {/* Hero Banner */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] min-h-[300px] sm:min-h-[400px] md:min-h-[500px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/service-header-workers.png"
@@ -61,12 +61,12 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
           <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/70 to-black/90"></div>
         </div>
         
-        <div className="relative z-10 container mx-auto px-4 text-center max-w-6xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 text-center max-w-6xl">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading px-2">
             {service.title}
           </h1>
-          <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-          <p className="text-xl md:text-2xl text-white mt-6 max-w-3xl mx-auto premium-text">
+          <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white mt-4 sm:mt-5 md:mt-6 max-w-3xl mx-auto premium-text px-2">
             Premium {service.title.toLowerCase()} services in Calgary. Family-owned since 1968, serving Calgary since 1997.
           </p>
         </div>
@@ -74,14 +74,14 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* Service Statistics */}
       {service.stats && service.stats.length > 0 && (
-        <section className="py-16 bg-[#1F1F1F] relative premium-bg-pattern">
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <section className="py-12 sm:py-14 md:py-16 bg-[#1F1F1F] relative premium-bg-pattern">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {service.stats.map((stat, idx) => (
                 <Card key={idx} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
-                  <CardContent className="pt-6">
-                    <p className="text-4xl md:text-5xl font-display font-black premium-gold-text mb-2">{stat.value}</p>
-                    <p className="text-white font-black uppercase tracking-wide premium-heading-sm">{stat.label}</p>
+                  <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
+                    <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-gold-text mb-1 sm:mb-2">{stat.value}</p>
+                    <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">{stat.label}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -91,28 +91,28 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       )}
 
       {/* Overview Section */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-6xl relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-6 uppercase tracking-tight premium-heading">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-4 sm:mb-5 md:mb-6 uppercase tracking-tight premium-heading">
                 What We Do
               </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
-              <p className="text-lg md:text-xl text-white leading-relaxed premium-text mb-6">
+              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold to-transparent mb-4 sm:mb-5 md:mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white leading-relaxed premium-text mb-4 sm:mb-5 md:mb-6">
                 {service.description}
               </p>
-              <p className="text-base text-white/80 leading-relaxed premium-text">
+              <p className="text-xs sm:text-sm md:text-base text-white/80 leading-relaxed premium-text">
                 At {BRAND_CONFIG.shortName}, we bring over {new Date().getFullYear() - BRAND_CONFIG.established} years of construction expertise to every {service.title.toLowerCase()} project. As a 3rd generation, family-owned company, we treat every client like family and deliver only the best in quality, service, and satisfaction.
               </p>
             </div>
-            <div className="relative h-96 rounded-xl overflow-hidden border border-gold/30 shadow-2xl">
+            <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border border-gold/30 shadow-2xl">
               <Image
                 src={imagePath}
                 alt={service.id === "flooring" ? "Premium flooring installation" : `${service.title} project example`}
@@ -129,21 +129,21 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* Service-Specific Benefits */}
       {service.benefits && service.benefits.length > 0 && (
-        <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+        <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
               backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
               backgroundSize: '100px 100px'
             }}></div>
           </div>
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Why Choose Us for {service.title}
               </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {service.benefits.map((benefit, idx) => (
                 <Card key={idx} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
                   <CardContent className="pt-6">
@@ -165,16 +165,16 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* Our Process */}
       {service.process && service.process.length > 0 && (
-        <section className="py-20 bg-black relative premium-bg-pattern">
+        <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
               backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
               backgroundSize: '100px 100px'
             }}></div>
           </div>
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Our Process
               </h2>
               <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
@@ -209,16 +209,16 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* Materials & Options */}
       {service.materials && service.materials.length > 0 && (
-        <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+        <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
               backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
               backgroundSize: '100px 100px'
             }}></div>
           </div>
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Materials & Options
               </h2>
               <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
@@ -241,21 +241,21 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* Detailed Services List */}
       {service.details && service.details.length > 0 && (
-        <section className="py-20 bg-black relative premium-bg-pattern">
+        <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
               backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
               backgroundSize: '100px 100px'
             }}></div>
           </div>
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Our {service.title} Services
               </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {service.details.map((detail, idx) => (
                 <div key={idx} className="flex items-start space-x-4 p-6 bg-black/50 border border-gold/20 rounded-xl backdrop-blur-sm hover:border-gold/40 transition-all">
                   <CheckCircle className="h-6 w-6 text-gold mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
@@ -269,7 +269,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* FAQs */}
       {service.faqs && service.faqs.length > 0 && (
-        <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+        <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
               backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
@@ -317,16 +317,16 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* Related Services */}
       {relatedServices.length > 0 && (
-        <section className="py-20 bg-black relative premium-bg-pattern">
+        <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
               backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
               backgroundSize: '100px 100px'
             }}></div>
           </div>
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Related Services
               </h2>
               <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
@@ -374,7 +374,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       )}
 
       {/* CTA Block */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
@@ -382,24 +382,24 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
           }}></div>
         </div>
         <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
-          <Card className="card-premium border-gold/30 p-12 bg-black/60 backdrop-blur-sm">
+          <Card className="card-premium border-gold/30 p-6 sm:p-8 md:p-10 lg:p-12 bg-black/60 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+              <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Ready to Get Started?
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <p className="text-lg text-white/90 leading-relaxed premium-text">
+            <CardContent className="space-y-4 sm:space-y-5 md:space-y-6">
+              <p className="text-sm sm:text-base md:text-lg text-white/90 leading-relaxed premium-text px-2">
                 Contact us today for a free consultation and quote on your {service.title.toLowerCase()} project. We treat every client like family and deliver only the best.
               </p>
-              <p className="text-base premium-gold-text font-bold uppercase tracking-wide">
+              <p className="text-xs sm:text-sm md:text-base premium-gold-text font-bold uppercase tracking-wide px-2">
                 {BRAND_CONFIG.motto}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="btn-premium px-8 py-6 text-lg uppercase tracking-wider">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                <Button asChild size="lg" className="btn-premium px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
                   <Link href="/get-quote">Get a Quote</Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm">
+                <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg w-full sm:w-auto">
                   <Link href="/contact">Contact Us</Link>
                 </Button>
               </div>

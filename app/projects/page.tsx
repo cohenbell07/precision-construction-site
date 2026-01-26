@@ -99,25 +99,25 @@ export default function ProjectsPage() {
           backgroundSize: '100px 100px'
         }}></div>
       </div>
-      <div className="container mx-auto px-4 py-20 max-w-7xl relative z-10">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 max-w-7xl relative z-10">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading px-2">
             Project Gallery
           </h1>
-          <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-          <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed premium-text">
+          <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-3 sm:mb-4 md:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white max-w-2xl mx-auto leading-relaxed premium-text px-2">
             Explore our portfolio of completed projects showcasing our quality craftsmanship and
             attention to detail.
           </p>
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-3 justify-center mb-16">
+        <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8 sm:mb-12 md:mb-16">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-3 rounded-xl transition-all font-black uppercase tracking-wide text-sm border-2 ${
+              className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl transition-all font-black uppercase tracking-wide text-xs sm:text-sm border-2 ${
                 selectedCategory === category
                   ? "bg-gold text-black shadow-[0_0_20px_rgba(212,175,55,0.5)] border-gold btn-glow"
                   : "bg-black/50 text-white border-gold/30 hover:bg-black/70 hover:border-gold/60 backdrop-blur-sm"
@@ -129,7 +129,7 @@ export default function ProjectsPage() {
         </div>
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
@@ -137,7 +137,7 @@ export default function ProjectsPage() {
               onClick={() => setSelectedProject(project)}
             >
               <Card className="card-premium border-gold/30 overflow-hidden p-0 h-full bg-black/60 backdrop-blur-sm">
-                <div className="relative h-72 overflow-hidden">
+                <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -156,8 +156,8 @@ export default function ProjectsPage() {
                   {/* Premium shimmer overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-display font-black text-white uppercase tracking-tight group-hover:text-gold transition-colors premium-heading-sm">
+                <CardContent className="p-4 sm:p-5 md:p-6">
+                  <h3 className="text-base sm:text-lg md:text-xl font-display font-black text-white uppercase tracking-tight group-hover:text-gold transition-colors premium-heading-sm">
                     {project.title}
                   </h3>
                 </CardContent>
@@ -168,10 +168,10 @@ export default function ProjectsPage() {
 
         {/* Lightbox Dialog */}
         <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto bg-black/95 border-gold/30 rounded-2xl backdrop-blur-sm">
+          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto bg-black/95 border-gold/30 rounded-xl sm:rounded-2xl backdrop-blur-sm p-4 sm:p-6">
             {selectedProject && (
               <>
-                <div className="relative h-[500px] w-full rounded-2xl overflow-hidden mb-6 shadow-2xl border border-gold/20">
+                <div className="relative h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] w-full rounded-xl sm:rounded-2xl overflow-hidden mb-4 sm:mb-5 md:mb-6 shadow-2xl border border-gold/20">
                   <Image
                     src={selectedProject.image}
                     alt={selectedProject.title}
@@ -179,13 +179,13 @@ export default function ProjectsPage() {
                     className="object-cover"
                   />
                 </div>
-                <h2 className="text-4xl md:text-5xl font-display font-black mb-3 text-white uppercase tracking-tight premium-heading">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black mb-2 sm:mb-3 text-white uppercase tracking-tight premium-heading">
                   {selectedProject.title}
                 </h2>
-                <p className="premium-gold-text font-black mb-6 text-lg uppercase tracking-wide">
+                <p className="premium-gold-text font-black mb-4 sm:mb-5 md:mb-6 text-sm sm:text-base md:text-lg uppercase tracking-wide">
                   {selectedProject.category}
                 </p>
-                <p className="text-white/90 leading-relaxed text-lg premium-text">
+                <p className="text-white/90 leading-relaxed text-sm sm:text-base md:text-lg premium-text">
                   {selectedProject.description}
                 </p>
               </>

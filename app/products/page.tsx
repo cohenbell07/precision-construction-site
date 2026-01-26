@@ -736,14 +736,14 @@ export default function ProductsPage() {
 
                       {/* Product Types List */}
                       <div className="mb-6 sm:mb-8 md:mb-10">
-                        <h3 className="text-base sm:text-lg font-black text-white mb-4 sm:mb-6 uppercase tracking-wide premium-heading-sm">
+                        <h3 className="text-base sm:text-lg font-black text-white mb-3 sm:mb-4 md:mb-6 uppercase tracking-wide premium-heading-sm">
                           Available Products:
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
                           {(expandedCategories[category.title] ? category.productTypes : category.productTypes.slice(0, 9)).map((type, idx) => (
-                            <div key={idx} className="flex items-start space-x-3">
-                              <span className="text-gold mt-1.5 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
-                              <span className="text-white/90 premium-text text-sm md:text-base leading-relaxed">{type}</span>
+                            <div key={idx} className="flex items-start space-x-2 sm:space-x-3">
+                              <span className="text-gold mt-1.5 flex-shrink-0 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                              <span className="text-white/90 premium-text text-xs sm:text-sm md:text-base leading-relaxed">{type}</span>
                             </div>
                           ))}
                         </div>
@@ -758,16 +758,16 @@ export default function ProductsPage() {
                       </div>
 
                       {/* CTA */}
-                      <div className="flex items-center gap-6 pt-6 border-t border-gold/20">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-5 md:pt-6 border-t border-gold/20">
                         <Button
                           asChild
-                          className="btn-premium uppercase tracking-wider"
+                          className="btn-premium uppercase tracking-wider text-xs sm:text-sm md:text-base px-4 py-2.5 sm:px-6 sm:py-3 w-full sm:w-auto"
                         >
                           <Link href={`/get-quote?product=${encodeURIComponent(category.title)}`}>
                             Get a Quote
                           </Link>
                         </Button>
-                        <div className="h-px flex-1 bg-gradient-to-r from-gold/40 via-gold/60 to-transparent"></div>
+                        <div className="h-px sm:h-px flex-1 bg-gradient-to-r from-gold/40 via-gold/60 to-transparent hidden sm:block"></div>
                       </div>
                     </div>
 

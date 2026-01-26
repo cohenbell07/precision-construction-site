@@ -142,20 +142,20 @@ export default function InstantEstimatePage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-20 max-w-4xl bg-industrial-black min-h-screen texture-concrete">
+    <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 max-w-4xl bg-industrial-black min-h-screen texture-concrete">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-16"
+        className="text-center mb-8 sm:mb-12 md:mb-16"
       >
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-sm bg-gold mb-6 glow-gold border-2 border-gold">
-          <Calculator className="h-10 w-10 text-white" />
+        <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-sm bg-gold mb-4 sm:mb-5 md:mb-6 glow-gold border-2 border-gold">
+          <Calculator className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
         </div>
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black mb-6 text-text-primary uppercase tracking-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-4 sm:mb-5 md:mb-6 text-text-primary uppercase tracking-tight px-2">
           Instant Estimate
         </h1>
-        <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed px-2">
           Get a preliminary cost estimate for your project in seconds
         </p>
       </motion.div>
@@ -163,15 +163,15 @@ export default function InstantEstimatePage() {
       {step === "form" && (
         <Card className="card-premium border-orange/30">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-text-primary uppercase">
+            <CardTitle className="text-xl sm:text-2xl font-bold text-text-primary uppercase">
               Project Details
             </CardTitle>
-            <CardDescription className="text-text-secondary">
+            <CardDescription className="text-sm sm:text-base text-text-secondary">
               Fill in the form below to get an instant estimate
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleEstimate} className="space-y-6">
+            <form onSubmit={handleEstimate} className="space-y-4 sm:space-y-5 md:space-y-6">
               <div>
                 <label className="block text-sm font-semibold text-text-primary mb-2 uppercase">
                   Project Type *
@@ -238,7 +238,7 @@ export default function InstantEstimatePage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full btn-premium font-black uppercase tracking-wider py-6"
+                className="w-full btn-premium font-black uppercase tracking-wider py-4 sm:py-5 md:py-6 text-sm sm:text-base"
               >
                 {loading ? (
                   <>
@@ -265,27 +265,27 @@ export default function InstantEstimatePage() {
         >
           <Card className="card-premium border-gold/40">
             <CardHeader>
-              <CardTitle className="text-2xl font-bold text-text-primary uppercase">
+              <CardTitle className="text-xl sm:text-2xl font-bold text-text-primary uppercase">
                 Your Estimate
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 card-premium border-gold/30">
-                  <p className="text-sm text-text-secondary mb-2 uppercase tracking-wide">Cost Range</p>
-                  <p className="text-3xl font-black text-gold">{estimate.costRange}</p>
+            <CardContent className="space-y-4 sm:space-y-5 md:space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+                <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+                  <p className="text-xs sm:text-sm text-text-secondary mb-1 sm:mb-2 uppercase tracking-wide">Cost Range</p>
+                  <p className="text-2xl sm:text-3xl font-black text-gold">{estimate.costRange}</p>
                 </div>
-                <div className="p-6 card-premium border-gold/30">
-                  <p className="text-sm text-text-secondary mb-2 uppercase tracking-wide">Timeline</p>
-                  <p className="text-3xl font-black text-gold">{estimate.timeline}</p>
+                <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+                  <p className="text-xs sm:text-sm text-text-secondary mb-1 sm:mb-2 uppercase tracking-wide">Timeline</p>
+                  <p className="text-2xl sm:text-3xl font-black text-gold">{estimate.timeline}</p>
                 </div>
               </div>
 
-              <div className="p-6 card-premium border-gold/30">
-                <p className="text-sm font-semibold text-text-primary mb-3 uppercase tracking-wide">
+              <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+                <p className="text-xs sm:text-sm font-semibold text-text-primary mb-2 sm:mb-3 uppercase tracking-wide">
                   Breakdown
                 </p>
-                <p className="text-text-secondary leading-relaxed">{estimate.breakdown}</p>
+                <p className="text-sm sm:text-base text-text-secondary leading-relaxed">{estimate.breakdown}</p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -318,14 +318,14 @@ export default function InstantEstimatePage() {
         >
           <Card className="card-premium border-gold/30">
             <CardHeader>
-              <CardTitle className="text-2xl font-bold text-text-primary uppercase">
+              <CardTitle className="text-xl sm:text-2xl font-bold text-text-primary uppercase">
                 Get Your Full Estimate
               </CardTitle>
-              <CardDescription className="text-text-secondary">
+              <CardDescription className="text-sm sm:text-base text-text-secondary">
                 Enter your contact information to receive a detailed PDF estimate
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-3 sm:space-y-4">
               <Input
                 placeholder="Your name"
                 value={contactInfo.name}

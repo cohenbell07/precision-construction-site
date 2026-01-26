@@ -201,26 +201,27 @@ export default function Home() {
               return (
                 <Link key={service.id} href={`/services/${service.id}`}>
                   <Card className="card-premium h-full overflow-hidden group cursor-pointer transition-all duration-300 border-gold/30 bg-black/50 backdrop-blur-sm">
-                    <div className="relative h-64 w-full overflow-hidden">
+                    <div className="relative h-48 sm:h-56 md:h-64 w-full overflow-hidden">
                       <Image
                         src={imagePath}
                         alt={service.title}
                         fill
                         className="object-cover"
                         loading="lazy"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
                     </div>
-                    <CardHeader className="pb-4">
-                      <CardTitle className="text-2xl font-display font-black text-white mb-2 uppercase tracking-tight premium-heading-sm">
+                    <CardHeader className="pb-3 sm:pb-4 px-4 sm:px-6">
+                      <CardTitle className="text-xl sm:text-2xl font-display font-black text-white mb-2 uppercase tracking-tight premium-heading-sm">
                         {service.title}
                       </CardTitle>
-                      <CardDescription className="text-white/90 leading-relaxed premium-text">
+                      <CardDescription className="text-white/90 leading-relaxed premium-text text-sm sm:text-base">
                         {service.description}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
-                      <span className="premium-gold-text font-bold uppercase tracking-wide text-sm group-hover:underline inline-flex items-center gap-2">
+                    <CardContent className="px-4 sm:px-6">
+                      <span className="premium-gold-text font-bold uppercase tracking-wide text-xs sm:text-sm group-hover:underline inline-flex items-center gap-2">
                         Learn More <span className="transition-all duration-300">→</span>
                       </span>
                     </CardContent>

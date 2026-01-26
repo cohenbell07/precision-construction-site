@@ -131,7 +131,7 @@ export default function AboutPage() {
       </div>
       {/* Hero Section with video */}
       <section className="relative w-full bg-black overflow-hidden">
-        <div className="relative w-full" style={{ aspectRatio: "16/9", maxHeight: "600px", minHeight: "400px" }}>
+        <div className="relative w-full" style={{ aspectRatio: "16/9", maxHeight: "600px", minHeight: "300px" }}>
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
@@ -144,15 +144,15 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
           
           <div className="absolute inset-0 flex items-center justify-center z-10">
-            <div className="container mx-auto px-4 max-w-7xl text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+            <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading px-2">
                 About {BRAND_CONFIG.shortName}
               </h1>
-              <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-              <p className="text-2xl md:text-3xl premium-gold-text font-bold mb-4 uppercase tracking-wide">
+              <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-3 sm:mb-4 md:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl premium-gold-text font-bold mb-2 sm:mb-3 md:mb-4 uppercase tracking-wide px-2">
                 {BRAND_CONFIG.motto}
               </p>
-              <p className="text-lg md:text-xl text-white max-w-3xl mx-auto leading-relaxed premium-text">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white max-w-3xl mx-auto leading-relaxed premium-text px-2">
                 {BRAND_CONFIG.description}
               </p>
             </div>
@@ -161,47 +161,47 @@ export default function AboutPage() {
       </section>
 
       {/* Company Statistics/Metrics Section */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Our Track Record
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
             <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
-              <CardContent className="pt-6">
-                <p className="text-4xl md:text-5xl font-display font-black premium-gold-text mb-2">{totalYears}+</p>
-                <p className="text-white font-black uppercase tracking-wide premium-heading-sm">Years in Business</p>
-                <p className="text-white/70 text-sm mt-2">Since {BRAND_CONFIG.established}</p>
+              <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
+                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-gold-text mb-1 sm:mb-2">{totalYears}+</p>
+                <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">Years in Business</p>
+                <p className="text-white/70 text-xs sm:text-sm mt-1 sm:mt-2">Since {BRAND_CONFIG.established}</p>
               </CardContent>
             </Card>
             <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
-              <CardContent className="pt-6">
-                <p className="text-4xl md:text-5xl font-display font-black premium-gold-text mb-2">2,400+</p>
-                <p className="text-white font-black uppercase tracking-wide premium-heading-sm">Projects Completed</p>
-                <p className="text-white/70 text-sm mt-2">Residential & Commercial</p>
+              <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
+                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-gold-text mb-1 sm:mb-2">2,400+</p>
+                <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">Projects Completed</p>
+                <p className="text-white/70 text-xs sm:text-sm mt-1 sm:mt-2">Residential & Commercial</p>
               </CardContent>
             </Card>
             <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
-              <CardContent className="pt-6">
-                <p className="text-4xl md:text-5xl font-display font-black premium-gold-text mb-2">{yearsInCalgary}+</p>
-                <p className="text-white font-black uppercase tracking-wide premium-heading-sm">Years in Calgary</p>
-                <p className="text-white/70 text-sm mt-2">Serving since {BRAND_CONFIG.servingSince}</p>
+              <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
+                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-gold-text mb-1 sm:mb-2">{yearsInCalgary}+</p>
+                <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">Years in Calgary</p>
+                <p className="text-white/70 text-xs sm:text-sm mt-1 sm:mt-2">Serving since {BRAND_CONFIG.servingSince}</p>
               </CardContent>
             </Card>
             <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
-              <CardContent className="pt-6">
-                <p className="text-4xl md:text-5xl font-display font-black premium-gold-text mb-2">3rd</p>
-                <p className="text-white font-black uppercase tracking-wide premium-heading-sm">Generation</p>
-                <p className="text-white/70 text-sm mt-2">Family-Owned Business</p>
+              <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
+                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-gold-text mb-1 sm:mb-2">3rd</p>
+                <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">Generation</p>
+                <p className="text-white/70 text-xs sm:text-sm mt-1 sm:mt-2">Family-Owned Business</p>
               </CardContent>
             </Card>
           </div>
@@ -212,33 +212,33 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Company History Timeline */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Our Journey
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
           </div>
 
-          <Card className="card-premium border-gold/30 p-8 md:p-12 bg-black/60 backdrop-blur-sm">
+          <Card className="card-premium border-gold/30 p-4 sm:p-6 md:p-8 lg:p-12 bg-black/60 backdrop-blur-sm">
             <div className="relative">
               {/* Timeline Line */}
               <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-gold/30 via-gold to-gold/30 hidden md:block shadow-[0_0_20px_rgba(212,175,55,0.4)]"></div>
               
               {/* Timeline Points */}
-              <div className="space-y-12 md:space-y-16">
+              <div className="space-y-8 sm:space-y-10 md:space-y-12 lg:space-y-16">
                 <div className="relative flex flex-col md:flex-row items-center">
                   <div className="w-full md:w-1/2 md:pr-8 text-center md:text-right mb-4 md:mb-0">
-                    <p className="text-4xl font-display font-black premium-gold-text mb-2">{BRAND_CONFIG.established}</p>
-                    <p className="text-white font-black uppercase tracking-wide premium-heading-sm">Family Construction Begins</p>
-                    <p className="text-white/70 text-sm mt-1">3rd generation family business established</p>
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black premium-gold-text mb-1 sm:mb-2">{BRAND_CONFIG.established}</p>
+                    <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-sm sm:text-base md:text-lg">Family Construction Begins</p>
+                    <p className="text-white/70 text-xs sm:text-sm mt-1">3rd generation family business established</p>
                   </div>
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold rounded-full border-4 border-black shadow-[0_0_20px_rgba(212,175,55,0.6)] hidden md:block"></div>
                   <div className="w-full md:w-1/2 md:pl-8"></div>
@@ -248,17 +248,17 @@ export default function AboutPage() {
                   <div className="w-full md:w-1/2 md:pr-8"></div>
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold rounded-full border-4 border-black shadow-[0_0_20px_rgba(212,175,55,0.6)] hidden md:block"></div>
                   <div className="w-full md:w-1/2 md:pl-8 text-center md:text-left mb-4 md:mb-0">
-                    <p className="text-4xl font-display font-black premium-gold-text mb-2">{BRAND_CONFIG.servingSince}</p>
-                    <p className="text-white font-black uppercase tracking-wide premium-heading-sm">Calgary Operations Established</p>
-                    <p className="text-white/70 text-sm mt-1">Expanding to Calgary market</p>
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black premium-gold-text mb-1 sm:mb-2">{BRAND_CONFIG.servingSince}</p>
+                    <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-sm sm:text-base md:text-lg">Calgary Operations Established</p>
+                    <p className="text-white/70 text-xs sm:text-sm mt-1">Expanding to Calgary market</p>
                   </div>
                 </div>
                 
                 <div className="relative flex flex-col md:flex-row items-center">
                   <div className="w-full md:w-1/2 md:pr-8 text-center md:text-right mb-4 md:mb-0">
-                    <p className="text-4xl font-display font-black premium-gold-text mb-2">Today</p>
-                    <p className="text-white font-black uppercase tracking-wide premium-heading-sm">Premium Commercial & Residential Service</p>
-                    <p className="text-white/70 text-sm mt-1">Continuing excellence in Calgary</p>
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black premium-gold-text mb-1 sm:mb-2">Today</p>
+                    <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-sm sm:text-base md:text-lg">Premium Commercial & Residential Service</p>
+                    <p className="text-white/70 text-xs sm:text-sm mt-1">Continuing excellence in Calgary</p>
                   </div>
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold rounded-full border-4 border-black shadow-[0_0_30px_rgba(212,175,55,0.8)] glow-gold hidden md:block"></div>
                   <div className="w-full md:w-1/2 md:pl-8"></div>
@@ -273,21 +273,21 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Owner/Leadership Section */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Meet Our Leadership
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
             <div>
               <Card className="card-premium border-gold/30 p-8 bg-black/60 backdrop-blur-sm">
                 <CardHeader>
@@ -316,7 +316,7 @@ export default function AboutPage() {
                 </CardContent>
               </Card>
             </div>
-            <div className="relative h-96 rounded-xl overflow-hidden border border-gold/30 shadow-2xl">
+            <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border border-gold/30 shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-black/50 to-black flex items-center justify-center">
                 <div className="text-center">
                   <PhosphorUsers className="h-24 w-24 text-gold mx-auto mb-4 drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]" weight="duotone" />
@@ -333,20 +333,20 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Pull Quote Section */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-4xl relative z-10">
-          <Card className="card-premium border-gold/30 p-12 bg-black/60 backdrop-blur-sm">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
+          <Card className="card-premium border-gold/30 p-6 sm:p-8 md:p-10 lg:p-12 bg-black/60 backdrop-blur-sm">
             <div className="text-center">
-              <p className="text-2xl md:text-3xl font-display font-black premium-gold-text mb-6 italic leading-relaxed">
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-display font-black premium-gold-text mb-4 sm:mb-5 md:mb-6 italic leading-relaxed px-2">
                 &quot;We treat every client like family — and every build like our own.&quot;
               </p>
-              <p className="text-lg text-white/80 premium-text">
+              <p className="text-sm sm:text-base md:text-lg text-white/80 premium-text px-2">
                 — {BRAND_CONFIG.owner}, Owner
               </p>
             </div>
@@ -358,24 +358,24 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Our Process/Workflow Section */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               How We Work
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Our proven process ensures your project runs smoothly from start to finish
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {[
               {
                 step: "01",
@@ -424,21 +424,21 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Company Values/Mission Section */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Our Values & Mission
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-8 sm:mb-10 md:mb-12">
             <Card className="card-premium border-gold/30 p-8 bg-black/60 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-2xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading-sm">
@@ -499,20 +499,20 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Certifications & Insurance Section */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Licensed, Insured & Certified
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Your peace of mind is our priority. We maintain all necessary licenses, insurance, and certifications.
             </p>
           </div>
@@ -570,20 +570,20 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Quality Standards Section */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Our Quality Standards
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               We don&apos;t cut corners. Every project meets our exacting standards for materials, craftsmanship, and finish.
             </p>
           </div>
@@ -648,16 +648,16 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Why Clients Trust Us */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Why Clients Trust Us
             </h2>
             <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
@@ -715,20 +715,20 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Expanded Testimonials Section */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               What Our Clients Say
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Real feedback from families and businesses we&apos;ve had the honor of serving across Calgary
             </p>
           </div>
@@ -760,20 +760,20 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Calgary Community Focus Section */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Built for Calgary
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               As a Calgary-based family business, we&apos;re deeply invested in our community and committed to building relationships that last.
             </p>
           </div>
@@ -831,20 +831,20 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* Service Area Details Section */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Service Areas
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               We proudly serve Calgary and surrounding areas with the same quality and care
             </p>
           </div>
@@ -877,28 +877,28 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
 
       {/* CTA Section */}
-      <section className="py-24 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#1F1F1F] relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
-          <div className="card-premium border-gold/30 p-12 md:p-16 bg-black/60 backdrop-blur-sm">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center relative z-10">
+          <div className="card-premium border-gold/30 p-6 sm:p-8 md:p-12 lg:p-16 bg-black/60 backdrop-blur-sm">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 sm:mb-5 md:mb-6 text-white uppercase tracking-tight premium-heading px-2">
               Let&apos;s Build Something Together
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-5 md:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-6 sm:mb-7 md:mb-8 max-w-2xl mx-auto leading-relaxed premium-text px-2">
               Experience the difference of working with a family-owned company that treats you like 
               family. Get a free consultation and see why Calgary trusts {BRAND_CONFIG.shortName}.
             </p>
-            <div className="flex flex-col sm:flex-row gap-5 justify-center mb-6">
-              <Button asChild size="lg" className="btn-premium text-lg px-8 py-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 justify-center mb-4 sm:mb-5 md:mb-6">
+              <Button asChild size="lg" className="btn-premium text-sm sm:text-base md:text-lg px-6 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
                 <Link href="/get-quote">Request a Quote</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm text-lg px-8 py-6">
+              <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm text-sm sm:text-base md:text-lg px-6 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
                 <Link href="/contact">Contact Us</Link>
               </Button>
             </div>

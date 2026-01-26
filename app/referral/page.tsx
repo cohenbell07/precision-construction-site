@@ -94,20 +94,20 @@ export default function ReferralPage() {
 
   if (submitted) {
     return (
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <Card className="max-w-2xl mx-auto">
-          <CardHeader className="text-center">
-            <Users className="h-16 w-16 mx-auto mb-4 text-accent-copper" />
-            <CardTitle className="text-3xl">Thank You!</CardTitle>
-            <CardDescription className="text-lg">
+          <CardHeader className="text-center px-4 sm:px-6 pt-6 sm:pt-8">
+            <Users className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 mx-auto mb-3 sm:mb-4 text-accent-copper" />
+            <CardTitle className="text-2xl sm:text-3xl">Thank You!</CardTitle>
+            <CardDescription className="text-sm sm:text-base md:text-lg">
               Your referral has been sent successfully.
             </CardDescription>
           </CardHeader>
-          <CardContent className="text-center space-y-4">
-            <p>
+          <CardContent className="text-center space-y-4 px-4 sm:px-6 pb-6 sm:pb-8">
+            <p className="text-sm sm:text-base">
               We&apos;ve sent your friend information about our services. We appreciate your referral!
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button
                 onClick={() => {
                   setSubmitted(false);
@@ -120,10 +120,11 @@ export default function ReferralPage() {
                   });
                 }}
                 variant="outline"
+                className="w-full sm:w-auto text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-3"
               >
                 Refer Another Friend
               </Button>
-              <Button asChild className="btn-premium bg-accent-copper text-white">
+              <Button asChild className="btn-premium bg-accent-copper text-white w-full sm:w-auto text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-3">
                 <a href="/">Back to Home</a>
               </Button>
             </div>
@@ -134,27 +135,27 @@ export default function ReferralPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">Refer a Friend</h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+    <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div className="text-center mb-8 sm:mb-10 md:mb-12">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-2">Refer a Friend</h1>
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
           Know someone who needs construction services? Refer them to us and help them get the
           quality work they deserve.
         </p>
       </div>
 
       <Card className="max-w-2xl mx-auto">
-        <CardHeader>
-          <CardTitle>Referral Form</CardTitle>
-          <CardDescription>
+        <CardHeader className="px-4 sm:px-6 pt-6 sm:pt-8">
+          <CardTitle className="text-xl sm:text-2xl">Referral Form</CardTitle>
+          <CardDescription className="text-sm sm:text-base">
             Fill out the form below to refer a friend to {BRAND_CONFIG.shortName}.
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <CardContent className="px-4 sm:px-6 pb-6 sm:pb-8">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
             <div>
-              <h3 className="font-semibold mb-4 text-lg">Your Information</h3>
-              <div className="space-y-4">
+              <h3 className="font-semibold mb-3 sm:mb-4 text-base sm:text-lg">Your Information</h3>
+              <div className="space-y-3 sm:space-y-4">
                 <div>
                   <label htmlFor="yourName" className="block text-sm font-medium mb-2">
                     Your Name *
@@ -184,8 +185,8 @@ export default function ReferralPage() {
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4 text-lg">Friend&apos;s Information</h3>
-              <div className="space-y-4">
+              <h3 className="font-semibold mb-3 sm:mb-4 text-base sm:text-lg">Friend&apos;s Information</h3>
+              <div className="space-y-3 sm:space-y-4">
                 <div>
                   <label htmlFor="friendName" className="block text-sm font-medium mb-2">
                     Friend&apos;s Name *
@@ -231,7 +232,7 @@ export default function ReferralPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-gold text-slate-dark hover:bg-gold-light"
+              className="w-full bg-gold text-slate-dark hover:bg-gold-light text-sm sm:text-base px-4 py-2.5 sm:px-6 sm:py-3"
             >
               {loading ? (
                 "Sending..."

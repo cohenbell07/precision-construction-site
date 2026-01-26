@@ -14,36 +14,36 @@ interface BlogPageClientProps {
 
 export function BlogPageClient({ posts }: BlogPageClientProps) {
   return (
-    <div className="container mx-auto px-4 py-20 max-w-7xl bg-industrial-black texture-concrete min-h-screen">
+    <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 max-w-7xl bg-industrial-black texture-concrete min-h-screen">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-16"
+        className="text-center mb-8 sm:mb-12 md:mb-16"
       >
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black mb-6 text-text-primary uppercase tracking-tight">Our Blog</h1>
-        <div className="inline-block mb-6">
-          <div className="h-1 w-24 bg-gold mx-auto mb-4"></div>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-4 sm:mb-5 md:mb-6 text-text-primary uppercase tracking-tight px-2">Our Blog</h1>
+        <div className="inline-block mb-4 sm:mb-5 md:mb-6">
+          <div className="h-1 w-20 sm:w-24 bg-gold mx-auto mb-3 sm:mb-4"></div>
         </div>
-        <p className="text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed px-2">
           Construction tips, project showcases, and industry insights to help you plan your next
           project.
         </p>
       </motion.div>
 
       {posts.length === 0 ? (
-        <div className="text-center py-16">
-          <Card className="card-premium card-beveled border-gold/30 max-w-2xl mx-auto rounded-2xl">
-            <CardContent className="p-12">
-              <p className="text-lg text-text-secondary mb-4">No blog posts yet.</p>
-              <p className="text-text-secondary">
+        <div className="text-center py-12 sm:py-16">
+          <Card className="card-premium card-beveled border-gold/30 max-w-2xl mx-auto rounded-xl sm:rounded-2xl">
+            <CardContent className="p-6 sm:p-8 md:p-10 lg:p-12">
+              <p className="text-base sm:text-lg text-text-secondary mb-3 sm:mb-4">No blog posts yet.</p>
+              <p className="text-sm sm:text-base text-text-secondary">
                 Check back soon for construction tips and project showcases!
               </p>
             </CardContent>
           </Card>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {posts.map((post, index) => (
             <motion.div
               key={post.slug}
@@ -52,34 +52,34 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.4 }}
             >
-              <Card className="card-premium card-beveled border-gold/20 h-full overflow-hidden group cursor-pointer rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+              <Card className="card-premium card-beveled border-gold/20 h-full overflow-hidden group cursor-pointer rounded-xl sm:rounded-2xl hover:scale-[1.02] transition-transform duration-300">
                 {/* Thumbnail Image */}
-                <div className="relative h-48 w-full overflow-hidden">
+                <div className="relative h-40 sm:h-44 md:h-48 w-full overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-industrial-slate to-industrial-black">
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <Tag className="h-16 w-16 text-gold/30" />
+                      <Tag className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 text-gold/30" />
                     </div>
                   </div>
                   <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-300"></div>
                   {/* Category Tag Overlay */}
-                  <div className="absolute bottom-3 left-3">
-                    <span className="bg-industrial-black text-gold px-3 py-1 rounded-xl text-xs font-bold uppercase tracking-wide border border-gold/30 shadow-lg">
+                  <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3">
+                    <span className="bg-industrial-black text-gold px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg sm:rounded-xl text-xs font-bold uppercase tracking-wide border border-gold/30 shadow-lg">
                       {post.category}
                     </span>
                   </div>
                 </div>
                 
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-2xl font-display font-black text-gold mb-3 uppercase tracking-tight group-hover:text-gold-light transition-colors line-clamp-2">
+                <CardHeader className="pb-3 sm:pb-4 px-4 sm:px-6">
+                  <CardTitle className="text-xl sm:text-2xl font-display font-black text-gold mb-2 sm:mb-3 uppercase tracking-tight group-hover:text-gold-light transition-colors line-clamp-2">
                     <Link href={`/blog/${post.slug}`} className="hover:underline">
                       {post.title}
                     </Link>
                   </CardTitle>
-                  <CardDescription className="text-text-secondary leading-relaxed text-base">{post.description}</CardDescription>
+                  <CardDescription className="text-text-secondary leading-relaxed text-sm sm:text-base">{post.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="flex items-center gap-2 text-sm text-text-secondary mb-6">
-                    <Calendar className="h-4 w-4 text-gold" />
+                <CardContent className="pt-0 px-4 sm:px-6 pb-4 sm:pb-6">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-text-secondary mb-4 sm:mb-5 md:mb-6">
+                    <Calendar className="h-3 w-3 sm:h-4 sm:w-4 text-gold" />
                     <time dateTime={post.date}>
                       {new Date(post.date).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -88,7 +88,7 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
                       })}
                     </time>
                   </div>
-                  <Button asChild className="w-full btn-premium btn-glow rounded-2xl">
+                  <Button asChild className="w-full btn-premium btn-glow rounded-xl sm:rounded-2xl text-xs sm:text-sm md:text-base py-2 sm:py-2.5 md:py-3">
                     <Link href={`/blog/${post.slug}`}>Read More</Link>
                   </Button>
                 </CardContent>

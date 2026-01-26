@@ -75,7 +75,7 @@ export default function ContactPage() {
         }}></div>
       </div>
       {/* Hero Section with contact-hero.png */}
-      <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[40vh] sm:h-[45vh] md:h-[50vh] min-h-[300px] sm:min-h-[350px] md:min-h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/contact-hero.png"
@@ -87,28 +87,28 @@ export default function ContactPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading px-2">
               Contact Us
             </h1>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-xl text-white max-w-3xl mx-auto mb-4 leading-relaxed premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-3 sm:mb-4 md:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white max-w-3xl mx-auto mb-3 sm:mb-4 leading-relaxed premium-text px-2">
               Get in touch with us to discuss your project. We treat every client like family.
             </p>
-            <p className="text-lg premium-gold-text font-bold max-w-3xl mx-auto mb-4 uppercase tracking-wide">
+            <p className="text-sm sm:text-base md:text-lg premium-gold-text font-bold max-w-3xl mx-auto mb-3 sm:mb-4 uppercase tracking-wide px-2">
               {BRAND_CONFIG.motto}
             </p>
           </div>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-20 max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 max-w-7xl relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
           {/* Contact Form - Restyled with card shadow + glow focus */}
           <Card className="card-premium border-gold/30 shadow-2xl bg-black/60 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+              <CardTitle className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                 Send us a Message
               </CardTitle>
             </CardHeader>
@@ -196,7 +196,7 @@ export default function ContactPage() {
           <div className="space-y-6">
             <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Contact Information
                 </CardTitle>
               </CardHeader>
@@ -252,7 +252,7 @@ export default function ContactPage() {
             {/* Service Areas - Standard bullet points only */}
             <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Service Areas
                 </CardTitle>
               </CardHeader>
@@ -275,28 +275,28 @@ export default function ContactPage() {
       </div>
 
       {/* Booking Calendar Section */}
-      <section className="py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Schedule a Call
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white max-w-3xl mx-auto leading-relaxed premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto leading-relaxed premium-text px-2">
               Book a consultation call to discuss your project. We&apos;ll find a time that works for you.
             </p>
           </div>
 
           <Card className="card-premium border-gold/30 max-w-5xl mx-auto bg-black/60 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-3xl font-display font-black text-white uppercase tracking-tight flex items-center gap-3 premium-heading-sm">
-                <Calendar className="h-8 w-8 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" />
+              <CardTitle className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tight flex items-center gap-2 sm:gap-3 premium-heading-sm">
+                <Calendar className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" />
                 Select Date & Time
               </CardTitle>
             </CardHeader>
@@ -461,23 +461,23 @@ export default function ContactPage() {
       </section>
 
       {/* Optional CTA Block at Bottom */}
-      <section className="py-20 bg-black relative premium-bg-pattern">
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
             backgroundSize: '100px 100px'
           }}></div>
         </div>
-        <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
-          <Card className="card-premium border-gold/30 p-12 bg-black/60 backdrop-blur-sm">
-            <h2 className="text-3xl md:text-4xl font-display font-black mb-6 text-white uppercase tracking-tight premium-heading">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center relative z-10">
+          <Card className="card-premium border-gold/30 p-6 sm:p-8 md:p-10 lg:p-12 bg-black/60 backdrop-blur-sm">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black mb-4 sm:mb-5 md:mb-6 text-white uppercase tracking-tight premium-heading px-2">
               Ready to Get Started?
             </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-lg text-white/90 mb-8 leading-relaxed premium-text">
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-5 md:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white/90 mb-6 sm:mb-7 md:mb-8 leading-relaxed premium-text px-2">
               Experience the difference of working with a family-owned company. Get a free consultation today.
             </p>
-            <Button asChild size="lg" className="btn-premium px-8 py-6 text-lg uppercase tracking-wider">
+            <Button asChild size="lg" className="btn-premium px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
               <Link href="/get-quote">Get a Quote</Link>
             </Button>
           </Card>

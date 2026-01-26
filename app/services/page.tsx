@@ -273,11 +273,11 @@ export default function ServicesPage() {
                         )}
 
                         {/* CTA */}
-                        <div className="flex items-center gap-4 sm:gap-6 pt-3 sm:pt-4 border-t border-gold/20">
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 md:gap-6 pt-3 sm:pt-4 border-t border-gold/20">
                           <span className="premium-gold-text font-bold uppercase tracking-wider text-xs sm:text-sm md:text-base inline-flex items-center gap-2 sm:gap-3 transition-all duration-300 hover:scale-110 cursor-pointer">
-                            Learn More <span className="text-lg sm:text-xl">→</span>
+                            Learn More <span className="text-base sm:text-lg md:text-xl">→</span>
                           </span>
-                          <div className="h-px flex-1 bg-gradient-to-r from-gold/40 via-gold/60 to-transparent"></div>
+                          <div className="h-px flex-1 bg-gradient-to-r from-gold/40 via-gold/60 to-transparent hidden sm:block"></div>
                         </div>
                       </div>
                     </div>
