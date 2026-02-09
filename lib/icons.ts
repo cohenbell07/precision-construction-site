@@ -11,7 +11,7 @@ import {
   Paintbrush,
   Home,
   Car,
-  Window,
+  AppWindow,
   Building2,
   Bath,
   Wrench,
@@ -44,7 +44,7 @@ export const productIcons: { [key: string]: any } = {
   countertops: RectangleHorizontal,
   cabinets: Boxes,
   "interior-finishing": Hammer,
-  windows: Window, // Much better than Buildings
+  windows: AppWindow,
   exterior: Building2, // Better than Buildings
   bathroom: Bath, // Better than Drop
   hardware: Wrench, // Good as is
