@@ -208,7 +208,7 @@ export default function ServicesPage() {
                           Our Services:
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
-                          {(expandedServices[service.id] ? service.details : service.details?.slice(0, 9) || []).map((detail, idx) => (
+                          {(expandedServices[service.id] ? (service.details ?? []) : (service.details?.slice(0, 9) ?? [])).map((detail, idx) => (
                             <div key={idx} className="flex items-start space-x-2 sm:space-x-3">
                               <span className="text-silver mt-1.5 flex-shrink-0 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                               <span className="text-white/90 premium-text text-xs sm:text-sm md:text-base leading-relaxed">{detail}</span>

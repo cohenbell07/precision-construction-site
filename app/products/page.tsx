@@ -431,7 +431,9 @@ export default function ProductsPage() {
     };
 
     useEffect(() => {
-      const interval = setInterval(nextSlide, 5000);
+      const interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % images.length);
+      }, 5000);
       return () => clearInterval(interval);
     }, [images.length]);
 
