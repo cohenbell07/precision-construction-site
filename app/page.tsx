@@ -368,7 +368,7 @@ export default function Home() {
                 <CardDescription className="text-white/90 premium-text mb-4">
                   Bundle materials and installation for package pricing that can save thousands.
                 </CardDescription>
-                <p className="text-sm text-white/70 mb-4">From $X (ask for today&apos;s rate)</p>
+                <p className="text-sm font-bold text-silver mb-4">15% off when you bundle supply + install</p>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-start space-x-2">
                     <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
@@ -376,19 +376,19 @@ export default function Home() {
                   </li>
                   <li className="flex items-start space-x-2">
                     <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">Cabinets + countertops</span>
+                    <span className="text-white/90 premium-text text-sm">Cabinets + countertops + install</span>
                   </li>
                   <li className="flex items-start space-x-2">
                     <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">Bathroom packages</span>
+                    <span className="text-white/90 premium-text text-sm">Full Bathroom renovation</span>
                   </li>
                 </ul>
                 <Button
                   asChild
                   className="w-full btn-premium uppercase tracking-wider"
                 >
-                  <Link href={`/get-quote?product=${encodeURIComponent("Bundle Savings")}`}>
-                    View Bundle Savings
+                  <Link href="/get-quote/bundle">
+                    Get 15% Off — Request Quote
                   </Link>
                 </Button>
               </CardContent>
@@ -410,7 +410,7 @@ export default function Home() {
                 <CardDescription className="text-white/90 premium-text mb-4">
                   Special pricing on select materials while inventory lasts.
                 </CardDescription>
-                <p className="text-sm text-white/70 mb-4">From $X (ask for today&apos;s rate)</p>
+                <p className="text-sm font-bold text-silver mb-4">10% off select materials — request a quote</p>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-start space-x-2">
                     <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
@@ -429,8 +429,8 @@ export default function Home() {
                   asChild
                   className="w-full btn-premium uppercase tracking-wider"
                 >
-                  <Link href={`/get-quote?product=${encodeURIComponent("Current Deals")}`}>
-                    See Current Deals
+                  <Link href="/get-quote/supplier-deals">
+                    Get 10% Off — Request Quote
                   </Link>
                 </Button>
               </CardContent>

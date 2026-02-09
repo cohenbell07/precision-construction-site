@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { services, getServiceById, getRelatedServices } from "@/lib/services";
+import { getServiceById } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { CheckCircle, Award, Users, Shield, ChevronDown, ChevronUp } from "lucide-react";
 
@@ -27,6 +28,97 @@ const serviceImageMap: { [key: string]: string } = {
   commercial: "/commercial-construction.png",
 };
 
+function ServiceMaterialsForm({ serviceName }: { serviceName: string }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim() || !message.trim()) return;
+    setLoading(true);
+    try {
+      const res = await fetch("/api/leads/service-materials-inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ serviceName, name: name || undefined, email: email.trim(), message: message.trim() }),
+      });
+      if (res.ok) {
+        setSent(true);
+        setName("");
+        setEmail("");
+        setMessage("");
+      }
+    } catch {
+      // ignore
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+          backgroundSize: "100px 100px"
+        }} />
+      </div>
+      <div className="container mx-auto px-4 sm:px-6 max-w-2xl relative z-10">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading">
+            Need something not listed?
+          </h2>
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]" />
+          <p className="text-white/90 premium-text mt-4">
+            Ask if we have the materials you need or any questions about this service. We&apos;ll get back to you soon.
+          </p>
+        </div>
+        {sent ? (
+          <Card className="card-premium border-silver/30 bg-black/75 text-center py-8">
+            <p className="text-white font-semibold">Thanks! We&apos;ve received your message and will reply shortly.</p>
+          </Card>
+        ) : (
+          <Card className="card-premium border-silver/30 bg-black/75">
+            <CardContent className="pt-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <input type="hidden" name="serviceName" value={serviceName} />
+                <Input
+                  placeholder="Your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="bg-black/65 border-silver/30 text-white placeholder:text-white/50"
+                />
+                <Input
+                  type="email"
+                  placeholder="Email *"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-black/65 border-silver/30 text-white placeholder:text-white/50"
+                />
+                <textarea
+                  placeholder="What materials or questions do you have for this service?"
+                  required
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  rows={5}
+                  className="flex w-full rounded-xl border-2 border-silver/30 bg-black/65 px-4 py-3 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-silver/50 focus:border-silver min-h-[120px]"
+                />
+                <Button type="submit" disabled={loading} className="w-full btn-premium uppercase tracking-wider">
+                  {loading ? "Sending…" : "Send inquiry"}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export default function ServiceDetailPage({ params }: { params: { slug: string } }) {
   const service = getServiceById(params.slug);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -36,7 +128,6 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
   }
 
   const imagePath = serviceImageMap[service.id] || "/service-millwork.png";
-  const relatedServices = service.relatedServices ? getRelatedServices(service.relatedServices) : [];
 
   return (
     <div className="min-h-screen bg-black relative premium-bg-pattern">
@@ -72,25 +163,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         </div>
       </section>
 
-      {/* Service Statistics */}
-      {service.stats && service.stats.length > 0 && (
-        <section className="py-12 sm:py-14 md:py-16 bg-[#1F1F1F] relative premium-bg-pattern">
-          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-              {service.stats.map((stat, idx) => (
-                <Card key={idx} className="card-premium border-silver/30 bg-black/75  text-center">
-                  <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
-                    <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-silver-text mb-1 sm:mb-2">{stat.value}</p>
-                    <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">{stat.label}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Overview Section */}
+      {/* What We Do - directly under hero */}
       <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
@@ -184,19 +257,19 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {service.process.map((step) => (
-                <Card key={step.step} className="card-premium border-silver/30 bg-black/75 ">
-                  <CardHeader>
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 rounded-full bg-silver/20 border-2 border-silver flex items-center justify-center">
-                        <span className="text-silver font-black text-lg">{step.step}</span>
+                <Card key={step.step} className="card-premium border-silver/30 bg-black/75 flex flex-col h-full">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start gap-4 min-h-[3.5rem]">
+                      <div className="w-12 h-12 min-w-[3rem] min-h-[3rem] shrink-0 rounded-full bg-silver/20 border-2 border-silver flex items-center justify-center">
+                        <span className="text-silver font-black text-xl leading-none">{step.step}</span>
                       </div>
-                      <CardTitle className="text-xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                      <CardTitle className="text-lg sm:text-xl font-display font-black text-white uppercase tracking-tight premium-heading-sm leading-tight pt-1">
                         {step.title}
                       </CardTitle>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-white/90 leading-relaxed premium-text">
+                  <CardContent className="pt-0 flex-1">
+                    <CardDescription className="text-white/90 leading-relaxed premium-text text-sm sm:text-base">
                       {step.description}
                     </CardDescription>
                   </CardContent>
@@ -315,63 +388,8 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         </section>
       )}
 
-      {/* Related Services */}
-      {relatedServices.length > 0 && (
-        <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-              backgroundSize: '100px 100px'
-            }}></div>
-          </div>
-          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-            <div className="text-center mb-8 sm:mb-10 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
-                Related Services
-              </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
-              <p className="text-lg text-white max-w-3xl mx-auto premium-text mt-4">
-                These services often work together to create complete solutions
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedServices.map((related) => {
-                const relatedImagePath = serviceImageMap[related.id] || "/service-millwork.png";
-                return (
-                  <Link key={related.id} href={`/services/${related.id}`}>
-                    <Card className="card-premium h-full overflow-hidden group cursor-pointer transition-[transform,box-shadow,border-color] duration-300 hover:scale-105 border-silver/30 bg-black/75 ">
-                      <div className="relative h-48 w-full overflow-hidden">
-                        <Image
-                          src={relatedImagePath}
-                          alt={related.title}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-500"
-                          loading="lazy"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                      </div>
-                      <CardHeader className="pb-4">
-                        <CardTitle className="text-xl font-display font-black text-white mb-2 uppercase tracking-tight premium-heading-sm">
-                          {related.title}
-                        </CardTitle>
-                        <CardDescription className="text-white/90 leading-relaxed premium-text text-sm">
-                          {related.description}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <span className="premium-silver-text font-bold uppercase tracking-wide text-sm group-hover:underline inline-flex items-center gap-2">
-                          Learn More <span className="transition-[transform,box-shadow,border-color] duration-300">→</span>
-                        </span>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Ask if we have the materials you need */}
+      <ServiceMaterialsForm serviceName={service.title} />
 
       {/* CTA Block */}
       <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">

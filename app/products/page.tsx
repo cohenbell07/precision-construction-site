@@ -27,11 +27,7 @@ const productCategories = [
       "Underlayment", "Moisture Barriers", "Transition Strips", "Baseboards"
     ],
     subtitle: "Brand-name vinyl, hardwood, laminate, carpet, and more — built to handle Calgary's toughest conditions.",
-    carouselImages: [
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
-    ],
+    carouselImages: ["/flooringproduct1.png", "/flooringproduct2.png", "/flooringproduct3.png"],
     valueBadges: [
       { icon: CheckCircle, text: "5% Price Beat Guarantee" },
       { icon: Hammer, text: "Supply + Install Available" },
@@ -51,11 +47,7 @@ const productCategories = [
       "Edge Profiles", "Backsplashes", "Sink Cutouts", "Installation Hardware"
     ],
     subtitle: "Quartz, granite, porcelain slab, stainless steel, and beyond — premium surfaces at unbeatable prices.",
-    carouselImages: [
-      "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
-    ],
+    carouselImages: ["/countertopsproduct1.png", "/countertopsproduct2.png", "/countertopsproduct3.png"],
     valueBadges: [
       { icon: CheckCircle, text: "5% Price Beat Guarantee" },
       { icon: Wrench, text: "Custom Fit & Finishing" },
@@ -74,11 +66,7 @@ const productCategories = [
       "Cabinet Doors", "Drawer Fronts", "Filler Strips", "Crown Molding", "Toe Kicks"
     ],
     subtitle: "Custom cabinetry in all wood species, styles, and finishes — from modern flat panel to classic shaker.",
-    carouselImages: [
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
-    ],
+    carouselImages: ["/cabinetsproduct1.png", "/cabinetsproduct2.png", "/cabinetsproduct3.png"],
     valueBadges: [
       { icon: CheckCircle, text: "5% Price Beat Guarantee" },
       { icon: Wrench, text: "Custom Fit & Finishing" },
@@ -97,11 +85,7 @@ const productCategories = [
       "Stair Parts", "Balusters", "Newel Posts", "Handrails", "Treads"
     ],
     subtitle: "Door kits, baseboards, trims, and full finish packages — available in standard and luxury profiles.",
-    carouselImages: [
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
-    ],
+    carouselImages: ["/interiorfinishingproduct1.png", "/interiorfinishingproduct2.png", "/interiorfinishingproduct3.png"],
     valueBadges: [
       { icon: CheckCircle, text: "5% Price Beat Guarantee" },
       { icon: Wrench, text: "Custom Fit & Finishing" },
@@ -119,11 +103,7 @@ const productCategories = [
       "Storm Windows", "Replacement Windows", "New Construction Windows"
     ],
     subtitle: "Energy-efficient windows in all styles.",
-    carouselImages: [
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
-    ],
+    carouselImages: ["/windowsproduct1.png", "/windowsproduct2.png"],
     valueBadges: [
       { icon: CheckCircle, text: "5% Price Beat Guarantee" },
       { icon: Hammer, text: "Supply + Install Available" },
@@ -141,11 +121,7 @@ const productCategories = [
       "Exterior Cladding", "Batten Boards", "Board & Batten", "Lap Siding", "Shake Siding"
     ],
     subtitle: "Siding, fascia, soffit, and cladding — top-grade materials for any residential or commercial build.",
-    carouselImages: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
-    ],
+    carouselImages: ["/exteriorproduct1.png", "/exteriorproduct2.png", "/exteriorproduct3.png"],
     valueBadges: [
       { icon: CheckCircle, text: "5% Price Beat Guarantee" },
       { icon: Hammer, text: "Supply + Install Available" },
@@ -164,11 +140,7 @@ const productCategories = [
       "Toilets", "Bathroom Mirrors", "Medicine Cabinets", "Towel Bars", "Accessories"
     ],
     subtitle: "Tubs, vanities, shower kits, large-format tile.",
-    carouselImages: [
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
-    ],
+    carouselImages: ["/bathroomfixturesproduct1.png", "/bathroomfixturesproduct2.png", "/bathroomfixturesproduct3.png"],
     valueBadges: [
       { icon: CheckCircle, text: "5% Price Beat Guarantee" },
       { icon: Hammer, text: "Supply + Install Available" },
@@ -187,11 +159,7 @@ const productCategories = [
       "Drawer Organizers", "Pantry Organizers", "Closet Systems", "Shelf Brackets"
     ],
     subtitle: "Hinges, drawer slides, rails, and custom handles.",
-    carouselImages: [
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
-    ],
+    carouselImages: ["/hardwareproduct1.png", "/hardwareproduct2.png"],
     valueBadges: [
       { icon: CheckCircle, text: "5% Price Beat Guarantee" },
       { icon: Wrench, text: "Custom Fit & Finishing" },
@@ -209,11 +177,7 @@ const productCategories = [
       "Caulk", "Sealants", "Adhesives", "Spackle", "Joint Compound"
     ],
     subtitle: "Interior and exterior paint from top brands.",
-    carouselImages: [
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
-    ],
+    carouselImages: ["/paintfinishesproduct1.png", "/paintfinishesproduct2.png", "/paintfinishesproduct3.png"],
     valueBadges: [
       { icon: CheckCircle, text: "5% Price Beat Guarantee" },
       { icon: Hammer, text: "Supply + Install Available" },
@@ -232,11 +196,7 @@ const productCategories = [
       "Wall Systems", "Demountable Walls", "Movable Partitions"
     ],
     subtitle: "T-bar ceilings, fire-rated panels, acoustic materials.",
-    carouselImages: [
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
-    ],
+    carouselImages: ["/comercialmaterialsproduct1.png", "/comercialmaterialsproduct2.png"],
     valueBadges: [
       { icon: CheckCircle, text: "5% Price Beat Guarantee" },
       { icon: Hammer, text: "Supply + Install Available" },
@@ -438,7 +398,7 @@ export default function ProductsPage() {
     }, [images.length]);
 
     return (
-      <div className="relative w-full aspect-video min-h-[200px] sm:min-h-[300px] md:min-h-[400px] max-h-[500px] sm:max-h-[550px] md:max-h-[600px] overflow-hidden rounded-xl border border-silver/20">
+      <div className="relative w-full aspect-square min-h-[220px] sm:min-h-[280px] md:min-h-[340px] max-h-[380px] sm:max-h-[420px] md:max-h-[480px] overflow-hidden rounded-2xl border-2 border-silver/30 shadow-[0_8px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(232,232,232,0.12)] ring-1 ring-inset ring-white/10">
         {images.map((image, index) => (
           <div
             key={index}
@@ -454,30 +414,30 @@ export default function ProductsPage() {
               loading="lazy"
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
           </div>
         ))}
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/65 hover:bg-black/80 text-silver p-2 rounded-full transition-colors duration-300 z-10 border border-silver/30"
+          className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-silver p-2.5 rounded-full transition-all duration-300 z-10 border border-silver/40 shadow-lg hover:shadow-[0_0_20px_rgba(232,232,232,0.3)]"
           aria-label="Previous image"
         >
-          <ChevronLeft className="h-6 w-6" />
+          <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/65 hover:bg-black/80 text-silver p-2 rounded-full transition-colors duration-300 z-10 border border-silver/30"
+          className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-silver p-2.5 rounded-full transition-all duration-300 z-10 border border-silver/40 shadow-lg hover:shadow-[0_0_20px_rgba(232,232,232,0.3)]"
           aria-label="Next image"
         >
-          <ChevronRight className="h-6 w-6" />
+          <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {images.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`h-2 rounded-full transition-[width,background-color] duration-300 ${
-                index === currentIndex ? "w-8 bg-silver" : "w-2 bg-white/40"
+                index === currentIndex ? "w-8 bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]" : "w-2 bg-white/40 hover:bg-white/60"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -609,7 +569,7 @@ export default function ProductsPage() {
                 <CardDescription className="text-white/90 premium-text mb-4">
                   Bundle materials and installation for package pricing that can save thousands.
                 </CardDescription>
-                <p className="text-sm text-white/70 mb-4">From $X (ask for today&apos;s rate)</p>
+                <p className="text-sm font-bold text-silver mb-4">15% off when you bundle supply + install</p>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-start space-x-2">
                     <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
@@ -617,19 +577,19 @@ export default function ProductsPage() {
                   </li>
                   <li className="flex items-start space-x-2">
                     <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">Cabinets + countertops</span>
+                    <span className="text-white/90 premium-text text-sm">Cabinets + countertops + install</span>
                   </li>
                   <li className="flex items-start space-x-2">
                     <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">Bathroom packages</span>
+                    <span className="text-white/90 premium-text text-sm">Full Bathroom renovation</span>
                   </li>
                 </ul>
                 <Button
                   asChild
                   className="w-full btn-premium uppercase tracking-wider"
                 >
-                  <Link href={`/get-quote?product=${encodeURIComponent("Bundle Savings")}`}>
-                    View Bundle Savings
+                  <Link href="/get-quote/bundle">
+                    Get 15% Off — Request Quote
                   </Link>
                 </Button>
               </CardContent>
@@ -651,7 +611,7 @@ export default function ProductsPage() {
                 <CardDescription className="text-white/90 premium-text mb-4">
                   Special pricing on select materials while inventory lasts.
                 </CardDescription>
-                <p className="text-sm text-white/70 mb-4">From $X (ask for today&apos;s rate)</p>
+                <p className="text-sm font-bold text-silver mb-4">10% off select materials — request a quote</p>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-start space-x-2">
                     <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
@@ -670,8 +630,8 @@ export default function ProductsPage() {
                   asChild
                   className="w-full btn-premium uppercase tracking-wider"
                 >
-                  <Link href={`/get-quote?product=${encodeURIComponent("Current Deals")}`}>
-                    See Current Deals
+                  <Link href="/get-quote/supplier-deals">
+                    Get 10% Off — Request Quote
                   </Link>
                 </Button>
               </CardContent>

@@ -160,6 +160,88 @@ export function getFollowUpConsultationEmail(data: EmailTemplateData): { subject
 }
 
 /**
+ * Deal quote types for 15% bundle and 10% supplier forms
+ */
+export interface DealQuoteData {
+  dealType: "bundle" | "supplier";
+  name?: string;
+  email: string;
+  phone?: string;
+  /** Selected options (e.g. "Flooring + install", "Quartz & porcelain") */
+  selectedOptions: string[];
+  /** Bundle: project details. Supplier: quantity / how much needed */
+  projectDetails?: string;
+  timeline?: string;
+  budgetMin?: string;
+  budgetMax?: string;
+}
+
+export function getDealQuoteAdminEmail(data: DealQuoteData): { subject: string; html: string } {
+  const isBundle = data.dealType === "bundle";
+  const discount = isBundle ? "15%" : "10%";
+  const label = isBundle ? "15% Bundle Savings" : "10% Supplier Discount";
+  return {
+    subject: `${label} Quote Request — ${data.name || "Unknown"}`,
+    html: `
+      <h2>${label} Quote Request</h2>
+      <p><strong>Discount:</strong> ${discount} off</p>
+      <p><strong>Name:</strong> ${data.name || "Not provided"}</p>
+      <p><strong>Email:</strong> ${data.email}</p>
+      <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
+      <p><strong>Selected options (${data.selectedOptions.length}):</strong></p>
+      <ul>${data.selectedOptions.map((o) => `<li>${o}</li>`).join("")}</ul>
+      ${data.projectDetails ? `<p><strong>${isBundle ? "Project / service details:" : "Quantity / how much needed:"}</strong></p><p>${data.projectDetails}</p>` : ""}
+      ${data.timeline ? `<p><strong>Timeline:</strong> ${data.timeline}</p>` : ""}
+      ${data.budgetMin || data.budgetMax ? `<p><strong>Budget range:</strong> ${data.budgetMin ? `$${data.budgetMin}` : "—"} to ${data.budgetMax ? `$${data.budgetMax}` : "—"}</p>` : ""}
+      <p><strong>Source:</strong> ${label} form</p>
+      <p>${BRAND_CONFIG.motto}</p>
+    `,
+  };
+}
+
+export function getDealQuoteConfirmationEmail(data: DealQuoteData): { subject: string; html: string } {
+  const isBundle = data.dealType === "bundle";
+  const discount = isBundle ? "15%" : "10%";
+  const label = isBundle ? "Bundle Savings" : "Supplier Discount";
+  return {
+    subject: `We received your ${label} quote request — ${BRAND_CONFIG.shortName}`,
+    html: `
+      <h2>Thank you for your ${discount} ${label} quote request</h2>
+      <p>Hi ${data.name || "there"},</p>
+      <p>We've received your request and will get back to you within 24 hours with a quote.</p>
+      <p><strong>Your selections:</strong> ${data.selectedOptions.join(", ")}</p>
+      <p><strong>${BRAND_CONFIG.motto}</strong></p>
+      <p>If you have any questions, call us at ${BRAND_CONFIG.contact.phoneFormatted}.</p>
+      <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
+    `,
+  };
+}
+
+/**
+ * Service page "materials / questions" inquiry (owner notification)
+ */
+export function getServiceMaterialsInquiryEmail(data: {
+  serviceName: string;
+  name?: string;
+  email: string;
+  message: string;
+}): { subject: string; html: string } {
+  return {
+    subject: `Materials/Service inquiry: ${data.serviceName} — ${data.name || "Unknown"}`,
+    html: `
+      <h2>Materials or service question</h2>
+      <p><strong>Service page:</strong> ${data.serviceName}</p>
+      <p><strong>Name:</strong> ${data.name || "Not provided"}</p>
+      <p><strong>Email:</strong> ${data.email}</p>
+      <p><strong>Message / materials request:</strong></p>
+      <pre style="white-space:pre-wrap;font-family:sans-serif;background:#f0f0f0;padding:12px;border-radius:8px;">${data.message}</pre>
+      <p><strong>Source:</strong> Service page materials inquiry form</p>
+      <p>${BRAND_CONFIG.motto}</p>
+    `,
+  };
+}
+
+/**
  * Project plan summary email
  */
 export function getProjectPlanEmail(data: EmailTemplateData & { plan: any }): { subject: string; html: string } {
