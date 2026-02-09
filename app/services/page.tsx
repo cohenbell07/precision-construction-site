@@ -170,7 +170,7 @@ export default function ServicesPage() {
               
               return (
                 <div key={service.id} className="relative">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-8 lg:gap-12 items-start">
                     {/* Content Section - Text and Services */}
                     <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
                       <div className="mb-6 sm:mb-8">

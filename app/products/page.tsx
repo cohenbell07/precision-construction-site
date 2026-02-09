@@ -513,7 +513,7 @@ export default function ProductsPage() {
               Limited-time pricing and guarantees to help you save on your build.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-5 md:gap-6">
             {/* Deal A - Trust Builder */}
             <Card className="card-premium border-silver/30 bg-black/75  hover:border-silver/50 hover:shadow-[0_0_25px_rgba(232,232,232,0.3)] transition-[transform,box-shadow,border-color] duration-300">
               <CardHeader>
@@ -652,12 +652,12 @@ export default function ProductsPage() {
           }}></div>
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-          <div className="space-y-12 sm:space-y-16 md:space-y-20 lg:space-y-24">
+          <div className="space-y-14 sm:space-y-16 md:space-y-20 lg:space-y-24">
             {productCategories.map((category, index) => {
               const isEven = index % 2 === 0;
               return (
                 <div key={category.title} className="relative">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-8 lg:gap-12 items-start">
                     {/* Content Section - Text and Products */}
                     <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
                       <div className="mb-6 sm:mb-8">
@@ -792,7 +792,7 @@ export default function ProductsPage() {
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading px-2">
+            <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading px-2">
               We Beat All Legitimate Competitor Quotes by 5% or More
             </h2>
             <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>

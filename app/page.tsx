@@ -201,7 +201,7 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
             {featuredServices.map((service) => {
               const imagePath = serviceImageMap[service.id] || "/service-millwork.png";
               return (
@@ -266,7 +266,7 @@ export default function Home() {
               Three generations of excellence, family values, and uncompromising quality
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 md:gap-8">
             {whyUs.map((item) => (
               <div key={item.title}>
                 <Card className="card-premium h-full text-center border-silver/30 bg-black/75">
@@ -312,7 +312,7 @@ export default function Home() {
               Limited-time pricing and guarantees to help you save on your build.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-5 md:gap-6">
             {/* Deal A - Trust Builder */}
             <Card className="card-premium border-silver/30 bg-black/75 hover:border-silver/50 hover:shadow-[0_0_25px_rgba(232,232,232,0.3)] transition-[transform,box-shadow,border-color] duration-300">
               <CardHeader>

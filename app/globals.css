@@ -929,5 +929,13 @@
     pointer-events: none;
     opacity: 0.3;
   }
+
+  /* Mobile design parity: touch targets and consistent feel with desktop */
+  @media (max-width: 767px) {
+    .btn-premium,
+    .silver-3d-button {
+      min-height: 44px;
+    }
+  }
 }
 
