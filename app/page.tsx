@@ -56,13 +56,13 @@ export default function Home() {
     },
   ];
 
-  // Map service IDs to image paths
+  // Map service IDs to image paths (must match services page)
   const serviceImageMap: { [key: string]: string } = {
     cabinets: "/service-millwork.png",
     showers: "/service-steam-shower.png",
-    countertops: "/service-countertops.png",
-    basements: "/basement-development.png",
-    carpentry: "/service-trim.png",
+    countertops: "/countertopsservice3.png",
+    basements: "/basementdevservice5.png",
+    carpentry: "/interiorfinishingservice1.png",
     garages: "/garage-deck-fence.png",
   };
 
