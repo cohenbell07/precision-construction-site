@@ -257,19 +257,21 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {service.process.map((step) => (
-                <Card key={step.step} className="card-premium border-silver/30 bg-black/75 flex flex-col h-full">
+                <Card key={step.step} className="card-premium border-silver/30 bg-black/75 flex flex-col h-full overflow-hidden">
                   <CardHeader className="pb-3">
-                    <div className="flex items-start gap-4 min-h-[3.5rem]">
-                      <div className="w-12 h-12 min-w-[3rem] min-h-[3rem] shrink-0 rounded-full bg-silver/20 border-2 border-silver flex items-center justify-center">
-                        <span className="text-silver font-black text-xl leading-none">{step.step}</span>
+                    <div className="flex items-start gap-3 sm:gap-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 min-w-[2.5rem] min-h-[2.5rem] sm:min-w-[3rem] sm:min-h-[3rem] shrink-0 rounded-full bg-silver/20 border-2 border-silver flex items-center justify-center">
+                        <span className="text-silver font-black text-base sm:text-xl leading-none">{step.step}</span>
                       </div>
-                      <CardTitle className="text-lg sm:text-xl font-display font-black text-white uppercase tracking-tight premium-heading-sm leading-tight pt-1">
-                        {step.title}
-                      </CardTitle>
+                      <div className="min-w-0 flex-1">
+                        <CardTitle className="text-base sm:text-lg font-display font-black text-white uppercase tracking-tight premium-heading-sm leading-snug break-words">
+                          {step.title}
+                        </CardTitle>
+                      </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="pt-0 flex-1">
-                    <CardDescription className="text-white/90 leading-relaxed premium-text text-sm sm:text-base">
+                  <CardContent className="pt-0 flex-1 min-h-0">
+                    <CardDescription className="text-white/90 leading-relaxed premium-text text-sm">
                       {step.description}
                     </CardDescription>
                   </CardContent>
