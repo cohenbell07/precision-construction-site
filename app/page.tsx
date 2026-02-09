@@ -135,9 +135,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Full-width video with overlay */}
-      <section className="relative w-full bg-black overflow-hidden min-h-[240px] sm:min-h-[300px] md:min-h-[400px] max-h-[90vh]">
-        <div className="relative w-full h-full min-h-[240px] aspect-video max-h-[600px]">
+      {/* Hero Section - Full-width video with overlay. Mobile: cap height so ratio matches desktop. */}
+      <section className="relative w-full bg-black overflow-hidden aspect-video min-h-[220px] max-h-[62vh] sm:min-h-[280px] sm:max-h-[70vh] md:aspect-video md:min-h-[400px] md:max-h-[90vh]">
+        <div className="absolute inset-0">
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
@@ -153,23 +153,24 @@ export default function Home() {
         
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="container mx-auto px-4 sm:px-6 text-center max-w-6xl">
-            <div className="space-y-4 sm:space-y-6 md:space-y-8">
-              {/* Headline with premium silver gradient effect */}
-              <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-2 sm:mb-4 leading-tight premium-heading px-2">
+            {/* Mobile: tighter spacing and slightly larger type so ratio matches desktop */}
+            <div className="space-y-2 sm:space-y-4 md:space-y-8">
+              {/* Headline - mobile scale up to match desktop ratio */}
+              <h1 className="text-2xl min-[480px]:text-3xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-1 sm:mb-2 md:mb-4 leading-tight premium-heading px-2">
                 Crafting Calgary&apos;s Future — One Build at a Time
               </h1>
               
-              {/* Subheading with silver accent */}
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl premium-silver-text font-bold mb-4 sm:mb-6 md:mb-8 px-2">
+              {/* Subheading */}
+              <p className="text-xs min-[480px]:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl premium-silver-text font-bold mb-2 sm:mb-4 md:mb-6 lg:mb-8 px-2">
                 Family-owned since 1968 • Serving Calgary since 1997
               </p>
               
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-2">
-                <Button asChild size="lg" className="btn-premium px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
+              {/* CTA Buttons - mobile: smaller so ratio to video matches desktop */}
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center px-2">
+                <Button asChild size="lg" className="btn-premium px-4 py-2.5 min-[480px]:px-5 min-[480px]:py-3 sm:px-8 sm:py-6 text-xs min-[480px]:text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
                   <Link href="/get-quote">Get a Quote</Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-2 border-silver/50 bg-black/65 hover:bg-black/75 hover:border-silver text-silver px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
+                <Button asChild size="lg" variant="outline" className="border-2 border-silver/50 bg-black/65 hover:bg-black/75 hover:border-silver text-silver px-4 py-2.5 min-[480px]:px-5 min-[480px]:py-3 sm:px-8 sm:py-6 text-xs min-[480px]:text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
                   <Link href="/services">View Services</Link>
                 </Button>
               </div>

@@ -25,11 +25,15 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-silver/20 bg-black/98 overflow-visible">
-      <nav className="container mx-auto grid h-16 sm:h-[4.5rem] md:h-20 grid-cols-[1fr_auto_1fr] md:grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-6 max-w-7xl overflow-visible gap-4">
-      <Link href="/" className="flex items-center group overflow-visible justify-self-start">
-        {/* Logo SVG */}
-        <Logo className="h-10 sm:h-12 md:h-[56px] lg:h-[69px] w-auto shrink-0 group-hover:scale-105 transition-transform duration-300" />
-      </Link>
+      {/* Mobile: flex with logo left, menu right. Desktop: grid with centered nav */}
+      <nav className="container mx-auto flex md:grid h-16 sm:h-[4.5rem] md:h-20 md:grid-cols-[1fr_auto_1fr] items-center justify-between md:justify-normal px-4 sm:px-6 max-w-7xl overflow-visible gap-4">
+        <Link
+          href="/"
+          className="relative z-10 flex items-center group overflow-visible shrink-0 md:justify-self-start bg-transparent border-0 outline-none"
+          aria-label="Home"
+        >
+          <Logo className="h-10 sm:h-12 md:h-[56px] lg:h-[69px] w-auto shrink-0 group-hover:scale-105 transition-transform duration-300" />
+        </Link>
 
         {/* Desktop Navigation - centered */}
         <div className="hidden md:flex md:items-center md:justify-center md:gap-6 lg:gap-8">
@@ -46,14 +50,14 @@ export function Header() {
         </div>
 
         {/* Right: Desktop CTA or Mobile menu button */}
-        <div className="flex items-center justify-self-end gap-2">
+        <div className="relative z-10 flex items-center shrink-0 md:justify-self-end gap-2">
           <div className="hidden md:block">
             <Button asChild className="btn-premium">
               <Link href="/get-quote">Request a Quote</Link>
             </Button>
           </div>
           <button
-            className="md:hidden text-text-primary hover:text-silver transition-colors p-2"
+            className="md:hidden text-text-primary hover:text-silver transition-colors p-2 -mr-1"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
