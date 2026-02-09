@@ -46,12 +46,25 @@ const config: Config = {
           surface: "#2E2E2E",
           concrete: "#B0B0B0",
         },
+        silver: {
+          DEFAULT: "#E8E8E8", // Bright silver (top of gradient)
+          light: "#F5F5F5",   // Near white
+          medium: "#C0C0C0",  // Mid-tone silver
+          dark: "#A0A0A0",    // Darker silver (bottom of gradient)
+          muted: "#808080",   // Muted silver
+          glow: "rgba(232, 232, 232, 0.4)",
+        },
+        charcoal: {
+          DEFAULT: "#2F2F2F", // Dark charcoal gray (like favicon background)
+          light: "#3A3A3A",
+          dark: "#1F1F1F",
+        },
         gold: {
-          DEFAULT: "#D4AF37", // Brand Gold - realistic gold for CTAs, hover, accent
+          DEFAULT: "#D4AF37", // Legacy - being replaced with silver
           dark: "#B8941F",
           light: "#E5C158",
           bright: "#F5D76E",
-          cream: "#F5F5F5", // Off-white
+          cream: "#F5F5F5",
           glow: "rgba(212, 175, 55, 0.4)",
         },
         steel: {

@@ -104,7 +104,7 @@ export default function ProjectsPage() {
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading px-2">
             Project Gallery
           </h1>
-          <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-3 sm:mb-4 md:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+          <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-3 sm:mb-4 md:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white max-w-2xl mx-auto leading-relaxed premium-text px-2">
             Explore our portfolio of completed projects showcasing our quality craftsmanship and
             attention to detail.
@@ -117,10 +117,10 @@ export default function ProjectsPage() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl transition-all font-black uppercase tracking-wide text-xs sm:text-sm border-2 ${
+              className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl transition-colors font-black uppercase tracking-wide text-xs sm:text-sm border-2 ${
                 selectedCategory === category
-                  ? "bg-gold text-black shadow-[0_0_20px_rgba(212,175,55,0.5)] border-gold btn-glow"
-                  : "bg-black/50 text-white border-gold/30 hover:bg-black/70 hover:border-gold/60 backdrop-blur-sm"
+                  ? "bg-silver text-black shadow-[0_0_20px_rgba(232,232,232,0.5)] border-silver btn-glow"
+                  : "bg-black/65 text-white border-silver/30 hover:bg-black/75 hover:border-silver/60 "
               }`}
             >
               {category}
@@ -136,28 +136,29 @@ export default function ProjectsPage() {
               className="group cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
               onClick={() => setSelectedProject(project)}
             >
-              <Card className="card-premium border-gold/30 overflow-hidden p-0 h-full bg-black/60 backdrop-blur-sm">
+              <Card className="card-premium border-silver/30 overflow-hidden p-0 h-full bg-black/75 ">
                 <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
                   <div className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="premium-gold-text font-black text-lg uppercase tracking-wide">View Details</span>
+                    <span className="premium-silver-text font-black text-lg uppercase tracking-wide">View Details</span>
                   </div>
                   <div className="absolute top-5 left-5">
-                    <span className="bg-gold text-black px-4 py-2 rounded-xl text-sm font-black uppercase tracking-wide shadow-[0_0_15px_rgba(212,175,55,0.5)]">
+                    <span className="bg-silver text-black px-4 py-2 rounded-xl text-sm font-black uppercase tracking-wide shadow-[0_0_15px_rgba(232,232,232,0.5)]">
                       {project.category}
                     </span>
                   </div>
                   {/* Premium shimmer overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-silver/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
                 <CardContent className="p-4 sm:p-5 md:p-6">
-                  <h3 className="text-base sm:text-lg md:text-xl font-display font-black text-white uppercase tracking-tight group-hover:text-gold transition-colors premium-heading-sm">
+                  <h3 className="text-base sm:text-lg md:text-xl font-display font-black text-white uppercase tracking-tight group-hover:text-silver transition-colors premium-heading-sm">
                     {project.title}
                   </h3>
                 </CardContent>
@@ -168,21 +169,22 @@ export default function ProjectsPage() {
 
         {/* Lightbox Dialog */}
         <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto bg-black/95 border-gold/30 rounded-xl sm:rounded-2xl backdrop-blur-sm p-4 sm:p-6">
+          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto bg-black/95 border-silver/30 rounded-xl sm:rounded-2xl  p-4 sm:p-6">
             {selectedProject && (
               <>
-                <div className="relative h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] w-full rounded-xl sm:rounded-2xl overflow-hidden mb-4 sm:mb-5 md:mb-6 shadow-2xl border border-gold/20">
+                <div className="relative h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] w-full rounded-xl sm:rounded-2xl overflow-hidden mb-4 sm:mb-5 md:mb-6 shadow-2xl border border-silver/20">
                   <Image
                     src={selectedProject.image}
                     alt={selectedProject.title}
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 80vw"
                   />
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black mb-2 sm:mb-3 text-white uppercase tracking-tight premium-heading">
                   {selectedProject.title}
                 </h2>
-                <p className="premium-gold-text font-black mb-4 sm:mb-5 md:mb-6 text-sm sm:text-base md:text-lg uppercase tracking-wide">
+                <p className="premium-silver-text font-black mb-4 sm:mb-5 md:mb-6 text-sm sm:text-base md:text-lg uppercase tracking-wide">
                   {selectedProject.category}
                 </p>
                 <p className="text-white/90 leading-relaxed text-sm sm:text-base md:text-lg premium-text">

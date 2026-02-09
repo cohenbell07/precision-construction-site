@@ -44,6 +44,7 @@ export async function POST(request: NextRequest) {
     const adminEmail = getAdminChatLeadEmail({
       name,
       email,
+      phone,
       projectType: projectDetails?.projectType,
       projectDetails,
       conversationSummary: conversation,

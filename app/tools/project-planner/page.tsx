@@ -110,7 +110,7 @@ export default function ProjectPlannerPage() {
         transition={{ duration: 0.6 }}
         className="text-center mb-8 sm:mb-12 md:mb-16"
       >
-        <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-sm bg-gold mb-4 sm:mb-5 md:mb-6 glow-gold border-2 border-gold">
+        <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-sm bg-silver mb-4 sm:mb-5 md:mb-6 glow-silver border-2 border-silver">
           <Lightbulb className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-4 sm:mb-5 md:mb-6 text-text-primary uppercase tracking-tight px-2">
@@ -122,7 +122,7 @@ export default function ProjectPlannerPage() {
       </motion.div>
 
       {!plan ? (
-        <Card className="card-premium border-gold/30">
+        <Card className="card-premium border-silver/30">
           <CardHeader className="px-4 sm:px-6 pt-6 sm:pt-8">
             <CardTitle className="text-xl sm:text-2xl font-bold text-text-primary uppercase">
               Describe Your Project
@@ -183,7 +183,7 @@ export default function ProjectPlannerPage() {
           animate={{ opacity: 1, y: 0 }}
           className="space-y-6"
         >
-          <Card className="card-premium border-gold/40">
+          <Card className="card-premium border-silver/40">
             <CardHeader className="px-4 sm:px-6 pt-6 sm:pt-8">
               <CardTitle className="text-xl sm:text-2xl font-bold text-text-primary uppercase">
                 Your Project Plan
@@ -191,14 +191,14 @@ export default function ProjectPlannerPage() {
             </CardHeader>
             <CardContent className="space-y-4 sm:space-y-5 md:space-y-6 px-4 sm:px-6 pb-6 sm:pb-8">
               {plan.suggestions && plan.suggestions.length > 0 && (
-                <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+                <div className="p-4 sm:p-5 md:p-6 card-premium border-silver/30">
                   <h3 className="text-base sm:text-lg font-bold text-text-primary mb-3 sm:mb-4 uppercase tracking-wide">
                     Design Suggestions
                   </h3>
                   <ul className="space-y-2">
                     {plan.suggestions.map((suggestion: string, idx: number) => (
                       <li key={idx} className="text-sm sm:text-base text-text-secondary flex items-start">
-                        <span className="text-gold mr-2">•</span>
+                        <span className="text-silver mr-2">•</span>
                         <span>{suggestion}</span>
                       </li>
                     ))}
@@ -207,14 +207,14 @@ export default function ProjectPlannerPage() {
               )}
 
               {plan.materials && plan.materials.length > 0 && (
-                <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+                <div className="p-4 sm:p-5 md:p-6 card-premium border-silver/30">
                   <h3 className="text-base sm:text-lg font-bold text-text-primary mb-3 sm:mb-4 uppercase tracking-wide">
                     Recommended Materials
                   </h3>
                   <ul className="space-y-2">
                     {plan.materials.map((material: string, idx: number) => (
                       <li key={idx} className="text-sm sm:text-base text-text-secondary flex items-start">
-                        <span className="text-gold mr-2">•</span>
+                        <span className="text-silver mr-2">•</span>
                         <span>{material}</span>
                       </li>
                     ))}
@@ -223,14 +223,14 @@ export default function ProjectPlannerPage() {
               )}
 
               {plan.considerations && plan.considerations.length > 0 && (
-                <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+                <div className="p-4 sm:p-5 md:p-6 card-premium border-silver/30">
                   <h3 className="text-base sm:text-lg font-bold text-text-primary mb-3 sm:mb-4 uppercase tracking-wide">
                     Important Considerations
                   </h3>
                   <ul className="space-y-2">
                     {plan.considerations.map((consideration: string, idx: number) => (
                       <li key={idx} className="text-sm sm:text-base text-text-secondary flex items-start">
-                        <span className="text-gold mr-2">•</span>
+                        <span className="text-silver mr-2">•</span>
                         <span>{consideration}</span>
                       </li>
                     ))}
@@ -239,15 +239,15 @@ export default function ProjectPlannerPage() {
               )}
 
               {plan.estimatedCost && (
-                <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+                <div className="p-4 sm:p-5 md:p-6 card-premium border-silver/30">
                   <h3 className="text-base sm:text-lg font-bold text-text-primary mb-2 uppercase tracking-wide">
                     Estimated Cost
                   </h3>
-                  <p className="text-xl sm:text-2xl font-black text-gold">{plan.estimatedCost}</p>
+                  <p className="text-xl sm:text-2xl font-black text-silver">{plan.estimatedCost}</p>
                 </div>
               )}
 
-              <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+              <div className="p-4 sm:p-5 md:p-6 card-premium border-silver/30">
                 <h3 className="text-base sm:text-lg font-bold text-text-primary mb-3 sm:mb-4 uppercase tracking-wide">
                   Get Your Full Plan
                 </h3>
@@ -294,7 +294,7 @@ export default function ProjectPlannerPage() {
                   setDescription("");
                   setProjectType("");
                 }}
-                className="w-full btn-steel border-gold/40"
+                className="w-full btn-steel border-silver/40"
               >
                 Start Over
               </Button>

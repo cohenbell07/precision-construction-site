@@ -1,5 +1,6 @@
-import { generateAIResponse } from "./ai";
+import { generateAIResponse, generateChatCompletion, type ChatMessage } from "./ai";
 import { BRAND_CONFIG } from "./utils";
+import { getChatSystemPrompt } from "./chatPrompt";
 
 /**
  * AI Tools Library
@@ -15,6 +16,9 @@ export interface ChatConversation {
 
 export interface ProjectDetails {
   projectType?: string;
+  serviceId?: string;
+  serviceName?: string;
+  productInterest?: string;
   squareFootage?: string;
   materials?: string;
   timeline?: string;
@@ -34,8 +38,94 @@ export interface LeadScore {
   reasoning: string;
 }
 
+const READY_FOR_QUOTE_TAG = "[READY_FOR_QUOTE]";
+
 /**
- * AI Chatbot - Qualifies leads through conversation
+ * Run the full sales + FAQ chat: one AI reply with full conversation history.
+ * Strips [READY_FOR_QUOTE] from the reply and sets shouldCollectContact when the AI asks for contact info.
+ */
+export async function runSalesChat(
+  conversation: ChatConversation[],
+  context?: { currentPage?: string }
+): Promise<{ reply: string; shouldCollectContact: boolean }> {
+  const systemPrompt = getChatSystemPrompt(context);
+  const messages: ChatMessage[] = [{ role: "system", content: systemPrompt }];
+
+  for (const msg of conversation) {
+    if (msg.role === "user") {
+      messages.push({ role: "user", content: msg.content });
+    } else {
+      messages.push({ role: "assistant", content: msg.content });
+    }
+  }
+
+  const { response } = await generateChatCompletion(messages, { max_tokens: 600, temperature: 0.7 });
+  let reply = response.trim();
+  const shouldCollectContact = reply.includes(READY_FOR_QUOTE_TAG);
+  if (shouldCollectContact) {
+    reply = reply.replace(READY_FOR_QUOTE_TAG, "").replace(/\n\n+$/, "").trim();
+  }
+  return { reply, shouldCollectContact };
+}
+
+/**
+ * Extract structured project details from the conversation + last assistant reply.
+ * Used to prefill quote form and send complete info to the owner by email.
+ */
+export async function extractProjectDetailsFromConversation(
+  conversation: ChatConversation[],
+  lastAssistantReply: string
+): Promise<ProjectDetails> {
+  const conversationText = conversation
+    .map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
+    .join("\n");
+
+  const systemPrompt = `You are a data extraction assistant for ${BRAND_CONFIG.name}. Extract structured project/quote details from the conversation. Return only valid JSON.`;
+
+  const prompt = `From this conversation and the assistant's last message, extract any mentioned project details into this JSON. Use empty string or omit keys if not mentioned.
+
+Conversation:
+${conversationText}
+
+Assistant's last message:
+${lastAssistantReply}
+
+Return a single JSON object with only these keys (use empty string if unknown):
+{
+  "projectType": "e.g. kitchen renovation, flooring, custom shower",
+  "serviceId": "our service id if mentioned (flooring, showers, countertops, cabinets, carpentry, basements, garages, etc.)",
+  "serviceName": "full service name if clear",
+  "productInterest": "e.g. quartz countertops, LVP flooring, custom cabinets",
+  "squareFootage": "if mentioned",
+  "materials": "if mentioned",
+  "timeline": "if mentioned",
+  "budget": "if mentioned",
+  "description": "brief 1-2 sentence summary of the project"
+}`;
+
+  const { response } = await generateAIResponse(prompt, systemPrompt);
+
+  try {
+    const cleaned = response.replace(/```json?\s*/g, "").replace(/```\s*$/g, "").trim();
+    const parsed = JSON.parse(cleaned) as ProjectDetails;
+    return {
+      projectType: parsed.projectType || undefined,
+      serviceId: parsed.serviceId || undefined,
+      serviceName: parsed.serviceName || undefined,
+      productInterest: parsed.productInterest || undefined,
+      squareFootage: parsed.squareFootage || undefined,
+      materials: parsed.materials || undefined,
+      timeline: parsed.timeline || undefined,
+      budget: parsed.budget || undefined,
+      description: parsed.description || undefined,
+    };
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * AI Chatbot - Qualifies leads through conversation (legacy; used as fallback)
  */
 export async function qualifyLeadThroughChat(
   conversation: ChatConversation[]
@@ -77,7 +167,6 @@ Respond in JSON format:
   const { response } = await generateAIResponse(prompt, systemPrompt);
 
   try {
-    // Try to parse JSON response
     const parsed = JSON.parse(response);
     return {
       qualified: parsed.qualified || false,
@@ -85,9 +174,8 @@ Respond in JSON format:
       nextQuestion: parsed.nextQuestion,
     };
   } catch {
-    // Fallback if AI doesn't return JSON
     return {
-      qualified: conversation.length >= 3, // Simple heuristic
+      qualified: conversation.length >= 3,
       projectDetails: {},
       nextQuestion: "Would you like to provide your contact information so we can follow up?",
     };

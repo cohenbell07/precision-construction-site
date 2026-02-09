@@ -232,7 +232,7 @@ export default function ReferralPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-gold text-slate-dark hover:bg-gold-light text-sm sm:text-base px-4 py-2.5 sm:px-6 sm:py-3"
+              className="w-full bg-silver text-slate-dark hover:bg-silver-light text-sm sm:text-base px-4 py-2.5 sm:px-6 sm:py-3"
             >
               {loading ? (
                 "Sending..."

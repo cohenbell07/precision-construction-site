@@ -21,7 +21,7 @@ const nextConfig = {
       });
     }
     
-    // Improve chunk loading reliability in development
+    // Fix webpack cache warnings and compilation issues
     if (dev) {
       // Prevent aggressive chunk optimization that can cause loading issues
       config.optimization = {
@@ -29,6 +29,22 @@ const nextConfig = {
         removeAvailableModules: false,
         removeEmptyChunks: false,
       };
+      
+      // Fix webpack cache managed paths warnings
+      // Configure snapshot to properly handle node_modules structure
+      config.snapshot = {
+        ...(config.snapshot || {}),
+        managedPaths: [
+          /^(.+[\\/])?node_modules[\\/]/,
+        ],
+      };
+      
+      // Suppress infrastructure logging warnings (managed paths warnings)
+      if (!config.infrastructureLogging) {
+        config.infrastructureLogging = {};
+      }
+      // Keep warnings but reduce noise from managed paths
+      config.infrastructureLogging.level = config.infrastructureLogging.level || 'info';
     }
     
     return config;

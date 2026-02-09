@@ -149,7 +149,7 @@ export default function InstantEstimatePage() {
         transition={{ duration: 0.6 }}
         className="text-center mb-8 sm:mb-12 md:mb-16"
       >
-        <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-sm bg-gold mb-4 sm:mb-5 md:mb-6 glow-gold border-2 border-gold">
+        <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-sm bg-silver mb-4 sm:mb-5 md:mb-6 glow-silver border-2 border-silver">
           <Calculator className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-4 sm:mb-5 md:mb-6 text-text-primary uppercase tracking-tight px-2">
@@ -179,7 +179,7 @@ export default function InstantEstimatePage() {
                 <select
                   value={formData.projectType}
                   onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                  className="w-full h-11 rounded-sm border-2 border-gold/30 bg-industrial-slate/90 px-4 text-text-primary focus:border-gold focus:ring-gold/50"
+                  className="w-full h-11 rounded-sm border-2 border-silver/30 bg-industrial-slate/90 px-4 text-text-primary focus:border-silver focus:ring-silver/50"
                   required
                 >
                   <option value="">Select project type</option>
@@ -211,7 +211,7 @@ export default function InstantEstimatePage() {
                 <select
                   value={formData.materials}
                   onChange={(e) => setFormData({ ...formData, materials: e.target.value })}
-                  className="w-full h-11 rounded-sm border-2 border-gold/30 bg-industrial-slate/90 px-4 text-text-primary focus:border-gold focus:ring-gold/50"
+                  className="w-full h-11 rounded-sm border-2 border-silver/30 bg-industrial-slate/90 px-4 text-text-primary focus:border-silver focus:ring-silver/50"
                   required
                 >
                   <option value="">Select material quality</option>
@@ -263,7 +263,7 @@ export default function InstantEstimatePage() {
           animate={{ opacity: 1, y: 0 }}
           className="space-y-6"
         >
-          <Card className="card-premium border-gold/40">
+          <Card className="card-premium border-silver/40">
             <CardHeader>
               <CardTitle className="text-xl sm:text-2xl font-bold text-text-primary uppercase">
                 Your Estimate
@@ -271,17 +271,17 @@ export default function InstantEstimatePage() {
             </CardHeader>
             <CardContent className="space-y-4 sm:space-y-5 md:space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
-                <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+                <div className="p-4 sm:p-5 md:p-6 card-premium border-silver/30">
                   <p className="text-xs sm:text-sm text-text-secondary mb-1 sm:mb-2 uppercase tracking-wide">Cost Range</p>
-                  <p className="text-2xl sm:text-3xl font-black text-gold">{estimate.costRange}</p>
+                  <p className="text-2xl sm:text-3xl font-black text-silver">{estimate.costRange}</p>
                 </div>
-                <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+                <div className="p-4 sm:p-5 md:p-6 card-premium border-silver/30">
                   <p className="text-xs sm:text-sm text-text-secondary mb-1 sm:mb-2 uppercase tracking-wide">Timeline</p>
-                  <p className="text-2xl sm:text-3xl font-black text-gold">{estimate.timeline}</p>
+                  <p className="text-2xl sm:text-3xl font-black text-silver">{estimate.timeline}</p>
                 </div>
               </div>
 
-              <div className="p-4 sm:p-5 md:p-6 card-premium border-gold/30">
+              <div className="p-4 sm:p-5 md:p-6 card-premium border-silver/30">
                 <p className="text-xs sm:text-sm font-semibold text-text-primary mb-2 sm:mb-3 uppercase tracking-wide">
                   Breakdown
                 </p>
@@ -301,7 +301,7 @@ export default function InstantEstimatePage() {
                     setStep("form");
                     setEstimate(null);
                   }}
-                  className="btn-steel border-gold/40"
+                  className="btn-steel border-silver/40"
                 >
                   Start Over
                 </Button>
@@ -316,7 +316,7 @@ export default function InstantEstimatePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <Card className="card-premium border-gold/30">
+          <Card className="card-premium border-silver/30">
             <CardHeader>
               <CardTitle className="text-xl sm:text-2xl font-bold text-text-primary uppercase">
                 Get Your Full Estimate

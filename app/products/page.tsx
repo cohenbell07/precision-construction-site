@@ -248,12 +248,9 @@ const productCategories = [
 const brands = [
   { name: "Olympia Tile", file: "olympiatile.png" },
   { name: "Shaw Flooring", file: "shawfloors.png" },
-  { name: "Formica", file: "formica.png" },
   { name: "Benjamin Moore", file: "bejaminmoorenew.png" },
   { name: "Caesarstone", file: "ceasarstonenew.png" },
   { name: "Silestone", file: "silestonenew.png" },
-  { name: "Arborite", file: "arborite.png" },
-  { name: "CertainTeed", file: "certainteed.png" },
   { name: "James Hardie", file: "jameshardie.png" },
 ];
 
@@ -439,7 +436,7 @@ export default function ProductsPage() {
     }, [images.length]);
 
     return (
-      <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-xl border border-gold/20" style={{ aspectRatio: "1/1" }}>
+      <div className="relative w-full aspect-video min-h-[200px] sm:min-h-[300px] md:min-h-[400px] max-h-[500px] sm:max-h-[550px] md:max-h-[600px] overflow-hidden rounded-xl border border-silver/20">
         {images.map((image, index) => (
           <div
             key={index}
@@ -453,20 +450,21 @@ export default function ProductsPage() {
               fill
               className="object-cover"
               loading="lazy"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           </div>
         ))}
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-gold p-2 rounded-full transition-all duration-300 z-10 border border-gold/30"
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/65 hover:bg-black/80 text-silver p-2 rounded-full transition-colors duration-300 z-10 border border-silver/30"
           aria-label="Previous image"
         >
           <ChevronLeft className="h-6 w-6" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-gold p-2 rounded-full transition-all duration-300 z-10 border border-gold/30"
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/65 hover:bg-black/80 text-silver p-2 rounded-full transition-colors duration-300 z-10 border border-silver/30"
           aria-label="Next image"
         >
           <ChevronRight className="h-6 w-6" />
@@ -476,8 +474,8 @@ export default function ProductsPage() {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "w-8 bg-gold" : "w-2 bg-white/40"
+              className={`h-2 rounded-full transition-[width,background-color] duration-300 ${
+                index === currentIndex ? "w-8 bg-silver" : "w-2 bg-white/40"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -497,8 +495,8 @@ export default function ProductsPage() {
       </div>
 
       {/* Hero Video Section */}
-      <section className="relative w-full bg-black overflow-hidden">
-        <div className="relative w-full" style={{ aspectRatio: "16/9", maxHeight: "600px", minHeight: "300px" }}>
+      <section className="relative w-full bg-black overflow-hidden min-h-[240px] sm:min-h-[300px] md:min-h-[400px] max-h-[90vh]">
+        <div className="relative w-full min-h-[240px] aspect-video max-h-[600px]">
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
@@ -515,15 +513,15 @@ export default function ProductsPage() {
             <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
               <div className="space-y-4 sm:space-y-6 md:space-y-8">
                 {/* Main Title with enhanced shadow */}
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black text-white uppercase tracking-tight premium-heading drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] px-2">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black uppercase tracking-tight premium-heading px-2">
                   Every Product. Every Brand. Built to Outperform.
                 </h1>
                 
-                {/* Gold divider with glow */}
-                <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-2 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+                {/* Silver divider with glow */}
+                <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-2 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
                 
-                {/* Subtitle with premium gold styling - clean, no box */}
-                <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl premium-gold-text font-bold max-w-4xl mx-auto leading-relaxed tracking-wide drop-shadow-[0_2px_20px_rgba(0,0,0,0.9)] px-2">
+                {/* Subtitle with premium silver styling - clean, no box */}
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl premium-silver-text font-bold max-w-4xl mx-auto leading-relaxed tracking-wide px-2">
                   Explore the industry&apos;s best materials. We carry everything construction demands — and beat all competitors by 5%.
                 </p>
               </div>
@@ -533,7 +531,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Current Deals Section */}
       <section id="current-deals" className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
@@ -548,17 +546,17 @@ export default function ProductsPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
               Current Deals
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
             <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Limited-time pricing and guarantees to help you save on your build.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
             {/* Deal A - Trust Builder */}
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm hover:border-gold/50 hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-300">
+            <Card className="card-premium border-silver/30 bg-black/75  hover:border-silver/50 hover:shadow-[0_0_25px_rgba(232,232,232,0.3)] transition-[transform,box-shadow,border-color] duration-300">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-black uppercase tracking-wide bg-gold/20 text-gold px-3 py-1 rounded-full border border-gold/40">
+                  <span className="text-xs font-black uppercase tracking-wide bg-silver/20 text-silver px-3 py-1 rounded-full border border-silver/40">
                     Guarantee
                   </span>
                 </div>
@@ -572,15 +570,15 @@ export default function ProductsPage() {
                 </CardDescription>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-start space-x-2">
-                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                     <span className="text-white/90 premium-text text-sm">Applies to major suppliers</span>
                   </li>
                   <li className="flex items-start space-x-2">
-                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                     <span className="text-white/90 premium-text text-sm">24-hour response</span>
                   </li>
                   <li className="flex items-start space-x-2">
-                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                     <span className="text-white/90 premium-text text-sm">No hidden fees</span>
                   </li>
                 </ul>
@@ -594,10 +592,10 @@ export default function ProductsPage() {
             </Card>
 
             {/* Deal B - Best Value / Highlighted */}
-            <Card className="card-premium border-gold/50 bg-black/70 backdrop-blur-sm hover:border-gold/70 hover:shadow-[0_0_35px_rgba(212,175,55,0.5)] transition-all duration-300 scale-105 md:scale-105 lg:scale-105">
+            <Card className="card-premium border-silver/50 bg-black/82  hover:border-silver/70 hover:shadow-[0_0_35px_rgba(232,232,232,0.5)] transition-[transform,box-shadow,border-color] duration-300 scale-105 md:scale-105 lg:scale-105">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-black uppercase tracking-wide bg-gold text-black px-3 py-1 rounded-full border border-gold shadow-[0_0_15px_rgba(212,175,55,0.5)]">
+                  <span className="text-xs font-black uppercase tracking-wide bg-silver text-black px-3 py-1 rounded-full border border-silver shadow-[0_0_15px_rgba(232,232,232,0.5)]">
                     Most Popular
                   </span>
                 </div>
@@ -612,15 +610,15 @@ export default function ProductsPage() {
                 <p className="text-sm text-white/70 mb-4">From $X (ask for today&apos;s rate)</p>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-start space-x-2">
-                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                     <span className="text-white/90 premium-text text-sm">Flooring + install</span>
                   </li>
                   <li className="flex items-start space-x-2">
-                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                     <span className="text-white/90 premium-text text-sm">Cabinets + countertops</span>
                   </li>
                   <li className="flex items-start space-x-2">
-                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                     <span className="text-white/90 premium-text text-sm">Bathroom packages</span>
                   </li>
                 </ul>
@@ -636,10 +634,10 @@ export default function ProductsPage() {
             </Card>
 
             {/* Deal C - Urgency */}
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm hover:border-gold/50 hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-300">
+            <Card className="card-premium border-silver/30 bg-black/75  hover:border-silver/50 hover:shadow-[0_0_25px_rgba(232,232,232,0.3)] transition-[transform,box-shadow,border-color] duration-300">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-black uppercase tracking-wide bg-gold/20 text-gold px-3 py-1 rounded-full border border-gold/40">
+                  <span className="text-xs font-black uppercase tracking-wide bg-silver/20 text-silver px-3 py-1 rounded-full border border-silver/40">
                     Limited Time
                   </span>
                 </div>
@@ -654,15 +652,15 @@ export default function ProductsPage() {
                 <p className="text-sm text-white/70 mb-4">From $X (ask for today&apos;s rate)</p>
                 <ul className="space-y-2 mb-6">
                   <li className="flex items-start space-x-2">
-                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                     <span className="text-white/90 premium-text text-sm">Quartz & porcelain</span>
                   </li>
                   <li className="flex items-start space-x-2">
-                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                     <span className="text-white/90 premium-text text-sm">LVP & laminate</span>
                   </li>
                   <li className="flex items-start space-x-2">
-                    <span className="text-gold mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                     <span className="text-white/90 premium-text text-sm">Hardware & fixtures</span>
                   </li>
                 </ul>
@@ -681,7 +679,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Product Categories - Text Above, Carousel Below */}
       <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
@@ -706,12 +704,12 @@ export default function ProductsPage() {
                             {category.title}
                           </h2>
                           {(category.title === "Flooring" || category.title === "Countertops") && (
-                            <span className="text-xs font-black uppercase tracking-wide bg-gold text-black px-3 py-1 rounded-full border border-gold shadow-[0_0_10px_rgba(212,175,55,0.5)]">
+                            <span className="text-xs font-black uppercase tracking-wide bg-silver text-black px-3 py-1 rounded-full border border-silver shadow-[0_0_10px_rgba(232,232,232,0.5)]">
                               Most Popular
                             </span>
                           )}
                         </div>
-                        <div className="h-[2px] w-32 bg-gradient-to-r from-transparent via-gold to-transparent mb-6 shadow-[0_0_20px_rgba(212,175,55,0.6)]"></div>
+                        <div className="h-[2px] w-32 bg-gradient-to-r from-transparent via-silver to-transparent mb-6 shadow-[0_0_20px_rgba(232,232,232,0.6)]"></div>
                       </div>
                       
                       <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 leading-relaxed premium-text mb-6 sm:mb-8 font-medium">
@@ -725,9 +723,9 @@ export default function ProductsPage() {
                           return (
                             <div
                               key={idx}
-                              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 rounded-full bg-gold/10 border border-gold/40 text-gold/90 backdrop-blur-sm"
+                              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 rounded-full bg-silver/15 border border-silver/40 text-silver/90 "
                             >
-                              <IconComponent className="h-4 w-4 sm:h-5 sm:w-5 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                              <IconComponent className="h-4 w-4 sm:h-5 sm:w-5 text-silver drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                               <span className="text-xs sm:text-sm font-bold uppercase tracking-wide">{badge.text}</span>
                             </div>
                           );
@@ -742,7 +740,7 @@ export default function ProductsPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
                           {(expandedCategories[category.title] ? category.productTypes : category.productTypes.slice(0, 9)).map((type, idx) => (
                             <div key={idx} className="flex items-start space-x-2 sm:space-x-3">
-                              <span className="text-gold mt-1.5 flex-shrink-0 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"></span>
+                              <span className="text-silver mt-1.5 flex-shrink-0 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
                               <span className="text-white/90 premium-text text-xs sm:text-sm md:text-base leading-relaxed">{type}</span>
                             </div>
                           ))}
@@ -750,7 +748,7 @@ export default function ProductsPage() {
                         {category.productTypes.length > 9 && (
                           <button
                             onClick={() => toggleCategoryExpansion(category.title)}
-                            className="mt-4 text-gold/90 hover:text-gold text-sm font-bold uppercase tracking-wide underline transition-colors"
+                            className="mt-4 text-silver/90 hover:text-silver text-sm font-bold uppercase tracking-wide underline transition-colors"
                           >
                             {expandedCategories[category.title] ? "Show less" : "View full list"}
                           </button>
@@ -758,7 +756,7 @@ export default function ProductsPage() {
                       </div>
 
                       {/* CTA */}
-                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-5 md:pt-6 border-t border-gold/20">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-5 md:pt-6 border-t border-silver/20">
                         <Button
                           asChild
                           className="btn-premium uppercase tracking-wider text-xs sm:text-sm md:text-base px-4 py-2.5 sm:px-6 sm:py-3 w-full sm:w-auto"
@@ -767,7 +765,7 @@ export default function ProductsPage() {
                             Get a Quote
                           </Link>
                         </Button>
-                        <div className="h-px sm:h-px flex-1 bg-gradient-to-r from-gold/40 via-gold/60 to-transparent hidden sm:block"></div>
+                        <div className="h-px sm:h-px flex-1 bg-gradient-to-r from-silver/40 via-silver/60 to-transparent hidden sm:block"></div>
                       </div>
                     </div>
 
@@ -786,7 +784,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Sample Brands Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
@@ -795,7 +793,7 @@ export default function ProductsPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
               Sample Brands We Carry
             </h2>
-            <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+            <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
             <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Trusted brands you know and love, available at unbeatable prices
             </p>
@@ -804,13 +802,13 @@ export default function ProductsPage() {
             {brands.map((brand) => (
               <div
                 key={brand.name}
-                className="relative h-24 sm:h-28 md:h-32 bg-white/95 border border-gold/30 rounded-xl backdrop-blur-sm hover:border-gold/60 hover:bg-white transition-all duration-300 flex items-center justify-center group overflow-hidden shadow-lg hover:shadow-xl"
+                className="relative h-24 sm:h-28 md:h-32 bg-white border border-silver/30 rounded-xl hover:border-silver/60 transition-[transform,box-shadow,border-color] duration-300 flex items-center justify-center group overflow-hidden shadow-lg hover:shadow-xl"
               >
                 <Image
                   src={`/${brand.file}`}
                   alt={brand.name}
                   fill
-                  className="object-contain p-4 transition-all duration-300 opacity-80 group-hover:opacity-100"
+                  className="object-contain p-4 transition-[transform,box-shadow,border-color] duration-300 opacity-80 group-hover:opacity-100"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
               </div>
@@ -820,7 +818,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Quote Challenge Section */}
       <section id="quote-form" ref={quoteFormRef} className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
@@ -835,13 +833,13 @@ export default function ProductsPage() {
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading px-2">
               We Beat All Legitimate Competitor Quotes by 5% or More
             </h2>
-            <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+            <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
             <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Send us any estimate from a reputable supplier — we&apos;ll beat it.
             </p>
           </div>
 
-          <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+          <Card className="card-premium border-silver/30 bg-black/75 ">
             <CardHeader>
               <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm text-center">
                 Get My Price Beat
@@ -859,7 +857,7 @@ export default function ProductsPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Your name"
-                    className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
+                    className="focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white placeholder:text-white/40"
                   />
                 </div>
                 <div>
@@ -873,14 +871,14 @@ export default function ProductsPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="your.email@example.com"
-                    className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40"
+                    className="focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white placeholder:text-white/40"
                   />
                 </div>
                 <div>
                   <label htmlFor="productType" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
                     Product Category *
                     {prefilledCategory && (
-                      <span className="ml-2 text-xs text-gold/80 font-normal normal-case">(Pre-selected)</span>
+                      <span className="ml-2 text-xs text-silver/80 font-normal normal-case">(Pre-selected)</span>
                     )}
                   </label>
                   <Input
@@ -894,7 +892,7 @@ export default function ProductsPage() {
                       }
                     }}
                     placeholder="e.g., Kitchen Cabinets, Flooring, Countertops, etc."
-                    className={`focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white placeholder:text-white/40 ${
+                    className={`focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white placeholder:text-white/40 ${
                       prefilledCategory ? "cursor-not-allowed opacity-75 bg-black/70" : ""
                     }`}
                   />
@@ -905,7 +903,7 @@ export default function ProductsPage() {
                         setPrefilledCategory(null);
                         setFormData((prev) => ({ ...prev, productType: "" }));
                       }}
-                      className="mt-2 text-xs text-gold/80 hover:text-gold transition-colors underline"
+                      className="mt-2 text-xs text-silver/80 hover:text-silver transition-colors underline"
                     >
                       Click to change category
                     </button>
@@ -923,7 +921,7 @@ export default function ProductsPage() {
                       const file = e.target.files?.[0] || null;
                       setSelectedFile(file);
                     }}
-                    className="focus:ring-gold/50 focus:border-gold bg-black/50 border-gold/30 text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-gold/20 file:text-gold hover:file:bg-gold/30 file:cursor-pointer cursor-pointer"
+                    className="focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-silver/20 file:text-silver hover:file:bg-silver/30 file:cursor-pointer cursor-pointer"
                   />
                   {selectedFile && (
                     <p className="mt-2 text-sm text-white/70">

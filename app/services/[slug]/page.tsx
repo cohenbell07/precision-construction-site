@@ -14,11 +14,11 @@ import { CheckCircle, Award, Users, Shield, ChevronDown, ChevronUp } from "lucid
 const serviceImageMap: { [key: string]: string } = {
   cabinets: "/service-millwork.png",
   showers: "/service-steam-shower.png",
-  countertops: "/service-countertops.png",
-  basements: "/basement-development.png",
-  carpentry: "/service-trim.png",
-  flooring: "/flooring-service.png",
-  framing: "/framing.png",
+  countertops: "/countertopsservice3.png",
+  basements: "/basementdevservice5.png",
+  carpentry: "/interiorfinishingservice1.png",
+  flooring: "/flooringinstallservice2.png",
+  framing: "/framingservice4.png",
   drywall: "/drywall-texture.png",
   painting: "/painting.png",
   garages: "/garage-deck-fence.png",
@@ -47,7 +47,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         }}></div>
       </div>
       {/* Hero Banner */}
-      <section className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] min-h-[300px] sm:min-h-[400px] md:min-h-[500px] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[240px] sm:min-h-[350px] md:min-h-[450px] h-[50vh] sm:h-[55vh] md:h-[60vh] max-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/service-header-workers.png"
@@ -65,7 +65,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading px-2">
             {service.title}
           </h1>
-          <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+          <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white mt-4 sm:mt-5 md:mt-6 max-w-3xl mx-auto premium-text px-2">
             Premium {service.title.toLowerCase()} services in Calgary. Family-owned since 1968, serving Calgary since 1997.
           </p>
@@ -78,9 +78,9 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
           <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {service.stats.map((stat, idx) => (
-                <Card key={idx} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
+                <Card key={idx} className="card-premium border-silver/30 bg-black/75  text-center">
                   <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
-                    <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-gold-text mb-1 sm:mb-2">{stat.value}</p>
+                    <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-silver-text mb-1 sm:mb-2">{stat.value}</p>
                     <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">{stat.label}</p>
                   </CardContent>
                 </Card>
@@ -104,7 +104,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-4 sm:mb-5 md:mb-6 uppercase tracking-tight premium-heading">
                 What We Do
               </h2>
-              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold to-transparent mb-4 sm:mb-5 md:mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mb-4 sm:mb-5 md:mb-6 shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
               <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white leading-relaxed premium-text mb-4 sm:mb-5 md:mb-6">
                 {service.description}
               </p>
@@ -112,7 +112,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                 At {BRAND_CONFIG.shortName}, we bring over {new Date().getFullYear() - BRAND_CONFIG.established} years of construction expertise to every {service.title.toLowerCase()} project. As a 3rd generation, family-owned company, we treat every client like family and deliver only the best in quality, service, and satisfaction.
               </p>
             </div>
-            <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border border-gold/30 shadow-2xl">
+            <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border border-silver/30 shadow-2xl">
               <Image
                 src={imagePath}
                 alt={service.id === "flooring" ? "Premium flooring installation" : `${service.title} project example`}
@@ -141,16 +141,16 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Why Choose Us for {service.title}
               </h2>
-              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {service.benefits.map((benefit, idx) => (
-                <Card key={idx} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+                <Card key={idx} className="card-premium border-silver/30 bg-black/75 ">
                   <CardContent className="pt-6">
                     <div className="flex items-start space-x-4">
                       <div className="flex-shrink-0">
-                        <div className="w-12 h-12 rounded-full bg-gold/10 border-2 border-gold/30 flex items-center justify-center">
-                          <CheckCircle className="h-6 w-6 text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                        <div className="w-12 h-12 rounded-full bg-silver/10 border-2 border-silver/30 flex items-center justify-center">
+                          <CheckCircle className="h-6 w-6 text-silver drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                         </div>
                       </div>
                       <p className="text-white text-base leading-relaxed premium-text flex-1">{benefit}</p>
@@ -177,18 +177,18 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Our Process
               </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
               <p className="text-lg text-white max-w-3xl mx-auto premium-text mt-4">
                 A proven process that ensures your project runs smoothly from start to finish
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {service.process.map((step) => (
-                <Card key={step.step} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+                <Card key={step.step} className="card-premium border-silver/30 bg-black/75 ">
                   <CardHeader>
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 rounded-full bg-gold/20 border-2 border-gold flex items-center justify-center">
-                        <span className="text-gold font-black text-lg">{step.step}</span>
+                      <div className="w-12 h-12 rounded-full bg-silver/20 border-2 border-silver flex items-center justify-center">
+                        <span className="text-silver font-black text-lg">{step.step}</span>
                       </div>
                       <CardTitle className="text-xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                         {step.title}
@@ -221,14 +221,14 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Materials & Options
               </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
               <p className="text-lg text-white max-w-3xl mx-auto premium-text mt-4">
                 We work with premium materials and offer a wide range of options to suit your style and budget
               </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {service.materials.map((material, idx) => (
-                <Card key={idx} className="card-premium border-gold/20 bg-black/50 backdrop-blur-sm text-center hover:border-gold/40 transition-all">
+                <Card key={idx} className="card-premium border-silver/20 bg-black/65  text-center hover:border-silver/40 transition-colors">
                   <CardContent className="pt-6 pb-4">
                     <p className="text-white font-semibold premium-text">{material}</p>
                   </CardContent>
@@ -253,12 +253,12 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Our {service.title} Services
               </h2>
-              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {service.details.map((detail, idx) => (
-                <div key={idx} className="flex items-start space-x-4 p-6 bg-black/50 border border-gold/20 rounded-xl backdrop-blur-sm hover:border-gold/40 transition-all">
-                  <CheckCircle className="h-6 w-6 text-gold mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                <div key={idx} className="flex items-start space-x-4 p-6 bg-black/65 border border-silver/20 rounded-xl  hover:border-silver/40 transition-colors">
+                  <CheckCircle className="h-6 w-6 text-silver mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                   <p className="text-white text-base leading-relaxed premium-text">{detail}</p>
                 </div>
               ))}
@@ -281,11 +281,11 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
                 Frequently Asked Questions
               </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
             </div>
             <div className="space-y-4">
               {service.faqs.map((faq, idx) => (
-                <Card key={idx} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm overflow-hidden">
+                <Card key={idx} className="card-premium border-silver/30 bg-black/75  overflow-hidden">
                   <button
                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
                     className="w-full text-left"
@@ -296,9 +296,9 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                           {faq.question}
                         </CardTitle>
                         {openFaq === idx ? (
-                          <ChevronUp className="h-5 w-5 text-gold flex-shrink-0" />
+                          <ChevronUp className="h-5 w-5 text-silver flex-shrink-0" />
                         ) : (
-                          <ChevronDown className="h-5 w-5 text-gold flex-shrink-0" />
+                          <ChevronDown className="h-5 w-5 text-silver flex-shrink-0" />
                         )}
                       </div>
                     </CardHeader>
@@ -329,7 +329,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Related Services
               </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto shadow-[0_0_15px_rgba(212,175,55,0.4)]"></div>
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
               <p className="text-lg text-white max-w-3xl mx-auto premium-text mt-4">
                 These services often work together to create complete solutions
               </p>
@@ -339,7 +339,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                 const relatedImagePath = serviceImageMap[related.id] || "/service-millwork.png";
                 return (
                   <Link key={related.id} href={`/services/${related.id}`}>
-                    <Card className="card-premium h-full overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-105 border-gold/30 bg-black/60 backdrop-blur-sm">
+                    <Card className="card-premium h-full overflow-hidden group cursor-pointer transition-[transform,box-shadow,border-color] duration-300 hover:scale-105 border-silver/30 bg-black/75 ">
                       <div className="relative h-48 w-full overflow-hidden">
                         <Image
                           src={relatedImagePath}
@@ -360,8 +360,8 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <span className="premium-gold-text font-bold uppercase tracking-wide text-sm group-hover:underline inline-flex items-center gap-2">
-                          Learn More <span className="transition-all duration-300">→</span>
+                        <span className="premium-silver-text font-bold uppercase tracking-wide text-sm group-hover:underline inline-flex items-center gap-2">
+                          Learn More <span className="transition-[transform,box-shadow,border-color] duration-300">→</span>
                         </span>
                       </CardContent>
                     </Card>
@@ -382,7 +382,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
           }}></div>
         </div>
         <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
-          <Card className="card-premium border-gold/30 p-6 sm:p-8 md:p-10 lg:p-12 bg-black/60 backdrop-blur-sm">
+          <Card className="card-premium border-silver/30 p-6 sm:p-8 md:p-10 lg:p-12 bg-black/75 ">
             <CardHeader>
               <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
                 Ready to Get Started?
@@ -392,14 +392,14 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <p className="text-sm sm:text-base md:text-lg text-white/90 leading-relaxed premium-text px-2">
                 Contact us today for a free consultation and quote on your {service.title.toLowerCase()} project. We treat every client like family and deliver only the best.
               </p>
-              <p className="text-xs sm:text-sm md:text-base premium-gold-text font-bold uppercase tracking-wide px-2">
+              <p className="text-xs sm:text-sm md:text-base premium-silver-text font-bold uppercase tracking-wide px-2">
                 {BRAND_CONFIG.motto}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Button asChild size="lg" className="btn-premium px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
                   <Link href="/get-quote">Get a Quote</Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg w-full sm:w-auto">
+                <Button asChild size="lg" variant="outline" className="border-2 border-silver/50 bg-black/65 hover:bg-black/70 hover:border-silver text-silver  px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg w-full sm:w-auto">
                   <Link href="/contact">Contact Us</Link>
                 </Button>
               </div>

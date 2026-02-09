@@ -30,10 +30,12 @@ export function FloatingChatbot() {
     }
   }, [isOpen, conversation.length]);
 
-  // Auto-scroll to bottom
+  // Auto-scroll to bottom only when chat is open (avoid scrolling the whole page)
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [conversation]);
+    if (isOpen && conversation.length > 0) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [conversation, isOpen]);
 
   const handleSend = async () => {
     if (!message.trim() || loading) return;
@@ -150,7 +152,7 @@ export function FloatingChatbot() {
     <>
       {/* Floating Button */}
       <button
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-2xl gold-3d-button text-black shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-2xl silver-3d-button text-black shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Open chat"
       >
@@ -164,8 +166,8 @@ export function FloatingChatbot() {
       {/* Chat Window */}
       {isOpen && (
         <div className="fixed bottom-24 right-6 z-50 w-96 max-w-[calc(100vw-3rem)]">
-            <Card className="card-premium border-gold/40 h-[600px] flex flex-col rounded-2xl shadow-2xl">
-              <CardHeader className="pb-3 border-b border-gold/30">
+            <Card className="card-premium border-silver/40 h-[600px] flex flex-col rounded-2xl shadow-2xl">
+              <CardHeader className="pb-3 border-b border-silver/30">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg font-bold text-text-primary uppercase tracking-wide">
                     AI Assistant
@@ -191,8 +193,8 @@ export function FloatingChatbot() {
                       <div
                         className={`max-w-[80%] rounded-xl p-3 ${
                           msg.role === "user"
-                            ? "gold-3d-button text-black"
-                            : "card-premium text-text-primary border-gold/20"
+                            ? "silver-3d-button text-black"
+                            : "card-premium text-text-primary border-silver/20"
                         }`}
                       >
                         <p className="text-sm leading-relaxed">{msg.content}</p>
@@ -201,8 +203,8 @@ export function FloatingChatbot() {
                   ))}
                   {loading && (
                     <div className="flex justify-start">
-                      <div className="card-premium rounded-xl p-3 border-gold/20">
-                        <Loader2 className="h-4 w-4 animate-spin text-gold" />
+                      <div className="card-premium rounded-xl p-3 border-silver/20">
+                        <Loader2 className="h-4 w-4 animate-spin text-silver" />
                       </div>
                     </div>
                   )}
@@ -211,7 +213,7 @@ export function FloatingChatbot() {
 
                 {/* Contact Form (if collecting) */}
                 {collectingContact && (
-                  <div className="mb-4 p-4 card-premium border-gold/40 rounded-xl shadow-lg">
+                  <div className="mb-4 p-4 card-premium border-silver/40 rounded-xl shadow-lg">
                     <p className="text-sm font-semibold text-text-primary mb-3 uppercase">
                       Get a Free Consultation
                     </p>
@@ -220,14 +222,14 @@ export function FloatingChatbot() {
                         placeholder="Your name"
                         value={contactInfo.name}
                         onChange={(e) => setContactInfo({ ...contactInfo, name: e.target.value })}
-                        className="bg-industrial-slate/90 border-gold/30"
+                        className="bg-industrial-slate/90 border-silver/30"
                       />
                       <Input
                         type="email"
                         placeholder="Email *"
                         value={contactInfo.email}
                         onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
-                        className="bg-industrial-slate/90 border-gold/30"
+                        className="bg-industrial-slate/90 border-silver/30"
                         required
                       />
                       <Input
@@ -235,7 +237,7 @@ export function FloatingChatbot() {
                         placeholder="Phone (optional)"
                         value={contactInfo.phone}
                         onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
-                        className="bg-industrial-slate/90 border-gold/30"
+                        className="bg-industrial-slate/90 border-silver/30"
                       />
                       <Button
                         onClick={handleContactSubmit}
@@ -256,7 +258,7 @@ export function FloatingChatbot() {
                       onChange={(e) => setMessage(e.target.value)}
                       onKeyPress={(e) => e.key === "Enter" && handleSend()}
                       placeholder="Type your message..."
-                      className="flex-1 bg-industrial-slate/90 border-gold/30"
+                      className="flex-1 bg-industrial-slate/90 border-silver/30"
                     />
                     <Button
                       onClick={handleSend}

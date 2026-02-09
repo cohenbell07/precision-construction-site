@@ -3,6 +3,7 @@ import { Inter, Inter_Tight, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
 import { LayoutWrapper } from "@/components/LayoutWrapper";
 import { BRAND_CONFIG } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -23,6 +24,12 @@ const dmSerif = DM_Serif_Display({
   display: "swap",
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
   title: {
     default: `${BRAND_CONFIG.name} | Premium Construction Services in Calgary`,
@@ -42,6 +49,15 @@ export const metadata: Metadata = {
     "basement development",
   ],
   authors: [{ name: BRAND_CONFIG.name }],
+  icons: {
+    icon: [
+      { url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     type: "website",
     locale: "en_CA",
@@ -113,6 +129,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${interTight.variable} ${dmSerif.variable} font-sans antialiased bg-black`}>
         <LayoutWrapper>{children}</LayoutWrapper>
+        <Analytics />
       </body>
     </html>
   );

@@ -85,20 +85,6 @@ export default function AboutPage() {
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      location: "NW Calgary",
-      text: "Precision Construction and Decora transformed our kitchen. They treated us like family from day one. The custom cabinets and countertops exceeded our expectations, and we got only the best quality and service.",
-      rating: 5,
-      projectType: "Kitchen Renovation",
-    },
-    {
-      name: "Mike Chen",
-      location: "SE Calgary",
-      text: "As a 3rd generation company, they know what they're doing. Their attention to detail on our commercial project was outstanding, and the relationship we built felt genuine.",
-      rating: 5,
-      projectType: "Commercial Renovation",
-    },
-    {
       name: "Emily Rodriguez",
       location: "Calgary",
       text: "The custom Murphy bed they built for our small space was perfect. Better quality and price than the big box stores, and John made sure we were completely satisfied.",
@@ -130,8 +116,8 @@ export default function AboutPage() {
         }}></div>
       </div>
       {/* Hero Section with video */}
-      <section className="relative w-full bg-black overflow-hidden">
-        <div className="relative w-full" style={{ aspectRatio: "16/9", maxHeight: "600px", minHeight: "300px" }}>
+      <section className="relative w-full bg-black overflow-hidden min-h-[240px] sm:min-h-[300px] md:min-h-[400px] max-h-[90vh]">
+        <div className="relative w-full min-h-[240px] aspect-video max-h-[600px]">
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
@@ -148,8 +134,8 @@ export default function AboutPage() {
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading px-2">
                 About {BRAND_CONFIG.shortName}
               </h1>
-              <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-3 sm:mb-4 md:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl premium-gold-text font-bold mb-2 sm:mb-3 md:mb-4 uppercase tracking-wide px-2">
+              <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-3 sm:mb-4 md:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl premium-silver-text font-bold mb-2 sm:mb-3 md:mb-4 uppercase tracking-wide px-2">
                 {BRAND_CONFIG.motto}
               </p>
               <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white max-w-3xl mx-auto leading-relaxed premium-text px-2">
@@ -173,33 +159,33 @@ export default function AboutPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Our Track Record
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
+            <Card className="card-premium border-silver/30 bg-black/75  text-center">
               <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
-                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-gold-text mb-1 sm:mb-2">{totalYears}+</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-silver-text mb-1 sm:mb-2">{totalYears}+</p>
                 <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">Years in Business</p>
                 <p className="text-white/70 text-xs sm:text-sm mt-1 sm:mt-2">Since {BRAND_CONFIG.established}</p>
               </CardContent>
             </Card>
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
+            <Card className="card-premium border-silver/30 bg-black/75  text-center">
               <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
-                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-gold-text mb-1 sm:mb-2">2,400+</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-silver-text mb-1 sm:mb-2">3,500+</p>
                 <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">Projects Completed</p>
                 <p className="text-white/70 text-xs sm:text-sm mt-1 sm:mt-2">Residential & Commercial</p>
               </CardContent>
             </Card>
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
+            <Card className="card-premium border-silver/30 bg-black/75  text-center">
               <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
-                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-gold-text mb-1 sm:mb-2">{yearsInCalgary}+</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-silver-text mb-1 sm:mb-2">{yearsInCalgary}+</p>
                 <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">Years in Calgary</p>
                 <p className="text-white/70 text-xs sm:text-sm mt-1 sm:mt-2">Serving since {BRAND_CONFIG.servingSince}</p>
               </CardContent>
             </Card>
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
+            <Card className="card-premium border-silver/30 bg-black/75  text-center">
               <CardContent className="pt-4 sm:pt-5 md:pt-6 px-3 sm:px-4">
-                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-gold-text mb-1 sm:mb-2">3rd</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black premium-silver-text mb-1 sm:mb-2">3rd</p>
                 <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-xs sm:text-sm md:text-base">Generation</p>
                 <p className="text-white/70 text-xs sm:text-sm mt-1 sm:mt-2">Family-Owned Business</p>
               </CardContent>
@@ -209,7 +195,7 @@ export default function AboutPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Company History Timeline */}
       <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
@@ -224,31 +210,31 @@ export default function AboutPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Our Journey
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
           </div>
 
-          <Card className="card-premium border-gold/30 p-4 sm:p-6 md:p-8 lg:p-12 bg-black/60 backdrop-blur-sm">
+          <Card className="card-premium border-silver/30 p-4 sm:p-6 md:p-8 lg:p-12 bg-black/75 ">
             <div className="relative">
               {/* Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-gold/30 via-gold to-gold/30 hidden md:block shadow-[0_0_20px_rgba(212,175,55,0.4)]"></div>
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-silver/30 via-silver to-silver/30 hidden md:block shadow-[0_0_20px_rgba(232,232,232,0.4)]"></div>
               
               {/* Timeline Points */}
               <div className="space-y-8 sm:space-y-10 md:space-y-12 lg:space-y-16">
                 <div className="relative flex flex-col md:flex-row items-center">
                   <div className="w-full md:w-1/2 md:pr-8 text-center md:text-right mb-4 md:mb-0">
-                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black premium-gold-text mb-1 sm:mb-2">{BRAND_CONFIG.established}</p>
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black premium-silver-text mb-1 sm:mb-2">{BRAND_CONFIG.established}</p>
                     <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-sm sm:text-base md:text-lg">Family Construction Begins</p>
                     <p className="text-white/70 text-xs sm:text-sm mt-1">3rd generation family business established</p>
                   </div>
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold rounded-full border-4 border-black shadow-[0_0_20px_rgba(212,175,55,0.6)] hidden md:block"></div>
+                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-silver rounded-full border-4 border-black shadow-[0_0_20px_rgba(232,232,232,0.6)] hidden md:block"></div>
                   <div className="w-full md:w-1/2 md:pl-8"></div>
                 </div>
                 
                 <div className="relative flex flex-col md:flex-row items-center">
                   <div className="w-full md:w-1/2 md:pr-8"></div>
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold rounded-full border-4 border-black shadow-[0_0_20px_rgba(212,175,55,0.6)] hidden md:block"></div>
+                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-silver rounded-full border-4 border-black shadow-[0_0_20px_rgba(232,232,232,0.6)] hidden md:block"></div>
                   <div className="w-full md:w-1/2 md:pl-8 text-center md:text-left mb-4 md:mb-0">
-                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black premium-gold-text mb-1 sm:mb-2">{BRAND_CONFIG.servingSince}</p>
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black premium-silver-text mb-1 sm:mb-2">{BRAND_CONFIG.servingSince}</p>
                     <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-sm sm:text-base md:text-lg">Calgary Operations Established</p>
                     <p className="text-white/70 text-xs sm:text-sm mt-1">Expanding to Calgary market</p>
                   </div>
@@ -256,11 +242,11 @@ export default function AboutPage() {
                 
                 <div className="relative flex flex-col md:flex-row items-center">
                   <div className="w-full md:w-1/2 md:pr-8 text-center md:text-right mb-4 md:mb-0">
-                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black premium-gold-text mb-1 sm:mb-2">Today</p>
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black premium-silver-text mb-1 sm:mb-2">Today</p>
                     <p className="text-white font-black uppercase tracking-wide premium-heading-sm text-sm sm:text-base md:text-lg">Premium Commercial & Residential Service</p>
                     <p className="text-white/70 text-xs sm:text-sm mt-1">Continuing excellence in Calgary</p>
                   </div>
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold rounded-full border-4 border-black shadow-[0_0_30px_rgba(212,175,55,0.8)] glow-gold hidden md:block"></div>
+                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-silver rounded-full border-4 border-black shadow-[0_0_30px_rgba(232,232,232,0.8)] glow-silver hidden md:block"></div>
                   <div className="w-full md:w-1/2 md:pl-8"></div>
                 </div>
               </div>
@@ -270,7 +256,7 @@ export default function AboutPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Owner/Leadership Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
@@ -285,16 +271,16 @@ export default function AboutPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Meet Our Leadership
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
-            <div>
-              <Card className="card-premium border-gold/30 p-8 bg-black/60 backdrop-blur-sm">
+          <div className="flex justify-center">
+            <div className="max-w-2xl w-full">
+              <Card className="card-premium border-silver/30 p-8 bg-black/75 ">
                 <CardHeader>
                   <CardTitle className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading-sm">
                     {BRAND_CONFIG.owner}
                   </CardTitle>
-                  <CardDescription className="text-lg premium-gold-text font-bold uppercase tracking-wide">
+                  <CardDescription className="text-lg premium-silver-text font-bold uppercase tracking-wide">
                     Owner & Lead Contractor
                   </CardDescription>
                 </CardHeader>
@@ -308,7 +294,7 @@ export default function AboutPage() {
                   <p className="text-white/90 leading-relaxed premium-text">
                     Every project receives his personal attention to ensure you get only the best — in service, quality, and satisfaction. His hands-on approach and commitment to treating every client like family has been the cornerstone of {BRAND_CONFIG.shortName}&apos;s success in Calgary.
                   </p>
-                  <div className="pt-4 border-t border-gold/20">
+                  <div className="pt-4 border-t border-silver/20">
                     <p className="text-sm text-white/80 premium-text">
                       <strong className="text-white">Direct Contact:</strong> {BRAND_CONFIG.contact.phoneFormatted} | {BRAND_CONFIG.contact.email}
                     </p>
@@ -316,21 +302,12 @@ export default function AboutPage() {
                 </CardContent>
               </Card>
             </div>
-            <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border border-gold/30 shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-black/50 to-black flex items-center justify-center">
-                <div className="text-center">
-                  <PhosphorUsers className="h-24 w-24 text-gold mx-auto mb-4 drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]" weight="duotone" />
-                  <p className="text-white/80 premium-text">Owner Photo</p>
-                  <p className="text-white/60 text-sm">Placeholder for owner image</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Pull Quote Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
@@ -341,9 +318,9 @@ export default function AboutPage() {
           }}></div>
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
-          <Card className="card-premium border-gold/30 p-6 sm:p-8 md:p-10 lg:p-12 bg-black/60 backdrop-blur-sm">
+          <Card className="card-premium border-silver/30 p-6 sm:p-8 md:p-10 lg:p-12 bg-black/75 ">
             <div className="text-center">
-              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-display font-black premium-gold-text mb-4 sm:mb-5 md:mb-6 italic leading-relaxed px-2">
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-display font-black premium-silver-text mb-4 sm:mb-5 md:mb-6 italic leading-relaxed px-2">
                 &quot;We treat every client like family — and every build like our own.&quot;
               </p>
               <p className="text-sm sm:text-base md:text-lg text-white/80 premium-text px-2">
@@ -355,7 +332,7 @@ export default function AboutPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Our Process/Workflow Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
@@ -370,7 +347,7 @@ export default function AboutPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               How We Work
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
             <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Our proven process ensures your project runs smoothly from start to finish
             </p>
@@ -398,11 +375,11 @@ export default function AboutPage() {
                 description: "We conduct a final walkthrough, address any concerns, and stand behind our work with ongoing support and warranty.",
               },
             ].map((item) => (
-              <Card key={item.step} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+              <Card key={item.step} className="card-premium border-silver/30 bg-black/75 ">
                 <CardHeader>
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-gold/20 border-2 border-gold flex items-center justify-center">
-                      <span className="text-gold font-black text-lg">{item.step}</span>
+                    <div className="w-12 h-12 rounded-full bg-silver/20 border-2 border-silver flex items-center justify-center">
+                      <span className="text-silver font-black text-lg">{item.step}</span>
                     </div>
                     <CardTitle className="text-xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                       {item.title}
@@ -421,7 +398,7 @@ export default function AboutPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Company Values/Mission Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
@@ -436,10 +413,10 @@ export default function AboutPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Our Values & Mission
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-8 sm:mb-10 md:mb-12">
-            <Card className="card-premium border-gold/30 p-8 bg-black/60 backdrop-blur-sm">
+            <Card className="card-premium border-silver/30 p-8 bg-black/75 ">
               <CardHeader>
                 <CardTitle className="text-2xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading-sm">
                   Our Mission
@@ -454,7 +431,7 @@ export default function AboutPage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="card-premium border-gold/30 p-8 bg-black/60 backdrop-blur-sm">
+            <Card className="card-premium border-silver/30 p-8 bg-black/75 ">
               <CardHeader>
                 <CardTitle className="text-2xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading-sm">
                   Our Core Values
@@ -462,28 +439,28 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-gold mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                  <CheckCircle className="h-5 w-5 text-silver mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                   <div>
                     <p className="font-black text-white premium-heading-sm">Integrity</p>
                     <p className="text-white/80 text-sm premium-text">Honest communication and transparent pricing in everything we do.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-gold mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                  <CheckCircle className="h-5 w-5 text-silver mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                   <div>
                     <p className="font-black text-white premium-heading-sm">Quality</p>
                     <p className="text-white/80 text-sm premium-text">Only the best materials, craftsmanship, and attention to detail.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-gold mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                  <CheckCircle className="h-5 w-5 text-silver mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                   <div>
                     <p className="font-black text-white premium-heading-sm">Family-First</p>
                     <p className="text-white/80 text-sm premium-text">Treating every client like family, not just a transaction.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-gold mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                  <CheckCircle className="h-5 w-5 text-silver mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                   <div>
                     <p className="font-black text-white premium-heading-sm">Excellence</p>
                     <p className="text-white/80 text-sm premium-text">Continuous improvement and commitment to exceeding expectations.</p>
@@ -496,78 +473,7 @@ export default function AboutPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
-
-      {/* Certifications & Insurance Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-            backgroundSize: '100px 100px'
-          }}></div>
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
-              Licensed, Insured & Certified
-            </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
-              Your peace of mind is our priority. We maintain all necessary licenses, insurance, and certifications.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
-              <CardHeader>
-                <div className="inline-flex items-center justify-center p-5 bg-gold/10 rounded-2xl border border-gold/30 mb-4 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-                  <PhosphorCertificate className="h-12 w-12 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" weight="duotone" />
-                </div>
-                <CardTitle className="text-xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
-                  Fully Licensed
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-white/90 leading-relaxed premium-text">
-                  Licensed contractors with all required permits and certifications for residential and commercial construction in Alberta.
-                </CardDescription>
-              </CardContent>
-            </Card>
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
-              <CardHeader>
-                <div className="inline-flex items-center justify-center p-5 bg-gold/10 rounded-2xl border border-gold/30 mb-4 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-                  <PhosphorShield className="h-12 w-12 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" weight="duotone" />
-                </div>
-                <CardTitle className="text-xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
-                  Fully Insured
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-white/90 leading-relaxed premium-text">
-                  Comprehensive liability and workers&apos; compensation insurance to protect you, your property, and our team throughout every project.
-                </CardDescription>
-              </CardContent>
-            </Card>
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm text-center">
-              <CardHeader>
-                <div className="inline-flex items-center justify-center p-5 bg-gold/10 rounded-2xl border border-gold/30 mb-4 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-                  <PhosphorAward className="h-12 w-12 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" weight="duotone" />
-                </div>
-                <CardTitle className="text-xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
-                  Quality Guarantee
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-white/90 leading-relaxed premium-text">
-                  We stand behind our work with comprehensive warranties and ongoing support. Your satisfaction is guaranteed.
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Quality Standards Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
@@ -582,13 +488,13 @@ export default function AboutPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Our Quality Standards
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
             <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               We don&apos;t cut corners. Every project meets our exacting standards for materials, craftsmanship, and finish.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="card-premium border-gold/30 p-8 bg-black/60 backdrop-blur-sm">
+            <Card className="card-premium border-silver/30 p-8 bg-black/75 ">
               <CardHeader>
                 <CardTitle className="text-2xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading-sm">
                   Premium Materials
@@ -600,21 +506,21 @@ export default function AboutPage() {
                 </p>
                 <ul className="space-y-2 text-white/90 premium-text">
                   <li className="flex items-start space-x-2">
-                    <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                    <CheckCircle className="h-5 w-5 text-silver mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                     <span>Direct relationships with premium suppliers</span>
                   </li>
                   <li className="flex items-start space-x-2">
-                    <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                    <CheckCircle className="h-5 w-5 text-silver mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                     <span>Quality inspection before installation</span>
                   </li>
                   <li className="flex items-start space-x-2">
-                    <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                    <CheckCircle className="h-5 w-5 text-silver mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                     <span>Warranty-backed materials and workmanship</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
-            <Card className="card-premium border-gold/30 p-8 bg-black/60 backdrop-blur-sm">
+            <Card className="card-premium border-silver/30 p-8 bg-black/75 ">
               <CardHeader>
                 <CardTitle className="text-2xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading-sm">
                   Quality Control Process
@@ -626,15 +532,15 @@ export default function AboutPage() {
                 </p>
                 <ul className="space-y-2 text-white/90 premium-text">
                   <li className="flex items-start space-x-2">
-                    <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                    <CheckCircle className="h-5 w-5 text-silver mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                     <span>Multi-stage quality inspections</span>
                   </li>
                   <li className="flex items-start space-x-2">
-                    <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                    <CheckCircle className="h-5 w-5 text-silver mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                     <span>Owner review on every project</span>
                   </li>
                   <li className="flex items-start space-x-2">
-                    <CheckCircle className="h-5 w-5 text-gold mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                    <CheckCircle className="h-5 w-5 text-silver mt-0.5 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                     <span>Client approval at key milestones</span>
                   </li>
                 </ul>
@@ -645,74 +551,7 @@ export default function AboutPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
-
-      {/* Why Clients Trust Us */}
-      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-            backgroundSize: '100px 100px'
-          }}></div>
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
-              Why Clients Trust Us
-            </h2>
-            <div className="h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {[
-              {
-                icon: PhosphorAward,
-                title: "Quality Craftsmanship",
-                description: "Every project is executed with precision and attention to detail. We use only the finest materials and proven techniques.",
-              },
-              {
-                icon: PhosphorShield,
-                title: "Trusted & Reliable",
-                description: "Three generations of experience means you can trust us to deliver on time, on budget, and to the highest standards.",
-              },
-              {
-                icon: PhosphorHeart,
-                title: "Family Values",
-                description: "We treat every client like family. Your satisfaction and trust are our top priorities, not just profit margins.",
-              },
-              {
-                icon: PhosphorWrench,
-                title: "Comprehensive Service",
-                description: "From flooring to full home renovations, we handle every aspect of your project with expertise and care.",
-              },
-            ].map((value, index) => {
-              const IconComponent = value.icon;
-              return (
-              <div key={value.title}>
-                <Card className="card-premium h-full text-center border-gold/30 bg-black/60 backdrop-blur-sm">
-                  <CardHeader>
-                    <div className="inline-flex items-center justify-center p-5 bg-gold/10 rounded-2xl border border-gold/30 mb-4 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-                      <IconComponent className="h-12 w-12 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" weight="duotone" />
-                    </div>
-                    <CardTitle className="text-xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
-                      {value.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-white/90 leading-relaxed premium-text">
-                      {value.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Expanded Testimonials Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
@@ -727,18 +566,18 @@ export default function AboutPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               What Our Clients Say
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
             <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               Real feedback from families and businesses we&apos;ve had the honor of serving across Calgary
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial) => (
-              <Card key={testimonial.name} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+              <Card key={testimonial.name} className="card-premium border-silver/30 bg-black/75 ">
                 <CardHeader className="pb-4">
                   <div className="flex items-center mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-gold text-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                      <Star key={i} className="h-5 w-5 fill-silver text-silver drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                     ))}
                   </div>
                   <CardDescription className="text-base text-white/90 leading-relaxed premium-text">
@@ -748,7 +587,7 @@ export default function AboutPage() {
                 <CardContent className="pt-0">
                   <p className="font-black text-white uppercase tracking-wide premium-heading-sm mb-1">{testimonial.name}</p>
                   <p className="text-sm text-white/70 mb-2">{testimonial.location}</p>
-                  <p className="text-xs text-gold uppercase tracking-wide font-bold">{testimonial.projectType}</p>
+                  <p className="text-xs text-silver uppercase tracking-wide font-bold">{testimonial.projectType}</p>
                 </CardContent>
               </Card>
             ))}
@@ -757,7 +596,7 @@ export default function AboutPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Calgary Community Focus Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
@@ -772,16 +611,16 @@ export default function AboutPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Built for Calgary
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
             <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               As a Calgary-based family business, we&apos;re deeply invested in our community and committed to building relationships that last.
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+            <Card className="card-premium border-silver/30 bg-black/75 ">
               <CardHeader>
-                <div className="inline-flex items-center justify-center p-5 bg-gold/10 rounded-2xl border border-gold/30 mb-4 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-                  <PhosphorMapPin className="h-12 w-12 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" weight="duotone" />
+                <div className="inline-flex items-center justify-center p-5 bg-silver/10 rounded-2xl border border-silver/30 mb-4 shadow-[0_0_20px_rgba(232,232,232,0.2)]">
+                  <PhosphorMapPin className="h-12 w-12 text-silver drop-shadow-[0_0_15px_rgba(232,232,232,0.6)]" weight="duotone" />
                 </div>
                 <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Local Expertise
@@ -793,10 +632,10 @@ export default function AboutPage() {
                 </CardDescription>
               </CardContent>
             </Card>
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+            <Card className="card-premium border-silver/30 bg-black/75 ">
               <CardHeader>
-                <div className="inline-flex items-center justify-center p-5 bg-gold/10 rounded-2xl border border-gold/30 mb-4 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-                  <PhosphorHandshake className="h-12 w-12 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" weight="duotone" />
+                <div className="inline-flex items-center justify-center p-5 bg-silver/10 rounded-2xl border border-silver/30 mb-4 shadow-[0_0_20px_rgba(232,232,232,0.2)]">
+                  <PhosphorHandshake className="h-12 w-12 text-silver drop-shadow-[0_0_15px_rgba(232,232,232,0.6)]" weight="duotone" />
                 </div>
                 <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Community Commitment
@@ -808,10 +647,10 @@ export default function AboutPage() {
                 </CardDescription>
               </CardContent>
             </Card>
-            <Card className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+            <Card className="card-premium border-silver/30 bg-black/75 ">
               <CardHeader>
-                <div className="inline-flex items-center justify-center p-5 bg-gold/10 rounded-2xl border border-gold/30 mb-4 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-                  <PhosphorUsers className="h-12 w-12 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]" weight="duotone" />
+                <div className="inline-flex items-center justify-center p-5 bg-silver/10 rounded-2xl border border-silver/30 mb-4 shadow-[0_0_20px_rgba(232,232,232,0.2)]">
+                  <PhosphorUsers className="h-12 w-12 text-silver drop-shadow-[0_0_15px_rgba(232,232,232,0.6)]" weight="duotone" />
                 </div>
                 <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
                   Lasting Relationships
@@ -828,7 +667,7 @@ export default function AboutPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Service Area Details Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
@@ -843,7 +682,7 @@ export default function AboutPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading">
               Service Areas
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
             <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
               We proudly serve Calgary and surrounding areas with the same quality and care
             </p>
@@ -857,10 +696,10 @@ export default function AboutPage() {
               { area: "Chestermere", description: "Waterfront and lake community projects" },
               { area: "Surrounding Areas", description: "Ask about service to your location" },
             ].map((item, idx) => (
-              <Card key={idx} className="card-premium border-gold/30 bg-black/60 backdrop-blur-sm">
+              <Card key={idx} className="card-premium border-silver/30 bg-black/75 ">
                 <CardContent className="pt-6">
                   <div className="flex items-start space-x-3">
-                    <PhosphorMapPin className="h-6 w-6 text-gold mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(212,175,55,0.6)]" />
+                    <PhosphorMapPin className="h-6 w-6 text-silver mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
                     <div>
                       <p className="font-black text-white premium-heading-sm mb-1">{item.area}</p>
                       <p className="text-sm text-white/70 premium-text">{item.description}</p>
@@ -874,7 +713,7 @@ export default function AboutPage() {
       </section>
 
       {/* Premium Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent shadow-[0_0_30px_rgba(212,175,55,0.4)]"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#1F1F1F] relative premium-bg-pattern">
@@ -885,11 +724,11 @@ export default function AboutPage() {
           }}></div>
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center relative z-10">
-          <div className="card-premium border-gold/30 p-6 sm:p-8 md:p-12 lg:p-16 bg-black/60 backdrop-blur-sm">
+          <div className="card-premium border-silver/30 p-6 sm:p-8 md:p-12 lg:p-16 bg-black/75 ">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 sm:mb-5 md:mb-6 text-white uppercase tracking-tight premium-heading px-2">
               Let&apos;s Build Something Together
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4 sm:mb-5 md:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.5)]"></div>
+            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-5 md:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-6 sm:mb-7 md:mb-8 max-w-2xl mx-auto leading-relaxed premium-text px-2">
               Experience the difference of working with a family-owned company that treats you like 
               family. Get a free consultation and see why Calgary trusts {BRAND_CONFIG.shortName}.
@@ -898,7 +737,7 @@ export default function AboutPage() {
               <Button asChild size="lg" className="btn-premium text-sm sm:text-base md:text-lg px-6 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
                 <Link href="/get-quote">Request a Quote</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-gold/50 bg-black/50 hover:bg-black/70 hover:border-gold text-gold backdrop-blur-sm text-sm sm:text-base md:text-lg px-6 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
+              <Button asChild size="lg" variant="outline" className="border-2 border-silver/50 bg-black/50 hover:bg-black/70 hover:border-silver text-silver  text-sm sm:text-base md:text-lg px-6 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
                 <Link href="/contact">Contact Us</Link>
               </Button>
             </div>

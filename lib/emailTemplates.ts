@@ -9,6 +9,7 @@ import { ProjectDetails, EstimateResult } from "./aiTools";
 export interface EmailTemplateData {
   name?: string;
   email: string;
+  phone?: string;
   projectType?: string;
   projectDetails?: ProjectDetails;
   estimate?: EstimateResult;
@@ -16,20 +17,27 @@ export interface EmailTemplateData {
 }
 
 /**
- * Admin notification - New lead from chat
+ * Admin notification - New lead from chat (full quote context)
  */
 export function getAdminChatLeadEmail(data: EmailTemplateData): { subject: string; html: string } {
+  const pd = data.projectDetails;
+  const projectLabel = pd?.serviceName || pd?.projectType || pd?.productInterest || "General Inquiry";
   return {
-    subject: `New AI Chat Lead: ${data.projectType || "General Inquiry"}`,
+    subject: `New AI Chat Lead: ${projectLabel}`,
     html: `
       <h2>New Lead from AI Chatbot</h2>
       <p><strong>Name:</strong> ${data.name || "Not provided"}</p>
       <p><strong>Email:</strong> ${data.email}</p>
-      <p><strong>Project Type:</strong> ${data.projectType || "Not specified"}</p>
-      ${data.conversationSummary ? `<p><strong>Conversation Summary:</strong></p><p>${data.conversationSummary}</p>` : ""}
-      ${data.projectDetails?.squareFootage ? `<p><strong>Square Footage:</strong> ${data.projectDetails.squareFootage}</p>` : ""}
-      ${data.projectDetails?.budget ? `<p><strong>Budget:</strong> ${data.projectDetails.budget}</p>` : ""}
-      ${data.projectDetails?.timeline ? `<p><strong>Timeline:</strong> ${data.projectDetails.timeline}</p>` : ""}
+      <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
+      <p><strong>Project Type:</strong> ${data.projectType || pd?.projectType || "Not specified"}</p>
+      ${pd?.serviceId ? `<p><strong>Service:</strong> ${pd.serviceName || pd.serviceId}</p>` : ""}
+      ${pd?.productInterest ? `<p><strong>Product Interest:</strong> ${pd.productInterest}</p>` : ""}
+      ${pd?.description ? `<p><strong>Description:</strong> ${pd.description}</p>` : ""}
+      ${pd?.squareFootage ? `<p><strong>Square Footage:</strong> ${pd.squareFootage}</p>` : ""}
+      ${pd?.materials ? `<p><strong>Materials:</strong> ${pd.materials}</p>` : ""}
+      ${pd?.timeline ? `<p><strong>Timeline:</strong> ${pd.timeline}</p>` : ""}
+      ${pd?.budget ? `<p><strong>Budget:</strong> ${pd.budget}</p>` : ""}
+      ${data.conversationSummary ? `<p><strong>Conversation:</strong></p><pre style="white-space:pre-wrap;font-family:sans-serif;">${data.conversationSummary}</pre>` : ""}
       <p><strong>Source:</strong> AI Chatbot</p>
       <p>${BRAND_CONFIG.motto}</p>
     `,

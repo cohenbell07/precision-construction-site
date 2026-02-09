@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { qualifyLeadThroughChat } from "@/lib/aiTools";
-import type { ChatConversation } from "@/lib/aiTools";
+import {
+  runSalesChat,
+  extractProjectDetailsFromConversation,
+  type ChatConversation,
+} from "@/lib/aiTools";
 
 export async function POST(request: NextRequest) {
   try {
-    const { conversation } = await request.json();
+    const body = await request.json();
+    const { conversation, currentPage } = body;
 
     if (!Array.isArray(conversation)) {
       return NextResponse.json(
@@ -13,29 +17,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Qualify lead and get next question
-    const result = await qualifyLeadThroughChat(conversation as ChatConversation[]);
+    const conv = conversation as ChatConversation[];
+    const { reply, shouldCollectContact } = await runSalesChat(conv, {
+      currentPage: typeof currentPage === "string" ? currentPage : undefined,
+    });
 
-    // Determine if we should collect contact info
-    const shouldCollectContact =
-      result.qualified &&
-      conversation.length >= 4 &&
-      (result.projectDetails.projectType || result.projectDetails.budget);
+    const projectDetails = await extractProjectDetailsFromConversation(conv, reply);
 
     return NextResponse.json({
-      response: result.nextQuestion || "How can I help you with your project?",
-      projectDetails: result.projectDetails,
+      response: reply,
+      projectDetails,
       shouldCollectContact,
-      qualified: result.qualified,
     });
   } catch (error) {
     console.error("Chat API error:", error);
     return NextResponse.json({
-      response: "Thanks for your interest! Would you like to provide your contact information so we can follow up?",
+      response:
+        "Thanks for your interest! Would you like to provide your contact information so we can follow up with a quote?",
       shouldCollectContact: true,
       projectDetails: {},
-      qualified: false,
     });
   }
 }
-
