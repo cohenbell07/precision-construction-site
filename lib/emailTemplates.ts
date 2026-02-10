@@ -160,26 +160,30 @@ export function getFollowUpConsultationEmail(data: EmailTemplateData): { subject
 }
 
 /**
- * Deal quote types for 15% bundle and 10% supplier forms
+ * Deal quote types for 15% bundle, 10% supplier, and 15% basement forms
  */
 export interface DealQuoteData {
-  dealType: "bundle" | "supplier";
+  dealType: "bundle" | "supplier" | "basement";
   name?: string;
   email: string;
   phone?: string;
-  /** Selected options (e.g. "Flooring + install", "Quartz & porcelain") */
+  /** Selected options (e.g. "Flooring + install", "Full basement renovation") */
   selectedOptions: string[];
-  /** Bundle: project details. Supplier: quantity / how much needed */
+  /** Bundle/basement: project details. Supplier: quantity / how much needed */
   projectDetails?: string;
   timeline?: string;
   budgetMin?: string;
   budgetMax?: string;
 }
 
+function getDealQuoteLabels(data: DealQuoteData): { discount: string; label: string; projectDetailsLabel: string } {
+  if (data.dealType === "bundle") return { discount: "15%", label: "15% Bundle Savings", projectDetailsLabel: "Project / service details:" };
+  if (data.dealType === "basement") return { discount: "15%", label: "15% Basement Renovation", projectDetailsLabel: "Project / service details:" };
+  return { discount: "10%", label: "10% Supplier Discount", projectDetailsLabel: "Quantity / how much needed:" };
+}
+
 export function getDealQuoteAdminEmail(data: DealQuoteData): { subject: string; html: string } {
-  const isBundle = data.dealType === "bundle";
-  const discount = isBundle ? "15%" : "10%";
-  const label = isBundle ? "15% Bundle Savings" : "10% Supplier Discount";
+  const { discount, label, projectDetailsLabel } = getDealQuoteLabels(data);
   return {
     subject: `${label} Quote Request — ${data.name || "Unknown"}`,
     html: `
@@ -190,7 +194,7 @@ export function getDealQuoteAdminEmail(data: DealQuoteData): { subject: string; 
       <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
       <p><strong>Selected options (${data.selectedOptions.length}):</strong></p>
       <ul>${data.selectedOptions.map((o) => `<li>${o}</li>`).join("")}</ul>
-      ${data.projectDetails ? `<p><strong>${isBundle ? "Project / service details:" : "Quantity / how much needed:"}</strong></p><p>${data.projectDetails}</p>` : ""}
+      ${data.projectDetails ? `<p><strong>${projectDetailsLabel}</strong></p><p>${data.projectDetails}</p>` : ""}
       ${data.timeline ? `<p><strong>Timeline:</strong> ${data.timeline}</p>` : ""}
       ${data.budgetMin || data.budgetMax ? `<p><strong>Budget range:</strong> ${data.budgetMin ? `$${data.budgetMin}` : "—"} to ${data.budgetMax ? `$${data.budgetMax}` : "—"}</p>` : ""}
       <p><strong>Source:</strong> ${label} form</p>
@@ -200,13 +204,12 @@ export function getDealQuoteAdminEmail(data: DealQuoteData): { subject: string; 
 }
 
 export function getDealQuoteConfirmationEmail(data: DealQuoteData): { subject: string; html: string } {
-  const isBundle = data.dealType === "bundle";
-  const discount = isBundle ? "15%" : "10%";
-  const label = isBundle ? "Bundle Savings" : "Supplier Discount";
+  const { discount, label } = getDealQuoteLabels(data);
+  const shortLabel = data.dealType === "basement" ? "Basement Renovation" : label.replace(/^\d+% /, "");
   return {
-    subject: `We received your ${label} quote request — ${BRAND_CONFIG.shortName}`,
+    subject: `We received your ${shortLabel} quote request — ${BRAND_CONFIG.shortName}`,
     html: `
-      <h2>Thank you for your ${discount} ${label} quote request</h2>
+      <h2>Thank you for your ${discount} ${shortLabel} quote request</h2>
       <p>Hi ${data.name || "there"},</p>
       <p>We've received your request and will get back to you within 24 hours with a quote.</p>
       <p><strong>Your selections:</strong> ${data.selectedOptions.join(", ")}</p>

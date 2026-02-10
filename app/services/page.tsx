@@ -111,12 +111,16 @@ export default function ServicesPage() {
     }));
   };
 
-  // Reorder services: move flooring after cabinets
+  // Reorder services: basements first, then flooring after cabinets
   const reorderedServices = [...services];
+  const basementsIndex = reorderedServices.findIndex(s => s.id === "basements");
+  if (basementsIndex !== -1) {
+    const basements = reorderedServices.splice(basementsIndex, 1)[0];
+    reorderedServices.unshift(basements);
+  }
   const flooringIndex = reorderedServices.findIndex(s => s.id === "flooring");
   const cabinetsIndex = reorderedServices.findIndex(s => s.id === "cabinets");
-  
-  if (flooringIndex !== -1 && cabinetsIndex !== -1) {
+  if (flooringIndex !== -1 && cabinetsIndex !== -1 && reorderedServices[0]?.id !== "flooring") {
     const flooring = reorderedServices.splice(flooringIndex, 1)[0];
     const insertIndex = reorderedServices.findIndex(s => s.id === "cabinets") + 1;
     reorderedServices.splice(insertIndex, 0, flooring);
@@ -170,6 +174,13 @@ export default function ServicesPage() {
               
               return (
                 <div key={service.id} className="relative">
+                  {service.id === "basements" && (
+                    <div className="mb-6 sm:mb-8 flex justify-start">
+                      <span className="inline-block text-sm font-black uppercase tracking-wider bg-silver text-black px-4 py-2.5 rounded-full border-2 border-silver shadow-[0_0_20px_rgba(232,232,232,0.5)]">
+                        15% off full basement renovations — limited time
+                      </span>
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-8 lg:gap-12 items-start">
                     {/* Content Section - Text and Services */}
                     <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
@@ -231,8 +242,8 @@ export default function ServicesPage() {
                           asChild
                           className="btn-premium uppercase tracking-wider text-xs sm:text-sm md:text-base px-4 py-2.5 sm:px-6 sm:py-3 w-full sm:w-auto"
                         >
-                          <Link href={`/get-quote?service=${service.id}`}>
-                            Get Quote
+                          <Link href={service.id === "basements" ? "/get-quote/basement" : `/get-quote?service=${service.id}`}>
+                            {service.id === "basements" ? "Get 15% Off — Request Quote" : "Get Quote"}
                           </Link>
                         </Button>
                         <Button

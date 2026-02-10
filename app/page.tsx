@@ -61,14 +61,14 @@ export default function Home() {
     cabinets: "/service-millwork.png",
     showers: "/service-steam-shower.png",
     countertops: "/countertopsservice3.png",
-    basements: "/basementdevservice5.png",
+    renovations: "/home-additions.png",
     carpentry: "/interiorfinishingservice1.png",
     garages: "/garage-deck-fence.png",
   };
 
-  // Get featured services for "What We Do" section
+  // Get featured services for "What We Do" section (Home Additions & Full Home Renovations in place of Basement Developments here)
   const featuredServices = services.filter((s) => 
-    ["cabinets", "showers", "countertops", "basements", "carpentry", "garages"].includes(s.id)
+    ["cabinets", "showers", "countertops", "renovations", "carpentry", "garages"].includes(s.id)
   );
 
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -241,6 +241,75 @@ export default function Home() {
             <Button asChild variant="outline" className="border-2 border-silver/50 bg-black/65 hover:bg-black/75 hover:border-silver text-silver">
               <Link href="/services">View All Services</Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
+
+      {/* Basement Developments — 15% Off Limited-Time Promo */}
+      <section className="py-12 sm:py-16 md:py-20 bg-black relative overflow-hidden premium-bg-pattern">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+            backgroundSize: "100px 100px"
+          }}></div>
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
+            <div className="relative order-2 lg:order-1">
+              <div className="relative w-full aspect-square max-w-lg mx-auto rounded-2xl overflow-hidden border-2 border-silver/30 shadow-[0_8px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(232,232,232,0.12)] ring-1 ring-inset ring-white/10">
+                <Image
+                  src="/basementdevservice5.png"
+                  alt="Full basement renovation"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute top-4 left-4 right-4 flex justify-center">
+                  <span className="inline-block text-xs font-black uppercase tracking-wider bg-silver text-black px-4 py-2 rounded-full border border-silver shadow-[0_0_20px_rgba(232,232,232,0.5)]">
+                    Limited time
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2 text-center lg:text-left">
+              <span className="text-xs font-black uppercase tracking-wider text-silver mb-3 sm:mb-4 inline-block">Special offer</span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
+                Basement Developments
+              </h2>
+              <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)] lg:mx-0 mx-auto"></div>
+              <p className="text-lg sm:text-xl font-black text-silver mb-4 sm:mb-6">
+                15% off full basement renovations — for a limited time.
+              </p>
+              <p className="text-white/90 premium-text text-sm sm:text-base mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0">
+                Turn your basement into livable space with turnkey development: framing, electrical, plumbing rough-ins, drywall, flooring, and finishes. Permits handled. Get a quote and lock in 15% off.
+              </p>
+              <ul className="space-y-2 mb-6 sm:mb-8 text-left max-w-md mx-auto lg:mx-0">
+                <li className="flex items-center gap-2 text-white/90 premium-text text-sm sm:text-base">
+                  <CheckCircle className="h-5 w-5 text-silver flex-shrink-0" />
+                  Turnkey development
+                </li>
+                <li className="flex items-center gap-2 text-white/90 premium-text text-sm sm:text-base">
+                  <CheckCircle className="h-5 w-5 text-silver flex-shrink-0" />
+                  Permits & inspections handled
+                </li>
+                <li className="flex items-center gap-2 text-white/90 premium-text text-sm sm:text-base">
+                  <CheckCircle className="h-5 w-5 text-silver flex-shrink-0" />
+                  Moisture control & waterproofing
+                </li>
+              </ul>
+              <Button
+                asChild
+                className="w-full sm:w-auto btn-premium uppercase tracking-wider px-8 py-4"
+              >
+                <Link href="/get-quote/basement">
+                  Get 15% Off — Request Quote
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>

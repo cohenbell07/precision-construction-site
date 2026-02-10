@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (dealType !== "bundle" && dealType !== "supplier") {
+    if (dealType !== "bundle" && dealType !== "supplier" && dealType !== "basement") {
       return NextResponse.json({ error: "Invalid deal type" }, { status: 400 });
     }
 
