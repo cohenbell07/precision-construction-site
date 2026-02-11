@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Send, X, MessageCircle, Loader2 } from "lucide-react";
 import type { ChatConversation } from "@/lib/aiTools";
+import { BRAND_CONFIG } from "@/lib/utils";
 
 export function FloatingChatbot() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [conversation, setConversation] = useState<ChatConversation[]>([]);
   const [message, setMessage] = useState("");
@@ -55,6 +58,7 @@ export function FloatingChatbot() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           conversation: [...conversation, { role: "user", content: userMessage }],
+          currentPage: pathname ?? undefined,
         }),
       });
 
@@ -89,11 +93,12 @@ export function FloatingChatbot() {
       }
     } catch (error) {
       console.error("Chat error:", error);
+      const contactMsg = `I'm having trouble right now. Please contact us directly at ${BRAND_CONFIG.contact.email} or visit our contact page.`;
       setConversation((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: "I'm having trouble right now. Please contact us directly at " + process.env.NEXT_PUBLIC_CONTACT_EMAIL || "our contact page",
+          content: contactMsg,
           timestamp: new Date(),
         },
       ]);
@@ -110,8 +115,7 @@ export function FloatingChatbot() {
 
     setLoading(true);
     try {
-      // Create lead from chat
-      await fetch("/api/leads/create-from-chat", {
+      const res = await fetch("/api/leads/create-from-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -123,23 +127,36 @@ export function FloatingChatbot() {
         }),
       });
 
-      setConversation((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: "Thank you! We've received your information and will contact you within 24 hours.",
-          timestamp: new Date(),
-        },
-      ]);
-      setCollectingContact(false);
-      setContactInfo({ name: "", email: "", phone: "" });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setConversation((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "Thank you! We've received your information and will contact you within 24 hours.",
+            timestamp: new Date(),
+          },
+        ]);
+        setCollectingContact(false);
+        setContactInfo({ name: "", email: "", phone: "" });
+      } else {
+        setConversation((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "Something went wrong. Please try again or contact us directly.",
+            timestamp: new Date(),
+          },
+        ]);
+      }
     } catch (error) {
       console.error("Error submitting contact:", error);
       setConversation((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: "Thank you! We'll follow up soon.",
+          content: "Something went wrong. Please try again or contact us directly.",
           timestamp: new Date(),
         },
       ]);
@@ -256,7 +273,7 @@ export function FloatingChatbot() {
                     <Input
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      onKeyPress={(e) => e.key === "Enter" && handleSend()}
+                      onKeyDown={(e) => e.key === "Enter" && handleSend()}
                       placeholder="Type your message..."
                       className="flex-1 bg-industrial-slate/90 border-silver/30"
                     />

@@ -75,7 +75,7 @@ export default function ProjectPlannerPage() {
 
     setLoading(true);
     try {
-      await fetch("/api/leads/create-from-planner", {
+      const res = await fetch("/api/leads/create-from-planner", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -87,15 +87,26 @@ export default function ProjectPlannerPage() {
         }),
       });
 
-      toast({
-        title: "Thank you!",
-        description: "We&apos;ve sent your project plan to your email.",
-      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        toast({
+          title: "Thank you!",
+          description: "We've sent your project plan to your email.",
+        });
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: data.error || "Please try again or contact us directly.",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       console.error("Error:", error);
       toast({
-        title: "Thank you!",
-        description: "We&apos;ll follow up soon.",
+        title: "Something went wrong",
+        description: "Please try again or contact us directly.",
+        variant: "destructive",
       });
     } finally {
       setLoading(false);

@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
       conversationSummary: conversation,
     });
 
-    await sendEmail({
+    const adminResult = await sendEmail({
       to: BRAND_CONFIG.contact.email,
       subject: adminEmail.subject,
       html: adminEmail.html,
@@ -63,11 +63,19 @@ export async function POST(request: NextRequest) {
       conversationSummary: conversation,
     });
 
-    await sendEmail({
+    const confirmResult = await sendEmail({
       to: email,
       subject: confirmationEmail.subject,
       html: confirmationEmail.html,
     });
+
+    if (!adminResult.success || !confirmResult.success) {
+      console.error("Email send failed:", adminResult.error ?? confirmResult.error);
+      return NextResponse.json(
+        { success: false, error: "Failed to send confirmation. Please try again or contact us directly." },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
@@ -75,8 +83,10 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error creating lead from chat:", error);
-    // Always return success for graceful degradation
-    return NextResponse.json({ success: true });
+    return NextResponse.json(
+      { success: false, error: "Something went wrong. Please try again or contact us directly." },
+      { status: 500 }
+    );
   }
 }
 

@@ -4,11 +4,10 @@
 Constructionbusiness/
 ├── app/                          # Next.js 14 App Router
 │   ├── api/                      # API routes
-│   │   ├── blog/generate/        # AI blog generation endpoint
-│   │   └── leads/                # Lead submission endpoint
-│   ├── blog/                     # Blog pages
-│   │   ├── [slug]/               # Dynamic blog post pages
-│   │   └── page.tsx              # Blog listing page
+│   │   ├── quote/submit/         # Quote form submission
+│   │   ├── products/price-beat/  # Price beat form
+│   │   ├── referral/             # Referral form
+│   │   └── leads/                # Lead submission endpoints
 │   ├── contact/                  # Contact page
 │   ├── get-quote/                # Quote request tool
 │   ├── projects/                 # Project gallery
@@ -34,15 +33,11 @@ Constructionbusiness/
 │
 ├── lib/                          # Utilities and configurations
 │   ├── ai.ts                     # OpenAI integration
-│   ├── blog.ts                   # Blog post utilities
 │   ├── email.ts                  # Resend email integration
 │   ├── env.ts                    # Environment variable handling
 │   ├── services.ts               # Service definitions
 │   ├── supabase.ts               # Supabase client
 │   └── utils.ts                  # Brand config & utilities
-│
-├── content/                      # Content files
-│   └── blog/                     # Markdown blog posts
 │
 ├── public/                       # Static assets
 │
@@ -64,13 +59,13 @@ Constructionbusiness/
 - **Projects** (`/projects`) - Gallery with lightbox viewer and category filters
 - **Contact** (`/contact`) - Contact form and company information
 - **Get Quote** (`/get-quote`) - Multi-step quote form with AI assistant
-- **Blog** (`/blog`) - Blog listing and individual post pages
 - **Referral** (`/referral`) - Refer-a-friend form
 
 ### AI Features
-- **AI Chat Assistant** - Available on homepage and quote page
+- **AI Chat Assistant** - Available on homepage and quote page (floating widget + inline)
 - **AI Quote Generator** - Summarizes quote requests
-- **AI Blog Generator** - Admin API endpoint to generate blog posts
+- **Instant Estimate** - AI-powered cost estimates
+- **Project Planner** - AI-powered project planning
 
 ### Integrations (All Optional)
 - **Supabase** - Database for leads and referrals

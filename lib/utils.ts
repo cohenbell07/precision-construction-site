@@ -5,6 +5,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/** Escape HTML for safe embedding in email templates (prevents XSS). */
+export function escapeHtml(str: string | undefined | null): string {
+  if (str == null || typeof str !== "string") return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 // Brand configuration - modular for easy future rebranding
 // Update these constants to change brand name site-wide
 export const COMPANY_NAME = "Precision Construction & Decora Inc.";

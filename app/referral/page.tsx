@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
-// Removed direct Supabase import - using API routes instead for client components
-import { sendEmail } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Send, Users } from "lucide-react";
 
@@ -27,66 +25,40 @@ export default function ReferralPage() {
     setLoading(true);
 
     try {
-      // Save to database via API route (client components should use API routes)
-      // Note: Referral API endpoint would need to be created if needed
-      // For now, we&apos;ll just send emails
-
-      // Send email to friend
-      await sendEmail({
-        to: formData.friendEmail,
-        subject: `${formData.yourName} recommended ${BRAND_CONFIG.shortName} to you!`,
-        html: `
-          <h2>You&apos;ve been referred to ${BRAND_CONFIG.name}!</h2>
-          <p>Hi ${formData.friendName},</p>
-          <p>${formData.yourName} thought you might be interested in our construction services.</p>
-          ${formData.message ? `<p><em>"${formData.message}"</em></p>` : ""}
-          <p>We&apos;re a family-owned, 3rd generation Calgary construction company. ${BRAND_CONFIG.motto}</p>
-          <p>We provide premium construction and renovation services in Calgary, including:</p>
-          <ul>
-            <li>Flooring installation (LVP, carpet, tile, large format porcelain, marmoleum)</li>
-            <li>Custom showers and steam showers</li>
-            <li>Cabinets & Millwork (any style/color, custom closets, Murphy beds)</li>
-            <li>Countertops (granite, quartz, porcelain slab, arborite, stainless, natural stone)</li>
-            <li>Interior finishing, framing, drywall, painting</li>
-            <li>Basement developments, garage builds, decks, fences</li>
-            <li>Home additions, full home renovations</li>
-            <li>Commercial & multi-unit building experience</li>
-            <li>And much more!</li>
-          </ul>
-          <p><strong>${BRAND_CONFIG.motto}</strong> We treat every client like family.</p>
-          <p>Visit our website to learn more or <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/get-quote">request a free quote</a>.</p>
-          <p>${BRAND_CONFIG.contact.cta}</p>
-          <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
-        `,
+      const res = await fetch("/api/referral", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          yourName: formData.yourName,
+          yourEmail: formData.yourEmail,
+          friendName: formData.friendName,
+          friendEmail: formData.friendEmail,
+          message: formData.message || undefined,
+        }),
       });
 
-      // Send confirmation to referrer
-      await sendEmail({
-        to: formData.yourEmail,
-        subject: "Thank you for your referral!",
-        html: `
-          <h2>Thank you for referring ${formData.friendName}!</h2>
-          <p>Hi ${formData.yourName},</p>
-          <p>We&apos;ve sent your friend ${formData.friendName} information about our services.</p>
-          <p>We appreciate your trust in us and your referral! ${BRAND_CONFIG.motto}</p>
-          <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
-        `,
-      });
+      const data = await res.json();
 
-      toast({
-        title: "Referral sent!",
-        description: "We&apos;ve sent your friend information about our services.",
-      });
-
-      setSubmitted(true);
+      if (res.ok && data.success) {
+        toast({
+          title: "Referral sent!",
+          description: "We've sent your friend information about our services.",
+        });
+        setSubmitted(true);
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: data.error || "Please try again or contact us directly.",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       console.error("Error submitting referral:", error);
       toast({
-        title: "Referral received",
-        description:
-          "Your referral has been received. Thank you! (Note: Email service may not be configured)",
+        title: "Something went wrong",
+        description: "Please try again or contact us directly.",
+        variant: "destructive",
       });
-      setSubmitted(true);
     } finally {
       setLoading(false);
     }

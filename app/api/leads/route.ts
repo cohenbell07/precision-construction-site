@@ -20,25 +20,36 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Send email if configured
-    await sendEmail({
+    const { escapeHtml } = await import("@/lib/utils");
+    const emailResult = await sendEmail({
       to: BRAND_CONFIG.contact.email,
-      subject: `New Lead: ${data.projectType || "General Inquiry"}`,
+      subject: `New Lead: ${escapeHtml(data.projectType) || "General Inquiry"}`,
       html: `
         <h2>New Lead Submission</h2>
-        <p><strong>Name:</strong> ${data.name}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Phone:</strong> ${data.phone || "N/A"}</p>
-        <p><strong>Project Type:</strong> ${data.projectType || "N/A"}</p>
+        <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(data.phone) || "N/A"}</p>
+        <p><strong>Project Type:</strong> ${escapeHtml(data.projectType) || "N/A"}</p>
         <p><strong>Message:</strong></p>
-        <p>${data.message || "N/A"}</p>
+        <p>${escapeHtml(data.message) || "N/A"}</p>
       `,
     });
+
+    if (!emailResult.success) {
+      console.error("Email send failed:", emailResult.error);
+      return NextResponse.json(
+        { success: false, error: "Failed to send. Please try again or contact us directly." },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error saving lead:", error);
-    return NextResponse.json({ success: true }); // Always return success for graceful degradation
+    return NextResponse.json(
+      { success: false, error: "Something went wrong. Please try again or contact us directly." },
+      { status: 500 }
+    );
   }
 }
 

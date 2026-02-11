@@ -110,7 +110,7 @@ export default function InstantEstimatePage() {
 
     setLoading(true);
     try {
-      await fetch("/api/leads/create-from-estimate", {
+      const res = await fetch("/api/leads/create-from-estimate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -124,17 +124,26 @@ export default function InstantEstimatePage() {
         }),
       });
 
-      toast({
-        title: "Thank you!",
-        description: "We've sent your estimate to your email and will contact you soon.",
-      });
+      const data = await res.json();
 
-      setStep("result");
+      if (res.ok && data.success) {
+        toast({
+          title: "Thank you!",
+          description: "We've sent your estimate to your email and will contact you soon.",
+        });
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: data.error || "Please try again or contact us directly.",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       console.error("Error submitting contact:", error);
       toast({
-        title: "Thank you!",
-        description: "We'll follow up soon.",
+        title: "Something went wrong",
+        description: "Please try again or contact us directly.",
+        variant: "destructive",
       });
     } finally {
       setLoading(false);

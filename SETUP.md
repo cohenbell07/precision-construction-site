@@ -13,7 +13,7 @@
    ```
    
    Edit `.env.local` and add your API keys (all optional):
-   - `OPENAI_API_KEY` - For AI chat and blog generation
+   - `OPENAI_API_KEY` - For AI chat, instant estimate, and project planner
    - `RESEND_API_KEY` - For email notifications
    - `RESEND_FROM_EMAIL` - Email address to send from
    - `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL
@@ -78,17 +78,3 @@ The site is built with Next.js 14 and can be deployed to any platform that suppo
 - AWS Amplify
 - Railway
 - Your own server
-
-## Blog Post Generation
-
-To generate blog posts via API:
-
-```bash
-curl -X POST http://localhost:3000/api/blog/generate \
-  -H "Authorization: Bearer YOUR_ADMIN_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"topic": "Kitchen Renovation Tips", "category": "Kitchens"}'
-```
-
-Set `ADMIN_KEY` in your `.env.local` for security.
-

@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
-import { sendEmail } from "@/lib/email";
+import { getProductSlugFromTitle } from "@/lib/productQuoteConfig";
 import Hls from "hls.js";
 import { CheckCircle, Hammer, Wrench, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -234,83 +234,42 @@ export default function ProductsPage() {
     setLoading(true);
 
     try {
-      // Convert file to base64 if present (for email attachment simulation)
-      let fileData = "";
+      const body = new FormData();
+      body.append("name", formData.name);
+      body.append("email", formData.email);
+      body.append("productType", formData.productType || "");
       if (selectedFile) {
-        const reader = new FileReader();
-        fileData = await new Promise<string>((resolve) => {
-          reader.onloadend = () => {
-            const base64String = (reader.result as string).split(",")[1];
-            resolve(base64String);
-          };
-          reader.readAsDataURL(selectedFile);
-        });
+        body.append("quoteFile", selectedFile);
       }
 
-      // Save to database via API route
-      try {
-        await fetch("/api/leads", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            phone: "",
-            projectType: `Price Beat: ${formData.productType || "General Product Inquiry"}`,
-            message: `Product/Project Type: ${formData.productType || "N/A"}\n\nCompetitor quote attached: ${selectedFile ? "Yes" : "No"}`,
-            source: "products_price_beat",
-          }),
+      const res = await fetch("/api/products/price-beat", {
+        method: "POST",
+        body,
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        toast({
+          title: "Request sent!",
+          description: "We'll review your quote and get back to you within 24 hours with our best price.",
         });
-      } catch (error) {
-        console.log("Lead saved via API (if configured)");
+        setFormData({ name: "", email: "", productType: "" });
+        setSelectedFile(null);
+        setPrefilledCategory(null);
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: data.error || "Please try again or contact us directly.",
+          variant: "destructive",
+        });
       }
-
-      // Send email to admin
-      await sendEmail({
-        to: BRAND_CONFIG.contact.email,
-        subject: `Price Beat Request - ${formData.productType || "General Product"}`,
-        html: `
-          <h2>New Price Beat Request</h2>
-          <p><strong>Name:</strong> ${formData.name}</p>
-          <p><strong>Email:</strong> ${formData.email}</p>
-          <p><strong>Product/Project Type:</strong> ${formData.productType || "N/A"}</p>
-          <p><strong>Competitor Quote Attached:</strong> ${selectedFile ? `Yes (${selectedFile.name})` : "No"}</p>
-          ${fileData ? `<p><em>Note: File attachment data available in system</em></p>` : ""}
-        `,
-      });
-
-      // Send confirmation to user
-      await sendEmail({
-        to: formData.email,
-        subject: `Thank you for your price beat request - ${BRAND_CONFIG.shortName}`,
-        html: `
-          <h2>Thank you for your price beat request!</h2>
-          <p>Hi ${formData.name},</p>
-          <p>We've received your request and will review your competitor quote. Our team will get back to you within 24 hours with our best price—guaranteed to beat your quote by at least 5%.</p>
-          <p><strong>${BRAND_CONFIG.motto}</strong></p>
-          <p>We treat every client like family and deliver only the best.</p>
-          <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
-        `,
-      });
-
-      toast({
-        title: "Request sent!",
-        description: "We'll review your quote and get back to you within 24 hours with our best price.",
-      });
-
-      setFormData({
-        name: "",
-        email: "",
-        productType: "",
-      });
-      setSelectedFile(null);
-      setPrefilledCategory(null);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
-        title: "Request received",
-        description: "Your price beat request has been received. We'll contact you soon!",
-        variant: "default",
+        title: "Something went wrong",
+        description: "Please try again or contact us directly.",
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -723,7 +682,7 @@ export default function ProductsPage() {
                           asChild
                           className="btn-premium uppercase tracking-wider text-xs sm:text-sm md:text-base px-4 py-2.5 sm:px-6 sm:py-3 w-full sm:w-auto"
                         >
-                          <Link href={`/get-quote?product=${encodeURIComponent(category.title)}`}>
+                          <Link href={`/get-quote/product/${getProductSlugFromTitle(category.title)}`}>
                             Get a Quote
                           </Link>
                         </Button>

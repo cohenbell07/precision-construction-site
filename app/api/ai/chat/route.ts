@@ -31,11 +31,15 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Chat API error:", error);
-    return NextResponse.json({
-      response:
-        "Thanks for your interest! Would you like to provide your contact information so we can follow up with a quote?",
-      shouldCollectContact: true,
-      projectDetails: {},
-    });
+    return NextResponse.json(
+      {
+        error: "Chat service temporarily unavailable",
+        response:
+          "I'm having trouble right now. Please contact us directly—we'd love to help.",
+        shouldCollectContact: false,
+        projectDetails: {},
+      },
+      { status: 500 }
+    );
   }
 }

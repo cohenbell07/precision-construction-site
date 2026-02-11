@@ -7,7 +7,6 @@ A premium, mobile-optimized website for a construction company built with Next.j
 - 🏗️ Full service showcase
 - 📸 Project gallery with lightbox
 - 💬 AI-powered chat assistant
-- 📝 AI blog generation system
 - 📧 Lead capture with email automation
 - 📱 Fully responsive design
 - ⚡ Fast and SEO-optimized
@@ -56,8 +55,7 @@ All features work without any environment variables configured. The site will gr
 ```
 ├── app/              # Next.js app router pages
 ├── components/       # Reusable components
-├── lib/             # Utilities and configurations
-├── public/          # Static assets
-└── content/         # Blog posts (markdown)
+├── lib/              # Utilities and configurations
+└── public/           # Static assets
 ```
 

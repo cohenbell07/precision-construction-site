@@ -1,4 +1,4 @@
-import { BRAND_CONFIG } from "./utils";
+import { BRAND_CONFIG, escapeHtml } from "./utils";
 import { ProjectDetails, EstimateResult } from "./aiTools";
 
 /**
@@ -23,21 +23,21 @@ export function getAdminChatLeadEmail(data: EmailTemplateData): { subject: strin
   const pd = data.projectDetails;
   const projectLabel = pd?.serviceName || pd?.projectType || pd?.productInterest || "General Inquiry";
   return {
-    subject: `New AI Chat Lead: ${projectLabel}`,
+    subject: `New AI Chat Lead: ${escapeHtml(projectLabel)}`,
     html: `
       <h2>New Lead from AI Chatbot</h2>
-      <p><strong>Name:</strong> ${data.name || "Not provided"}</p>
-      <p><strong>Email:</strong> ${data.email}</p>
-      <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
-      <p><strong>Project Type:</strong> ${data.projectType || pd?.projectType || "Not specified"}</p>
-      ${pd?.serviceId ? `<p><strong>Service:</strong> ${pd.serviceName || pd.serviceId}</p>` : ""}
-      ${pd?.productInterest ? `<p><strong>Product Interest:</strong> ${pd.productInterest}</p>` : ""}
-      ${pd?.description ? `<p><strong>Description:</strong> ${pd.description}</p>` : ""}
-      ${pd?.squareFootage ? `<p><strong>Square Footage:</strong> ${pd.squareFootage}</p>` : ""}
-      ${pd?.materials ? `<p><strong>Materials:</strong> ${pd.materials}</p>` : ""}
-      ${pd?.timeline ? `<p><strong>Timeline:</strong> ${pd.timeline}</p>` : ""}
-      ${pd?.budget ? `<p><strong>Budget:</strong> ${pd.budget}</p>` : ""}
-      ${data.conversationSummary ? `<p><strong>Conversation:</strong></p><pre style="white-space:pre-wrap;font-family:sans-serif;">${data.conversationSummary}</pre>` : ""}
+      <p><strong>Name:</strong> ${escapeHtml(data.name) || "Not provided"}</p>
+      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+      <p><strong>Phone:</strong> ${escapeHtml(data.phone) || "Not provided"}</p>
+      <p><strong>Project Type:</strong> ${escapeHtml(data.projectType || pd?.projectType) || "Not specified"}</p>
+      ${pd?.serviceId ? `<p><strong>Service:</strong> ${escapeHtml(pd.serviceName || pd.serviceId)}</p>` : ""}
+      ${pd?.productInterest ? `<p><strong>Product Interest:</strong> ${escapeHtml(pd.productInterest)}</p>` : ""}
+      ${pd?.description ? `<p><strong>Description:</strong> ${escapeHtml(pd.description)}</p>` : ""}
+      ${pd?.squareFootage ? `<p><strong>Square Footage:</strong> ${escapeHtml(pd.squareFootage)}</p>` : ""}
+      ${pd?.materials ? `<p><strong>Materials:</strong> ${escapeHtml(pd.materials)}</p>` : ""}
+      ${pd?.timeline ? `<p><strong>Timeline:</strong> ${escapeHtml(pd.timeline)}</p>` : ""}
+      ${pd?.budget ? `<p><strong>Budget:</strong> ${escapeHtml(pd.budget)}</p>` : ""}
+      ${data.conversationSummary ? `<p><strong>Conversation:</strong></p><pre style="white-space:pre-wrap;font-family:sans-serif;">${escapeHtml(data.conversationSummary)}</pre>` : ""}
       <p><strong>Source:</strong> AI Chatbot</p>
       <p>${BRAND_CONFIG.motto}</p>
     `,
@@ -52,9 +52,9 @@ export function getChatLeadConfirmationEmail(data: EmailTemplateData): { subject
     subject: `Thank you for contacting ${BRAND_CONFIG.shortName}`,
     html: `
       <h2>Thank you for reaching out!</h2>
-      <p>Hi ${data.name || "there"},</p>
-      <p>We've received your inquiry about ${data.projectType || "your project"} and will get back to you within 24 hours.</p>
-      ${data.conversationSummary ? `<p><strong>Project Summary:</strong></p><p>${data.conversationSummary}</p>` : ""}
+      <p>Hi ${escapeHtml(data.name) || "there"},</p>
+      <p>We've received your inquiry about ${escapeHtml(data.projectType) || "your project"} and will get back to you within 24 hours.</p>
+      ${data.conversationSummary ? `<p><strong>Project Summary:</strong></p><p>${escapeHtml(data.conversationSummary)}</p>` : ""}
       <p><strong>${BRAND_CONFIG.motto}</strong></p>
       <p>We treat every client like family and deliver only the best in service, quality, and satisfaction.</p>
       <p>If you have any immediate questions, feel free to call us at ${BRAND_CONFIG.contact.phoneFormatted}.</p>
@@ -71,16 +71,16 @@ export function getAdminEstimateLeadEmail(data: EmailTemplateData): { subject: s
     subject: `New Instant Estimate Lead: ${data.projectType || "General"}`,
     html: `
       <h2>New Lead from Instant Estimate Tool</h2>
-      <p><strong>Name:</strong> ${data.name || "Not provided"}</p>
-      <p><strong>Email:</strong> ${data.email}</p>
-      <p><strong>Project Type:</strong> ${data.projectType || "Not specified"}</p>
+      <p><strong>Name:</strong> ${escapeHtml(data.name) || "Not provided"}</p>
+      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+      <p><strong>Project Type:</strong> ${escapeHtml(data.projectType) || "Not specified"}</p>
       ${data.estimate ? `
-        <p><strong>Estimated Cost Range:</strong> ${data.estimate.costRange}</p>
-        <p><strong>Estimated Timeline:</strong> ${data.estimate.timeline}</p>
-        <p><strong>Breakdown:</strong> ${data.estimate.breakdown}</p>
+        <p><strong>Estimated Cost Range:</strong> ${escapeHtml(data.estimate.costRange)}</p>
+        <p><strong>Estimated Timeline:</strong> ${escapeHtml(data.estimate.timeline)}</p>
+        <p><strong>Breakdown:</strong> ${escapeHtml(data.estimate.breakdown)}</p>
       ` : ""}
-      ${data.projectDetails?.squareFootage ? `<p><strong>Square Footage:</strong> ${data.projectDetails.squareFootage}</p>` : ""}
-      ${data.projectDetails?.materials ? `<p><strong>Materials:</strong> ${data.projectDetails.materials}</p>` : ""}
+      ${data.projectDetails?.squareFootage ? `<p><strong>Square Footage:</strong> ${escapeHtml(data.projectDetails.squareFootage)}</p>` : ""}
+      ${data.projectDetails?.materials ? `<p><strong>Materials:</strong> ${escapeHtml(data.projectDetails.materials)}</p>` : ""}
       <p><strong>Source:</strong> Instant Estimate Tool</p>
       <p>${BRAND_CONFIG.motto}</p>
     `,
@@ -95,14 +95,14 @@ export function getEstimateConfirmationEmail(data: EmailTemplateData): { subject
     subject: `Your ${BRAND_CONFIG.shortName} Estimate`,
     html: `
       <h2>Thank you for your interest!</h2>
-      <p>Hi ${data.name || "there"},</p>
-      <p>Thank you for using our instant estimate tool for your ${data.projectType || "project"}.</p>
+      <p>Hi ${escapeHtml(data.name) || "there"},</p>
+      <p>Thank you for using our instant estimate tool for your ${escapeHtml(data.projectType) || "project"}.</p>
       ${data.estimate ? `
         <h3>Preliminary Estimate</h3>
-        <p><strong>Cost Range:</strong> ${data.estimate.costRange}</p>
-        <p><strong>Timeline:</strong> ${data.estimate.timeline}</p>
+        <p><strong>Cost Range:</strong> ${escapeHtml(data.estimate.costRange)}</p>
+        <p><strong>Timeline:</strong> ${escapeHtml(data.estimate.timeline)}</p>
         <p><strong>Breakdown:</strong></p>
-        <p>${data.estimate.breakdown}</p>
+        <p>${escapeHtml(data.estimate.breakdown)}</p>
         <p><em>Note: This is a preliminary estimate. A detailed quote will be provided after consultation.</em></p>
       ` : ""}
       <p>We'll contact you within 24 hours to discuss your project in detail and provide a comprehensive quote.</p>
@@ -193,8 +193,8 @@ export function getDealQuoteAdminEmail(data: DealQuoteData): { subject: string; 
       <p><strong>Email:</strong> ${data.email}</p>
       <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
       <p><strong>Selected options (${data.selectedOptions.length}):</strong></p>
-      <ul>${data.selectedOptions.map((o) => `<li>${o}</li>`).join("")}</ul>
-      ${data.projectDetails ? `<p><strong>${projectDetailsLabel}</strong></p><p>${data.projectDetails}</p>` : ""}
+      <ul>${data.selectedOptions.map((o) => `<li>${escapeHtml(o)}</li>`).join("")}</ul>
+      ${data.projectDetails ? `<p><strong>${projectDetailsLabel}</strong></p><p>${escapeHtml(data.projectDetails)}</p>` : ""}
       ${data.timeline ? `<p><strong>Timeline:</strong> ${data.timeline}</p>` : ""}
       ${data.budgetMin || data.budgetMax ? `<p><strong>Budget range:</strong> ${data.budgetMin ? `$${data.budgetMin}` : "—"} to ${data.budgetMax ? `$${data.budgetMax}` : "—"}</p>` : ""}
       <p><strong>Source:</strong> ${label} form</p>
@@ -237,7 +237,7 @@ export function getServiceMaterialsInquiryEmail(data: {
       <p><strong>Name:</strong> ${data.name || "Not provided"}</p>
       <p><strong>Email:</strong> ${data.email}</p>
       <p><strong>Message / materials request:</strong></p>
-      <pre style="white-space:pre-wrap;font-family:sans-serif;background:#f0f0f0;padding:12px;border-radius:8px;">${data.message}</pre>
+      <pre style="white-space:pre-wrap;font-family:sans-serif;background:#f0f0f0;padding:12px;border-radius:8px;">${escapeHtml(data.message)}</pre>
       <p><strong>Source:</strong> Service page materials inquiry form</p>
       <p>${BRAND_CONFIG.motto}</p>
     `,

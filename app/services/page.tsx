@@ -242,7 +242,7 @@ export default function ServicesPage() {
                           asChild
                           className="btn-premium uppercase tracking-wider text-xs sm:text-sm md:text-base px-4 py-2.5 sm:px-6 sm:py-3 w-full sm:w-auto"
                         >
-                          <Link href={service.id === "basements" ? "/get-quote/basement" : `/get-quote?service=${service.id}`}>
+                          <Link href={service.id === "basements" ? "/get-quote/basement" : `/get-quote/${service.id}`}>
                             {service.id === "basements" ? "Get 15% Off — Request Quote" : "Get Quote"}
                           </Link>
                         </Button>

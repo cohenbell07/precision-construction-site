@@ -27,7 +27,7 @@ export default function ContactPage() {
     setLoading(true);
 
     try {
-      await fetch("/api/leads", {
+      const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -40,24 +40,33 @@ export default function ContactPage() {
         }),
       });
 
-      toast({
-        title: "Message sent!",
-        description: "We'll get back to you within 24 hours.",
-      });
+      const data = await res.json();
 
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        projectType: "",
-        message: "",
-      });
+      if (res.ok && data.success) {
+        toast({
+          title: "Message sent!",
+          description: "We'll get back to you within 24 hours.",
+        });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          projectType: "",
+          message: "",
+        });
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: data.error || "Please try again or contact us directly.",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
-        title: "Message received",
-        description: "Your message has been received. We'll contact you soon!",
-        variant: "default",
+        title: "Something went wrong",
+        description: "Please try again or contact us directly.",
+        variant: "destructive",
       });
     } finally {
       setLoading(false);

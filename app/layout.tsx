@@ -30,25 +30,37 @@ export const viewport = {
   maximumScale: 5,
 };
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pcnd.ca";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: `${BRAND_CONFIG.name} | Premium Construction Services in Calgary`,
+    default: `${BRAND_CONFIG.name} | Calgary Construction | PCND`,
     template: `%s | ${BRAND_CONFIG.shortName}`,
   },
   description:
-    `${BRAND_CONFIG.motto} - Family-owned Calgary construction company since 1968. Serving Calgary since 1997 with premium residential and commercial construction services. We treat every client like family.`,
+    `${BRAND_CONFIG.motto} - Family-owned Calgary construction company since 1968. PCND serves Calgary and area with premium residential and commercial construction, flooring, cabinets, countertops & more.`,
   keywords: [
-    "construction",
-    "renovation",
-    "Calgary",
-    "flooring",
-    "custom showers",
-    "cabinets",
-    "countertops",
-    "carpentry",
-    "basement development",
+    "PCND",
+    "Precision Construction & Decora",
+    "Precision Construction and Decora",
+    "Calgary construction",
+    "construction Calgary",
+    "Calgary construction company",
+    "construction company Calgary",
+    "Calgary renovation",
+    "renovation Calgary",
+    "flooring Calgary",
+    "custom showers Calgary",
+    "cabinets Calgary",
+    "countertops Calgary",
+    "carpentry Calgary",
+    "basement development Calgary",
+    "family-owned construction Calgary",
   ],
   authors: [{ name: BRAND_CONFIG.name }],
+  creator: BRAND_CONFIG.name,
+  alternates: { canonical: SITE_URL },
   icons: {
     icon: [
       { url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
@@ -61,10 +73,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_CA",
-    url: "https://precisionconstruction.com",
+    url: SITE_URL,
     siteName: BRAND_CONFIG.shortName,
-    title: `${BRAND_CONFIG.name} | ${BRAND_CONFIG.motto}`,
+    title: `${BRAND_CONFIG.name} | Calgary Construction | PCND`,
     description: `${BRAND_CONFIG.tagline} - Family-owned and operated. We treat every client like family and deliver only the best.`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${BRAND_CONFIG.name} | Calgary Construction`,
+    description: BRAND_CONFIG.tagline,
   },
 };
 
@@ -73,9 +90,39 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${SITE_URL}/#organization`,
+    name: BRAND_CONFIG.name,
+    alternateName: ["PCND", "Precision Construction and Decora"],
+    description: BRAND_CONFIG.description,
+    url: SITE_URL,
+    telephone: BRAND_CONFIG.contact.phoneFormatted,
+    email: BRAND_CONFIG.contact.email,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Calgary",
+      addressRegion: "AB",
+      addressCountry: "CA",
+    },
+    areaServed: [
+      { "@type": "City", name: "Calgary", containedInPlace: { "@type": "AdministrativeArea", name: "Alberta" } },
+      { "@type": "AdministrativeArea", name: "Calgary and surrounding areas" },
+    ],
+    foundingDate: BRAND_CONFIG.established.toString(),
+    slogan: BRAND_CONFIG.motto,
+    priceRange: "$$",
+    image: `${SITE_URL}/android-chrome-512x512.png`,
+  };
+
   return (
     <html lang="en" className="bg-black">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `

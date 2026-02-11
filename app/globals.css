@@ -79,10 +79,15 @@
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
   }
-  /* Mobile only: remove tap highlight from header logo to fix black blur overlay */
+  /* Mobile only: fix logo compositing / black blur on iOS */
   @media (max-width: 767px) {
     a[data-header-logo] {
       -webkit-tap-highlight-color: transparent;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      isolation: isolate;
     }
   }
 }

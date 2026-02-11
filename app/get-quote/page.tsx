@@ -8,9 +8,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { services, getServiceById } from "@/lib/services";
+import {
+  getProductCategoryBySlug,
+  getProductSlugFromTitle,
+} from "@/lib/productQuoteConfig";
 import { AIChatAssistant } from "@/components/AIChatAssistant";
-import { sendEmail } from "@/lib/email";
-import { generateAIResponse } from "@/lib/ai";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Loader2, CheckCircle, Wrench, Hammer, DollarSign } from "lucide-react";
 import {
@@ -36,7 +38,7 @@ const serviceIcons: { [key: string]: any } = {
   default: Buildings,
 };
 
-// Product categories (simplified list for selection)
+// Product categories (simplified list for selection - ids match productQuoteConfig slugs)
 const productCategories = [
   { id: "flooring", title: "Flooring", icon: SquaresFour },
   { id: "countertops", title: "Countertops", icon: Rectangle },
@@ -50,6 +52,11 @@ const productCategories = [
   { id: "commercial", title: "Commercial Materials", icon: Buildings },
 ];
 
+const OTHER_OPTIONS = ["Other", "Custom"];
+function isOtherOption(val: string): boolean {
+  return OTHER_OPTIONS.some((o) => val?.toLowerCase() === o.toLowerCase());
+}
+
 function GetQuoteForm() {
   const searchParams = useSearchParams();
   const [step, setStep] = useState<"type" | "selection" | "details" | "summary">("type");
@@ -57,6 +64,8 @@ function GetQuoteForm() {
   const [selectedService, setSelectedService] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<string>("");
   const [customServiceName, setCustomServiceName] = useState<string>("");
+  const [categoryFields, setCategoryFields] = useState<Record<string, string>>({});
+  const [customValues, setCustomValues] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -78,7 +87,7 @@ function GetQuoteForm() {
     
     if (productParam) {
       setQuoteType("product");
-      setSelectedProduct(productParam);
+      setSelectedProduct(getProductSlugFromTitle(productParam));
       setStep("details");
     } else if (serviceParam) {
       setQuoteType("service");
@@ -106,8 +115,57 @@ function GetQuoteForm() {
     setFormData({ ...formData, [field]: value });
   };
 
+  const handleCategoryFieldChange = (fieldId: string, value: string) => {
+    setCategoryFields((p) => ({ ...p, [fieldId]: value }));
+    if (isOtherOption(value)) {
+      setCustomValues((p) => ({ ...p, [fieldId]: p[fieldId] || "" }));
+    } else {
+      setCustomValues((p) => {
+        const next = { ...p };
+        delete next[fieldId];
+        return next;
+      });
+    }
+  };
+
+  const productConfig = quoteType === "product" ? getProductCategoryBySlug(selectedProduct) : undefined;
+  const buildProductProjectDetails = (): string => {
+    if (!productConfig) return formData.projectDetails;
+    const parts: string[] = [];
+    if (productConfig.fields.length > 0) {
+      parts.push(`Product category: ${productConfig.title}`);
+      productConfig.fields.forEach((field) => {
+        const val = categoryFields[field.id];
+        const custom = customValues[field.id];
+        if (val) {
+          if (isOtherOption(val) && custom) {
+            parts.push(`${field.label}: ${val} — ${custom}`);
+          } else {
+            parts.push(`${field.label}: ${val}`);
+          }
+        }
+      });
+    }
+    if (formData.projectDetails.trim()) {
+      parts.push("\nAdditional details:\n" + formData.projectDetails.trim());
+    }
+    return parts.join("\n") || formData.projectDetails.trim();
+  };
+
   const handleDetailsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.email.trim()) {
+      toast({ title: "Email is required", variant: "destructive" });
+      return;
+    }
+    const projectDetailsToSend =
+      quoteType === "product" && productConfig
+        ? buildProductProjectDetails()
+        : formData.projectDetails;
+    if (!projectDetailsToSend.trim()) {
+      toast({ title: "Please provide project details or fill in the category fields above.", variant: "destructive" });
+      return;
+    }
     setLoading(true);
 
     try {
@@ -116,99 +174,45 @@ function GetQuoteForm() {
         ? (customServiceName || "Other Project")
         : (service?.title || selectedService);
       
-      const productTitle = selectedProduct || "General Product";
-      const projectTitle = quoteType === "service" ? serviceTitle : productTitle;
-      
-      const projectDescription = `${quoteType === "service" ? "SERVICE" : "PRODUCT"} QUOTE REQUEST
-${quoteType === "service" ? `Service: ${serviceTitle}` : `Product: ${productTitle}`}
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Address: ${formData.address || "Not provided"}
-Project Details: ${formData.projectDetails}
-Timeline: ${formData.timeline || "Not specified"}
-Budget Range: ${formData.budgetMin ? `$${formData.budgetMin}` : "Not specified"} - ${formData.budgetMax ? `$${formData.budgetMax}` : "Not specified"}`;
+      const productTitle = productConfig?.title || selectedProduct || "General Product";
 
-      // Save to database via API route
-      try {
-        await fetch("/api/leads", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            projectType: projectTitle,
-            message: projectDescription,
-            source: "quote_tool",
-          }),
+      const res = await fetch("/api/quote/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          projectDetails: projectDetailsToSend,
+          timeline: formData.timeline,
+          budgetMin: formData.budgetMin,
+          budgetMax: formData.budgetMax,
+          quoteType,
+          serviceTitle,
+          productTitle,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setSummary(data.summary || "Thank you for your quote request! We'll review your project details and get back to you within 24 hours with a detailed quote.");
+        setStep("summary");
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: data.error || "Please try again or contact us directly.",
+          variant: "destructive",
         });
-      } catch (error) {
-        console.log("Lead saved via API (if configured)");
       }
-
-      // Generate AI summary
-      const prompt = `Generate a professional quote summary for a ${projectTitle} project. 
-      Project details: ${formData.projectDetails}
-      Timeline: ${formData.timeline || "Not specified"}
-      Budget: ${formData.budgetMin ? `$${formData.budgetMin}` : "Not specified"} - ${formData.budgetMax ? `$${formData.budgetMax}` : "Not specified"}
-      Provide a brief, professional response.`;
-
-      let response = "Thank you for your quote request! We'll review your project details and get back to you within 24 hours with a detailed quote.";
-      
-      try {
-        const aiResponse = await generateAIResponse(prompt);
-        if (aiResponse && aiResponse.response) {
-          response = aiResponse.response;
-        }
-      } catch (error) {
-        console.log("AI response generation failed, using default");
-      }
-
-      setSummary(response);
-
-      // Send email to admin
-      await sendEmail({
-        to: BRAND_CONFIG.contact.email,
-        subject: `New Quote Request - ${projectTitle}`,
-        html: `
-          <h2>New Quote Request</h2>
-          <p><strong>Type:</strong> ${quoteType === "service" ? "Service" : "Product"}</p>
-          <p><strong>${quoteType === "service" ? "Service" : "Product"}:</strong> ${projectTitle}</p>
-          <p><strong>Name:</strong> ${formData.name}</p>
-          <p><strong>Email:</strong> ${formData.email}</p>
-          <p><strong>Phone:</strong> ${formData.phone}</p>
-          <p><strong>Address:</strong> ${formData.address || "Not provided"}</p>
-          <p><strong>Project Details:</strong> ${formData.projectDetails}</p>
-          <p><strong>Timeline:</strong> ${formData.timeline || "Not specified"}</p>
-          <p><strong>Budget Range:</strong> ${formData.budgetMin ? `$${formData.budgetMin}` : "Not specified"} - ${formData.budgetMax ? `$${formData.budgetMax}` : "Not specified"}</p>
-        `,
-      });
-
-      // Send confirmation to user
-      await sendEmail({
-        to: formData.email,
-        subject: `Thank you for your quote request - ${BRAND_CONFIG.shortName}`,
-        html: `
-          <h2>Thank you for your quote request!</h2>
-          <p>Hi ${formData.name},</p>
-          <p>${response}</p>
-          <p>We'll review your request and get back to you within 24 hours.</p>
-          <p><strong>${BRAND_CONFIG.motto}</strong></p>
-          <p>We treat every client like family and deliver only the best.</p>
-          <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
-        `,
-      });
-
-      setStep("summary");
     } catch (error) {
       console.error("Error submitting quote:", error);
       toast({
-        title: "Quote request received",
-        description:
-          "Your request has been received. We'll contact you soon! (Note: Some services may not be configured)",
+        title: "Something went wrong",
+        description: "Please try again or contact us directly.",
+        variant: "destructive",
       });
-      setStep("summary");
     } finally {
       setLoading(false);
     }
@@ -416,16 +420,110 @@ Budget Range: ${formData.budgetMin ? `$${formData.budgetMin}` : "Not specified"}
                       ? (selectedService === "other" 
                           ? "Tell us more about your project"
                           : `Tell us more about your ${getServiceById(selectedService)?.title.toLowerCase()} project`)
-                      : `Tell us more about your ${productCategories.find(p => p.id === selectedProduct)?.title.toLowerCase() || "product"} needs`}
+                      : `Tell us more about your ${productConfig?.title.toLowerCase() || productCategories.find(p => p.id === selectedProduct)?.title.toLowerCase() || "product"} needs`}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleDetailsSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
+                    {quoteType === "product" && productConfig ? (
+                      <>
+                        {/* Product category - pre-filled */}
+                        <div>
+                          <label className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">Product category</label>
+                          <Input readOnly value={productConfig.title} className="bg-silver/10 border-silver/30 text-white cursor-default" />
+                        </div>
+                        {/* Category-specific fields */}
+                        {productConfig.fields.map((field) => {
+                          const inputClass = "focus:ring-silver/50 focus:border-silver bg-black/65 border-silver/30 text-white placeholder:text-white/40";
+                          const labelClass = "block text-sm font-bold text-white mb-2 uppercase tracking-wide";
+                          const val = categoryFields[field.id];
+                          const showCustomInput = field.options && val && isOtherOption(val);
+                          if (field.type === "select") {
+                            return (
+                              <div key={field.id}>
+                                <label htmlFor={field.id} className={labelClass}>
+                                  {field.label}
+                                  {field.optional && <span className="text-white/60 font-normal ml-1">(optional)</span>}
+                                </label>
+                                <select
+                                  id={field.id}
+                                  value={val || ""}
+                                  onChange={(e) => handleCategoryFieldChange(field.id, e.target.value)}
+                                  className={`w-full px-3 py-2 rounded-md border ${inputClass}`}
+                                >
+                                  <option value="">Select...</option>
+                                  {field.options?.map((opt) => (
+                                    <option key={opt} value={opt}>{opt}</option>
+                                  ))}
+                                </select>
+                                {showCustomInput && (
+                                  <Input
+                                    placeholder="Please specify the type or style you're looking for..."
+                                    value={customValues[field.id] || ""}
+                                    onChange={(e) => setCustomValues((p) => ({ ...p, [field.id]: e.target.value }))}
+                                    className={`mt-2 ${inputClass}`}
+                                  />
+                                )}
+                              </div>
+                            );
+                          }
+                          if (field.type === "textarea") {
+                            return (
+                              <div key={field.id}>
+                                <label htmlFor={field.id} className={labelClass}>
+                                  {field.label}
+                                  {field.optional && <span className="text-white/60 font-normal ml-1">(optional)</span>}
+                                </label>
+                                <Textarea
+                                  id={field.id}
+                                  placeholder={field.placeholder}
+                                  value={categoryFields[field.id] || ""}
+                                  onChange={(e) => setCategoryFields((p) => ({ ...p, [field.id]: e.target.value }))}
+                                  rows={3}
+                                  className={inputClass}
+                                />
+                              </div>
+                            );
+                          }
+                          return (
+                            <div key={field.id}>
+                              <label htmlFor={field.id} className={labelClass}>
+                                {field.label}
+                                {field.optional && <span className="text-white/60 font-normal ml-1">(optional)</span>}
+                              </label>
+                              <Input
+                                id={field.id}
+                                type="text"
+                                placeholder={field.placeholder}
+                                value={categoryFields[field.id] || ""}
+                                onChange={(e) => setCategoryFields((p) => ({ ...p, [field.id]: e.target.value }))}
+                                className={inputClass}
+                              />
+                            </div>
+                          );
+                        })}
+                        <div className="border-t border-silver/20 pt-4">
+                          <h3 className="text-base font-black text-white uppercase tracking-wide mb-3">Contact & project info</h3>
+                        </div>
+                      </>
+                    ) : (
+                      selectedService === "other" && (
+                        <div>
+                          <label htmlFor="customServiceName" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">Project Type *</label>
+                          <Input
+                            id="customServiceName"
+                            required
+                            value={customServiceName}
+                            onChange={(e) => setCustomServiceName(e.target.value)}
+                            placeholder="e.g., Basement Development, Deck Construction, etc."
+                            className="focus:ring-silver/50 focus:border-silver bg-black/65 border-silver/30 text-white placeholder:text-white/40"
+                          />
+                        </div>
+                      )
+                    )}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                       <div>
-                        <label htmlFor="name" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
-                          Name *
-                        </label>
+                        <label htmlFor="name" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">Name *</label>
                         <Input
                           id="name"
                           required
@@ -436,9 +534,7 @@ Budget Range: ${formData.budgetMin ? `$${formData.budgetMin}` : "Not specified"}
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
-                          Email *
-                        </label>
+                        <label htmlFor="email" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">Email *</label>
                         <Input
                           id="email"
                           type="email"
@@ -452,9 +548,7 @@ Budget Range: ${formData.budgetMin ? `$${formData.budgetMin}` : "Not specified"}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="phone" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
-                          Phone
-                        </label>
+                        <label htmlFor="phone" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">Phone</label>
                         <Input
                           id="phone"
                           type="tel"
@@ -465,9 +559,7 @@ Budget Range: ${formData.budgetMin ? `$${formData.budgetMin}` : "Not specified"}
                         />
                       </div>
                       <div>
-                        <label htmlFor="address" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
-                          Project Address (Optional)
-                        </label>
+                        <label htmlFor="address" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">Project Address (Optional)</label>
                         <Input
                           id="address"
                           value={formData.address}
@@ -477,39 +569,24 @@ Budget Range: ${formData.budgetMin ? `$${formData.budgetMin}` : "Not specified"}
                         />
                       </div>
                     </div>
-                    {selectedService === "other" && (
-                      <div>
-                        <label htmlFor="customServiceName" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
-                          Project Type *
-                        </label>
-                        <Input
-                          id="customServiceName"
-                          required
-                          value={customServiceName}
-                          onChange={(e) => setCustomServiceName(e.target.value)}
-                          placeholder="e.g., Basement Development, Deck Construction, etc."
-                          className="focus:ring-silver/50 focus:border-silver bg-black/65 border-silver/30 text-white placeholder:text-white/40"
-                        />
-                      </div>
-                    )}
                     <div>
                       <label htmlFor="projectDetails" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
-                        Project Details *
+                        Project Details {quoteType === "product" && productConfig ? "" : "*"}
                       </label>
                       <Textarea
                         id="projectDetails"
-                        required
+                        required={quoteType !== "product" || !productConfig}
                         value={formData.projectDetails}
                         onChange={(e) => handleInputChange("projectDetails", e.target.value)}
-                        placeholder={selectedService === "other" ? "Describe your project in detail, including what you need..." : "Describe your project in detail..."}
+                        placeholder={quoteType === "product" && productConfig 
+                          ? "Describe your project, any specific products or brands you're interested in, or questions for us..."
+                          : selectedService === "other" ? "Describe your project in detail, including what you need..." : "Describe your project in detail..."}
                         rows={6}
                         className="focus:ring-silver/50 focus:border-silver bg-black/65 border-silver/30 text-white placeholder:text-white/40"
                       />
                     </div>
                     <div>
-                      <label htmlFor="timeline" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">
-                        Timeline
-                      </label>
+                      <label htmlFor="timeline" className="block text-sm font-bold text-white mb-2 uppercase tracking-wide">Timeline</label>
                       <Input
                         id="timeline"
                         value={formData.timeline}
@@ -518,7 +595,6 @@ Budget Range: ${formData.budgetMin ? `$${formData.budgetMin}` : "Not specified"}
                         className="focus:ring-silver/50 focus:border-silver bg-black/65 border-silver/30 text-white placeholder:text-white/40"
                       />
                     </div>
-                    {/* Budget Range - Min and Max Inputs */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="budgetMin" className="block text-sm font-bold text-white mb-3 uppercase tracking-wide">
@@ -602,6 +678,8 @@ Budget Range: ${formData.budgetMin ? `$${formData.budgetMin}` : "Not specified"}
                         setSelectedService("");
                         setSelectedProduct("");
                         setCustomServiceName("");
+                        setCategoryFields({});
+                        setCustomValues({});
                         setFormData({
                           name: "",
                           email: "",

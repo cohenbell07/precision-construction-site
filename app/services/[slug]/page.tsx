@@ -259,12 +259,12 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               {service.process.map((step) => (
                 <Card key={step.step} className="card-premium border-silver/30 bg-black/75 flex flex-col h-full overflow-hidden">
                   <CardHeader className="pb-3">
-                    <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="flex flex-row lg:flex-col items-start gap-3 sm:gap-4">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 min-w-[2.5rem] min-h-[2.5rem] sm:min-w-[3rem] sm:min-h-[3rem] shrink-0 rounded-full bg-silver/20 border-2 border-silver flex items-center justify-center">
                         <span className="text-silver font-black text-base sm:text-xl leading-none">{step.step}</span>
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <CardTitle className="text-base sm:text-lg font-display font-black text-white uppercase tracking-tight premium-heading-sm leading-snug break-words">
+                      <div className="min-w-0 flex-1 lg:w-full">
+                        <CardTitle className="text-base sm:text-lg font-display font-black text-white uppercase tracking-tight premium-heading-sm leading-snug hyphens-auto" lang="en">
                           {step.title}
                         </CardTitle>
                       </div>

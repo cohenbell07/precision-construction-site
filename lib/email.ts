@@ -3,11 +3,17 @@ import { env } from "./env";
 
 const resend = env.resend.enabled ? new Resend(env.resend.apiKey!) : null;
 
+export interface EmailAttachment {
+  filename: string;
+  content: Buffer;
+}
+
 export interface EmailData {
   to: string | string[];
   subject: string;
   html: string;
   from?: string;
+  attachments?: EmailAttachment[];
 }
 
 export async function sendEmail(data: EmailData): Promise<{ success: boolean; error?: string }> {
@@ -22,6 +28,12 @@ export async function sendEmail(data: EmailData): Promise<{ success: boolean; er
       to: Array.isArray(data.to) ? data.to : [data.to],
       subject: data.subject,
       html: data.html,
+      ...(data.attachments && data.attachments.length > 0 && {
+        attachments: data.attachments.map((a) => ({
+          filename: a.filename,
+          content: a.content,
+        })),
+      }),
     });
     return { success: true };
   } catch (error) {

@@ -227,7 +227,7 @@ export function AIChatAssistant() {
               <Input
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleSend()}
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
                 placeholder="Ask about your project..."
                 className="bg-industrial-slate/95 border-silver/30 text-text-primary placeholder:text-text-secondary focus:border-silver focus:ring-silver/50"
               />
