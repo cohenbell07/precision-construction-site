@@ -618,14 +618,14 @@ export default function ProductsPage() {
                 <div key={category.title} className="relative">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-8 lg:gap-12 items-start">
                     {/* Content Section - Text and Products */}
-                    <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+                    <div className={`${isEven ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
                       <div className="mb-6 sm:mb-8">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
                             {category.title}
                           </h2>
                           {(category.title === "Flooring" || category.title === "Countertops") && (
-                            <span className="text-xs font-black uppercase tracking-wide bg-silver text-black px-3 py-1 rounded-full border border-silver shadow-[0_0_10px_rgba(232,232,232,0.5)]">
+                            <span className="inline-flex items-center self-start sm:self-auto text-xs font-black uppercase tracking-wide bg-silver text-black px-3 py-1 rounded-full border border-silver shadow-[0_0_10px_rgba(232,232,232,0.5)]">
                               Most Popular
                             </span>
                           )}
@@ -691,7 +691,7 @@ export default function ProductsPage() {
                     </div>
 
                     {/* Carousel Section Beside */}
-                    <div className={`${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                    <div className={`${isEven ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}`}>
                       <div className="w-full mx-auto" style={{ maxWidth: "600px", maxHeight: "600px" }}>
                         <ProductCarousel images={category.carouselImages} />
                       </div>

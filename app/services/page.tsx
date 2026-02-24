@@ -183,7 +183,7 @@ export default function ServicesPage() {
                   )}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-8 lg:gap-12 items-start">
                     {/* Content Section - Text and Services */}
-                    <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+                    <div className={`${isEven ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
                       <div className="mb-6 sm:mb-8">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
@@ -260,7 +260,7 @@ export default function ServicesPage() {
                     </div>
 
                     {/* Image Section - Premium framed image */}
-                    <div className={`${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                    <div className={`${isEven ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}`}>
                       <div className="group relative w-full aspect-square min-h-[180px] sm:min-h-[220px] rounded-2xl overflow-hidden border-2 border-silver/30 shadow-[0_8px_30px_rgba(0,0,0,0.4),0_0_24px_rgba(232,232,232,0.12)] ring-1 ring-inset ring-white/10 transition-transform duration-300 hover:scale-[1.02] hover:shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_32px_rgba(232,232,232,0.18)] hover:border-silver/50">
                         <Image
                           src={imagePath}
