@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { LogoFooter } from "@/components/LogoFooter";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone, Facebook, Instagram } from "lucide-react";
 
 export function Footer() {
   const serviceLinks = [
@@ -58,6 +58,37 @@ export function Footer() {
                   {BRAND_CONFIG.contact.email}
                 </a>
               </div>
+              {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
+                <div className="flex items-center space-x-3 pt-2">
+                  <span className="text-xs uppercase tracking-wide text-white/60">
+                    Follow us
+                  </span>
+                  <div className="flex items-center space-x-3">
+                    {BRAND_CONFIG.social.facebook && (
+                      <a
+                        href={BRAND_CONFIG.social.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Visit our Facebook page"
+                        className="text-white/70 hover:text-silver transition-colors"
+                      >
+                        <Facebook className="h-4 w-4" />
+                      </a>
+                    )}
+                    {BRAND_CONFIG.social.instagram && (
+                      <a
+                        href={BRAND_CONFIG.social.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Visit our Instagram profile"
+                        className="text-white/70 hover:text-silver transition-colors"
+                      >
+                        <Instagram className="h-4 w-4" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

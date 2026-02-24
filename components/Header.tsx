@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Facebook, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Logo } from "@/components/Logo";
@@ -50,8 +50,35 @@ export function Header() {
           ))}
         </div>
 
-        {/* Right: Desktop CTA or Mobile menu button */}
-        <div className="relative z-10 flex items-center shrink-0 md:justify-self-end gap-2">
+        {/* Right: Desktop CTA + socials or Mobile menu button */}
+        <div className="relative z-10 flex items-center shrink-0 md:justify-self-end gap-3">
+          {/* Desktop socials */}
+          {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
+            <div className="hidden md:flex items-center gap-2 pr-1">
+              {BRAND_CONFIG.social.facebook && (
+                <a
+                  href={BRAND_CONFIG.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit our Facebook page"
+                  className="text-white/70 hover:text-silver transition-colors"
+                >
+                  <Facebook className="h-4 w-4" />
+                </a>
+              )}
+              {BRAND_CONFIG.social.instagram && (
+                <a
+                  href={BRAND_CONFIG.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit our Instagram profile"
+                  className="text-white/70 hover:text-silver transition-colors"
+                >
+                  <Instagram className="h-4 w-4" />
+                </a>
+              )}
+            </div>
+          )}
           <div className="hidden md:block">
             <Button asChild className="btn-premium">
               <Link href="/get-quote">Request a Quote</Link>
@@ -90,6 +117,39 @@ export function Header() {
                 Request a Quote
               </Link>
             </Button>
+            {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
+              <div className="pt-2 border-t border-silver/20 mt-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs uppercase tracking-wide text-white/60">
+                    Follow us
+                  </span>
+                  <div className="flex items-center gap-3">
+                    {BRAND_CONFIG.social.facebook && (
+                      <a
+                        href={BRAND_CONFIG.social.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Visit our Facebook page"
+                        className="text-white/70 hover:text-silver transition-colors"
+                      >
+                        <Facebook className="h-5 w-5" />
+                      </a>
+                    )}
+                    {BRAND_CONFIG.social.instagram && (
+                      <a
+                        href={BRAND_CONFIG.social.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Visit our Instagram profile"
+                        className="text-white/70 hover:text-silver transition-colors"
+                      >
+                        <Instagram className="h-5 w-5" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -38,5 +38,9 @@ export const BRAND_CONFIG = {
     address: "Calgary, AB and Surrounding Areas",
     cta: "Call or Email to Book a Consultation",
   },
+  social: {
+    facebook: "https://www.facebook.com/profile.php?id=61588370031463",
+    instagram: "https://www.instagram.com/pcnd.ca/",
+  },
 };
 
