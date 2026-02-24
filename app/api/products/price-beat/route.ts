@@ -22,6 +22,8 @@ export async function POST(request: NextRequest) {
     const name = (formData.get("name") as string) || "";
     const email = (formData.get("email") as string) || "";
     const productType = (formData.get("productType") as string) || "";
+    const rawInquiryType = ((formData.get("inquiryType") as string) || "product").toLowerCase();
+    const inquiryType = rawInquiryType === "service" ? "service" : "product";
     const file = formData.get("quoteFile") as File | null;
 
     if (!email?.trim()) {
@@ -54,6 +56,8 @@ export async function POST(request: NextRequest) {
     }
 
     const hasAttachment = !!attachment;
+    const categoryLabel = productType?.trim() || (inquiryType === "service" ? "General Service" : "General Product");
+    const sourceSlug = inquiryType === "service" ? "services_price_beat" : "products_price_beat";
 
     // Save to Supabase if configured
     const supabase = getSupabaseClient();
@@ -63,9 +67,9 @@ export async function POST(request: NextRequest) {
           name: name || null,
           email,
           phone: null,
-          project_type: `Price Beat: ${productType || "General Product Inquiry"}`,
-          message: `Product/Project Type: ${productType || "N/A"}\n\nCompetitor quote attached: ${hasAttachment ? "Yes" : "No"}`,
-          source: "products_price_beat",
+          project_type: `Price Beat (${inquiryType === "service" ? "Service" : "Product"}): ${categoryLabel}`,
+          message: `Type: ${inquiryType === "service" ? "Service" : "Product"}\nCategory: ${categoryLabel}\n\nCompetitor quote attached: ${hasAttachment ? "Yes" : "No"}`,
+          source: sourceSlug,
         });
       } catch (dbError) {
         console.error("Database error (non-critical):", dbError);
@@ -75,12 +79,13 @@ export async function POST(request: NextRequest) {
     // Send email to admin with attachment if present
     const adminResult = await sendEmail({
       to: BRAND_CONFIG.contact.email,
-      subject: `Price Beat Request - ${productType || "General Product"}`,
+      subject: `Price Beat Request (${inquiryType === "service" ? "Service" : "Product"}) - ${categoryLabel}`,
       html: `
         <h2>New Price Beat Request</h2>
+        <p><strong>Type:</strong> ${inquiryType === "service" ? "Service" : "Product"}</p>
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Product/Project Type:</strong> ${escapeHtml(productType) || "N/A"}</p>
+        <p><strong>Category:</strong> ${escapeHtml(categoryLabel)}</p>
         <p><strong>Competitor Quote Attached:</strong> ${hasAttachment ? `Yes (${attachment!.filename})` : "No"}</p>
       `,
       attachments: attachment ? [attachment] : undefined,

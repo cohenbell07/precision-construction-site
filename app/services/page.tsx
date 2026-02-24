@@ -4,6 +4,9 @@ import { useState } from "react";
 import { services } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import Image from "next/image";
 import { CheckCircle, Hammer, Wrench, ArrowRight } from "lucide-react";
@@ -103,6 +106,48 @@ const getServiceValueBadges = (serviceId: string) => {
 
 export default function ServicesPage() {
   const [expandedServices, setExpandedServices] = useState<Record<string, boolean>>({});
+  const [priceBeatForm, setPriceBeatForm] = useState({ name: "", email: "", category: "" });
+  const [priceBeatFile, setPriceBeatFile] = useState<File | null>(null);
+  const [priceBeatLoading, setPriceBeatLoading] = useState(false);
+  const { toast } = useToast();
+
+  const handlePriceBeatSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPriceBeatLoading(true);
+    try {
+      const body = new FormData();
+      body.append("inquiryType", "service");
+      body.append("name", priceBeatForm.name);
+      body.append("email", priceBeatForm.email);
+      body.append("productType", priceBeatForm.category || "");
+      if (priceBeatFile) body.append("quoteFile", priceBeatFile);
+      const res = await fetch("/api/products/price-beat", { method: "POST", body });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        toast({
+          title: "Request sent!",
+          description: "We'll review your competitor quote and get back to you within 24 hours with our best price.",
+        });
+        setPriceBeatForm({ name: "", email: "", category: "" });
+        setPriceBeatFile(null);
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: data.error || "Please try again or contact us directly.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Price beat submit error:", error);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setPriceBeatLoading(false);
+    }
+  };
 
   const toggleServiceExpansion = (serviceId: string) => {
     setExpandedServices((prev) => ({
@@ -278,6 +323,102 @@ export default function ServicesPage() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Premium Divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
+
+      {/* Price Beat Section - Services */}
+      <section id="quote-form" className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+            backgroundSize: '100px 100px'
+          }}></div>
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading px-2">
+              We Beat All Legitimate Competitor Quotes by 5% or More
+            </h2>
+            <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
+              Have a competitor quote for a service? Send it to us — we&apos;ll beat it by at least 5%.
+            </p>
+          </div>
+
+          <Card className="card-premium border-silver/30 bg-black/75">
+            <CardHeader>
+              <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm text-center">
+                Get My Price Beat
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handlePriceBeatSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="price-beat-name" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
+                    Name *
+                  </label>
+                  <Input
+                    id="price-beat-name"
+                    required
+                    value={priceBeatForm.name}
+                    onChange={(e) => setPriceBeatForm({ ...priceBeatForm, name: e.target.value })}
+                    placeholder="Your name"
+                    className="focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white placeholder:text-white/40"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="price-beat-email" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
+                    Email *
+                  </label>
+                  <Input
+                    id="price-beat-email"
+                    type="email"
+                    required
+                    value={priceBeatForm.email}
+                    onChange={(e) => setPriceBeatForm({ ...priceBeatForm, email: e.target.value })}
+                    placeholder="your.email@example.com"
+                    className="focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white placeholder:text-white/40"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="price-beat-category" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
+                    Service or project type *
+                  </label>
+                  <Input
+                    id="price-beat-category"
+                    required
+                    value={priceBeatForm.category}
+                    onChange={(e) => setPriceBeatForm({ ...priceBeatForm, category: e.target.value })}
+                    placeholder="e.g., Basement Development, Flooring, Custom Showers, Cabinets, etc."
+                    className="focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white placeholder:text-white/40"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="price-beat-file" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
+                    Competitor Quote (Optional)
+                  </label>
+                  <Input
+                    id="price-beat-file"
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                    onChange={(e) => setPriceBeatFile(e.target.files?.[0] || null)}
+                    className="focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-silver/20 file:text-silver hover:file:bg-silver/30 file:cursor-pointer cursor-pointer"
+                  />
+                  {priceBeatFile && (
+                    <p className="mt-2 text-sm text-white/70">
+                      Selected: {priceBeatFile.name}
+                    </p>
+                  )}
+                </div>
+                <Button type="submit" disabled={priceBeatLoading} className="w-full btn-premium uppercase tracking-wider">
+                  {priceBeatLoading ? "Sending..." : "Get My Price Beat"}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
         </div>
       </section>
 

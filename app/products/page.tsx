@@ -235,6 +235,7 @@ export default function ProductsPage() {
 
     try {
       const body = new FormData();
+      body.append("inquiryType", "product");
       body.append("name", formData.name);
       body.append("email", formData.email);
       body.append("productType", formData.productType || "");
