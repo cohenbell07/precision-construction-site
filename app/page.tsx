@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -8,8 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { services } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { AIChatAssistant } from "@/components/AIChatAssistant";
+import { VideoHero } from "@/components/VideoHero";
 import { CheckCircle, Star, Hammer, Award, Users } from "lucide-react";
-import Hls from "hls.js";
 
 export default function Home() {
   const testimonials = [
@@ -71,82 +70,13 @@ export default function Home() {
     ["cabinets", "showers", "countertops", "renovations", "carpentry", "garages"].includes(s.id)
   );
 
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const hlsRef = useRef<Hls | null>(null);
-
-  // Prevent scroll-to-bottom on load (e.g. from chat or focus)
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  // Initialize video on mount
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const videoSrc = "https://customer-wlq98rw65iepfe8g.cloudflarestream.com/9f32426787cbe2b26a14642463b7b817/manifest/video.m3u8";
-
-    // Set video properties
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "auto";
-    video.muted = true;
-
-    const initVideo = () => {
-      try {
-        if (typeof Hls !== "undefined" && Hls.isSupported()) {
-          const hls = new Hls({
-            enableWorker: true,
-            lowLatencyMode: false,
-          });
-          hlsRef.current = hls;
-          hls.loadSource(videoSrc);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            video.play().catch((err) => {
-              console.log("Autoplay prevented:", err);
-            });
-          });
-        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-          // Native HLS support (Safari)
-          video.src = videoSrc;
-          video.play().catch((err) => {
-            console.log("Autoplay prevented:", err);
-          });
-        }
-      } catch (err) {
-        console.error("Video initialization error:", err);
-      }
-    };
-
-    initVideo();
-
-    return () => {
-      if (hlsRef.current) {
-        try {
-          hlsRef.current.destroy();
-        } catch (e) {
-          // Ignore destroy errors
-        }
-        hlsRef.current = null;
-      }
-    };
-  }, []);
 
   return (
     <div className="flex flex-col">
       {/* Hero Section - Full-width video with overlay. Mobile: cap height so ratio matches desktop. */}
       <section className="relative w-full bg-black overflow-hidden aspect-video min-h-[220px] max-h-[62vh] sm:min-h-[280px] sm:max-h-[70vh] md:aspect-video md:min-h-[400px] md:max-h-[90vh]">
         <div className="absolute inset-0">
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover"
-            playsInline
-            autoPlay
-            loop
-            muted
-            preload="auto"
-          />
+          <VideoHero videoId="9f32426787cbe2b26a14642463b7b817" className="w-full h-full object-cover" />
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
         </div>
@@ -155,6 +85,13 @@ export default function Home() {
           <div className="container mx-auto px-4 sm:px-6 text-center max-w-6xl">
             {/* Mobile: tighter spacing and slightly larger type so ratio matches desktop */}
             <div className="space-y-2 sm:space-y-4 md:space-y-8">
+              {/* Trust badge */}
+              <div className="flex justify-center">
+                <span className="section-label">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block"></span>
+                  3rd Generation · Family Owned · Since 1968
+                </span>
+              </div>
               {/* Headline - mobile scale up to match desktop ratio */}
               <h1 className="text-2xl min-[480px]:text-3xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-1 sm:mb-2 md:mb-4 leading-tight premium-heading px-2">
                 Crafting Calgary&apos;s Future — One Build at a Time
@@ -175,6 +112,24 @@ export default function Home() {
                 </Button>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Ribbon */}
+      <section className="bg-[#0A0A0A] border-b border-silver/10">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="grid grid-cols-3 divide-x divide-silver/10">
+            {[
+              { number: "1968", label: "Founded" },
+              { number: "1997", label: "Calgary" },
+              { number: "3rd", label: "Generation" },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center px-4 sm:px-8 py-5 sm:py-7">
+                <div className="text-2xl sm:text-3xl md:text-4xl stats-number mb-1">{stat.number}</div>
+                <div className="text-[10px] sm:text-xs text-white/40 uppercase tracking-widest">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -336,9 +291,12 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 md:gap-8">
-            {whyUs.map((item) => (
+            {whyUs.map((item, index) => (
               <div key={item.title}>
                 <Card className="card-premium h-full text-center border-silver/30 bg-black/75">
+                  <div className="absolute top-3 right-4 text-8xl font-display font-black text-white/[0.035] leading-none select-none pointer-events-none">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
                   <CardHeader className="pb-4">
                     <div className="relative inline-block mb-6">
                       <div className="absolute inset-0 bg-silver/20 blur-xl rounded-full"></div>
@@ -581,6 +539,7 @@ export default function Home() {
               <div key={testimonial.name}>
                 <Card className="card-premium h-full border-silver/30 bg-black/75">
                   <CardHeader className="pb-4">
+                    <span className="quote-mark">&ldquo;</span>
                     <div className="flex items-center mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} className="h-5 w-5 fill-silver text-silver drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
@@ -597,6 +556,32 @@ export default function Home() {
                 </Card>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bold CTA Strip */}
+      <section className="py-16 sm:py-20 md:py-24 cta-warm-bg relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-silver/20 to-transparent"></div>
+        <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center relative z-10">
+          <span className="section-label mb-5 sm:mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block"></span>
+            Free Quote · No Obligation
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-4 sm:mb-5 uppercase tracking-tight premium-heading mt-4 sm:mt-5">
+            Ready to Build?
+          </h2>
+          <p className="text-white/60 text-sm sm:text-base md:text-lg mb-8 sm:mb-10 max-w-xl mx-auto px-2">
+            No pressure, no obligation. Tell us about your project and we&apos;ll get back to you within 24 hours.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+            <Button asChild size="lg" className="btn-premium px-8 py-4 text-sm sm:text-base uppercase tracking-wider w-full sm:w-auto">
+              <Link href="/get-quote">Get a Free Quote</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-2 border-silver/40 bg-transparent hover:bg-black/50 hover:border-silver text-silver px-8 py-4 text-sm sm:text-base uppercase tracking-wider w-full sm:w-auto">
+              <Link href="/contact">Contact Us</Link>
+            </Button>
           </div>
         </div>
       </section>

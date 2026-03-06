@@ -25,6 +25,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-silver/20 bg-black/98 overflow-visible">
+      <div className="header-accent-line"></div>
       {/* Mobile: flex with logo left, menu right. Desktop: grid with centered nav */}
       <nav className="container mx-auto flex md:grid h-16 sm:h-[4.5rem] md:h-20 md:grid-cols-[1fr_auto_1fr] items-center justify-between md:justify-normal px-4 sm:px-6 max-w-7xl overflow-visible gap-4">
         <Link

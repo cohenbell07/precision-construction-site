@@ -59,6 +59,12 @@
     @apply bg-black;
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background: rgba(232, 232, 232, 0.15);
+    color: #ffffff;
   }
   body {
     @apply bg-black text-text-primary antialiased;
@@ -356,6 +362,25 @@
   .btn-premium {
     @apply silver-3d-button;
     @apply uppercase tracking-wide;
+  }
+
+  /* Shimmer sweep across primary buttons on hover */
+  .btn-premium::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.25) 50%, transparent 100%);
+    transform: skewX(-15deg);
+    pointer-events: none;
+    border-radius: inherit;
+    transition: left 0.55s ease;
+  }
+
+  .btn-premium:hover::after {
+    left: 160%;
   }
   
   /* Button with glowing edge/underglow */
@@ -941,6 +966,137 @@
     .silver-3d-button {
       min-height: 44px;
     }
+  }
+
+  /* Section label / badge pill */
+  .section-label {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-silver/30 bg-white/5 text-silver/80 text-xs font-semibold uppercase tracking-widest;
+  }
+
+  /* Stats ribbon number */
+  .stats-number {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 30%, #C0C0C0 70%, #808080 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    line-height: 1;
+    font-family: "Lexend Deca", "Saira Condensed", system-ui, sans-serif;
+  }
+
+  /* Decorative quote mark */
+  .quote-mark {
+    font-size: 5rem;
+    line-height: 1;
+    color: rgba(232, 232, 232, 0.07);
+    font-family: Georgia, 'Times New Roman', serif;
+    user-select: none;
+    display: block;
+    margin-bottom: -2.5rem;
+    pointer-events: none;
+  }
+
+  /* Warm orange CTA section glow */
+  .cta-warm-bg {
+    background:
+      radial-gradient(ellipse at 50% 120%, hsla(22, 100%, 63%, 0.08) 0%, transparent 65%),
+      #000000;
+  }
+
+  /* Top accent line for header */
+  .header-accent-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, hsl(22 100% 63% / 0.5) 30%, hsl(22 100% 63% / 0.7) 50%, hsl(22 100% 63% / 0.5) 70%, transparent 100%);
+  }
+
+  /* Polished outline button — use instead of raw border-silver/50 classes */
+  .btn-outline-silver {
+    @apply relative overflow-hidden transition-all duration-300 uppercase tracking-wide font-bold;
+    border: 2px solid rgba(232, 232, 232, 0.35);
+    background: rgba(0, 0, 0, 0.45);
+    color: #E8E8E8;
+  }
+
+  .btn-outline-silver:hover {
+    border-color: rgba(232, 232, 232, 0.75);
+    background: rgba(232, 232, 232, 0.06);
+    box-shadow:
+      0 0 22px rgba(232, 232, 232, 0.18),
+      0 4px 16px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Pull quote card — dramatic blockquote for About page */
+  .pull-quote-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pull-quote-card::before {
+    content: '\201C';
+    position: absolute;
+    top: -1rem;
+    left: 1.5rem;
+    font-size: 10rem;
+    line-height: 1;
+    color: rgba(232, 232, 232, 0.06);
+    font-family: Georgia, 'Times New Roman', serif;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .pull-quote-card::after {
+    content: '\201D';
+    position: absolute;
+    bottom: -3rem;
+    right: 1.5rem;
+    font-size: 10rem;
+    line-height: 1;
+    color: rgba(232, 232, 232, 0.06);
+    font-family: Georgia, 'Times New Roman', serif;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Orange accent left-border bar for section variety */
+  .accent-bar-left {
+    border-left: 3px solid hsl(22 100% 63% / 0.7);
+    padding-left: 1rem;
+  }
+
+  /* Process step number — large, bold, with silver gradient */
+  .step-number {
+    background: linear-gradient(180deg, #FFFFFF 0%, #E8E8E8 40%, #A0A0A0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    font-family: "Lexend Deca", system-ui, sans-serif;
+    line-height: 1;
+  }
+
+  /* Enhanced form input */
+  .input-dark {
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(232, 232, 232, 0.2);
+    color: #ffffff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    border-radius: var(--radius);
+  }
+
+  .input-dark::placeholder {
+    color: rgba(255, 255, 255, 0.28);
+  }
+
+  .input-dark:focus {
+    outline: none;
+    border-color: rgba(232, 232, 232, 0.55);
+    box-shadow: 0 0 0 2px rgba(232, 232, 232, 0.08), 0 0 18px rgba(232, 232, 232, 0.08);
+  }
+
+  /* Divider with orange tint — for section variety */
+  .divider-warm {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, hsl(22 100% 63% / 0.35) 50%, transparent 100%);
   }
 }
 

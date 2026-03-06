@@ -181,18 +181,24 @@ export default function ServicesPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative w-full bg-black overflow-hidden py-12 sm:py-16 md:py-20">
+      <section className="relative w-full bg-black overflow-hidden py-14 sm:py-18 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-4 sm:mb-6 text-white uppercase tracking-tight premium-heading px-2">
+            <div className="flex justify-center mb-4 sm:mb-5">
+              <span className="section-label">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block"></span>
+                Residential &amp; Commercial · Calgary
+              </span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-4 sm:mb-6 text-white uppercase tracking-tight premium-heading px-2">
               Our Services
             </h1>
             <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white max-w-3xl mx-auto mb-3 sm:mb-4 leading-relaxed premium-text px-2">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/80 max-w-3xl mx-auto mb-3 sm:mb-4 leading-relaxed premium-text px-2">
               From flooring to full home renovations, we provide comprehensive construction services for
               residential and commercial projects in Calgary and surrounding areas.
             </p>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl premium-silver-text font-bold max-w-3xl mx-auto uppercase tracking-wide px-2">
+            <p className="text-sm sm:text-base md:text-lg premium-silver-text font-bold max-w-3xl mx-auto uppercase tracking-widest px-2">
               {BRAND_CONFIG.motto}
             </p>
           </div>
@@ -426,35 +432,29 @@ export default function ServicesPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-            backgroundSize: '100px 100px'
-          }}></div>
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center relative z-10">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 sm:mb-6 md:mb-8 text-white uppercase tracking-tight premium-heading">
-            Ready to Start Your Project?
+      <section className="py-16 sm:py-20 md:py-24 cta-warm-bg relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+        <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center relative z-10">
+          <span className="section-label mb-5 sm:mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block"></span>
+            Free Quote · No Obligation
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-4 sm:mb-5 uppercase tracking-tight premium-heading mt-4 sm:mt-5">
+            Ready to Start?
           </h2>
-          <div className="h-[2px] w-32 sm:w-40 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 md:mb-8 shadow-[0_0_25px_rgba(232,232,232,0.7)]"></div>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 mb-4 sm:mb-6 max-w-2xl mx-auto leading-relaxed premium-text font-medium px-2">
-            We treat every client like family. Contact us today for a free consultation and quote.
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver/40 to-transparent mx-auto mb-5 sm:mb-6"></div>
+          <p className="text-sm sm:text-base md:text-lg text-white/60 mb-8 sm:mb-10 max-w-xl mx-auto leading-relaxed px-2">
+            We treat every client like family. Get a free consultation and quote — and see why Calgary has trusted {BRAND_CONFIG.shortName} for generations.
           </p>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl premium-silver-text font-bold mb-6 sm:mb-8 md:mb-10 uppercase tracking-wide px-2">
-            {BRAND_CONFIG.motto}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-            <Button asChild size="lg" className="btn-premium px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg font-bold uppercase tracking-wider w-full sm:w-auto sm:min-w-[200px]">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-5">
+            <Button asChild size="lg" className="btn-premium px-8 py-4 text-sm sm:text-base uppercase tracking-wider w-full sm:w-auto">
               <Link href="/get-quote">Request a Quote</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-2 border-silver/50 bg-black/65 hover:bg-black/80 hover:border-silver text-silver  px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide w-full sm:w-auto sm:min-w-[200px] transition-[transform,box-shadow,border-color] duration-300 hover:shadow-[0_0_20px_rgba(232,232,232,0.3)]">
+            <Button asChild size="lg" variant="outline" className="btn-outline-silver px-8 py-4 text-sm sm:text-base w-full sm:w-auto rounded-md">
               <Link href="/contact">Contact Us</Link>
             </Button>
           </div>
-          <p className="text-xs sm:text-sm md:text-base text-white/70 mt-6 sm:mt-8 font-medium px-2">
-            {BRAND_CONFIG.contact.cta}
-          </p>
+          <p className="text-xs text-white/40 uppercase tracking-widest">{BRAND_CONFIG.contact.cta}</p>
         </div>
       </section>
     </div>

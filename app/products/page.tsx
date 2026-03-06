@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { getProductSlugFromTitle } from "@/lib/productQuoteConfig";
-import Hls from "hls.js";
+import { VideoHero } from "@/components/VideoHero";
 import { CheckCircle, Hammer, Wrench, ChevronLeft, ChevronRight } from "lucide-react";
 
 const productCategories = [
@@ -226,9 +226,6 @@ export default function ProductsPage() {
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const { toast } = useToast();
   const quoteFormRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const hlsRef = useRef<Hls | null>(null);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -277,59 +274,6 @@ export default function ProductsPage() {
     }
   };
 
-  // Initialize video on mount
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const videoSrc = "https://customer-wlq98rw65iepfe8g.cloudflarestream.com/adce22ef76da6a626cb98b44a0cf9e05/manifest/video.m3u8";
-
-    // Set video properties
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "auto";
-    video.muted = true;
-
-    const initVideo = () => {
-      try {
-        if (typeof Hls !== "undefined" && Hls.isSupported()) {
-          const hls = new Hls({
-            enableWorker: true,
-            lowLatencyMode: false,
-          });
-          hlsRef.current = hls;
-          hls.loadSource(videoSrc);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            video.play().catch((err) => {
-              console.log("Autoplay prevented:", err);
-            });
-          });
-        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-          // Native HLS support (Safari)
-          video.src = videoSrc;
-          video.play().catch((err) => {
-            console.log("Autoplay prevented:", err);
-          });
-        }
-      } catch (err) {
-        console.error("Video initialization error:", err);
-      }
-    };
-
-    initVideo();
-
-    return () => {
-      if (hlsRef.current) {
-        try {
-          hlsRef.current.destroy();
-        } catch (e) {
-          // Ignore destroy errors
-        }
-        hlsRef.current = null;
-      }
-    };
-  }, []);
 
   const toggleCategoryExpansion = (categoryTitle: string) => {
     setExpandedCategories((prev) => ({
@@ -419,30 +363,22 @@ export default function ProductsPage() {
       {/* Hero Video Section */}
       <section className="relative w-full bg-black overflow-hidden min-h-[240px] sm:min-h-[300px] md:min-h-[400px] max-h-[90vh]">
         <div className="relative w-full min-h-[240px] aspect-video max-h-[600px]">
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover"
-            playsInline
-            autoPlay
-            loop
-            muted
-            preload="auto"
-          />
-          {/* Refined gradient - more sophisticated */}
+          <VideoHero videoId="adce22ef76da6a626cb98b44a0cf9e05" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/75"></div>
-          
+
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
-              <div className="space-y-4 sm:space-y-6 md:space-y-8">
-                {/* Main Title with enhanced shadow */}
+              <div className="space-y-4 sm:space-y-5 md:space-y-7">
+                <div className="flex justify-center">
+                  <span className="section-label">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block"></span>
+                    5% Price Beat Guarantee · Supply &amp; Install
+                  </span>
+                </div>
                 <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black uppercase tracking-tight premium-heading px-2">
                   Every Product. Every Brand. Built to Outperform.
                 </h1>
-                
-                {/* Silver divider with glow */}
-                <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-2 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
-                
-                {/* Subtitle with premium silver styling - clean, no box */}
+                <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
                 <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl premium-silver-text font-bold max-w-4xl mx-auto leading-relaxed tracking-wide px-2">
                   Explore the industry&apos;s best materials. We carry everything construction demands — and beat all competitors by 5%.
                 </p>

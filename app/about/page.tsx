@@ -1,12 +1,11 @@
 "use client";
 
-import { useRef, useEffect } from "react";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import Hls from "hls.js";
+import { VideoHero } from "@/components/VideoHero";
 import { 
   Medal as PhosphorAward, 
   Users as PhosphorUsers, 
@@ -26,62 +25,6 @@ import { Star, CheckCircle } from "lucide-react";
 export default function AboutPage() {
   const yearsInCalgary = new Date().getFullYear() - BRAND_CONFIG.servingSince;
   const totalYears = new Date().getFullYear() - BRAND_CONFIG.established;
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const hlsRef = useRef<Hls | null>(null);
-
-  // Initialize video on mount
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const videoSrc = "https://customer-wlq98rw65iepfe8g.cloudflarestream.com/cfd853ff56a468be1c91e78ce77db01f/manifest/video.m3u8";
-
-    // Set video properties
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "auto";
-    video.muted = true;
-
-    const initVideo = () => {
-      try {
-        if (typeof Hls !== "undefined" && Hls.isSupported()) {
-          const hls = new Hls({
-            enableWorker: true,
-            lowLatencyMode: false,
-          });
-          hlsRef.current = hls;
-          hls.loadSource(videoSrc);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            video.play().catch((err) => {
-              console.log("Autoplay prevented:", err);
-            });
-          });
-        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-          // Native HLS support (Safari)
-          video.src = videoSrc;
-          video.play().catch((err) => {
-            console.log("Autoplay prevented:", err);
-          });
-        }
-      } catch (err) {
-        console.error("Video initialization error:", err);
-      }
-    };
-
-    initVideo();
-
-    return () => {
-      if (hlsRef.current) {
-        try {
-          hlsRef.current.destroy();
-        } catch (e) {
-          // Ignore destroy errors
-        }
-        hlsRef.current = null;
-      }
-    };
-  }, []);
 
   const testimonials = [
     {
@@ -118,19 +61,17 @@ export default function AboutPage() {
       {/* Hero Section with video */}
       <section className="relative w-full bg-black overflow-hidden min-h-[240px] sm:min-h-[300px] md:min-h-[400px] max-h-[90vh]">
         <div className="relative w-full min-h-[240px] aspect-video max-h-[600px]">
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover"
-            playsInline
-            autoPlay
-            loop
-            muted
-            preload="auto"
-          />
+          <VideoHero videoId="cfd853ff56a468be1c91e78ce77db01f" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
-          
+
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
+              <div className="flex justify-center mb-3 sm:mb-4">
+                <span className="section-label">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block"></span>
+                  Calgary&apos;s Trusted Family Builder
+                </span>
+              </div>
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white uppercase tracking-tight premium-heading px-2">
                 About {BRAND_CONFIG.shortName}
               </h1>
@@ -310,21 +251,18 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Pull Quote Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-            backgroundSize: '100px 100px'
-          }}></div>
-        </div>
+      <section className="py-12 sm:py-16 md:py-20 cta-warm-bg relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-silver/20 to-transparent"></div>
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
-          <Card className="card-premium border-silver/30 p-6 sm:p-8 md:p-10 lg:p-12 bg-black/75 ">
-            <div className="text-center">
-              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-display font-black premium-silver-text mb-4 sm:mb-5 md:mb-6 italic leading-relaxed px-2">
-                &quot;We treat every client like family — and every build like our own.&quot;
+          <Card className="card-premium pull-quote-card border-silver/30 p-8 sm:p-10 md:p-14 bg-black/80">
+            <div className="text-center relative z-10">
+              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-black premium-silver-text mb-5 sm:mb-6 italic leading-relaxed px-2">
+                &ldquo;We treat every client like family — and every build like our own.&rdquo;
               </p>
-              <p className="text-sm sm:text-base md:text-lg text-white/80 premium-text px-2">
-                — {BRAND_CONFIG.owner}, Owner
+              <div className="h-px w-16 bg-gradient-to-r from-transparent via-silver/50 to-transparent mx-auto mb-4"></div>
+              <p className="text-sm sm:text-base md:text-lg text-white/70 premium-text px-2 uppercase tracking-widest">
+                — {BRAND_CONFIG.owner}, Owner &amp; Lead Contractor
               </p>
             </div>
           </Card>
@@ -575,6 +513,7 @@ export default function AboutPage() {
             {testimonials.map((testimonial) => (
               <Card key={testimonial.name} className="card-premium border-silver/30 bg-black/75 ">
                 <CardHeader className="pb-4">
+                  <span className="quote-mark">&ldquo;</span>
                   <div className="flex items-center mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="h-5 w-5 fill-silver text-silver drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
@@ -716,35 +655,29 @@ export default function AboutPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#1F1F1F] relative premium-bg-pattern">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-            backgroundSize: '100px 100px'
-          }}></div>
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center relative z-10">
-          <div className="card-premium border-silver/30 p-6 sm:p-8 md:p-12 lg:p-16 bg-black/75 ">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black mb-4 sm:mb-5 md:mb-6 text-white uppercase tracking-tight premium-heading px-2">
-              Let&apos;s Build Something Together
-            </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-5 md:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-6 sm:mb-7 md:mb-8 max-w-2xl mx-auto leading-relaxed premium-text px-2">
-              Experience the difference of working with a family-owned company that treats you like 
-              family. Get a free consultation and see why Calgary trusts {BRAND_CONFIG.shortName}.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 justify-center mb-4 sm:mb-5 md:mb-6">
-              <Button asChild size="lg" className="btn-premium text-sm sm:text-base md:text-lg px-6 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
-                <Link href="/get-quote">Request a Quote</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-silver/50 bg-black/50 hover:bg-black/70 hover:border-silver text-silver  text-sm sm:text-base md:text-lg px-6 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
-                <Link href="/contact">Contact Us</Link>
-              </Button>
-            </div>
-            <p className="text-sm text-white/70">
-              {BRAND_CONFIG.contact.cta}
-            </p>
+      <section className="py-16 sm:py-20 md:py-24 cta-warm-bg relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+        <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center relative z-10">
+          <span className="section-label mb-5 sm:mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block"></span>
+            Free Consultation · No Obligation
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-4 sm:mb-5 uppercase tracking-tight premium-heading mt-4 sm:mt-5">
+            Let&apos;s Build Something Together
+          </h2>
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver/40 to-transparent mx-auto mb-5 sm:mb-6"></div>
+          <p className="text-sm sm:text-base md:text-lg text-white/60 mb-8 sm:mb-10 max-w-xl mx-auto leading-relaxed px-2">
+            Experience the difference of working with a family-owned company that treats you like family. See why Calgary has trusted {BRAND_CONFIG.shortName} for generations.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-5">
+            <Button asChild size="lg" className="btn-premium px-8 py-4 text-sm sm:text-base uppercase tracking-wider w-full sm:w-auto">
+              <Link href="/get-quote">Request a Free Quote</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="btn-outline-silver px-8 py-4 text-sm sm:text-base w-full sm:w-auto rounded-md">
+              <Link href="/contact">Contact Us</Link>
+            </Button>
           </div>
+          <p className="text-xs text-white/40 uppercase tracking-widest">{BRAND_CONFIG.contact.cta}</p>
         </div>
       </section>
     </div>
