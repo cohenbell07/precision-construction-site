@@ -11,7 +11,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { getProductSlugFromTitle } from "@/lib/productQuoteConfig";
 import { VideoHero } from "@/components/VideoHero";
-import { CheckCircle, Hammer, Wrench, ChevronLeft, ChevronRight } from "lucide-react";
+import { CheckCircle, Hammer, Wrench, ChevronLeft, ChevronRight, ChevronDown, ArrowRight } from "lucide-react";
 
 const productCategories = [
   {
@@ -548,89 +548,122 @@ export default function ProductsPage() {
           }}></div>
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-          <div className="space-y-14 sm:space-y-16 md:space-y-20 lg:space-y-24">
+          <div className="space-y-5 sm:space-y-6">
             {productCategories.map((category, index) => {
               const isEven = index % 2 === 0;
+              const categoryNum = String(index + 1).padStart(2, "0");
+              const isPopular = category.title === "Flooring" || category.title === "Countertops";
+
               return (
-                <div key={category.title} className="relative">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-8 lg:gap-12 items-start">
-                    {/* Content Section - Text and Products */}
-                    <div className={`${isEven ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
-                      <div className="mb-6 sm:mb-8">
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
-                            {category.title}
-                          </h2>
-                          {(category.title === "Flooring" || category.title === "Countertops") && (
-                            <span className="inline-flex items-center self-start sm:self-auto text-xs font-black uppercase tracking-wide bg-silver text-black px-3 py-1 rounded-full border border-silver shadow-[0_0_10px_rgba(232,232,232,0.5)]">
+                <div key={category.title} className={`relative rounded-2xl overflow-hidden border border-silver/10 shadow-[0_4px_32px_rgba(0,0,0,0.6)] ${isEven ? 'bg-[#050505]' : 'bg-[#080808]'}`}>
+                  {/* Left orange accent bar */}
+                  <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none"></div>
+
+                  <div className="p-6 sm:p-8 md:p-10 lg:p-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+                      {/* Content Column */}
+                      <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+
+                        {/* Index + badge row */}
+                        <div className="flex items-center gap-3 mb-4 sm:mb-5">
+                          <span className="text-xs font-black text-primary/70 uppercase tracking-[0.3em]">{categoryNum}</span>
+                          <div className="h-px w-10 bg-gradient-to-r from-primary/40 to-transparent"></div>
+                          {isPopular ? (
+                            <span className="inline-flex items-center gap-1.5 bg-silver text-black text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full shadow-[0_0_12px_rgba(232,232,232,0.4)]">
+                              <span className="w-1.5 h-1.5 rounded-full bg-black/40 shrink-0"></span>
                               Most Popular
+                            </span>
+                          ) : (
+                            <span className="section-label">
+                              <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block"></span>
+                              Products
                             </span>
                           )}
                         </div>
-                        <div className="h-[2px] w-32 bg-gradient-to-r from-transparent via-silver to-transparent mb-6 shadow-[0_0_20px_rgba(232,232,232,0.6)]"></div>
-                      </div>
-                      
-                      <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 leading-relaxed premium-text mb-6 sm:mb-8 font-medium">
-                        {category.subtitle}
-                      </p>
 
-                      {/* Value Badges with Icons */}
-                      <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8 md:mb-10">
-                        {category.valueBadges.map((badge, idx) => {
-                          const IconComponent = badge.icon;
-                          return (
-                            <div
-                              key={idx}
-                              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 rounded-full bg-silver/15 border border-silver/40 text-silver/90 "
-                            >
-                              <IconComponent className="h-4 w-4 sm:h-5 sm:w-5 text-silver drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
-                              <span className="text-xs sm:text-sm font-bold uppercase tracking-wide">{badge.text}</span>
-                            </div>
-                          );
-                        })}
-                      </div>
-
-                      {/* Product Types List */}
-                      <div className="mb-6 sm:mb-8 md:mb-10">
-                        <h3 className="text-base sm:text-lg font-black text-white mb-3 sm:mb-4 md:mb-6 uppercase tracking-wide premium-heading-sm">
-                          Available Products:
-                        </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
-                          {(expandedCategories[category.title] ? category.productTypes : category.productTypes.slice(0, 9)).map((type, idx) => (
-                            <div key={idx} className="flex items-start space-x-2 sm:space-x-3">
-                              <span className="text-silver mt-1.5 flex-shrink-0 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                              <span className="text-white/90 premium-text text-xs sm:text-sm md:text-base leading-relaxed">{type}</span>
-                            </div>
-                          ))}
+                        {/* Heading with ghost watermark number */}
+                        <div className="relative mb-4 sm:mb-5">
+                          <span className="absolute -left-1 top-1/2 -translate-y-1/2 text-[5rem] sm:text-[7rem] font-black text-white/[0.03] leading-none select-none pointer-events-none">
+                            {categoryNum}
+                          </span>
+                          <h2 className="relative text-3xl sm:text-4xl md:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
+                            {category.title}
+                          </h2>
                         </div>
-                        {category.productTypes.length > 9 && (
-                          <button
-                            onClick={() => toggleCategoryExpansion(category.title)}
-                            className="mt-4 text-silver/90 hover:text-silver text-sm font-bold uppercase tracking-wide underline transition-colors"
-                          >
-                            {expandedCategories[category.title] ? "Show less" : "View full list"}
-                          </button>
-                        )}
+
+                        {/* Orange accent bar */}
+                        <div
+                          className="h-[3px] w-14 rounded-full bg-gradient-to-r from-primary to-transparent mb-6 sm:mb-8"
+                          style={{ boxShadow: '0 0 10px hsla(22,100%,63%,0.5)' }}
+                        ></div>
+
+                        {/* Subtitle */}
+                        <p className="text-base sm:text-lg text-white/90 leading-relaxed premium-text mb-6 sm:mb-8 font-medium">
+                          {category.subtitle}
+                        </p>
+
+                        {/* Value Badges */}
+                        <div className="flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8">
+                          {category.valueBadges.map((badge, idx) => {
+                            const IconComponent = badge.icon;
+                            return (
+                              <div key={idx} className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-white/[0.04] border border-silver/25 hover:border-silver/50 transition-colors">
+                                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-silver/[0.08] flex items-center justify-center shrink-0">
+                                  <IconComponent className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-silver" />
+                                </div>
+                                <span className="text-xs font-bold uppercase tracking-wide text-silver/90">{badge.text}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        {/* Product Types List */}
+                        <div className="mb-6 sm:mb-8">
+                          <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.25em] mb-3 sm:mb-4">Available Products</p>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2.5 gap-x-5">
+                            {(expandedCategories[category.title] ? category.productTypes : category.productTypes.slice(0, 9)).map((type, idx) => (
+                              <div key={idx} className="flex items-start gap-2.5">
+                                <span className="mt-[5px] shrink-0 w-3.5 h-3.5 rounded-full bg-primary/[0.12] border border-primary/35 flex items-center justify-center">
+                                  <span className="w-1 h-1 rounded-full bg-primary block"></span>
+                                </span>
+                                <span className="text-white/75 text-xs sm:text-sm leading-relaxed">{type}</span>
+                              </div>
+                            ))}
+                          </div>
+                          {category.productTypes.length > 9 && (
+                            <button
+                              onClick={() => toggleCategoryExpansion(category.title)}
+                              className="mt-4 sm:mt-5 inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wide text-silver/70 hover:text-silver bg-silver/[0.04] hover:bg-silver/[0.08] border border-silver/15 hover:border-silver/35 px-4 py-2 rounded-full transition-all"
+                            >
+                              {expandedCategories[category.title] ? "Show less" : "View full list"}
+                              <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${expandedCategories[category.title] ? 'rotate-180' : ''}`} />
+                            </button>
+                          )}
+                        </div>
+
+                        {/* CTA Row */}
+                        <div className="flex flex-col sm:flex-row gap-3 pt-5 sm:pt-6 border-t border-silver/10">
+                          <Button asChild className="btn-premium uppercase tracking-wider text-xs sm:text-sm px-5 sm:px-6 py-2.5 sm:py-3 w-full sm:w-auto">
+                            <Link href={`/get-quote/product/${getProductSlugFromTitle(category.title)}`}>
+                              Get a Quote
+                            </Link>
+                          </Button>
+                          <Button asChild variant="outline" className="btn-outline-silver uppercase tracking-wider text-xs sm:text-sm px-5 sm:px-6 py-2.5 sm:py-3 w-full sm:w-auto rounded-md">
+                            <Link href="#quote-form">
+                              Beat My Price <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                            </Link>
+                          </Button>
+                        </div>
                       </div>
 
-                      {/* CTA */}
-                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-5 md:pt-6 border-t border-silver/20">
-                        <Button
-                          asChild
-                          className="btn-premium uppercase tracking-wider text-xs sm:text-sm md:text-base px-4 py-2.5 sm:px-6 sm:py-3 w-full sm:w-auto"
-                        >
-                          <Link href={`/get-quote/product/${getProductSlugFromTitle(category.title)}`}>
-                            Get a Quote
-                          </Link>
-                        </Button>
-                        <div className="h-px sm:h-px flex-1 bg-gradient-to-r from-silver/40 via-silver/60 to-transparent hidden sm:block"></div>
-                      </div>
-                    </div>
-
-                    {/* Carousel Section Beside */}
-                    <div className={`${isEven ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}`}>
-                      <div className="w-full mx-auto" style={{ maxWidth: "600px", maxHeight: "600px" }}>
-                        <ProductCarousel images={category.carouselImages} />
+                      {/* Carousel Column */}
+                      <div className={`${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                        <div className="relative">
+                          <ProductCarousel images={category.carouselImages} />
+                          {/* Corner accents framing the carousel */}
+                          <div className="absolute -top-2 -right-2 w-8 h-8 border-t-2 border-r-2 rounded-tr-xl pointer-events-none" style={{ borderColor: 'hsla(22,100%,63%,0.4)' }}></div>
+                          <div className="absolute -bottom-2 -left-2 w-8 h-8 border-b-2 border-l-2 border-silver/20 rounded-bl-xl pointer-events-none"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
