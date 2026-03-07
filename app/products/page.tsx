@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { getProductSlugFromTitle } from "@/lib/productQuoteConfig";
@@ -392,146 +391,130 @@ export default function ProductsPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Current Deals Section */}
-      <section id="current-deals" className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-            backgroundSize: '100px 100px'
-          }}></div>
-        </div>
+      <section id="current-deals" className="py-14 sm:py-18 md:py-24 bg-[#030303] relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsla(22,100%,63%,0.03)_0%,transparent_60%)] pointer-events-none" />
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-          <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
+          <div className="text-center mb-10 sm:mb-12 md:mb-14">
+            <div className="flex justify-center mb-4">
+              <span className="section-label">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block" />
+                Limited-Time Offers
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading">
               Current Deals
             </h2>
-            <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
-            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
+            <div className="h-[3px] w-12 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full" style={{ boxShadow: '0 0 10px hsla(22,100%,63%,0.5)' }} />
+            <p className="text-sm sm:text-base text-white/45 max-w-xl mx-auto mt-4 px-2">
               Limited-time pricing and guarantees to help you save on your build.
             </p>
           </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-            {/* Deal A - Trust Builder */}
-            <Card className="card-premium border-silver/30 bg-black/75  hover:border-silver/50 hover:shadow-[0_0_25px_rgba(232,232,232,0.3)] transition-[transform,box-shadow,border-color] duration-300">
-              <CardHeader>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-black uppercase tracking-wide bg-silver/20 text-silver px-3 py-1 rounded-full border border-silver/40">
+
+            {/* Deal A — Price Beat Guarantee */}
+            <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#060606] hover:border-silver/25 transition-all duration-300 group flex flex-col">
+              <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-silver/40 via-silver/15 to-transparent pointer-events-none" />
+              <div className="p-6 sm:p-7 flex flex-col flex-1">
+                <div className="mb-5">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-silver/70 border border-silver/20 bg-white/[0.03] px-3 py-1.5 rounded-full">
+                    <span className="w-1 h-1 rounded-full bg-silver/60 shrink-0" />
                     Guarantee
                   </span>
                 </div>
-                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
+                <h3 className="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading mb-3">
                   5% Price Beat Guarantee
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-white/90 premium-text mb-4">
+                </h3>
+                <div className="h-[2px] w-8 bg-gradient-to-r from-silver/40 to-transparent rounded-full mb-4" />
+                <p className="text-sm text-white/50 leading-relaxed mb-5">
                   Send us any estimate from a reputable supplier — we&apos;ll beat it by at least 5%.
-                </CardDescription>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start space-x-2">
-                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">Applies to major suppliers</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">24-hour response</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">No hidden fees</span>
-                  </li>
+                </p>
+                <ul className="space-y-3 mb-7 flex-1">
+                  {["Applies to major suppliers", "24-hour response", "No hidden fees"].map((item) => (
+                    <li key={item} className="flex items-center gap-3">
+                      <span className="shrink-0 w-4 h-4 rounded-full bg-silver/[0.08] border border-silver/20 flex items-center justify-center">
+                        <span className="w-1 h-1 rounded-full bg-silver/60 block" />
+                      </span>
+                      <span className="text-sm text-white/65">{item}</span>
+                    </li>
+                  ))}
                 </ul>
-                <Button
-                  asChild
-                  className="w-full btn-premium uppercase tracking-wider"
-                >
+                <Button asChild className="w-full btn-premium uppercase tracking-wider py-3 h-auto text-xs sm:text-sm">
                   <a href="#quote-form">Submit a Quote</a>
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            {/* Deal B - Best Value / Highlighted */}
-            <Card className="card-premium border-silver/50 bg-black/82  hover:border-silver/70 hover:shadow-[0_0_35px_rgba(232,232,232,0.5)] transition-[transform,box-shadow,border-color] duration-300 scale-105 md:scale-105 lg:scale-105">
-              <CardHeader>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-black uppercase tracking-wide bg-silver text-black px-3 py-1 rounded-full border border-silver shadow-[0_0_15px_rgba(232,232,232,0.5)]">
+            {/* Deal B — Bundle & Save (featured) */}
+            <div className="relative rounded-2xl overflow-hidden border border-primary/25 bg-[#060606] hover:border-primary/45 transition-all duration-300 group flex flex-col" style={{ boxShadow: '0 0 40px hsla(22,100%,63%,0.06)' }}>
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none" />
+              <div className="p-6 sm:p-7 flex flex-col flex-1">
+                <div className="mb-5">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-black bg-primary px-3 py-1.5 rounded-full" style={{ boxShadow: '0 0 12px hsla(22,100%,63%,0.4)' }}>
+                    <span className="w-1 h-1 rounded-full bg-black/40 shrink-0" />
                     Most Popular
                   </span>
                 </div>
-                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
-                  Bundle & Save (Supply + Install)
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-white/90 premium-text mb-4">
+                <h3 className="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading mb-3">
+                  Bundle &amp; Save
+                </h3>
+                <div className="h-[2px] w-8 bg-gradient-to-r from-primary/70 to-transparent rounded-full mb-4" style={{ boxShadow: '0 0 8px hsla(22,100%,63%,0.4)' }} />
+                <p className="text-sm text-white/50 leading-relaxed mb-2">
                   Bundle materials and installation for package pricing that can save thousands.
-                </CardDescription>
-                <p className="text-sm font-bold text-silver mb-4">15% off when you bundle supply + install</p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start space-x-2">
-                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">Flooring + install</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">Cabinets + countertops + install</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">Full Bathroom renovation</span>
-                  </li>
+                </p>
+                <p className="text-sm font-black text-primary/80 uppercase tracking-wide mb-5">15% off supply + install</p>
+                <ul className="space-y-3 mb-7 flex-1">
+                  {["Flooring + install", "Cabinets + countertops + install", "Full Bathroom renovation"].map((item) => (
+                    <li key={item} className="flex items-center gap-3">
+                      <span className="shrink-0 w-4 h-4 rounded-full bg-primary/[0.12] border border-primary/30 flex items-center justify-center">
+                        <span className="w-1 h-1 rounded-full bg-primary block" />
+                      </span>
+                      <span className="text-sm text-white/65">{item}</span>
+                    </li>
+                  ))}
                 </ul>
-                <Button
-                  asChild
-                  className="w-full btn-premium uppercase tracking-wider"
-                >
-                  <Link href="/get-quote/bundle">
-                    Get 15% Off — Request Quote
-                  </Link>
+                <Button asChild className="w-full btn-premium uppercase tracking-wider py-3 h-auto text-xs sm:text-sm">
+                  <Link href="/get-quote/bundle">Get 15% Off — Request Quote</Link>
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            {/* Deal C - Urgency */}
-            <Card className="card-premium border-silver/30 bg-black/75  hover:border-silver/50 hover:shadow-[0_0_25px_rgba(232,232,232,0.3)] transition-[transform,box-shadow,border-color] duration-300">
-              <CardHeader>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-black uppercase tracking-wide bg-silver/20 text-silver px-3 py-1 rounded-full border border-silver/40">
+            {/* Deal C — Supplier Discounts */}
+            <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#060606] hover:border-silver/25 transition-all duration-300 group flex flex-col">
+              <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-silver/40 via-silver/15 to-transparent pointer-events-none" />
+              <div className="p-6 sm:p-7 flex flex-col flex-1">
+                <div className="mb-5">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-silver/70 border border-silver/20 bg-white/[0.03] px-3 py-1.5 rounded-full">
+                    <span className="w-1 h-1 rounded-full bg-silver/60 shrink-0" />
                     Limited Time
                   </span>
                 </div>
-                <CardTitle className="text-lg sm:text-xl md:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm">
-                  Limited-Time Supplier Discounts
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-white/90 premium-text mb-4">
+                <h3 className="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-tight premium-heading mb-3">
+                  Supplier Discounts
+                </h3>
+                <div className="h-[2px] w-8 bg-gradient-to-r from-silver/40 to-transparent rounded-full mb-4" />
+                <p className="text-sm text-white/50 leading-relaxed mb-2">
                   Special pricing on select materials while inventory lasts.
-                </CardDescription>
-                <p className="text-sm font-bold text-silver mb-4">10% off select materials — request a quote</p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start space-x-2">
-                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">Quartz & porcelain</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">LVP & laminate</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <span className="text-silver mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-silver shadow-[0_0_8px_rgba(232,232,232,0.6)]"></span>
-                    <span className="text-white/90 premium-text text-sm">Hardware & fixtures</span>
-                  </li>
+                </p>
+                <p className="text-sm font-black text-silver/70 uppercase tracking-wide mb-5">10% off select materials</p>
+                <ul className="space-y-3 mb-7 flex-1">
+                  {["Quartz & porcelain", "LVP & laminate", "Hardware & fixtures"].map((item) => (
+                    <li key={item} className="flex items-center gap-3">
+                      <span className="shrink-0 w-4 h-4 rounded-full bg-silver/[0.08] border border-silver/20 flex items-center justify-center">
+                        <span className="w-1 h-1 rounded-full bg-silver/60 block" />
+                      </span>
+                      <span className="text-sm text-white/65">{item}</span>
+                    </li>
+                  ))}
                 </ul>
-                <Button
-                  asChild
-                  className="w-full btn-premium uppercase tracking-wider"
-                >
-                  <Link href="/get-quote/supplier-deals">
-                    Get 10% Off — Request Quote
-                  </Link>
+                <Button asChild className="w-full btn-premium uppercase tracking-wider py-3 h-auto text-xs sm:text-sm">
+                  <Link href="/get-quote/supplier-deals">Get 10% Off — Request Quote</Link>
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -712,120 +695,117 @@ export default function ProductsPage() {
       <div className="h-px bg-gradient-to-r from-transparent via-silver/50 to-transparent shadow-[0_0_30px_rgba(232,232,232,0.4)]"></div>
 
       {/* Quote Challenge Section */}
-      <section id="quote-form" ref={quoteFormRef} className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-            backgroundSize: '100px 100px'
-          }}></div>
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
-          <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading px-2">
-              We Beat All Legitimate Competitor Quotes by 5% or More
+      <section id="quote-form" ref={quoteFormRef} className="py-14 sm:py-18 md:py-24 bg-[#030303] relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsla(22,100%,63%,0.04)_0%,transparent_65%)] pointer-events-none" />
+        <div className="container mx-auto px-4 sm:px-6 max-w-2xl relative z-10">
+
+          <div className="text-center mb-10 sm:mb-12">
+            <div className="flex justify-center mb-4">
+              <span className="section-label">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block" />
+                5% Price Beat Guarantee
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading px-2">
+              Get My Price Beat
             </h2>
-            <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
-            <p className="text-sm sm:text-base md:text-lg text-white max-w-3xl mx-auto premium-text px-2">
-              Send us any estimate from a reputable supplier — we&apos;ll beat it.
+            <div className="h-[3px] w-12 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full mb-4" style={{ boxShadow: '0 0 10px hsla(22,100%,63%,0.5)' }} />
+            <p className="text-sm sm:text-base text-white/45 max-w-lg mx-auto px-2">
+              Send us any estimate from a reputable supplier — we&apos;ll beat it by 5% or more, guaranteed.
             </p>
           </div>
 
-          <Card className="card-premium border-silver/30 bg-black/75 ">
-            <CardHeader>
-              <CardTitle className="text-2xl font-display font-black text-white uppercase tracking-tight premium-heading-sm text-center">
-                Get My Price Beat
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
-                    Name *
-                  </label>
-                  <Input
-                    id="name"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Your name"
-                    className="focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white placeholder:text-white/40"
-                  />
+          <div className="relative rounded-2xl overflow-hidden border border-primary/15 bg-[#060606]" style={{ boxShadow: '0 0 50px hsla(22,100%,63%,0.05)' }}>
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+            <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/60 via-primary/20 to-transparent pointer-events-none" />
+            <div className="p-6 sm:p-8 md:p-10">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                      <span className="w-1 h-1 rounded-full bg-primary shrink-0" />
+                      Name <span className="text-primary/70">*</span>
+                    </label>
+                    <Input
+                      id="name"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Your name"
+                      className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                      <span className="w-1 h-1 rounded-full bg-primary shrink-0" />
+                      Email <span className="text-primary/70">*</span>
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="your@email.com"
+                      className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
-                    Email *
-                  </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="your.email@example.com"
-                    className="focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white placeholder:text-white/40"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="productType" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
-                    Product Category *
-                    {prefilledCategory && (
-                      <span className="ml-2 text-xs text-silver/80 font-normal normal-case">(Pre-selected)</span>
-                    )}
+                  <label htmlFor="productType" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                    <span className="w-1 h-1 rounded-full bg-primary shrink-0" />
+                    Product Category <span className="text-primary/70">*</span>
+                    {prefilledCategory && <span className="text-white/25 normal-case font-normal ml-1">(pre-selected)</span>}
                   </label>
                   <Input
                     id="productType"
                     required
                     readOnly={!!prefilledCategory}
                     value={formData.productType}
-                    onChange={(e) => {
-                      if (!prefilledCategory) {
-                        setFormData({ ...formData, productType: e.target.value });
-                      }
-                    }}
-                    placeholder="e.g., Kitchen Cabinets, Flooring, Countertops, etc."
-                    className={`focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white placeholder:text-white/40 ${
-                      prefilledCategory ? "cursor-not-allowed opacity-75 bg-black/70" : ""
-                    }`}
+                    onChange={(e) => { if (!prefilledCategory) setFormData({ ...formData, productType: e.target.value }); }}
+                    placeholder="e.g., Flooring, Countertops, Cabinets…"
+                    className={`bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors ${prefilledCategory ? "cursor-not-allowed opacity-60" : ""}`}
                   />
                   {prefilledCategory && (
                     <button
                       type="button"
-                      onClick={() => {
-                        setPrefilledCategory(null);
-                        setFormData((prev) => ({ ...prev, productType: "" }));
-                      }}
-                      className="mt-2 text-xs text-silver/80 hover:text-silver transition-colors underline"
+                      onClick={() => { setPrefilledCategory(null); setFormData((prev) => ({ ...prev, productType: "" })); }}
+                      className="mt-2 text-xs text-white/35 hover:text-white/60 transition-colors underline underline-offset-2"
                     >
-                      Click to change category
+                      Change category
                     </button>
                   )}
                 </div>
                 <div>
-                  <label htmlFor="quoteFile" className="block text-sm font-bold mb-2 text-white uppercase tracking-wide">
-                    Competitor Quote (Optional)
+                  <label htmlFor="quoteFile" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                    <span className="w-1 h-1 rounded-full bg-silver/40 shrink-0" />
+                    Competitor Quote <span className="text-white/25 normal-case font-normal ml-1">(optional — PDF, image, or doc)</span>
                   </label>
-                  <Input
-                    id="quoteFile"
-                    type="file"
-                    accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0] || null;
-                      setSelectedFile(file);
-                    }}
-                    className="focus:ring-silver/50 focus:border-silver bg-black/50 border-silver/30 text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-silver/20 file:text-silver hover:file:bg-silver/30 file:cursor-pointer cursor-pointer"
-                  />
+                  <div className="relative">
+                    <Input
+                      id="quoteFile"
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                      onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                      className="bg-white/[0.04] border-silver/15 text-white/60 rounded-xl h-11 cursor-pointer file:mr-3 file:h-full file:border-0 file:bg-white/[0.06] file:text-white/50 file:text-xs file:font-bold file:uppercase file:tracking-wide file:px-3 hover:file:bg-white/[0.10] file:cursor-pointer transition-colors"
+                    />
+                  </div>
                   {selectedFile && (
-                    <p className="mt-2 text-sm text-white/70">
-                      Selected: {selectedFile.name}
+                    <p className="mt-2 text-xs text-primary/70 flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-primary shrink-0" />
+                      {selectedFile.name}
                     </p>
                   )}
                 </div>
-                <Button type="submit" disabled={loading} className="w-full btn-premium uppercase tracking-wider">
-                  {loading ? "Sending..." : "Get My Price Beat"}
+                <Button type="submit" disabled={loading} className="w-full btn-premium uppercase tracking-wider py-3 h-auto text-sm mt-2">
+                  {loading ? "Sending…" : "Get My Price Beat"}
                 </Button>
+                <p className="text-center text-[11px] text-white/25 pt-1">We respond within 24 hours with your guaranteed beat price.</p>
               </form>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
+
         </div>
       </section>
 
