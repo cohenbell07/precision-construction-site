@@ -59,10 +59,10 @@ export default function AboutPage() {
                 About {BRAND_CONFIG.shortName}
               </h1>
               <div className="h-[3px] w-14 bg-gradient-to-r from-primary to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px hsla(22,100%,63%,0.5)' }}></div>
-              <p className="text-base sm:text-lg md:text-xl font-black text-primary/90 mb-2 sm:mb-3 uppercase tracking-wide px-2">
+              <p className="hidden sm:block text-base sm:text-lg md:text-xl font-black text-primary/90 mb-2 sm:mb-3 uppercase tracking-wide px-2">
                 {BRAND_CONFIG.motto}
               </p>
-              <p className="text-sm sm:text-base md:text-lg text-white/55 max-w-3xl mx-auto leading-relaxed px-2">
+              <p className="hidden sm:block text-sm sm:text-base md:text-lg text-white/55 max-w-3xl mx-auto leading-relaxed px-2">
                 {BRAND_CONFIG.description}
               </p>
             </div>
