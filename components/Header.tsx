@@ -65,15 +65,6 @@ export function Header() {
 
         {/* Right: Desktop CTA + socials or Mobile menu button */}
         <div className="relative z-10 flex items-center shrink-0 md:justify-self-end gap-2 lg:gap-3">
-          {/* Phone — large screens only */}
-          <a
-            href={`tel:${BRAND_CONFIG.contact.phone}`}
-            className="hidden lg:flex items-center gap-1.5 text-[11px] font-black text-white/45 hover:text-silver transition-colors uppercase tracking-widest"
-          >
-            <Phone className="h-3 w-3 text-primary/80" />
-            {BRAND_CONFIG.contact.phoneFormatted}
-          </a>
-
           {/* Desktop socials */}
           {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
             <div className="hidden md:flex items-center gap-1.5">
