@@ -6,12 +6,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getServiceById } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
-import { CheckCircle, Award, Users, Shield, ChevronDown, ChevronUp } from "lucide-react";
+import { CheckCircle, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
 
-// Map service IDs to image paths - matches main Services page
 const serviceImageMap: { [key: string]: string } = {
   cabinets: "/service-millwork.png",
   showers: "/service-steam-shower.png",
@@ -28,7 +26,7 @@ const serviceImageMap: { [key: string]: string } = {
   commercial: "/commercial-construction.png",
 };
 
-function ServiceMaterialsForm({ serviceName }: { serviceName: string }) {
+function ServiceInquiryForm({ serviceName }: { serviceName: string }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -47,49 +45,48 @@ function ServiceMaterialsForm({ serviceName }: { serviceName: string }) {
       });
       if (res.ok) {
         setSent(true);
-        setName("");
-        setEmail("");
-        setMessage("");
+        setName(""); setEmail(""); setMessage("");
       }
-    } catch {
-      // ignore
-    } finally {
+    } catch { /* ignore */ } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-          backgroundSize: "100px 100px"
-        }} />
-      </div>
+    <section className="py-16 sm:py-20 md:py-24 bg-[#040404] relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-silver/20 to-transparent" />
       <div className="container mx-auto px-4 sm:px-6 max-w-2xl relative z-10">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading">
-            Need something not listed?
+        <div className="text-center mb-8 sm:mb-10">
+          <span className="section-label mb-4 inline-flex">
+            <span className="w-1.5 h-1.5 rounded-full bg-silver/60 shrink-0 inline-block" />
+            Have a Question?
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mt-4 mb-3 uppercase tracking-tight premium-heading">
+            Ask Us Anything
           </h2>
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]" />
-          <p className="text-white/90 premium-text mt-4">
-            Ask if we have the materials you need or any questions about this service. We&apos;ll get back to you soon.
+          <div className="h-[3px] w-12 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full mb-4" style={{ boxShadow: "0 0 10px hsla(22,100%,63%,0.5)" }} />
+          <p className="text-sm sm:text-base text-white/55 max-w-lg mx-auto">
+            Questions about materials, availability, or scope? Send us a message and we&apos;ll get back to you promptly.
           </p>
         </div>
+
         {sent ? (
-          <Card className="card-premium border-silver/30 bg-black/75 text-center py-8">
-            <p className="text-white font-semibold">Thanks! We&apos;ve received your message and will reply shortly.</p>
-          </Card>
+          <div className="rounded-2xl border border-silver/20 bg-white/[0.03] p-8 text-center">
+            <CheckCircle className="h-10 w-10 text-primary mx-auto mb-3" />
+            <p className="text-white font-black uppercase tracking-wide">Message received!</p>
+            <p className="text-white/50 text-sm mt-1">We&apos;ll reply within 24 hours.</p>
+          </div>
         ) : (
-          <Card className="card-premium border-silver/30 bg-black/75">
-            <CardContent className="pt-6">
+          <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#080808] shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
+            <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/60 via-primary/20 to-transparent pointer-events-none" />
+            <div className="p-6 sm:p-8">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input type="hidden" name="serviceName" value={serviceName} />
                 <Input
                   placeholder="Your name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="bg-black/65 border-silver/30 text-white placeholder:text-white/50"
+                  className="bg-white/[0.04] border-silver/15 focus:border-primary/50 text-white placeholder:text-white/30 rounded-xl h-11"
                 />
                 <Input
                   type="email"
@@ -97,22 +94,22 @@ function ServiceMaterialsForm({ serviceName }: { serviceName: string }) {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-black/65 border-silver/30 text-white placeholder:text-white/50"
+                  className="bg-white/[0.04] border-silver/15 focus:border-primary/50 text-white placeholder:text-white/30 rounded-xl h-11"
                 />
                 <textarea
-                  placeholder="What materials or questions do you have for this service?"
+                  placeholder="What materials or questions do you have?"
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  rows={5}
-                  className="flex w-full rounded-xl border-2 border-silver/30 bg-black/65 px-4 py-3 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-silver/50 focus:border-silver min-h-[120px]"
+                  rows={4}
+                  className="flex w-full rounded-xl border border-silver/15 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 min-h-[110px] resize-none transition-colors"
                 />
-                <Button type="submit" disabled={loading} className="w-full btn-premium uppercase tracking-wider">
-                  {loading ? "Sending…" : "Send inquiry"}
+                <Button type="submit" disabled={loading} className="w-full btn-premium uppercase tracking-wider py-3 h-auto">
+                  {loading ? "Sending…" : "Send Message"}
                 </Button>
               </form>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
       </div>
     </section>
@@ -122,219 +119,128 @@ function ServiceMaterialsForm({ serviceName }: { serviceName: string }) {
 export default function ServiceDetailPage({ params }: { params: { slug: string } }) {
   const service = getServiceById(params.slug);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  
-  if (!service) {
-    notFound();
-  }
+
+  if (!service) notFound();
 
   const imagePath = serviceImageMap[service.id] || "/service-millwork.png";
+  const yearsExp = new Date().getFullYear() - BRAND_CONFIG.established;
 
   return (
-    <div className="min-h-screen bg-black relative premium-bg-pattern">
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-          backgroundSize: '100px 100px'
-        }}></div>
-      </div>
-      {/* Hero Banner */}
-      <section className="relative min-h-[240px] sm:min-h-[350px] md:min-h-[450px] h-[50vh] sm:h-[55vh] md:h-[60vh] max-h-[600px] flex items-center justify-center overflow-hidden">
+    <div className="min-h-screen bg-black">
+
+      {/* ── Hero ── */}
+      <section className="relative min-h-[300px] sm:min-h-[420px] md:min-h-[520px] h-[55vh] md:h-[65vh] max-h-[680px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/service-header-workers.png"
-            alt={`${service.title} services by ${BRAND_CONFIG.shortName}`}
+            alt={`${service.title} by ${BRAND_CONFIG.shortName}`}
             fill
             className="object-cover"
             priority
             quality={90}
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/70 to-black/90"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/65 to-black" />
         </div>
-        
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 text-center max-w-6xl">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading px-2">
+
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 text-center max-w-5xl">
+          <div className="flex justify-center mb-4 sm:mb-5">
+            <span className="section-label">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block" />
+              Calgary&apos;s Premium Builder · Since {BRAND_CONFIG.established}
+            </span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black text-white mb-4 sm:mb-5 uppercase tracking-tight premium-heading px-2">
             {service.title}
           </h1>
-          <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white mt-4 sm:mt-5 md:mt-6 max-w-3xl mx-auto premium-text px-2">
-            Premium {service.title.toLowerCase()} services in Calgary. Family-owned since 1968, serving Calgary since 1997.
+          <div className="h-[3px] w-14 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full mb-4 sm:mb-6" style={{ boxShadow: "0 0 12px hsla(22,100%,63%,0.5)" }} />
+          <p className="hidden sm:block text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed px-2">
+            Premium {service.title.toLowerCase()} services in Calgary — family-owned since {BRAND_CONFIG.established}, serving Calgary since {BRAND_CONFIG.servingSince}.
           </p>
+
+          {/* Trust badges */}
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 mt-6 sm:mt-8">
+            {[`${yearsExp}+ Yrs Experience`, "Family Owned", "Free Quotes", "5% Price Beat"].map((badge) => (
+              <span key={badge} className="flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/50">
+                <span className="w-1 h-1 rounded-full bg-primary/70 shrink-0" />
+                {badge}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* What We Do - directly under hero */}
-      <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-            backgroundSize: '100px 100px'
-          }}></div>
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
+      {/* ── What We Do ── */}
+      <section className="py-14 sm:py-18 md:py-24 bg-[#030303] relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-silver/10 to-transparent" />
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
+            {/* Text */}
             <div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-4 sm:mb-5 md:mb-6 uppercase tracking-tight premium-heading">
-                What We Do
+              <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-2">What We Do</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
+                Expert {service.title}
               </h2>
-              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mb-4 sm:mb-5 md:mb-6 shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white leading-relaxed premium-text mb-4 sm:mb-5 md:mb-6">
+              <div className="h-[3px] w-10 bg-gradient-to-r from-primary to-transparent rounded-full mb-5 sm:mb-6" style={{ boxShadow: "0 0 8px hsla(22,100%,63%,0.4)" }} />
+              <p className="text-base sm:text-lg text-white/75 leading-relaxed mb-5 sm:mb-6">
                 {service.description}
               </p>
-              <p className="text-xs sm:text-sm md:text-base text-white/80 leading-relaxed premium-text">
-                At {BRAND_CONFIG.shortName}, we bring over {new Date().getFullYear() - BRAND_CONFIG.established} years of construction expertise to every {service.title.toLowerCase()} project. As a 3rd generation, family-owned company, we treat every client like family and deliver only the best in quality, service, and satisfaction.
+              <p className="text-sm sm:text-base text-white/45 leading-relaxed mb-7 sm:mb-8">
+                At {BRAND_CONFIG.shortName}, we bring over {yearsExp} years of construction expertise to every {service.title.toLowerCase()} project. As a 3rd generation, family-owned company, we treat every client like family.
               </p>
+              <div className="flex flex-col min-[400px]:flex-row gap-3">
+                <Button asChild className="btn-premium uppercase tracking-wider px-6 py-3 h-auto w-full min-[400px]:w-auto">
+                  <Link href={`/get-quote?service=${service.id}`}>Get a Free Quote</Link>
+                </Button>
+                <Button asChild variant="outline" className="border border-silver/20 bg-white/[0.03] hover:bg-white/[0.06] hover:border-silver/40 text-white/70 hover:text-white px-6 py-3 h-auto w-full min-[400px]:w-auto rounded-xl transition-all">
+                  <Link href="/contact">Contact Us</Link>
+                </Button>
+              </div>
             </div>
-            <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden border border-silver/30 shadow-2xl">
+            {/* Image */}
+            <div className="relative h-56 sm:h-72 md:h-80 lg:h-96 rounded-2xl overflow-hidden border border-silver/10 shadow-2xl">
               <Image
                 src={imagePath}
-                alt={service.id === "flooring" ? "Premium flooring installation" : `${service.title} project example`}
+                alt={`${service.title} project`}
                 fill
                 className="object-cover"
                 loading="lazy"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="inline-flex items-center gap-2 bg-black/60 backdrop-blur-sm border border-silver/20 rounded-xl px-3 py-2">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
+                  <span className="text-xs font-black text-white uppercase tracking-widest">Premium Quality</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Service-Specific Benefits */}
+      {/* ── Benefits ── */}
       {service.benefits && service.benefits.length > 0 && (
-        <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-              backgroundSize: '100px 100px'
-            }}></div>
-          </div>
-          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-            <div className="text-center mb-8 sm:mb-10 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
-                Why Choose Us for {service.title}
+        <section className="py-14 sm:py-18 md:py-24 bg-[#060606] relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div className="text-center mb-10 sm:mb-12 md:mb-14">
+              <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-2">Why Choose Us</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading">
+                Why Choose {BRAND_CONFIG.shortName} for {service.title}
               </h2>
-              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
+              <div className="h-[3px] w-12 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full" style={{ boxShadow: "0 0 8px hsla(22,100%,63%,0.4)" }} />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               {service.benefits.map((benefit, idx) => (
-                <Card key={idx} className="card-premium border-silver/30 bg-black/75 ">
-                  <CardContent className="pt-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 rounded-full bg-silver/10 border-2 border-silver/30 flex items-center justify-center">
-                          <CheckCircle className="h-6 w-6 text-silver drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
-                        </div>
-                      </div>
-                      <p className="text-white text-base leading-relaxed premium-text flex-1">{benefit}</p>
+                <div key={idx} className="relative rounded-xl border border-silver/10 bg-white/[0.02] p-5 sm:p-6 hover:border-primary/25 hover:bg-white/[0.03] transition-all duration-300 overflow-hidden group">
+                  <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/50 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="flex items-start gap-4">
+                    <div className="w-9 h-9 rounded-xl bg-primary/[0.10] border border-primary/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <CheckCircle className="h-4 w-4 text-primary/80" />
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Our Process */}
-      {service.process && service.process.length > 0 && (
-        <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-              backgroundSize: '100px 100px'
-            }}></div>
-          </div>
-          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-            <div className="text-center mb-8 sm:mb-10 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
-                Our Process
-              </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
-              <p className="text-lg text-white max-w-3xl mx-auto premium-text mt-4">
-                A proven process that ensures your project runs smoothly from start to finish
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {service.process.map((step) => (
-                <Card key={step.step} className="card-premium border-silver/30 bg-black/75 flex flex-col h-full overflow-hidden">
-                  <CardHeader className="pb-3">
-                    <div className="flex flex-row lg:flex-col items-start gap-3 sm:gap-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 min-w-[2.5rem] min-h-[2.5rem] sm:min-w-[3rem] sm:min-h-[3rem] shrink-0 rounded-full bg-silver/20 border-2 border-silver flex items-center justify-center">
-                        <span className="text-silver font-black text-base sm:text-xl leading-none">{step.step}</span>
-                      </div>
-                      <div className="min-w-0 flex-1 lg:w-full">
-                        <CardTitle className="text-base sm:text-lg font-display font-black text-white uppercase tracking-tight premium-heading-sm leading-snug hyphens-auto" lang="en">
-                          {step.title}
-                        </CardTitle>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-0 flex-1 min-h-0">
-                    <CardDescription className="text-white/90 leading-relaxed premium-text text-sm">
-                      {step.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Materials & Options */}
-      {service.materials && service.materials.length > 0 && (
-        <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-              backgroundSize: '100px 100px'
-            }}></div>
-          </div>
-          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-            <div className="text-center mb-8 sm:mb-10 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
-                Materials & Options
-              </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
-              <p className="text-lg text-white max-w-3xl mx-auto premium-text mt-4">
-                We work with premium materials and offer a wide range of options to suit your style and budget
-              </p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {service.materials.map((material, idx) => (
-                <Card key={idx} className="card-premium border-silver/20 bg-black/65  text-center hover:border-silver/40 transition-colors">
-                  <CardContent className="pt-6 pb-4">
-                    <p className="text-white font-semibold premium-text">{material}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Detailed Services List */}
-      {service.details && service.details.length > 0 && (
-        <section className="py-12 sm:py-16 md:py-20 bg-black relative premium-bg-pattern">
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-              backgroundSize: '100px 100px'
-            }}></div>
-          </div>
-          <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
-            <div className="text-center mb-8 sm:mb-10 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
-                Our {service.title} Services
-              </h2>
-              <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-              {service.details.map((detail, idx) => (
-                <div key={idx} className="flex items-start space-x-4 p-6 bg-black/65 border border-silver/20 rounded-xl  hover:border-silver/40 transition-colors">
-                  <CheckCircle className="h-6 w-6 text-silver mt-1 flex-shrink-0 drop-shadow-[0_0_10px_rgba(232,232,232,0.6)]" />
-                  <p className="text-white text-base leading-relaxed premium-text">{detail}</p>
+                    <p className="text-sm sm:text-base text-white/75 leading-relaxed">{benefit}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -342,89 +248,171 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         </section>
       )}
 
-      {/* FAQs */}
-      {service.faqs && service.faqs.length > 0 && (
-        <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-              backgroundSize: '100px 100px'
-            }}></div>
-          </div>
-          <div className="container mx-auto px-4 max-w-4xl relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-display font-black text-white mb-4 uppercase tracking-tight premium-heading">
-                Frequently Asked Questions
+      {/* ── Our Process ── */}
+      {service.process && service.process.length > 0 && (
+        <section className="py-14 sm:py-18 md:py-24 bg-[#030303] relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-silver/10 to-transparent" />
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div className="text-center mb-10 sm:mb-12 md:mb-14">
+              <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-2">How It Works</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading">
+                Our Process
               </h2>
-              <div className="h-px w-24 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto shadow-[0_0_15px_rgba(232,232,232,0.4)]"></div>
+              <div className="h-[3px] w-12 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full" style={{ boxShadow: "0 0 8px hsla(22,100%,63%,0.4)" }} />
+              <p className="text-sm sm:text-base text-white/40 max-w-xl mx-auto mt-4">
+                A proven process that keeps your project on time, on budget, and stress-free.
+              </p>
             </div>
-            <div className="space-y-4">
-              {service.faqs.map((faq, idx) => (
-                <Card key={idx} className="card-premium border-silver/30 bg-black/75  overflow-hidden">
-                  <button
-                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="w-full text-left"
-                  >
-                    <CardHeader className="pb-4">
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-lg font-display font-black text-white uppercase tracking-tight premium-heading-sm pr-4">
-                          {faq.question}
-                        </CardTitle>
-                        {openFaq === idx ? (
-                          <ChevronUp className="h-5 w-5 text-silver flex-shrink-0" />
-                        ) : (
-                          <ChevronDown className="h-5 w-5 text-silver flex-shrink-0" />
-                        )}
-                      </div>
-                    </CardHeader>
-                  </button>
-                  {openFaq === idx && (
-                    <CardContent className="pt-0 pb-6">
-                      <p className="text-white/90 leading-relaxed premium-text">{faq.answer}</p>
-                    </CardContent>
-                  )}
-                </Card>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+              {service.process.map((step, idx) => (
+                <div key={step.step} className="relative rounded-2xl border border-silver/10 bg-white/[0.02] p-5 sm:p-6 overflow-hidden group hover:border-primary/20 transition-all duration-300">
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary/0 via-primary/40 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {/* Step number */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-full bg-primary/[0.10] border border-primary/25 flex items-center justify-center shrink-0">
+                      <span className="text-primary font-black text-sm leading-none">{String(step.step).padStart(2, "0")}</span>
+                    </div>
+                    {idx < service.process!.length - 1 && (
+                      <div className="hidden lg:block flex-1 h-px bg-gradient-to-r from-silver/15 to-transparent" />
+                    )}
+                  </div>
+                  <h3 className="text-base sm:text-lg font-display font-black text-white uppercase tracking-tight mb-2 premium-heading-sm">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-white/45 leading-relaxed">{step.description}</p>
+                </div>
               ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* Ask if we have the materials you need */}
-      <ServiceMaterialsForm serviceName={service.title} />
+      {/* ── Details (Services List) ── */}
+      {service.details && service.details.length > 0 && (
+        <section className="py-14 sm:py-18 md:py-24 bg-[#060606] relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-silver/10 to-transparent" />
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div className="text-center mb-10 sm:mb-12 md:mb-14">
+              <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-2">Full Scope</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading">
+                What&apos;s Included
+              </h2>
+              <div className="h-[3px] w-12 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full" style={{ boxShadow: "0 0 8px hsla(22,100%,63%,0.4)" }} />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              {service.details.map((detail, idx) => (
+                <div key={idx} className="flex items-start gap-3 p-4 sm:p-5 rounded-xl border border-silver/10 bg-white/[0.02] hover:border-primary/20 hover:bg-white/[0.03] transition-all duration-200">
+                  <span className="mt-[2px] shrink-0 w-5 h-5 rounded-full bg-primary/[0.10] border border-primary/25 flex items-center justify-center">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary block" />
+                  </span>
+                  <p className="text-sm sm:text-base text-white/70 leading-relaxed">{detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-      {/* CTA Block */}
-      <section className="py-12 sm:py-16 md:py-20 bg-[#1F1F1F] relative premium-bg-pattern">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
-            backgroundSize: '100px 100px'
-          }}></div>
-        </div>
-        <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
-          <Card className="card-premium border-silver/30 p-6 sm:p-8 md:p-10 lg:p-12 bg-black/75 ">
-            <CardHeader>
-              <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 sm:mb-4 uppercase tracking-tight premium-heading">
-                Ready to Get Started?
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 sm:space-y-5 md:space-y-6">
-              <p className="text-sm sm:text-base md:text-lg text-white/90 leading-relaxed premium-text px-2">
-                Contact us today for a free consultation and quote on your {service.title.toLowerCase()} project. We treat every client like family and deliver only the best.
+      {/* ── Materials & Options ── */}
+      {service.materials && service.materials.length > 0 && (
+        <section className="py-14 sm:py-18 md:py-24 bg-[#030303] relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-silver/10 to-transparent" />
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div className="text-center mb-10 sm:mb-12 md:mb-14">
+              <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-2">Materials</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading">
+                Materials & Options
+              </h2>
+              <div className="h-[3px] w-12 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full" style={{ boxShadow: "0 0 8px hsla(22,100%,63%,0.4)" }} />
+              <p className="text-sm sm:text-base text-white/40 max-w-xl mx-auto mt-4">
+                We source premium materials and offer a wide range of options to suit every style and budget.
               </p>
-              <p className="text-xs sm:text-sm md:text-base premium-silver-text font-bold uppercase tracking-wide px-2">
-                {BRAND_CONFIG.motto}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                <Button asChild size="lg" className="btn-premium px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
-                  <Link href="/get-quote">Get a Quote</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="border-2 border-silver/50 bg-black/65 hover:bg-black/70 hover:border-silver text-silver  px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base md:text-lg w-full sm:w-auto">
-                  <Link href="/contact">Contact Us</Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+            </div>
+            <div className="flex flex-wrap gap-3 justify-center">
+              {service.materials.map((material, idx) => (
+                <div key={idx} className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-silver/15 bg-white/[0.03] hover:border-silver/30 hover:bg-white/[0.05] transition-all duration-200">
+                  <span className="w-1.5 h-1.5 rounded-full bg-silver/40 shrink-0" />
+                  <span className="text-sm font-semibold text-white/70">{material}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── FAQs ── */}
+      {service.faqs && service.faqs.length > 0 && (
+        <section className="py-14 sm:py-18 md:py-24 bg-[#060606] relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-silver/10 to-transparent" />
+          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+            <div className="text-center mb-10 sm:mb-12">
+              <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-2">FAQs</p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading">
+                Common Questions
+              </h2>
+              <div className="h-[3px] w-12 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full" style={{ boxShadow: "0 0 8px hsla(22,100%,63%,0.4)" }} />
+            </div>
+            <div className="space-y-3">
+              {service.faqs.map((faq, idx) => (
+                <div key={idx} className="relative rounded-xl border border-silver/10 bg-white/[0.02] overflow-hidden transition-all duration-200 hover:border-silver/20">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    className="w-full text-left px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4"
+                  >
+                    <span className="text-sm sm:text-base font-black text-white uppercase tracking-tight leading-snug pr-2">
+                      {faq.question}
+                    </span>
+                    <span className="shrink-0 w-7 h-7 rounded-full border border-silver/20 bg-white/[0.04] flex items-center justify-center">
+                      {openFaq === idx
+                        ? <ChevronUp className="h-3.5 w-3.5 text-silver/70" />
+                        : <ChevronDown className="h-3.5 w-3.5 text-silver/70" />}
+                    </span>
+                  </button>
+                  {openFaq === idx && (
+                    <div className="px-5 sm:px-6 pb-5 sm:pb-6 border-t border-silver/[0.07]">
+                      <p className="text-sm sm:text-base text-white/55 leading-relaxed pt-4">{faq.answer}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Ask Us Anything (inquiry form) ── */}
+      <ServiceInquiryForm serviceName={service.title} />
+
+      {/* ── CTA ── */}
+      <section className="py-14 sm:py-18 md:py-24 bg-[#030303] relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsla(22,100%,63%,0.04)_0%,transparent_70%)] pointer-events-none" />
+        <div className="container mx-auto px-4 sm:px-6 max-w-3xl relative z-10">
+          <div className="relative rounded-2xl border border-primary/15 bg-white/[0.02] overflow-hidden p-7 sm:p-10 md:p-14 text-center" style={{ boxShadow: "0 0 60px hsla(22,100%,63%,0.05)" }}>
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+            <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-3">Get Started</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-3 uppercase tracking-tight premium-heading">
+              Ready to Begin?
+            </h2>
+            <div className="h-[2px] w-10 bg-gradient-to-r from-transparent via-primary/40 to-transparent mx-auto rounded-full mb-5" />
+            <p className="text-sm sm:text-base text-white/50 max-w-lg mx-auto mb-2 leading-relaxed">
+              Contact us today for a free consultation and quote on your {service.title.toLowerCase()} project.
+            </p>
+            <p className="text-xs sm:text-sm font-black text-primary/70 uppercase tracking-widest mb-7 sm:mb-8">
+              {BRAND_CONFIG.motto}
+            </p>
+            <div className="flex flex-col min-[400px]:flex-row gap-3 justify-center">
+              <Button asChild className="btn-premium uppercase tracking-wider px-7 py-3 h-auto text-sm w-full min-[400px]:w-auto">
+                <Link href={`/get-quote?service=${service.id}`}>
+                  Get a Free Quote
+                  <ArrowRight className="ml-2 h-4 w-4 inline" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="border border-silver/20 bg-white/[0.03] hover:bg-white/[0.06] hover:border-silver/40 text-white/65 hover:text-white px-7 py-3 h-auto text-sm w-full min-[400px]:w-auto rounded-xl transition-all">
+                <Link href="/services">All Services</Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
     </div>
