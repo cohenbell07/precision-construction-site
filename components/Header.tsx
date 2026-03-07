@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, Facebook, Instagram } from "lucide-react";
+import { Menu, X, Facebook, Instagram, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Logo } from "@/components/Logo";
@@ -10,9 +11,14 @@ import { Logo } from "@/components/Logo";
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const navLinks = [
@@ -24,7 +30,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-silver/20 bg-black/98 overflow-visible">
+    <header className={`sticky top-0 z-50 w-full border-b overflow-visible transition-all duration-300 ${scrolled ? 'border-silver/20 bg-black/98 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)]' : 'border-silver/10 bg-black/95'}`}>
       <div className="header-accent-line"></div>
       {/* Mobile: flex with logo left, menu right. Desktop: grid with centered nav */}
       <nav className="container mx-auto flex md:grid h-16 sm:h-[4.5rem] md:h-20 md:grid-cols-[1fr_auto_1fr] items-center justify-between md:justify-normal px-4 sm:px-6 max-w-7xl overflow-visible gap-4">
@@ -39,32 +45,48 @@ export function Header() {
 
         {/* Desktop Navigation - centered */}
         <div className="hidden md:flex md:items-center md:justify-center md:gap-6 lg:gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-semibold text-[#F5F5F5] transition-colors hover:text-silver relative group uppercase tracking-wide whitespace-nowrap"
-            >
-              {link.label}
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-silver transition-[width,box-shadow] duration-300 group-hover:w-full shadow-[0_0_4px_rgba(232,232,232,0.5)]"></span>
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href || (link.href !== "/" && pathname?.startsWith(link.href));
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-xs font-black transition-colors relative group uppercase tracking-widest whitespace-nowrap ${isActive ? 'text-white' : 'text-white/55 hover:text-white'}`}
+              >
+                {link.label}
+                <span
+                  className={`absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-gradient-to-r from-primary to-primary/30 transition-[width] duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}
+                  style={isActive ? { boxShadow: '0 0 8px hsla(22,100%,63%,0.5)' } : undefined}
+                ></span>
+              </Link>
+            );
+          })}
         </div>
 
         {/* Right: Desktop CTA + socials or Mobile menu button */}
-        <div className="relative z-10 flex items-center shrink-0 md:justify-self-end gap-3">
+        <div className="relative z-10 flex items-center shrink-0 md:justify-self-end gap-2 lg:gap-3">
+          {/* Phone — large screens only */}
+          <a
+            href={`tel:${BRAND_CONFIG.contact.phone}`}
+            className="hidden lg:flex items-center gap-1.5 text-[11px] font-black text-white/45 hover:text-silver transition-colors uppercase tracking-widest"
+          >
+            <Phone className="h-3 w-3 text-primary/80" />
+            {BRAND_CONFIG.contact.phoneFormatted}
+          </a>
+
           {/* Desktop socials */}
           {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
-            <div className="hidden md:flex items-center gap-2 pr-1">
+            <div className="hidden md:flex items-center gap-1.5">
+              <div className="w-px h-4 bg-silver/15 mx-1"></div>
               {BRAND_CONFIG.social.facebook && (
                 <a
                   href={BRAND_CONFIG.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit our Facebook page"
-                  className="text-white/70 hover:text-silver transition-colors"
+                  className="w-7 h-7 rounded-full border border-silver/15 hover:border-silver/40 flex items-center justify-center text-white/45 hover:text-silver transition-all"
                 >
-                  <Facebook className="h-4 w-4" />
+                  <Facebook className="h-3.5 w-3.5" />
                 </a>
               )}
               {BRAND_CONFIG.social.instagram && (
@@ -73,20 +95,21 @@ export function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit our Instagram profile"
-                  className="text-white/70 hover:text-silver transition-colors"
+                  className="w-7 h-7 rounded-full border border-silver/15 hover:border-silver/40 flex items-center justify-center text-white/45 hover:text-silver transition-all"
                 >
-                  <Instagram className="h-4 w-4" />
+                  <Instagram className="h-3.5 w-3.5" />
                 </a>
               )}
+              <div className="w-px h-4 bg-silver/15 mx-1"></div>
             </div>
           )}
           <div className="hidden md:block">
-            <Button asChild className="btn-premium">
+            <Button asChild className="btn-premium text-xs px-4 py-2 h-auto uppercase tracking-widest">
               <Link href="/get-quote">Request a Quote</Link>
             </Button>
           </div>
           <button
-            className="md:hidden text-text-primary hover:text-silver transition-colors p-2 -mr-1"
+            className="md:hidden text-white/70 hover:text-white transition-colors p-2 -mr-1"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -101,39 +124,51 @@ export function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-silver/20 bg-black/98">
-          <div className="container mx-auto px-4 py-6 space-y-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block text-sm font-semibold text-[#F5F5F5] transition-colors hover:text-silver py-2 uppercase tracking-wide"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Button asChild className="w-full btn-premium">
-              <Link href="/get-quote" onClick={() => setMobileMenuOpen(false)}>
-                Request a Quote
-              </Link>
-            </Button>
-            {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
-              <div className="pt-2 border-t border-silver/20 mt-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase tracking-wide text-white/60">
-                    Follow us
-                  </span>
-                  <div className="flex items-center gap-3">
+        <div className="md:hidden border-t border-silver/10 bg-black/98 backdrop-blur-md">
+          <div className="container mx-auto px-4 py-4 space-y-1">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href || (link.href !== "/" && pathname?.startsWith(link.href));
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`flex items-center gap-3 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${isActive ? 'bg-white/[0.06] text-white border border-silver/15' : 'text-white/55 hover:text-white hover:bg-white/[0.03]'}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors ${isActive ? 'bg-primary' : 'bg-silver/20'}`}></span>
+                  {link.label}
+                </Link>
+              );
+            })}
+
+            <div className="pt-2 pb-1">
+              <Button asChild className="w-full btn-premium uppercase tracking-widest text-xs">
+                <Link href="/get-quote" onClick={() => setMobileMenuOpen(false)}>
+                  Request a Quote
+                </Link>
+              </Button>
+            </div>
+
+            <div className="pt-2 border-t border-silver/10 mt-1 px-1">
+              <div className="flex items-center justify-between py-2">
+                <a
+                  href={`tel:${BRAND_CONFIG.contact.phone}`}
+                  className="flex items-center gap-2 text-xs font-bold text-white/45 hover:text-silver transition-colors uppercase tracking-widest"
+                >
+                  <Phone className="h-3.5 w-3.5 text-primary/70" />
+                  {BRAND_CONFIG.contact.phoneFormatted}
+                </a>
+                {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
+                  <div className="flex items-center gap-2">
                     {BRAND_CONFIG.social.facebook && (
                       <a
                         href={BRAND_CONFIG.social.facebook}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Visit our Facebook page"
-                        className="text-white/70 hover:text-silver transition-colors"
+                        className="w-8 h-8 rounded-full border border-silver/15 hover:border-silver/40 flex items-center justify-center text-white/45 hover:text-silver transition-all"
                       >
-                        <Facebook className="h-5 w-5" />
+                        <Facebook className="h-4 w-4" />
                       </a>
                     )}
                     {BRAND_CONFIG.social.instagram && (
@@ -142,15 +177,15 @@ export function Header() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Visit our Instagram profile"
-                        className="text-white/70 hover:text-silver transition-colors"
+                        className="w-8 h-8 rounded-full border border-silver/15 hover:border-silver/40 flex items-center justify-center text-white/45 hover:text-silver transition-all"
                       >
-                        <Instagram className="h-5 w-5" />
+                        <Instagram className="h-4 w-4" />
                       </a>
                     )}
                   </div>
-                </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       )}
