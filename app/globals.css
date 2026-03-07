@@ -966,11 +966,21 @@
     .silver-3d-button {
       min-height: 44px;
     }
+
+    /* Reduce heavy drop-shadow filter on mobile for better performance */
+    .premium-heading {
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
+    }
+
+    /* Slightly smaller font tracking on mobile for section labels within tight areas */
+    .section-label {
+      max-width: 100%;
+    }
   }
 
   /* Section label / badge pill */
   .section-label {
-    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-silver/30 bg-white/5 text-silver/80 text-xs font-semibold uppercase tracking-widest;
+    @apply inline-flex flex-wrap items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-silver/30 bg-white/5 text-silver/80 text-xs font-semibold uppercase tracking-wider sm:tracking-widest;
   }
 
   /* Stats ribbon number */

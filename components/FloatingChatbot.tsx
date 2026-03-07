@@ -169,7 +169,7 @@ export function FloatingChatbot() {
     <>
       {/* Floating Button */}
       <button
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-2xl silver-3d-button text-black shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
+        className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl silver-3d-button text-black shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Open chat"
       >
@@ -182,8 +182,8 @@ export function FloatingChatbot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-96 max-w-[calc(100vw-3rem)]">
-            <Card className="card-premium border-silver/40 h-[600px] flex flex-col rounded-2xl shadow-2xl">
+        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 max-w-sm sm:max-w-none">
+            <Card className="card-premium border-silver/40 h-[500px] sm:h-[580px] max-h-[calc(100vh-7rem)] flex flex-col rounded-2xl shadow-2xl">
               <CardHeader className="pb-3 border-b border-silver/30">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg font-bold text-text-primary uppercase tracking-wide">

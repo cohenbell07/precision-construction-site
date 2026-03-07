@@ -74,16 +74,21 @@ export default function AboutPage() {
       <section className="bg-[#0A0A0A] border-b border-silver/[0.07] relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/35 to-transparent pointer-events-none"></div>
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-silver/[0.07]">
+          <div className="grid grid-cols-2 sm:grid-cols-4">
             {[
               { number: `${totalYears}+`, label: "Years in Business", sub: `Since ${BRAND_CONFIG.established}` },
               { number: "3,500+", label: "Projects Completed", sub: "Residential & Commercial" },
               { number: `${yearsInCalgary}+`, label: "Years in Calgary", sub: `Serving since ${BRAND_CONFIG.servingSince}` },
               { number: "3rd", label: "Generation", sub: "Family-Owned Business" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center px-4 sm:px-6 lg:px-10 py-6 sm:py-8">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-1" style={{ textShadow: '0 0 20px hsla(22,100%,63%,0.25)' }}>{stat.number}</div>
-                <div className="text-[10px] sm:text-xs text-white/35 uppercase tracking-[0.2em] font-bold">{stat.label}</div>
+            ].map((stat, i) => (
+              <div key={stat.label} className={`text-center px-2 sm:px-4 md:px-6 lg:px-10 py-5 sm:py-7 md:py-8 border-silver/[0.07] ${
+                i === 1 ? 'border-l' :
+                i === 2 ? 'border-t border-t-silver/[0.07] sm:border-t-0 sm:border-l' :
+                i === 3 ? 'border-t border-t-silver/[0.07] border-l sm:border-t-0' :
+                ''
+              }`}>
+                <div className="text-xl sm:text-3xl md:text-4xl font-display font-black text-white mb-1" style={{ textShadow: '0 0 20px hsla(22,100%,63%,0.25)' }}>{stat.number}</div>
+                <div className="text-[9px] sm:text-[10px] md:text-xs text-white/35 uppercase tracking-[0.12em] sm:tracking-[0.2em] font-bold leading-tight">{stat.label}</div>
                 <div className="text-[10px] text-white/20 mt-0.5 hidden sm:block">{stat.sub}</div>
               </div>
             ))}
@@ -110,44 +115,44 @@ export default function AboutPage() {
             <div className="h-[3px] w-14 bg-gradient-to-r from-primary to-transparent mx-auto mb-5 rounded-full" style={{ boxShadow: '0 0 10px hsla(22,100%,63%,0.5)' }}></div>
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#080808] shadow-[0_4px_32px_rgba(0,0,0,0.5)] p-8 sm:p-10 md:p-14">
+          <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#080808] shadow-[0_4px_32px_rgba(0,0,0,0.5)] p-5 sm:p-8 md:p-12 lg:p-14">
             <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none"></div>
             <div className="relative">
               {/* Timeline line */}
               <div className="absolute left-1/2 -translate-x-1/2 w-[2px] h-full bg-gradient-to-b from-primary/40 via-primary/20 to-transparent hidden md:block"></div>
 
-              <div className="space-y-10 sm:space-y-12 md:space-y-16">
+              <div className="space-y-6 sm:space-y-10 md:space-y-16">
                 {/* 1968 */}
-                <div className="relative flex flex-col md:flex-row items-center gap-4 md:gap-0">
-                  <div className="w-full md:w-1/2 md:pr-12 text-center md:text-right">
-                    <p className="text-3xl sm:text-4xl font-display font-black text-white mb-1" style={{ textShadow: '0 0 20px hsla(22,100%,63%,0.25)' }}>{BRAND_CONFIG.established}</p>
-                    <p className="font-display font-black text-white text-base sm:text-lg uppercase tracking-tight">Family Construction Begins</p>
-                    <p className="text-sm text-white/35 mt-1">3rd generation family business established</p>
+                <div className="relative flex flex-col md:flex-row items-center gap-3 md:gap-0">
+                  <div className="w-full md:w-1/2 md:pr-12 text-center md:text-right border-l-2 border-primary/40 pl-4 md:border-l-0 md:pl-0">
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-1" style={{ textShadow: '0 0 20px hsla(22,100%,63%,0.25)' }}>{BRAND_CONFIG.established}</p>
+                    <p className="font-display font-black text-white text-sm sm:text-base md:text-lg uppercase tracking-tight">Family Construction Begins</p>
+                    <p className="text-xs sm:text-sm text-white/35 mt-1">3rd generation family business established</p>
                   </div>
                   <div className="absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-primary border-4 border-black hidden md:flex items-center justify-center" style={{ boxShadow: '0 0 16px hsla(22,100%,63%,0.5)' }}></div>
-                  <div className="w-full md:w-1/2 md:pl-12"></div>
+                  <div className="w-full md:w-1/2 md:pl-12 hidden md:block"></div>
                 </div>
 
                 {/* 1997 */}
-                <div className="relative flex flex-col md:flex-row items-center gap-4 md:gap-0">
-                  <div className="w-full md:w-1/2 md:pr-12"></div>
+                <div className="relative flex flex-col md:flex-row items-center gap-3 md:gap-0">
+                  <div className="w-full md:w-1/2 md:pr-12 hidden md:block"></div>
                   <div className="absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-primary/60 border-4 border-black hidden md:flex items-center justify-center" style={{ boxShadow: '0 0 12px hsla(22,100%,63%,0.3)' }}></div>
-                  <div className="w-full md:w-1/2 md:pl-12 text-center md:text-left">
-                    <p className="text-3xl sm:text-4xl font-display font-black text-white mb-1" style={{ textShadow: '0 0 20px hsla(22,100%,63%,0.25)' }}>{BRAND_CONFIG.servingSince}</p>
-                    <p className="font-display font-black text-white text-base sm:text-lg uppercase tracking-tight">Calgary Operations Established</p>
-                    <p className="text-sm text-white/35 mt-1">Expanding to the Calgary market</p>
+                  <div className="w-full md:w-1/2 md:pl-12 text-center md:text-left border-l-2 border-primary/40 pl-4 md:border-l-0 md:pl-0">
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-1" style={{ textShadow: '0 0 20px hsla(22,100%,63%,0.25)' }}>{BRAND_CONFIG.servingSince}</p>
+                    <p className="font-display font-black text-white text-sm sm:text-base md:text-lg uppercase tracking-tight">Calgary Operations Established</p>
+                    <p className="text-xs sm:text-sm text-white/35 mt-1">Expanding to the Calgary market</p>
                   </div>
                 </div>
 
                 {/* Today */}
-                <div className="relative flex flex-col md:flex-row items-center gap-4 md:gap-0">
-                  <div className="w-full md:w-1/2 md:pr-12 text-center md:text-right">
-                    <p className="text-3xl sm:text-4xl font-display font-black text-white mb-1" style={{ textShadow: '0 0 20px hsla(22,100%,63%,0.25)' }}>Today</p>
-                    <p className="font-display font-black text-white text-base sm:text-lg uppercase tracking-tight">Premium Commercial &amp; Residential</p>
-                    <p className="text-sm text-white/35 mt-1">Continuing excellence across Calgary</p>
+                <div className="relative flex flex-col md:flex-row items-center gap-3 md:gap-0">
+                  <div className="w-full md:w-1/2 md:pr-12 text-center md:text-right border-l-2 border-primary/70 pl-4 md:border-l-0 md:pl-0">
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-1" style={{ textShadow: '0 0 20px hsla(22,100%,63%,0.25)' }}>Today</p>
+                    <p className="font-display font-black text-white text-sm sm:text-base md:text-lg uppercase tracking-tight">Premium Commercial &amp; Residential</p>
+                    <p className="text-xs sm:text-sm text-white/35 mt-1">Continuing excellence across Calgary</p>
                   </div>
                   <div className="absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-primary border-4 border-black hidden md:flex items-center justify-center" style={{ boxShadow: '0 0 20px hsla(22,100%,63%,0.6)' }}></div>
-                  <div className="w-full md:w-1/2 md:pl-12"></div>
+                  <div className="w-full md:w-1/2 md:pl-12 hidden md:block"></div>
                 </div>
               </div>
             </div>
@@ -178,7 +183,7 @@ export default function AboutPage() {
             <div className="max-w-2xl w-full relative rounded-2xl overflow-hidden border border-silver/10 bg-[#050505] shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
               <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none"></div>
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary/40 via-primary/10 to-transparent pointer-events-none"></div>
-              <div className="p-8 sm:p-10">
+              <div className="p-5 sm:p-8 md:p-10">
                 <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-1">Owner &amp; Lead Contractor</p>
                 <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-2 uppercase tracking-tight premium-heading">
                   {BRAND_CONFIG.owner}
@@ -245,14 +250,14 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
             {[
               { step: "01", title: "Consultation", description: "We start with a free consultation to understand your vision, needs, and budget. This is where we get to know you and your project." },
               { step: "02", title: "Planning & Design", description: "We create detailed plans, obtain necessary permits, and work with you to refine every detail before construction begins." },
               { step: "03", title: "Execution", description: "Our skilled team brings your vision to life with precision craftsmanship, regular updates, and open communication throughout." },
               { step: "04", title: "Follow-Up", description: "We conduct a final walkthrough, address any concerns, and stand behind our work with ongoing support and warranty." },
             ].map((item, index) => (
-              <div key={item.step} className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)] p-6 sm:p-7">
+              <div key={item.step} className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)] p-5 sm:p-6 lg:p-7">
                 <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/60 via-primary/20 to-transparent pointer-events-none"></div>
                 <span className="absolute top-4 right-5 text-6xl font-black text-white/[0.04] select-none pointer-events-none leading-none">{item.step}</span>
                 <div className="w-11 h-11 rounded-full bg-primary/[0.10] border-2 border-primary/30 flex items-center justify-center mb-5" style={{ boxShadow: '0 0 12px hsla(22,100%,63%,0.15)' }}>

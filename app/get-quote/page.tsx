@@ -729,7 +729,7 @@ function GetQuoteForm() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-5">
+          <div className="space-y-5 lg:block">
             <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
               <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-silver/30 via-silver/10 to-transparent pointer-events-none"></div>
               <div className="p-5 sm:p-6">
@@ -760,7 +760,9 @@ function GetQuoteForm() {
               </div>
             </div>
 
-            <AIChatAssistant />
+            <div className="hidden sm:block">
+              <AIChatAssistant />
+            </div>
           </div>
         </div>
       </div>

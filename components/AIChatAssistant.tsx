@@ -143,7 +143,7 @@ export function AIChatAssistant() {
               </p>
             </div>
           )}
-          <div className="space-y-4 mb-6 max-h-96 overflow-y-auto pr-2">
+          <div className="space-y-4 mb-6 max-h-60 sm:max-h-80 md:max-h-96 overflow-y-auto pr-2">
             {conversation.map((msg, idx) => (
               <div
                 key={idx}

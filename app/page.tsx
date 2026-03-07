@@ -85,17 +85,17 @@ export default function Home() {
                   3rd Generation · Family Owned · Since 1968
                 </span>
               </div>
-              <h1 className="text-2xl min-[480px]:text-3xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-1 sm:mb-2 md:mb-4 leading-tight premium-heading px-2">
+              <h1 className="text-xl min-[380px]:text-2xl min-[480px]:text-3xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-1 sm:mb-2 md:mb-4 leading-tight premium-heading px-2">
                 Crafting Calgary&apos;s Future — One Build at a Time
               </h1>
-              <p className="text-xs min-[480px]:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl premium-silver-text font-bold mb-2 sm:mb-4 md:mb-6 lg:mb-8 px-2">
+              <p className="text-[11px] min-[380px]:text-xs min-[480px]:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl premium-silver-text font-bold mb-2 sm:mb-4 md:mb-6 lg:mb-8 px-2">
                 Family-owned since 1968 • Serving Calgary since 1997
               </p>
-              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center px-2">
-                <Button asChild size="lg" className="btn-premium px-4 py-2.5 min-[480px]:px-5 min-[480px]:py-3 sm:px-8 sm:py-6 text-xs min-[480px]:text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
+              <div className="flex flex-col min-[400px]:flex-row gap-2 sm:gap-4 justify-center items-center px-2">
+                <Button asChild size="lg" className="btn-premium px-4 py-2.5 min-[480px]:px-6 sm:px-8 sm:py-6 text-xs min-[480px]:text-sm sm:text-base md:text-lg uppercase tracking-wider w-full min-[400px]:w-auto">
                   <Link href="/get-quote">Get a Quote</Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-2 border-silver/50 bg-black/65 hover:bg-black/75 hover:border-silver text-silver px-4 py-2.5 min-[480px]:px-5 min-[480px]:py-3 sm:px-8 sm:py-6 text-xs min-[480px]:text-sm sm:text-base md:text-lg uppercase tracking-wider w-full sm:w-auto">
+                <Button asChild size="lg" variant="outline" className="border-2 border-silver/50 bg-black/65 hover:bg-black/75 hover:border-silver text-silver px-4 py-2.5 min-[480px]:px-6 sm:px-8 sm:py-6 text-xs min-[480px]:text-sm sm:text-base md:text-lg uppercase tracking-wider w-full min-[400px]:w-auto">
                   <Link href="/services">View Services</Link>
                 </Button>
               </div>
@@ -108,16 +108,21 @@ export default function Home() {
       <section className="bg-[#0A0A0A] border-b border-silver/[0.07] relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/35 to-transparent pointer-events-none"></div>
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-silver/[0.07]">
+          <div className="grid grid-cols-2 sm:grid-cols-4">
             {[
               { number: "55+", label: "Years in Business" },
               { number: "1997", label: "Serving Calgary" },
               { number: "2,400+", label: "Projects Done" },
               { number: "3rd", label: "Generation" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center px-4 sm:px-6 lg:px-10 py-6 sm:py-8">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-1" style={{ textShadow: '0 0 20px hsla(22,100%,63%,0.25)' }}>{stat.number}</div>
-                <div className="text-[10px] sm:text-xs text-white/35 uppercase tracking-[0.2em] font-bold">{stat.label}</div>
+            ].map((stat, i) => (
+              <div key={stat.label} className={`text-center px-2 sm:px-4 md:px-6 lg:px-10 py-5 sm:py-7 md:py-8 border-silver/[0.07] ${
+                i === 1 ? 'border-l' :
+                i === 2 ? 'border-t border-t-silver/[0.07] sm:border-t-0 sm:border-l' :
+                i === 3 ? 'border-t border-t-silver/[0.07] border-l sm:border-t-0' :
+                ''
+              }`}>
+                <div className="text-xl sm:text-3xl md:text-4xl font-display font-black text-white mb-1" style={{ textShadow: '0 0 20px hsla(22,100%,63%,0.25)' }}>{stat.number}</div>
+                <div className="text-[9px] sm:text-[10px] md:text-xs text-white/35 uppercase tracking-[0.12em] sm:tracking-[0.2em] font-bold leading-tight">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -155,7 +160,7 @@ export default function Home() {
                   href={`/services/${service.id}`}
                   className="group relative rounded-2xl overflow-hidden border border-silver/10 bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:border-primary/30 transition-all duration-300 flex flex-col"
                 >
-                  <div className="relative h-48 sm:h-52 w-full overflow-hidden shrink-0">
+                  <div className="relative h-40 sm:h-48 md:h-52 w-full overflow-hidden shrink-0">
                     <Image
                       src={imagePath}
                       alt={service.title}
@@ -233,7 +238,7 @@ export default function Home() {
             <div className="order-1 lg:order-2 relative">
               <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent rounded-full hidden lg:block pointer-events-none"></div>
               <div className="lg:pl-8">
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
                   <span className="section-label">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block"></span>
                     Special Offer
@@ -290,9 +295,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
             {whyUs.map((item, index) => (
-              <div key={item.title} className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)] p-6 sm:p-7">
+              <div key={item.title} className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)] p-5 sm:p-6 lg:p-7">
                 {/* Left orange accent */}
                 <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/60 via-primary/20 to-transparent pointer-events-none"></div>
                 {/* Ghost number */}
@@ -489,9 +494,9 @@ export default function Home() {
               Real feedback from families we&apos;ve had the honor of serving.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
             {testimonials.map((testimonial) => (
-              <div key={testimonial.name} className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#050505] shadow-[0_4px_24px_rgba(0,0,0,0.5)] p-6 sm:p-7 flex flex-col">
+              <div key={testimonial.name} className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#050505] shadow-[0_4px_24px_rgba(0,0,0,0.5)] p-5 sm:p-6 md:p-7 flex flex-col">
                 <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/50 via-primary/15 to-transparent pointer-events-none"></div>
                 {/* Stars */}
                 <div className="flex items-center gap-1 mb-4">
@@ -527,11 +532,11 @@ export default function Home() {
           <p className="text-white/60 text-sm sm:text-base md:text-lg mb-8 sm:mb-10 max-w-xl mx-auto px-2">
             No pressure, no obligation. Tell us about your project and we&apos;ll get back to you within 24 hours.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-            <Button asChild size="lg" className="btn-premium px-8 py-4 text-sm sm:text-base uppercase tracking-wider w-full sm:w-auto">
+          <div className="flex flex-col min-[400px]:flex-row gap-3 sm:gap-4 justify-center items-center">
+            <Button asChild size="lg" className="btn-premium px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider w-full min-[400px]:w-auto">
               <Link href="/get-quote">Get a Free Quote</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-2 border-silver/40 bg-transparent hover:bg-black/50 hover:border-silver text-silver px-8 py-4 text-sm sm:text-base uppercase tracking-wider w-full sm:w-auto">
+            <Button asChild size="lg" variant="outline" className="border-2 border-silver/40 bg-transparent hover:bg-black/50 hover:border-silver text-silver px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider w-full min-[400px]:w-auto">
               <Link href="/contact">Contact Us</Link>
             </Button>
           </div>

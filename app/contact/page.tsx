@@ -81,7 +81,7 @@ export default function ContactPage() {
         }}></div>
       </div>
       {/* Hero Section */}
-      <section className="relative h-[45vh] sm:h-[50vh] md:h-[55vh] min-h-[320px] sm:min-h-[380px] md:min-h-[440px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[38vh] sm:h-[48vh] md:h-[55vh] min-h-[280px] sm:min-h-[360px] md:min-h-[420px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/6d86ce69-0210-48e9-ab64-8f0745d631d4.png"

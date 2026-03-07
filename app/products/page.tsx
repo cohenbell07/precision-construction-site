@@ -409,7 +409,7 @@ export default function ProductsPage() {
               Limited-time pricing and guarantees to help you save on your build.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-5 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
             {/* Deal A - Trust Builder */}
             <Card className="card-premium border-silver/30 bg-black/75  hover:border-silver/50 hover:shadow-[0_0_25px_rgba(232,232,232,0.3)] transition-[transform,box-shadow,border-color] duration-300">
               <CardHeader>
@@ -559,8 +559,8 @@ export default function ProductsPage() {
                   {/* Left orange accent bar */}
                   <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none"></div>
 
-                  <div className="p-6 sm:p-8 md:p-10 lg:p-12">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+                  <div className="p-4 sm:p-7 md:p-10 lg:p-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-14 items-center">
                       {/* Content Column */}
                       <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
 
@@ -583,10 +583,10 @@ export default function ProductsPage() {
 
                         {/* Heading with ghost watermark number */}
                         <div className="relative mb-4 sm:mb-5">
-                          <span className="absolute -left-1 top-1/2 -translate-y-1/2 text-[5rem] sm:text-[7rem] font-black text-white/[0.03] leading-none select-none pointer-events-none">
+                          <span className="hidden sm:block absolute -left-1 top-1/2 -translate-y-1/2 text-[5rem] sm:text-[7rem] font-black text-white/[0.03] leading-none select-none pointer-events-none">
                             {categoryNum}
                           </span>
-                          <h2 className="relative text-3xl sm:text-4xl md:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
+                          <h2 className="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
                             {category.title}
                           </h2>
                         </div>
@@ -689,11 +689,11 @@ export default function ProductsPage() {
               Trusted brands you know and love, available at unbeatable prices
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 max-w-6xl mx-auto">
             {brands.map((brand) => (
               <div
                 key={brand.name}
-                className="relative h-24 sm:h-28 md:h-32 bg-white border border-silver/30 rounded-xl hover:border-silver/60 transition-[transform,box-shadow,border-color] duration-300 flex items-center justify-center group overflow-hidden shadow-lg hover:shadow-xl"
+                className="relative h-20 sm:h-24 md:h-28 bg-white border border-silver/30 rounded-xl hover:border-silver/60 transition-[transform,box-shadow,border-color] duration-300 flex items-center justify-center group overflow-hidden shadow-lg hover:shadow-xl"
               >
                 <Image
                   src={`/${brand.file}`}

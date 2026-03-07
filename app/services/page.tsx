@@ -190,7 +190,7 @@ export default function ServicesPage() {
                 Residential &amp; Commercial · Calgary
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-4 sm:mb-6 text-white uppercase tracking-tight premium-heading px-2">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-4 sm:mb-6 text-white uppercase tracking-tight premium-heading px-2">
               Our Services
             </h1>
             <div className="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-silver to-transparent mx-auto mb-4 sm:mb-6 shadow-[0_0_20px_rgba(232,232,232,0.5)]"></div>
@@ -229,7 +229,7 @@ export default function ServicesPage() {
                   {/* Left orange accent bar */}
                   <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none"></div>
 
-                  <div className="p-6 sm:p-8 md:p-10 lg:p-12">
+                  <div className="p-4 sm:p-7 md:p-10 lg:p-12">
                     {service.id === "basements" && (
                       <div className="mb-6 sm:mb-8">
                         <span className="inline-block text-sm font-black uppercase tracking-wider bg-silver text-black px-4 py-2.5 rounded-full border-2 border-silver shadow-[0_0_20px_rgba(232,232,232,0.5)]">
@@ -254,10 +254,10 @@ export default function ServicesPage() {
 
                         {/* Heading with ghost watermark number */}
                         <div className="relative mb-4 sm:mb-5">
-                          <span className="absolute -left-1 top-1/2 -translate-y-1/2 text-[5rem] sm:text-[7rem] font-black text-white/[0.03] leading-none select-none pointer-events-none">
+                          <span className="hidden sm:block absolute -left-1 top-1/2 -translate-y-1/2 text-[5rem] sm:text-[7rem] font-black text-white/[0.03] leading-none select-none pointer-events-none">
                             {categoryNum}
                           </span>
-                          <h2 className="relative text-3xl sm:text-4xl md:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
+                          <h2 className="relative text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black text-white uppercase tracking-tight premium-heading">
                             {service.title}
                           </h2>
                         </div>
