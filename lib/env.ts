@@ -22,5 +22,11 @@ export const env = {
   site: {
     url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   },
+  review: {
+    adminPassword: process.env.REVIEW_ADMIN_PASSWORD || null,
+    googleReviewUrl: process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL || null,
+    cronSecret: process.env.CRON_SECRET || null,
+    enabled: !!process.env.REVIEW_ADMIN_PASSWORD,
+  },
 };
 

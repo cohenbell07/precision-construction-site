@@ -280,3 +280,111 @@ export function getProjectPlanEmail(data: EmailTemplateData & { plan: any }): { 
   };
 }
 
+// ─── Review System Email Templates ───────────────────────────────────────────
+
+/**
+ * Initial feedback request email sent to customer after project completion
+ */
+export function getReviewRequestEmail(data: {
+  firstName: string;
+  projectType?: string;
+  feedbackUrl: string;
+}): { subject: string; html: string } {
+  const projectLabel = data.projectType ? escapeHtml(data.projectType) : "recent project";
+  return {
+    subject: `How was your experience with ${BRAND_CONFIG.shortName}?`,
+    html: `
+      <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #101820; color: #ffffff; padding: 0;">
+        <div style="background: linear-gradient(135deg, #1F1F1F 0%, #101820 100%); padding: 40px 30px; text-align: center; border-bottom: 2px solid #D4AF37;">
+          <h1 style="color: #D4AF37; font-size: 24px; margin: 0 0 8px 0; font-weight: 700;">${BRAND_CONFIG.shortName}</h1>
+          <p style="color: #B0B0B0; font-size: 13px; margin: 0;">${BRAND_CONFIG.motto}</p>
+        </div>
+        <div style="padding: 40px 30px;">
+          <p style="font-size: 18px; color: #ffffff; margin: 0 0 20px 0;">Hi ${escapeHtml(data.firstName)},</p>
+          <p style="font-size: 16px; color: #E8E8E8; line-height: 1.6; margin: 0 0 16px 0;">
+            Thank you for trusting us with your ${projectLabel}. We hope everything turned out great!
+          </p>
+          <p style="font-size: 16px; color: #E8E8E8; line-height: 1.6; margin: 0 0 30px 0;">
+            We'd love to hear how your experience was. It only takes about 30 seconds and means a lot to our family business.
+          </p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${data.feedbackUrl}" style="display: inline-block; background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%); color: #101820; padding: 16px 40px; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: 700; letter-spacing: 0.5px;">Share Your Feedback</a>
+          </div>
+          <p style="font-size: 14px; color: #808080; text-align: center; margin: 20px 0 0 0;">Takes less than 30 seconds</p>
+        </div>
+        <div style="background-color: #1F1F1F; padding: 24px 30px; text-align: center; border-top: 1px solid #2E2E2E;">
+          <p style="color: #B0B0B0; font-size: 13px; margin: 0 0 4px 0;">Warm regards,</p>
+          <p style="color: #D4AF37; font-size: 14px; font-weight: 600; margin: 0 0 4px 0;">${BRAND_CONFIG.owner}</p>
+          <p style="color: #808080; font-size: 12px; margin: 0;">${BRAND_CONFIG.name}</p>
+          <p style="color: #808080; font-size: 12px; margin: 4px 0 0 0;">${BRAND_CONFIG.contact.phoneFormatted}</p>
+        </div>
+      </div>
+    `,
+  };
+}
+
+/**
+ * Follow-up reminder email (sent ~48hrs after initial if no response)
+ */
+export function getReviewFollowUpEmail(data: {
+  firstName: string;
+  projectType?: string;
+  feedbackUrl: string;
+}): { subject: string; html: string } {
+  const projectLabel = data.projectType ? escapeHtml(data.projectType) : "recent project";
+  return {
+    subject: `Quick reminder — your feedback means a lot to us`,
+    html: `
+      <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #101820; color: #ffffff; padding: 0;">
+        <div style="background: linear-gradient(135deg, #1F1F1F 0%, #101820 100%); padding: 32px 30px; text-align: center; border-bottom: 2px solid #D4AF37;">
+          <h1 style="color: #D4AF37; font-size: 22px; margin: 0;">${BRAND_CONFIG.shortName}</h1>
+        </div>
+        <div style="padding: 36px 30px;">
+          <p style="font-size: 17px; color: #ffffff; margin: 0 0 18px 0;">Hi ${escapeHtml(data.firstName)},</p>
+          <p style="font-size: 15px; color: #E8E8E8; line-height: 1.6; margin: 0 0 24px 0;">
+            Just a friendly follow-up — we'd really value hearing about your experience with your ${projectLabel}. Your feedback helps us keep improving and means a lot to our team.
+          </p>
+          <div style="text-align: center; margin: 28px 0;">
+            <a href="${data.feedbackUrl}" style="display: inline-block; background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%); color: #101820; padding: 14px 36px; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 700;">Quick 30-Second Feedback</a>
+          </div>
+        </div>
+        <div style="background-color: #1F1F1F; padding: 20px 30px; text-align: center; border-top: 1px solid #2E2E2E;">
+          <p style="color: #B0B0B0; font-size: 13px; margin: 0;">Thanks so much,</p>
+          <p style="color: #D4AF37; font-size: 14px; font-weight: 600; margin: 4px 0 0 0;">${BRAND_CONFIG.owner} &amp; the ${BRAND_CONFIG.shortName} team</p>
+        </div>
+      </div>
+    `,
+  };
+}
+
+/**
+ * Alert email sent to John when a customer leaves negative feedback (1-3 stars)
+ */
+export function getNegativeFeedbackAlertEmail(data: {
+  customerName: string;
+  email: string;
+  rating: number;
+  comment?: string;
+  detailedFeedback: string;
+  contactPreference: string;
+  projectType?: string;
+}): { subject: string; html: string } {
+  const stars = "★".repeat(data.rating) + "☆".repeat(5 - data.rating);
+  return {
+    subject: `Customer Feedback Alert: ${data.rating}/5 stars from ${escapeHtml(data.customerName)}`,
+    html: `
+      <h2 style="color: #cc0000;">Customer Feedback Alert</h2>
+      <p><strong>Customer:</strong> ${escapeHtml(data.customerName)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+      <p><strong>Project:</strong> ${escapeHtml(data.projectType || "Not specified")}</p>
+      <p><strong>Rating:</strong> ${stars} (${data.rating}/5)</p>
+      ${data.comment ? `<p><strong>Initial comment:</strong> ${escapeHtml(data.comment)}</p>` : ""}
+      <p><strong>Detailed feedback:</strong></p>
+      <pre style="white-space:pre-wrap;font-family:sans-serif;background:#f5f5f5;padding:16px;border-radius:8px;border-left:4px solid #cc0000;">${escapeHtml(data.detailedFeedback)}</pre>
+      <p><strong>Contact preference:</strong> ${escapeHtml(data.contactPreference)}</p>
+      <hr style="border:none;border-top:1px solid #ddd;margin:24px 0;">
+      <p style="color:#666;font-size:14px;">This feedback was submitted privately and was <strong>not</strong> posted to Google Reviews. Consider reaching out to this customer to resolve their concerns.</p>
+    `,
+  };
+}
+
