@@ -10,8 +10,8 @@ export interface Deal {
   description: string;
   ctaText: string;
   url: string;
-  category: "service" | "product";
-  /** Short keyword for AI to match (e.g. "basement", "bundle", "price beat") */
+  category: "service";
+  /** Short keyword for AI to match (e.g. "basement", "bundle") */
   keywords: string[];
 }
 
@@ -33,33 +33,22 @@ export const deals: Deal[] = [
     description: "15% off when you bundle supply + install. Combine materials and installation for package pricing. Examples: Flooring + install, Cabinets + countertops + install, Full bathroom renovation.",
     ctaText: "Get 15% Off — Request Quote",
     url: "/get-quote/bundle",
-    category: "product",
+    category: "service",
     keywords: ["bundle", "supply and install", "supply + install", "package"],
   },
   {
     id: "supplier",
     name: "10% Supplier Discount",
     discount: "10%",
-    description: "10% off select materials. Special pricing on quartz & porcelain, LVP & laminate, hardware & fixtures while inventory lasts.",
+    description: "10% off select materials when bundled with our services. Special pricing on quartz & porcelain, LVP & laminate, hardware & fixtures while inventory lasts.",
     ctaText: "Get 10% Off — Request Quote",
     url: "/get-quote/supplier-deals",
-    category: "product",
+    category: "service",
     keywords: ["supplier", "10%", "materials discount", "select materials"],
-  },
-  {
-    id: "price-beat",
-    name: "5% Price Beat Guarantee",
-    discount: "5%",
-    description: "We guarantee to beat any reputable competitor's quote by at least 5%. Applies to products from major suppliers. Customers can upload their competitor quote on our Products page using the 'Submit a Quote' / price beat form. 24-hour response, no hidden fees.",
-    ctaText: "Submit a Quote (on Products page)",
-    url: "/products#quote-form",
-    category: "product",
-    keywords: ["price beat", "5%", "competitor", "competitor quote", "beat quote", "lower price"],
   },
 ];
 
-export const serviceDeals = deals.filter((d) => d.category === "service");
-export const productDeals = deals.filter((d) => d.category === "product");
+export const serviceDeals = deals;
 
 /** Format deals for the AI chat system prompt. */
 export function getDealsForChatPrompt(): string {

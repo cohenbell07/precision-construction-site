@@ -361,7 +361,7 @@ export default function Home() {
                 ))}
               </ul>
               <Button asChild variant="outline" className="w-full border border-silver/20 bg-transparent hover:bg-white/[0.03] hover:border-silver/40 text-white/60 hover:text-white uppercase tracking-widest text-xs h-auto py-2.5 transition-all">
-                <Link href="/products#quote-form">Submit a Quote</Link>
+                <Link href="/get-quote">Get a Quote</Link>
               </Button>
             </div>
 
@@ -444,7 +444,7 @@ export default function Home() {
             </h2>
             <div className="h-[3px] w-14 bg-gradient-to-r from-primary to-transparent mx-auto mb-5 rounded-full" style={{ boxShadow: '0 0 10px hsla(22,100%,63%,0.5)' }}></div>
             <p className="text-sm sm:text-base text-white/45 max-w-2xl mx-auto leading-relaxed px-2">
-              We carry all major construction product lines and install with expert precision.
+              We use premium materials from the industry's most trusted brands.
             </p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5 max-w-4xl mx-auto">

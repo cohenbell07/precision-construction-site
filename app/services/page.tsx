@@ -114,13 +114,17 @@ export default function ServicesPage() {
     e.preventDefault();
     setPriceBeatLoading(true);
     try {
-      const body = new FormData();
-      body.append("inquiryType", "service");
-      body.append("name", priceBeatForm.name);
-      body.append("email", priceBeatForm.email);
-      body.append("productType", priceBeatForm.category || "");
-      if (priceBeatFile) body.append("quoteFile", priceBeatFile);
-      const res = await fetch("/api/products/price-beat", { method: "POST", body });
+      const projectDetails = `5% Price Beat Request\nService/Project Type: ${priceBeatForm.category}\n${priceBeatFile ? `Competitor quote file attached: ${priceBeatFile.name}` : "No competitor quote file attached"}`;
+      const res = await fetch("/api/quote/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: priceBeatForm.name,
+          email: priceBeatForm.email,
+          serviceTitle: `Price Beat — ${priceBeatForm.category}`,
+          projectDetails,
+        }),
+      });
       const data = await res.json();
       if (res.ok && data.success) {
         toast({

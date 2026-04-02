@@ -7,10 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { services, getServiceById } from "@/lib/services";
-import {
-  getProductCategoryBySlug,
-  getProductSlugFromTitle,
-} from "@/lib/productQuoteConfig";
 import { AIChatAssistant } from "@/components/AIChatAssistant";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Loader2, CheckCircle, Wrench, Hammer } from "lucide-react";
@@ -37,34 +33,11 @@ const serviceIcons: { [key: string]: any } = {
   default: Buildings,
 };
 
-// Product categories (simplified list for selection - ids match productQuoteConfig slugs)
-const productCategories = [
-  { id: "flooring", title: "Flooring", icon: SquaresFour },
-  { id: "countertops", title: "Countertops", icon: Rectangle },
-  { id: "cabinets", title: "Cabinets", icon: Package },
-  { id: "interior-finishing", title: "Interior Finishing", icon: Wrench },
-  { id: "windows", title: "Windows", icon: Buildings },
-  { id: "exterior", title: "Exterior Products", icon: Buildings },
-  { id: "bathroom", title: "Bathroom Fixtures", icon: Drop },
-  { id: "hardware", title: "Hardware", icon: Wrench },
-  { id: "paint", title: "Paint & Finishes", icon: PaintBrush },
-  { id: "commercial", title: "Commercial Materials", icon: Buildings },
-];
-
-const OTHER_OPTIONS = ["Other", "Custom"];
-function isOtherOption(val: string): boolean {
-  return OTHER_OPTIONS.some((o) => val?.toLowerCase() === o.toLowerCase());
-}
-
 function GetQuoteForm() {
   const searchParams = useSearchParams();
-  const [step, setStep] = useState<"type" | "selection" | "details" | "summary">("type");
-  const [quoteType, setQuoteType] = useState<"service" | "product">("service");
+  const [step, setStep] = useState<"selection" | "details" | "summary">("selection");
   const [selectedService, setSelectedService] = useState<string>("");
-  const [selectedProduct, setSelectedProduct] = useState<string>("");
   const [customServiceName, setCustomServiceName] = useState<string>("");
-  const [categoryFields, setCategoryFields] = useState<Record<string, string>>({});
-  const [customValues, setCustomValues] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -79,76 +52,22 @@ function GetQuoteForm() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
-  // Handle product and service query parameters
+  // Handle service query parameter
   useEffect(() => {
-    const productParam = searchParams.get("product");
     const serviceParam = searchParams.get("service");
-    
-    if (productParam) {
-      setQuoteType("product");
-      setSelectedProduct(getProductSlugFromTitle(productParam));
-      setStep("details");
-    } else if (serviceParam) {
-      setQuoteType("service");
+    if (serviceParam) {
       setSelectedService(serviceParam);
       setStep("details");
     }
   }, [searchParams]);
-
-  const handleQuoteTypeSelect = (type: "service" | "product") => {
-    setQuoteType(type);
-    setStep("selection");
-  };
 
   const handleServiceSelect = (serviceId: string) => {
     setSelectedService(serviceId);
     setStep("details");
   };
 
-  const handleProductSelect = (productId: string) => {
-    setSelectedProduct(productId);
-    setStep("details");
-  };
-
   const handleInputChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value });
-  };
-
-  const handleCategoryFieldChange = (fieldId: string, value: string) => {
-    setCategoryFields((p) => ({ ...p, [fieldId]: value }));
-    if (isOtherOption(value)) {
-      setCustomValues((p) => ({ ...p, [fieldId]: p[fieldId] || "" }));
-    } else {
-      setCustomValues((p) => {
-        const next = { ...p };
-        delete next[fieldId];
-        return next;
-      });
-    }
-  };
-
-  const productConfig = quoteType === "product" ? getProductCategoryBySlug(selectedProduct) : undefined;
-  const buildProductProjectDetails = (): string => {
-    if (!productConfig) return formData.projectDetails;
-    const parts: string[] = [];
-    if (productConfig.fields.length > 0) {
-      parts.push(`Product category: ${productConfig.title}`);
-      productConfig.fields.forEach((field) => {
-        const val = categoryFields[field.id];
-        const custom = customValues[field.id];
-        if (val) {
-          if (isOtherOption(val) && custom) {
-            parts.push(`${field.label}: ${val} — ${custom}`);
-          } else {
-            parts.push(`${field.label}: ${val}`);
-          }
-        }
-      });
-    }
-    if (formData.projectDetails.trim()) {
-      parts.push("\nAdditional details:\n" + formData.projectDetails.trim());
-    }
-    return parts.join("\n") || formData.projectDetails.trim();
   };
 
   const handleDetailsSubmit = async (e: React.FormEvent) => {
@@ -157,23 +76,17 @@ function GetQuoteForm() {
       toast({ title: "Email is required", variant: "destructive" });
       return;
     }
-    const projectDetailsToSend =
-      quoteType === "product" && productConfig
-        ? buildProductProjectDetails()
-        : formData.projectDetails;
-    if (!projectDetailsToSend.trim()) {
-      toast({ title: "Please provide project details or fill in the category fields above.", variant: "destructive" });
+    if (!formData.projectDetails.trim()) {
+      toast({ title: "Please provide project details.", variant: "destructive" });
       return;
     }
     setLoading(true);
 
     try {
       const service = selectedService === "other" ? null : getServiceById(selectedService);
-      const serviceTitle = selectedService === "other" 
+      const serviceTitle = selectedService === "other"
         ? (customServiceName || "Other Project")
         : (service?.title || selectedService);
-      
-      const productTitle = productConfig?.title || selectedProduct || "General Product";
 
       const res = await fetch("/api/quote/submit", {
         method: "POST",
@@ -183,13 +96,11 @@ function GetQuoteForm() {
           email: formData.email,
           phone: formData.phone,
           address: formData.address,
-          projectDetails: projectDetailsToSend,
+          projectDetails: formData.projectDetails,
           timeline: formData.timeline,
           budgetMin: formData.budgetMin,
           budgetMax: formData.budgetMax,
-          quoteType,
           serviceTitle,
-          productTitle,
         }),
       });
 
@@ -241,7 +152,7 @@ function GetQuoteForm() {
           </h1>
           <div className="h-[3px] w-14 bg-gradient-to-r from-primary to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px hsla(22,100%,63%,0.5)' }}></div>
           <p className="text-sm sm:text-base text-white/45 max-w-lg mx-auto leading-relaxed">
-            Tell us about your project — we beat all competitor quotes by 5% guaranteed.
+            Tell us about your project — free estimates, no obligation.
           </p>
         </div>
       </div>
@@ -253,11 +164,10 @@ function GetQuoteForm() {
           <div className="mb-8 sm:mb-10">
             <div className="flex items-center justify-center gap-0">
               {[
-                { num: "01", label: "Type", key: "type" },
-                { num: "02", label: "Category", key: "selection" },
-                { num: "03", label: "Details", key: "details" },
+                { num: "01", label: "Service", key: "selection" },
+                { num: "02", label: "Details", key: "details" },
               ].map((s, i, arr) => {
-                const stepOrder = ["type", "selection", "details", "summary"];
+                const stepOrder = ["selection", "details", "summary"];
                 const currentIdx = stepOrder.indexOf(step);
                 const stepIdx = stepOrder.indexOf(s.key);
                 const isCompleted = currentIdx > stepIdx;
@@ -283,249 +193,89 @@ function GetQuoteForm() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Main Form */}
           <div className="lg:col-span-2">
-            {/* Step 1: Quote Type Selection */}
-            {step === "type" && (
+            {/* Step 1: Service Selection */}
+            {step === "selection" && (
               <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#050505] shadow-[0_4px_32px_rgba(0,0,0,0.6)]">
                 <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none"></div>
                 <div className="p-6 sm:p-8 md:p-10">
                   <div className="mb-6 sm:mb-8">
                     <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-1">Step 01</p>
                     <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight premium-heading">
-                      What are you looking for?
+                      Select a Service
                     </h2>
                     <div className="h-[3px] w-10 bg-gradient-to-r from-primary to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px hsla(22,100%,63%,0.4)' }}></div>
-                    <p className="text-sm text-white/40 mt-3">Choose whether you need a service quote or a materials/product quote.</p>
+                    <p className="text-sm text-white/40 mt-3">Which service are you interested in?</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {services.map((service) => {
+                      const IconComponent = serviceIcons[service.id] || serviceIcons.default;
+                      return (
+                        <button
+                          key={service.id}
+                          onClick={() => handleServiceSelect(service.id)}
+                          className="group text-left p-4 sm:p-5 rounded-xl border border-silver/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-primary/35 transition-all duration-200 flex items-center gap-3 sm:gap-4"
+                        >
+                          <div className="w-10 h-10 rounded-lg bg-silver/[0.06] border border-silver/10 group-hover:border-primary/25 flex items-center justify-center shrink-0 transition-colors">
+                            <IconComponent className="h-5 w-5 text-silver/50 group-hover:text-primary/70 transition-colors" weight="duotone" />
+                          </div>
+                          <div>
+                            <p className="font-display font-black text-sm text-white uppercase tracking-tight">{service.title}</p>
+                            <p className="text-[11px] text-white/30 leading-tight mt-0.5 line-clamp-1">{service.description}</p>
+                          </div>
+                        </button>
+                      );
+                    })}
                     <button
-                      onClick={() => handleQuoteTypeSelect("service")}
-                      className="group text-left p-6 sm:p-8 rounded-xl border border-silver/10 bg-white/[0.02] hover:bg-white/[0.04] hover:border-primary/35 transition-all duration-300 relative overflow-hidden"
+                      onClick={() => handleServiceSelect("other")}
+                      className="group text-left p-4 sm:p-5 rounded-xl border border-silver/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-primary/35 transition-all duration-200 flex items-center gap-3 sm:gap-4"
                     >
-                      <div className="absolute top-0 left-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/0 to-primary/0 group-hover:from-primary/60 group-hover:via-primary/30 group-hover:to-transparent transition-all duration-300"></div>
-                      <div className="w-12 h-12 rounded-xl bg-primary/[0.08] border border-primary/15 group-hover:border-primary/35 flex items-center justify-center mb-5 transition-colors">
-                        <Hammer className="h-6 w-6 text-primary/60 group-hover:text-primary/90 transition-colors" />
+                      <div className="w-10 h-10 rounded-lg bg-silver/[0.06] border border-silver/10 group-hover:border-primary/25 flex items-center justify-center shrink-0 transition-colors">
+                        <Buildings className="h-5 w-5 text-silver/50 group-hover:text-primary/70 transition-colors" weight="duotone" />
                       </div>
-                      <h3 className="font-display font-black text-xl text-white uppercase tracking-tight mb-2">Service Quote</h3>
-                      <p className="text-xs sm:text-sm text-white/40 leading-relaxed">
-                        Flooring, showers, basements, cabinets, painting, and more — get a quote on our installation services.
-                      </p>
-                    </button>
-                    <button
-                      onClick={() => handleQuoteTypeSelect("product")}
-                      className="group text-left p-6 sm:p-8 rounded-xl border border-silver/10 bg-white/[0.02] hover:bg-white/[0.04] hover:border-silver/30 transition-all duration-300 relative overflow-hidden"
-                    >
-                      <div className="absolute top-0 left-0 bottom-0 w-[2px] bg-gradient-to-b from-silver/0 to-silver/0 group-hover:from-silver/40 group-hover:via-silver/15 group-hover:to-transparent transition-all duration-300"></div>
-                      <div className="w-12 h-12 rounded-xl bg-silver/[0.06] border border-silver/10 group-hover:border-silver/25 flex items-center justify-center mb-5 transition-colors">
-                        <Package className="h-6 w-6 text-silver/50 group-hover:text-silver/80 transition-colors" weight="duotone" />
+                      <div>
+                        <p className="font-display font-black text-sm text-white uppercase tracking-tight">Other</p>
+                        <p className="text-[11px] text-white/30 leading-tight mt-0.5">Have a different project? Select this.</p>
                       </div>
-                      <h3 className="font-display font-black text-xl text-white uppercase tracking-tight mb-2">Product Quote</h3>
-                      <p className="text-xs sm:text-sm text-white/40 leading-relaxed">
-                        Flooring, countertops, cabinets, windows, and more — with our 5% price-beat guarantee on all materials.
-                      </p>
                     </button>
                   </div>
                 </div>
               </div>
             )}
 
-            {/* Step 2: Service/Product Selection */}
-            {step === "selection" && (
+            {/* Step 2: Project Details */}
+            {step === "details" && (
               <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#050505] shadow-[0_4px_32px_rgba(0,0,0,0.6)]">
                 <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none"></div>
                 <div className="p-6 sm:p-8 md:p-10">
                   <div className="mb-6 sm:mb-8">
                     <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-1">Step 02</p>
                     <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight premium-heading">
-                      {quoteType === "service" ? "Select a Service" : "Select a Category"}
-                    </h2>
-                    <div className="h-[3px] w-10 bg-gradient-to-r from-primary to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px hsla(22,100%,63%,0.4)' }}></div>
-                    <p className="text-sm text-white/40 mt-3">
-                      {quoteType === "service" ? "Which service are you interested in?" : "Which product category do you need?"}
-                    </p>
-                  </div>
-                  {quoteType === "service" ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {services.map((service) => {
-                        const IconComponent = serviceIcons[service.id] || serviceIcons.default;
-                        return (
-                          <button
-                            key={service.id}
-                            onClick={() => handleServiceSelect(service.id)}
-                            className="group text-left p-4 sm:p-5 rounded-xl border border-silver/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-primary/35 transition-all duration-200 flex items-center gap-3 sm:gap-4"
-                          >
-                            <div className="w-10 h-10 rounded-lg bg-silver/[0.06] border border-silver/10 group-hover:border-primary/25 flex items-center justify-center shrink-0 transition-colors">
-                              <IconComponent className="h-5 w-5 text-silver/50 group-hover:text-primary/70 transition-colors" weight="duotone" />
-                            </div>
-                            <div>
-                              <p className="font-display font-black text-sm text-white uppercase tracking-tight">{service.title}</p>
-                              <p className="text-[11px] text-white/30 leading-tight mt-0.5 line-clamp-1">{service.description}</p>
-                            </div>
-                          </button>
-                        );
-                      })}
-                      <button
-                        onClick={() => handleServiceSelect("other")}
-                        className="group text-left p-4 sm:p-5 rounded-xl border border-silver/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-primary/35 transition-all duration-200 flex items-center gap-3 sm:gap-4"
-                      >
-                        <div className="w-10 h-10 rounded-lg bg-silver/[0.06] border border-silver/10 group-hover:border-primary/25 flex items-center justify-center shrink-0 transition-colors">
-                          <Buildings className="h-5 w-5 text-silver/50 group-hover:text-primary/70 transition-colors" weight="duotone" />
-                        </div>
-                        <div>
-                          <p className="font-display font-black text-sm text-white uppercase tracking-tight">Other</p>
-                          <p className="text-[11px] text-white/30 leading-tight mt-0.5">Have a different project? Select this.</p>
-                        </div>
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {productCategories.map((category) => {
-                        const IconComponent = category.icon;
-                        return (
-                          <button
-                            key={category.id}
-                            onClick={() => handleProductSelect(category.id)}
-                            className="group text-left p-4 sm:p-5 rounded-xl border border-silver/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-primary/35 transition-all duration-200 flex items-center gap-3 sm:gap-4"
-                          >
-                            <div className="w-10 h-10 rounded-lg bg-silver/[0.06] border border-silver/10 group-hover:border-primary/25 flex items-center justify-center shrink-0 transition-colors">
-                              <IconComponent className="h-5 w-5 text-silver/50 group-hover:text-primary/70 transition-colors" weight="duotone" />
-                            </div>
-                            <p className="font-display font-black text-sm text-white uppercase tracking-tight">{category.title}</p>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                  <div className="mt-6 pt-5 border-t border-silver/[0.07]">
-                    <button
-                      type="button"
-                      onClick={() => setStep("type")}
-                      className="text-xs font-black text-white/35 hover:text-white uppercase tracking-widest transition-colors"
-                    >
-                      ← Back
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 3: Project Details */}
-            {step === "details" && (
-              <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#050505] shadow-[0_4px_32px_rgba(0,0,0,0.6)]">
-                <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none"></div>
-                <div className="p-6 sm:p-8 md:p-10">
-                  <div className="mb-6 sm:mb-8">
-                    <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-1">Step 03</p>
-                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight premium-heading">
                       Project Details
                     </h2>
                     <div className="h-[3px] w-10 bg-gradient-to-r from-primary to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px hsla(22,100%,63%,0.4)' }}></div>
                     <p className="text-sm text-white/40 mt-3">
-                      {quoteType === "service"
-                        ? selectedService === "other"
-                          ? "Tell us about your project"
-                          : `Tell us about your ${getServiceById(selectedService)?.title.toLowerCase()} project`
-                        : `Tell us about your ${productConfig?.title.toLowerCase() || productCategories.find(p => p.id === selectedProduct)?.title.toLowerCase() || "product"} needs`}
+                      {selectedService === "other"
+                        ? "Tell us about your project"
+                        : `Tell us about your ${getServiceById(selectedService)?.title.toLowerCase()} project`}
                     </p>
                   </div>
 
                   <form onSubmit={handleDetailsSubmit} className="space-y-5">
-                    {/* Product-specific fields */}
-                    {quoteType === "product" && productConfig ? (
-                      <>
-                        <div>
-                          <label className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                            <span className="w-1 h-1 rounded-full bg-silver/40 shrink-0"></span>
-                            Product Category
-                          </label>
-                          <Input readOnly value={productConfig.title} className="bg-white/[0.06] border-silver/10 text-white/60 cursor-default rounded-xl h-11" />
-                        </div>
-                        {productConfig.fields.map((field) => {
-                          const inputCls = "bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors";
-                          const labelEl = (
-                            <label htmlFor={field.id} className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                              <span className="w-1 h-1 rounded-full bg-primary shrink-0"></span>
-                              {field.label}
-                              {field.optional && <span className="text-white/25 normal-case font-normal ml-1">(optional)</span>}
-                            </label>
-                          );
-                          const val = categoryFields[field.id];
-                          const showCustomInput = field.options && val && isOtherOption(val);
-                          if (field.type === "select") {
-                            return (
-                              <div key={field.id}>
-                                {labelEl}
-                                <select
-                                  id={field.id}
-                                  value={val || ""}
-                                  onChange={(e) => handleCategoryFieldChange(field.id, e.target.value)}
-                                  className={`w-full px-3 py-2 ${inputCls} appearance-none`}
-                                >
-                                  <option value="">Select…</option>
-                                  {field.options?.map((opt) => (
-                                    <option key={opt} value={opt}>{opt}</option>
-                                  ))}
-                                </select>
-                                {showCustomInput && (
-                                  <Input
-                                    placeholder="Please specify…"
-                                    value={customValues[field.id] || ""}
-                                    onChange={(e) => setCustomValues((p) => ({ ...p, [field.id]: e.target.value }))}
-                                    className={`mt-2 ${inputCls}`}
-                                  />
-                                )}
-                              </div>
-                            );
-                          }
-                          if (field.type === "textarea") {
-                            return (
-                              <div key={field.id}>
-                                {labelEl}
-                                <Textarea
-                                  id={field.id}
-                                  placeholder={field.placeholder}
-                                  value={categoryFields[field.id] || ""}
-                                  onChange={(e) => setCategoryFields((p) => ({ ...p, [field.id]: e.target.value }))}
-                                  rows={3}
-                                  className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl transition-colors resize-none"
-                                />
-                              </div>
-                            );
-                          }
-                          return (
-                            <div key={field.id}>
-                              {labelEl}
-                              <Input
-                                id={field.id}
-                                type="text"
-                                placeholder={field.placeholder}
-                                value={categoryFields[field.id] || ""}
-                                onChange={(e) => setCategoryFields((p) => ({ ...p, [field.id]: e.target.value }))}
-                                className={inputCls}
-                              />
-                            </div>
-                          );
-                        })}
-                        <div className="border-t border-silver/[0.07] pt-5">
-                          <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Your Contact Info</p>
-                        </div>
-                      </>
-                    ) : (
-                      selectedService === "other" && (
-                        <div>
-                          <label htmlFor="customServiceName" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                            <span className="w-1 h-1 rounded-full bg-primary shrink-0"></span>
-                            Project Type <span className="text-primary/70">*</span>
-                          </label>
-                          <Input
-                            id="customServiceName"
-                            required
-                            value={customServiceName}
-                            onChange={(e) => setCustomServiceName(e.target.value)}
-                            placeholder="e.g., Basement Development, Deck Construction…"
-                            className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
-                          />
-                        </div>
-                      )
+                    {selectedService === "other" && (
+                      <div>
+                        <label htmlFor="customServiceName" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                          <span className="w-1 h-1 rounded-full bg-primary shrink-0"></span>
+                          Project Type <span className="text-primary/70">*</span>
+                        </label>
+                        <Input
+                          id="customServiceName"
+                          required
+                          value={customServiceName}
+                          onChange={(e) => setCustomServiceName(e.target.value)}
+                          placeholder="e.g., Basement Development, Deck Construction…"
+                          className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                        />
+                      </div>
                     )}
 
                     {/* Contact fields */}
@@ -593,18 +343,16 @@ function GetQuoteForm() {
                     <div>
                       <label htmlFor="projectDetails" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
                         <span className="w-1 h-1 rounded-full bg-primary shrink-0"></span>
-                        Project Details {(quoteType !== "product" || !productConfig) && <span className="text-primary/70">*</span>}
+                        Project Details <span className="text-primary/70">*</span>
                       </label>
                       <Textarea
                         id="projectDetails"
-                        required={quoteType !== "product" || !productConfig}
+                        required
                         value={formData.projectDetails}
                         onChange={(e) => handleInputChange("projectDetails", e.target.value)}
-                        placeholder={quoteType === "product" && productConfig
-                          ? "Describe your project, any specific products, brands, or questions…"
-                          : selectedService === "other"
-                            ? "Describe your project in detail — what you need, scope, any special requirements…"
-                            : "Describe your project in detail — scope, size, materials you have in mind, etc…"}
+                        placeholder={selectedService === "other"
+                          ? "Describe your project in detail — what you need, scope, any special requirements…"
+                          : "Describe your project in detail — scope, size, materials you have in mind, etc…"}
                         rows={5}
                         className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl transition-colors resize-none"
                       />
@@ -687,7 +435,7 @@ function GetQuoteForm() {
               </div>
             )}
 
-            {/* Step 4: Summary */}
+            {/* Summary */}
             {step === "summary" && (
               <div className="relative rounded-2xl overflow-hidden border border-primary/20 bg-[#050505] shadow-[0_4px_40px_rgba(0,0,0,0.6)]" style={{ boxShadow: '0 4px 40px rgba(0,0,0,0.6), 0 0 40px hsla(22,100%,63%,0.04)' }}>
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
@@ -709,13 +457,9 @@ function GetQuoteForm() {
                     </Button>
                     <button
                       onClick={() => {
-                        setStep("type");
-                        setQuoteType("service");
+                        setStep("selection");
                         setSelectedService("");
-                        setSelectedProduct("");
                         setCustomServiceName("");
-                        setCategoryFields({});
-                        setCustomValues({});
                         setFormData({ name: "", email: "", phone: "", address: "", projectDetails: "", timeline: "", budgetMin: "", budgetMax: "" });
                       }}
                       className="text-xs font-black text-white/35 hover:text-white uppercase tracking-widest transition-colors px-6 py-3 rounded-md border border-silver/10 hover:border-silver/25"

@@ -12,11 +12,7 @@ export async function POST(request: NextRequest) {
       name,
       email,
       phone,
-      projectType,
-      message,
-      quoteType,
       serviceTitle,
-      productTitle,
       address,
       projectDetails,
       timeline,
@@ -31,10 +27,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const projectTitle =
-      quoteType === "service" ? serviceTitle || "Service" : productTitle || "Product";
-    const projectDescription = `${quoteType === "service" ? "SERVICE" : "PRODUCT"} QUOTE REQUEST
-${quoteType === "service" ? `Service: ${projectTitle}` : `Product: ${projectTitle}`}
+    const projectTitle = serviceTitle || "Service";
+    const projectDescription = `SERVICE QUOTE REQUEST
+Service: ${projectTitle}
 Name: ${name || "Not provided"}
 Email: ${email}
 Phone: ${phone || "Not provided"}
@@ -64,7 +59,7 @@ Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `
     let summary =
       "Thank you for your quote request! We'll review your project details and get back to you within 24 hours with a detailed quote.";
     if (env.openai.enabled) {
-      const prompt = `Generate a professional quote summary for a ${projectTitle} project. 
+      const prompt = `Generate a professional quote summary for a ${projectTitle} project.
       Project details: ${projectDetails}
       Timeline: ${timeline || "Not specified"}
       Budget: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `$${budgetMax}` : "Not specified"}
@@ -90,8 +85,8 @@ Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `
       subject: `New Quote Request - ${projectTitle}`,
       html: `
         <h2>New Quote Request</h2>
-        <p><strong>Type:</strong> ${quoteType === "service" ? "Service" : "Product"}</p>
-        <p><strong>${quoteType === "service" ? "Service" : "Product"}:</strong> ${safe(projectTitle)}</p>
+        <p><strong>Type:</strong> Service</p>
+        <p><strong>Service:</strong> ${safe(projectTitle)}</p>
         <p><strong>Name:</strong> ${safe(name)}</p>
         <p><strong>Email:</strong> ${safe(email)}</p>
         <p><strong>Phone:</strong> ${safe(phone) || "Not provided"}</p>
