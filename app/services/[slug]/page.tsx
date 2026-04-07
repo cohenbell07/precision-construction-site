@@ -166,10 +166,10 @@ function InquiryForm({ serviceName }: { serviceName: string }) {
 /* ═══════════════════════════════════════════ */
 
 export default function ServiceDetailPage({ params }: { params: { slug: string } }) {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const service = getServiceById(params.slug);
   if (!service) return notFound();
 
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const image = serviceImageMap[service.id] || "/service-millwork.webp";
   const heroPosition: Record<string, string> = {};
   const imgPosition = heroPosition[service.id] || "object-center";
