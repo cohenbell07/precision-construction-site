@@ -176,10 +176,10 @@ export interface DealQuoteData {
   budgetMax?: string;
 }
 
-function getDealQuoteLabels(data: DealQuoteData): { discount: string; label: string; projectDetailsLabel: string } {
+export function getDealQuoteLabels(data: DealQuoteData): { discount: string; label: string; projectDetailsLabel: string } {
   if (data.dealType === "bundle") return { discount: "15%", label: "15% Bundle Savings", projectDetailsLabel: "Project / service details:" };
   if (data.dealType === "basement") return { discount: "15%", label: "15% Basement Renovation", projectDetailsLabel: "Project / service details:" };
-  return { discount: "10%", label: "10% Supplier Discount", projectDetailsLabel: "Quantity / how much needed:" };
+  return { discount: "10%", label: "10% Seasonal Special", projectDetailsLabel: "Project / service details:" };
 }
 
 export function getDealQuoteAdminEmail(data: DealQuoteData): { subject: string; html: string } {

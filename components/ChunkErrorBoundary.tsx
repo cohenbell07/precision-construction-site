@@ -68,7 +68,7 @@ export class ChunkErrorBoundary extends Component<Props, State> {
       return (
         <div className="min-h-screen bg-black flex items-center justify-center">
           <div className="text-center max-w-md mx-auto px-4">
-            <h2 className="text-2xl font-display font-black text-white mb-4 premium-heading">
+            <h2 className="text-2xl font-display font-black text-white mb-4">
               Something went wrong
             </h2>
             <p className="text-white/80 premium-text mb-6">
@@ -81,7 +81,7 @@ export class ChunkErrorBoundary extends Component<Props, State> {
                   window.location.reload();
                 }
               }}
-              className="btn-premium"
+              className="bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full"
             >
               Refresh Page
             </Button>

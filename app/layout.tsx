@@ -35,28 +35,30 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pcnd.ca";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${BRAND_CONFIG.name} | Calgary Construction | PCND`,
+    default: `Calgary Construction & Renovation Company | Basements, Additions & More | PCND`,
     template: `%s | ${BRAND_CONFIG.shortName}`,
   },
   description:
-    `${BRAND_CONFIG.motto} - Family-owned Calgary construction company since 1968. PCND serves Calgary and area with premium residential and commercial construction, flooring, cabinets, countertops & more.`,
+    `Calgary's trusted construction & renovation company since 1968. Basement developments, home additions, full renovations, commercial builds, flooring, cabinets & more. Free estimates. 5% price beat guarantee.`,
   keywords: [
-    "PCND",
-    "Precision Construction & Decora",
-    "Precision Construction and Decora",
-    "Calgary construction",
-    "construction Calgary",
     "Calgary construction company",
-    "construction company Calgary",
-    "Calgary renovation",
-    "renovation Calgary",
-    "flooring Calgary",
+    "Calgary renovation company",
+    "basement development Calgary",
+    "basement finishing Calgary",
+    "home renovation Calgary",
+    "home additions Calgary",
+    "Calgary general contractor",
+    "commercial construction Calgary",
+    "kitchen renovation Calgary",
+    "bathroom renovation Calgary",
+    "flooring installation Calgary",
     "custom showers Calgary",
     "cabinets Calgary",
     "countertops Calgary",
-    "carpentry Calgary",
-    "basement development Calgary",
-    "family-owned construction Calgary",
+    "construction company near me",
+    "PCND",
+    "Precision Construction & Decora",
+    "Precision Construction and Decora",
   ],
   authors: [{ name: BRAND_CONFIG.name }],
   creator: BRAND_CONFIG.name,
@@ -75,13 +77,22 @@ export const metadata: Metadata = {
     locale: "en_CA",
     url: SITE_URL,
     siteName: BRAND_CONFIG.shortName,
-    title: `${BRAND_CONFIG.name} | Calgary Construction | PCND`,
-    description: `${BRAND_CONFIG.tagline} - Family-owned and operated. We treat every client like family and deliver only the best.`,
+    title: `Calgary Construction & Renovation Company | PCND`,
+    description: `Calgary's trusted construction company since 1968. Basement developments, home renovations, additions & commercial builds. Free estimates.`,
+    images: [
+      {
+        url: `${SITE_URL}/servicehero.webp`,
+        width: 1536,
+        height: 838,
+        alt: `${BRAND_CONFIG.name} - Calgary Construction Company`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${BRAND_CONFIG.name} | Calgary Construction`,
-    description: BRAND_CONFIG.tagline,
+    title: `Calgary Construction & Renovation | PCND`,
+    description: `Calgary's trusted construction company since 1968. Basements, renovations, additions & more. Free estimates.`,
+    images: [`${SITE_URL}/servicehero.webp`],
   },
 };
 
@@ -113,12 +124,35 @@ export default function RootLayout({
     foundingDate: BRAND_CONFIG.established.toString(),
     slogan: BRAND_CONFIG.motto,
     priceRange: "$$",
-    image: `${SITE_URL}/android-chrome-512x512.png`,
+    image: `${SITE_URL}/servicehero.webp`,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Construction Services",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Basement Developments" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Home Additions & Full Home Renovations" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Commercial & Multi-Unit Construction" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Flooring Installation" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Custom Showers & Steam Showers" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Cabinets & Millwork" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Countertops" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Interior Finishing & Carpentry" } },
+      ],
+    },
+    openingHoursSpecification: [
+      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:00", closes: "18:00" },
+      { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "08:00", closes: "16:00" },
+    ],
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=61588370031463",
+    ],
   };
 
   return (
     <html lang="en" className="bg-black">
       <head>
+        <style dangerouslySetInnerHTML={{ __html: `html:not(.hydrated){visibility:hidden;background:#000}html.hydrated{visibility:visible}`}} />
+        <script dangerouslySetInnerHTML={{ __html: `setTimeout(function(){document.documentElement.classList.add("hydrated")},2500)`}} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

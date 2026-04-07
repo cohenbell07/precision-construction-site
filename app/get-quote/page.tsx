@@ -7,9 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { services, getServiceById } from "@/lib/services";
-import { AIChatAssistant } from "@/components/AIChatAssistant";
 import { BRAND_CONFIG } from "@/lib/utils";
-import { Loader2, CheckCircle, Wrench, Hammer } from "lucide-react";
+import { getDealsForService, PRICE_BEAT_GUARANTEE, type Deal } from "@/lib/deals";
+import { Loader2, CheckCircle, Wrench } from "lucide-react";
 import {
   SquaresFour,
   Drop,
@@ -21,6 +21,8 @@ import {
 } from "phosphor-react";
 
 // Icon mapping for services with phosphor-react
+const POPULAR_SERVICES = new Set(["basements", "renovations", "flooring", "showers"]);
+
 const serviceIcons: { [key: string]: any } = {
   flooring: SquaresFour,
   showers: Drop,
@@ -47,6 +49,8 @@ function GetQuoteForm() {
     timeline: "",
     budgetMin: "",
     budgetMax: "",
+    referralSource: "",
+    referralOther: "",
   });
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
@@ -67,11 +71,15 @@ function GetQuoteForm() {
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData({ ...formData, [field]: value });
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleDetailsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.name.trim()) {
+      toast({ title: "Name is required", variant: "destructive" });
+      return;
+    }
     if (!formData.email.trim()) {
       toast({ title: "Email is required", variant: "destructive" });
       return;
@@ -101,6 +109,10 @@ function GetQuoteForm() {
           budgetMin: formData.budgetMin,
           budgetMax: formData.budgetMax,
           serviceTitle,
+          serviceId: selectedService,
+          referralSource: formData.referralSource === "Other"
+            ? (formData.referralOther || "Other")
+            : (formData.referralSource || undefined),
         }),
       });
 
@@ -129,28 +141,28 @@ function GetQuoteForm() {
   };
 
   return (
-    <div className="min-h-screen bg-black relative premium-bg-pattern">
+    <div className="min-h-screen bg-black relative">
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.1) 2px, rgba(212, 175, 55, 0.1) 4px)`,
+          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px)`,
           backgroundSize: '100px 100px'
         }}></div>
       </div>
 
       {/* Page header */}
-      <div className="relative border-b border-silver/10 bg-[#030303] py-12 sm:py-16 md:py-20">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent"></div>
+      <div className="relative border-b border-white/[0.08] bg-[#030303] py-12 sm:py-16 md:py-20">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
           <div className="flex justify-center mb-4">
-            <span className="section-label">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 inline-block"></span>
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 inline-block"></span>
               Free Quote · No Obligation · 24-Hour Response
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-4 text-white uppercase tracking-tight premium-heading">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-4 text-white uppercase tracking-tight">
             Request a Quote
           </h1>
-          <div className="h-[3px] w-14 bg-gradient-to-r from-primary to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px hsla(22,100%,63%,0.5)' }}></div>
+          <div className="h-[3px] w-14 bg-gradient-to-r from-white/70 to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
           <p className="text-sm sm:text-base text-white/45 max-w-lg mx-auto leading-relaxed">
             Tell us about your project — free estimates, no obligation.
           </p>
@@ -175,13 +187,13 @@ function GetQuoteForm() {
                 return (
                   <div key={s.key} className="flex items-center">
                     <div className="flex flex-col items-center gap-1.5">
-                      <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300 border-2 ${isCompleted ? 'bg-primary border-primary text-black shadow-[0_0_12px_hsla(22,100%,63%,0.4)]' : isActive ? 'border-primary/70 bg-primary/[0.12] text-white' : 'border-silver/15 bg-white/[0.03] text-white/30'}`}>
+                      <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300 border-2 ${isCompleted ? 'bg-white border-white text-black shadow-[0_0_12px_rgba(255,255,255,0.4)]' : isActive ? 'border-white/70 bg-white/[0.12] text-white' : 'border-white/[0.08] bg-white/[0.03] text-white/30'}`}>
                         {isCompleted ? <CheckCircle className="h-4 w-4" /> : s.num}
                       </div>
-                      <span className={`text-[10px] font-black uppercase tracking-widest ${isActive ? 'text-white' : isCompleted ? 'text-primary/70' : 'text-white/25'}`}>{s.label}</span>
+                      <span className={`text-[10px] font-black uppercase tracking-widest ${isActive ? 'text-white' : isCompleted ? 'text-white/70' : 'text-white/25'}`}>{s.label}</span>
                     </div>
                     {i < arr.length - 1 && (
-                      <div className={`w-14 sm:w-20 h-[2px] mx-2 mb-5 rounded-full transition-all duration-500 ${isCompleted ? 'bg-primary/50' : 'bg-silver/10'}`}></div>
+                      <div className={`w-14 sm:w-20 h-[2px] mx-2 mb-5 rounded-full transition-all duration-500 ${isCompleted ? 'bg-white/50' : 'bg-white/10'}`}></div>
                     )}
                   </div>
                 );
@@ -195,15 +207,15 @@ function GetQuoteForm() {
           <div className="lg:col-span-2">
             {/* Step 1: Service Selection */}
             {step === "selection" && (
-              <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#050505] shadow-[0_4px_32px_rgba(0,0,0,0.6)]">
-                <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none"></div>
+              <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-[#050505] shadow-[0_4px_32px_rgba(0,0,0,0.6)]">
+                <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/70 via-white/30 to-transparent pointer-events-none"></div>
                 <div className="p-6 sm:p-8 md:p-10">
                   <div className="mb-6 sm:mb-8">
-                    <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-1">Step 01</p>
-                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight premium-heading">
+                    <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-1">Step 01</p>
+                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">
                       Select a Service
                     </h2>
-                    <div className="h-[3px] w-10 bg-gradient-to-r from-primary to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px hsla(22,100%,63%,0.4)' }}></div>
+                    <div className="h-[3px] w-10 bg-gradient-to-r from-white/70 to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.4)' }}></div>
                     <p className="text-sm text-white/40 mt-3">Which service are you interested in?</p>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -213,13 +225,21 @@ function GetQuoteForm() {
                         <button
                           key={service.id}
                           onClick={() => handleServiceSelect(service.id)}
-                          className="group text-left p-4 sm:p-5 rounded-xl border border-silver/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-primary/35 transition-all duration-200 flex items-center gap-3 sm:gap-4"
+                          className="group text-left p-4 sm:p-5 rounded-xl border border-white/[0.08] bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/25 transition-all duration-200 flex items-center gap-3 sm:gap-4"
                         >
-                          <div className="w-10 h-10 rounded-lg bg-silver/[0.06] border border-silver/10 group-hover:border-primary/25 flex items-center justify-center shrink-0 transition-colors">
-                            <IconComponent className="h-5 w-5 text-silver/50 group-hover:text-primary/70 transition-colors" weight="duotone" />
+                          <div className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.08] group-hover:border-white/20 flex items-center justify-center shrink-0 transition-colors">
+                            <IconComponent className="h-5 w-5 text-white/50 group-hover:text-white/70 transition-colors" weight="duotone" />
                           </div>
-                          <div>
-                            <p className="font-display font-black text-sm text-white uppercase tracking-tight">{service.title}</p>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <p className="font-display font-black text-sm text-white uppercase tracking-tight">{service.title}</p>
+                              {POPULAR_SERVICES.has(service.id) && (
+                                <span className="text-[8px] font-black uppercase tracking-widest text-white/60 bg-white/[0.08] px-1.5 py-0.5 rounded-full">Popular</span>
+                              )}
+                              {getDealsForService(service.id).filter(d => d.id !== "bundle").length > 0 && (
+                                <span className="text-[8px] font-black uppercase tracking-widest text-white bg-white/[0.15] px-1.5 py-0.5 rounded-full">{getDealsForService(service.id).filter(d => d.id !== "bundle")[0].discount} Off</span>
+                              )}
+                            </div>
                             <p className="text-[11px] text-white/30 leading-tight mt-0.5 line-clamp-1">{service.description}</p>
                           </div>
                         </button>
@@ -227,10 +247,10 @@ function GetQuoteForm() {
                     })}
                     <button
                       onClick={() => handleServiceSelect("other")}
-                      className="group text-left p-4 sm:p-5 rounded-xl border border-silver/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-primary/35 transition-all duration-200 flex items-center gap-3 sm:gap-4"
+                      className="group text-left p-4 sm:p-5 rounded-xl border border-white/[0.08] bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/25 transition-all duration-200 flex items-center gap-3 sm:gap-4"
                     >
-                      <div className="w-10 h-10 rounded-lg bg-silver/[0.06] border border-silver/10 group-hover:border-primary/25 flex items-center justify-center shrink-0 transition-colors">
-                        <Buildings className="h-5 w-5 text-silver/50 group-hover:text-primary/70 transition-colors" weight="duotone" />
+                      <div className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.08] group-hover:border-white/20 flex items-center justify-center shrink-0 transition-colors">
+                        <Buildings className="h-5 w-5 text-white/50 group-hover:text-white/70 transition-colors" weight="duotone" />
                       </div>
                       <div>
                         <p className="font-display font-black text-sm text-white uppercase tracking-tight">Other</p>
@@ -244,15 +264,15 @@ function GetQuoteForm() {
 
             {/* Step 2: Project Details */}
             {step === "details" && (
-              <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#050505] shadow-[0_4px_32px_rgba(0,0,0,0.6)]">
-                <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-primary/70 via-primary/30 to-transparent pointer-events-none"></div>
+              <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-[#050505] shadow-[0_4px_32px_rgba(0,0,0,0.6)]">
+                <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/70 via-white/30 to-transparent pointer-events-none"></div>
                 <div className="p-6 sm:p-8 md:p-10">
                   <div className="mb-6 sm:mb-8">
-                    <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-1">Step 02</p>
-                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight premium-heading">
+                    <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-1">Step 02</p>
+                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">
                       Project Details
                     </h2>
-                    <div className="h-[3px] w-10 bg-gradient-to-r from-primary to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px hsla(22,100%,63%,0.4)' }}></div>
+                    <div className="h-[3px] w-10 bg-gradient-to-r from-white/70 to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.4)' }}></div>
                     <p className="text-sm text-white/40 mt-3">
                       {selectedService === "other"
                         ? "Tell us about your project"
@@ -260,12 +280,30 @@ function GetQuoteForm() {
                     </p>
                   </div>
 
+                  {/* Deal Banner */}
+                  {selectedService && selectedService !== "other" && (() => {
+                    const deals = getDealsForService(selectedService);
+                    if (deals.length === 0) return null;
+                    return (
+                      <div className="mb-6 rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
+                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50 mb-2">Deals Available for This Service</p>
+                        {deals.map((deal) => (
+                          <div key={deal.id} className="flex items-center gap-3 py-1.5">
+                            <span className="text-xs font-black text-white bg-white/[0.12] px-2 py-0.5 rounded-full shrink-0">{deal.discount}</span>
+                            <span className="text-sm text-white/60">{deal.name}</span>
+                          </div>
+                        ))}
+                        <p className="text-[11px] text-white/35 mt-2">{PRICE_BEAT_GUARANTEE}</p>
+                      </div>
+                    );
+                  })()}
+
                   <form onSubmit={handleDetailsSubmit} className="space-y-5">
                     {selectedService === "other" && (
                       <div>
                         <label htmlFor="customServiceName" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                          <span className="w-1 h-1 rounded-full bg-primary shrink-0"></span>
-                          Project Type <span className="text-primary/70">*</span>
+                          <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
+                          Project Type <span className="text-white/70">*</span>
                         </label>
                         <Input
                           id="customServiceName"
@@ -273,7 +311,7 @@ function GetQuoteForm() {
                           value={customServiceName}
                           onChange={(e) => setCustomServiceName(e.target.value)}
                           placeholder="e.g., Basement Development, Deck Construction…"
-                          className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
                         />
                       </div>
                     )}
@@ -282,8 +320,8 @@ function GetQuoteForm() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                          <span className="w-1 h-1 rounded-full bg-primary shrink-0"></span>
-                          Name <span className="text-primary/70">*</span>
+                          <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
+                          Name <span className="text-white/70">*</span>
                         </label>
                         <Input
                           id="name"
@@ -291,13 +329,13 @@ function GetQuoteForm() {
                           value={formData.name}
                           onChange={(e) => handleInputChange("name", e.target.value)}
                           placeholder="Your name"
-                          className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
                         />
                       </div>
                       <div>
                         <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                          <span className="w-1 h-1 rounded-full bg-primary shrink-0"></span>
-                          Email <span className="text-primary/70">*</span>
+                          <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
+                          Email <span className="text-white/70">*</span>
                         </label>
                         <Input
                           id="email"
@@ -306,14 +344,14 @@ function GetQuoteForm() {
                           value={formData.email}
                           onChange={(e) => handleInputChange("email", e.target.value)}
                           placeholder="your@email.com"
-                          className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label htmlFor="phone" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                          <span className="w-1 h-1 rounded-full bg-silver/30 shrink-0"></span>
+                          <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                           Phone
                         </label>
                         <Input
@@ -322,12 +360,12 @@ function GetQuoteForm() {
                           value={formData.phone}
                           onChange={(e) => handleInputChange("phone", e.target.value)}
                           placeholder="(403) 818-7767"
-                          className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
                         />
                       </div>
                       <div>
                         <label htmlFor="address" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                          <span className="w-1 h-1 rounded-full bg-silver/30 shrink-0"></span>
+                          <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                           Project Address
                         </label>
                         <Input
@@ -335,15 +373,15 @@ function GetQuoteForm() {
                           value={formData.address}
                           onChange={(e) => handleInputChange("address", e.target.value)}
                           placeholder="Calgary, AB (optional)"
-                          className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
                         />
                       </div>
                     </div>
 
                     <div>
                       <label htmlFor="projectDetails" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                        <span className="w-1 h-1 rounded-full bg-primary shrink-0"></span>
-                        Project Details <span className="text-primary/70">*</span>
+                        <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
+                        Project Details <span className="text-white/70">*</span>
                       </label>
                       <Textarea
                         id="projectDetails"
@@ -354,7 +392,7 @@ function GetQuoteForm() {
                           ? "Describe your project in detail — what you need, scope, any special requirements…"
                           : "Describe your project in detail — scope, size, materials you have in mind, etc…"}
                         rows={5}
-                        className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl transition-colors resize-none"
+                        className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl transition-colors resize-none"
                       />
                     </div>
 
@@ -362,14 +400,14 @@ function GetQuoteForm() {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                       <div>
                         <label htmlFor="timeline" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                          <span className="w-1 h-1 rounded-full bg-silver/30 shrink-0"></span>
+                          <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                           Timeline
                         </label>
                         <select
                           id="timeline"
                           value={formData.timeline}
                           onChange={(e) => handleInputChange("timeline", e.target.value)}
-                          className="w-full px-3 h-11 rounded-xl border bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:outline-none text-white text-sm transition-colors appearance-none"
+                          className="w-full px-3 h-11 rounded-xl border bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:outline-none text-white text-sm transition-colors appearance-none"
                         >
                           <option value="">Select…</option>
                           <option value="ASAP">ASAP</option>
@@ -382,7 +420,7 @@ function GetQuoteForm() {
                       </div>
                       <div>
                         <label htmlFor="budgetMin" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                          <span className="w-1 h-1 rounded-full bg-silver/30 shrink-0"></span>
+                          <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                           Budget Min ($)
                         </label>
                         <Input
@@ -391,12 +429,12 @@ function GetQuoteForm() {
                           placeholder="e.g., 10,000"
                           value={formData.budgetMin}
                           onChange={(e) => handleInputChange("budgetMin", e.target.value)}
-                          className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
                         />
                       </div>
                       <div>
                         <label htmlFor="budgetMax" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
-                          <span className="w-1 h-1 rounded-full bg-silver/30 shrink-0"></span>
+                          <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                           Budget Max ($)
                         </label>
                         <Input
@@ -405,21 +443,57 @@ function GetQuoteForm() {
                           placeholder="e.g., 50,000"
                           value={formData.budgetMax}
                           onChange={(e) => handleInputChange("budgetMax", e.target.value)}
-                          className="bg-white/[0.04] border-silver/15 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
                         />
                       </div>
                     </div>
                     <p className="text-[11px] text-white/25">Timeline and budget are optional — they help us tailor your quote.</p>
 
+                    {/* How did you hear about us */}
+                    <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
+                      <label className="flex items-center gap-1.5 text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-3">
+                        <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
+                        How did you hear about us?
+                      </label>
+                      <div className="flex flex-wrap gap-2">
+                        {["Google Search", "Facebook", "Instagram", "Returning Customer", "Other"].map((option) => (
+                          <button
+                            key={option}
+                            type="button"
+                            onClick={() => {
+                              handleInputChange("referralSource", formData.referralSource === option ? "" : option);
+                              if (option !== "Other") handleInputChange("referralOther", "");
+                            }}
+                            className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${
+                              formData.referralSource === option
+                                ? "border-white/30 bg-white/[0.10] text-white"
+                                : "border-white/[0.08] bg-white/[0.02] text-white/40 hover:border-white/15 hover:text-white/60"
+                            }`}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                      {formData.referralSource === "Other" && (
+                        <Input
+                          placeholder="Tell us how you found us…"
+                          value={formData.referralOther}
+                          onChange={(e) => handleInputChange("referralOther", e.target.value)}
+                          className="mt-3 bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-10 text-sm transition-colors"
+                        />
+                      )}
+                      <p className="text-[10px] text-white/20 mt-2">Optional — helps us improve our service.</p>
+                    </div>
+
                     <div className="flex gap-4 pt-2">
                       <button
                         type="button"
                         onClick={() => setStep("selection")}
-                        className="text-xs font-black text-white/35 hover:text-white uppercase tracking-widest transition-colors px-4 py-2.5 rounded-xl border border-silver/10 hover:border-silver/25"
+                        className="text-xs font-black text-white/35 hover:text-white uppercase tracking-widest transition-colors px-4 py-2.5 rounded-xl border border-white/[0.08] hover:border-white/20"
                       >
                         ← Back
                       </button>
-                      <Button type="submit" disabled={loading} className="btn-premium uppercase tracking-widest text-xs sm:text-sm flex-1 py-3 h-auto">
+                      <Button type="submit" disabled={loading} className="bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full uppercase tracking-widest text-xs sm:text-sm flex-1 py-3 h-auto">
                         {loading ? (
                           <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -437,22 +511,22 @@ function GetQuoteForm() {
 
             {/* Summary */}
             {step === "summary" && (
-              <div className="relative rounded-2xl overflow-hidden border border-primary/20 bg-[#050505] shadow-[0_4px_40px_rgba(0,0,0,0.6)]" style={{ boxShadow: '0 4px 40px rgba(0,0,0,0.6), 0 0 40px hsla(22,100%,63%,0.04)' }}>
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+              <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-[#050505] shadow-[0_4px_40px_rgba(0,0,0,0.6)]" style={{ boxShadow: '0 4px 40px rgba(0,0,0,0.6), 0 0 40px rgba(255,255,255,0.04)' }}>
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                 <div className="p-8 sm:p-10 md:p-12 text-center">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary/[0.10] border border-primary/25 flex items-center justify-center mx-auto mb-6" style={{ boxShadow: '0 0 30px hsla(22,100%,63%,0.12)' }}>
-                    <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/[0.10] border border-white/25 flex items-center justify-center mx-auto mb-6" style={{ boxShadow: '0 0 30px rgba(255,255,255,0.12)' }}>
+                    <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
                   </div>
-                  <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.3em] mb-2">Request Received</p>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white uppercase tracking-tight premium-heading mb-3">
+                  <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-2">Request Received</p>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white uppercase tracking-tight mb-3">
                     Thank You!
                   </h2>
-                  <div className="h-[2px] w-10 bg-gradient-to-r from-transparent via-primary/40 to-transparent mx-auto mb-6 rounded-full"></div>
-                  <div className="max-w-lg mx-auto rounded-xl border border-silver/10 bg-white/[0.03] p-5 sm:p-6 mb-8 text-left">
+                  <div className="h-[2px] w-10 bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto mb-6 rounded-full"></div>
+                  <div className="max-w-lg mx-auto rounded-xl border border-white/[0.08] bg-white/[0.03] p-5 sm:p-6 mb-8 text-left">
                     <p className="text-white/65 leading-relaxed text-sm sm:text-base">{summary}</p>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <Button asChild className="btn-premium uppercase tracking-widest text-xs sm:text-sm px-6 py-3 h-auto">
+                    <Button asChild className="bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full uppercase tracking-widest text-xs sm:text-sm px-6 py-3 h-auto">
                       <a href="/">Return Home</a>
                     </Button>
                     <button
@@ -460,9 +534,9 @@ function GetQuoteForm() {
                         setStep("selection");
                         setSelectedService("");
                         setCustomServiceName("");
-                        setFormData({ name: "", email: "", phone: "", address: "", projectDetails: "", timeline: "", budgetMin: "", budgetMax: "" });
+                        setFormData({ name: "", email: "", phone: "", address: "", projectDetails: "", timeline: "", budgetMin: "", budgetMax: "", referralSource: "", referralOther: "" });
                       }}
-                      className="text-xs font-black text-white/35 hover:text-white uppercase tracking-widest transition-colors px-6 py-3 rounded-md border border-silver/10 hover:border-silver/25"
+                      className="text-xs font-black text-white/35 hover:text-white uppercase tracking-widest transition-colors px-6 py-3 rounded-md border border-white/[0.08] hover:border-white/20"
                     >
                       Request Another Quote
                     </button>
@@ -474,25 +548,25 @@ function GetQuoteForm() {
 
           {/* Sidebar */}
           <div className="space-y-5 lg:block">
-            <div className="relative rounded-2xl overflow-hidden border border-silver/10 bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
-              <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-silver/30 via-silver/10 to-transparent pointer-events-none"></div>
+            <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+              <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/30 via-white/10 to-transparent pointer-events-none"></div>
               <div className="p-5 sm:p-6">
                 <div className="mb-5">
                   <p className="text-[10px] font-black text-white/25 uppercase tracking-[0.2em] mb-1">Why us</p>
-                  <h3 className="text-lg font-display font-black text-white uppercase tracking-tight premium-heading">Why Choose Us?</h3>
-                  <div className="h-[2px] w-8 bg-gradient-to-r from-silver/40 to-transparent mt-2 rounded-full"></div>
+                  <h3 className="text-lg font-display font-black text-white uppercase tracking-tight">Why Choose Us?</h3>
+                  <div className="h-[2px] w-8 bg-gradient-to-r from-white/40 to-transparent mt-2 rounded-full"></div>
                 </div>
                 <div className="space-y-4">
                   {[
                     { title: "Family-Owned Since 1968", sub: "3rd generation of construction expertise" },
                     { title: "Serving Calgary Since 1997", sub: `Over ${new Date().getFullYear() - BRAND_CONFIG.servingSince} years in the community` },
-                    { title: "2,400+ Projects Completed", sub: "Delivered with excellence and care" },
+                    { title: "5,000+ Projects Completed", sub: "Delivered with excellence and care" },
                     { title: "5% Price Beat Guarantee", sub: "We beat any legitimate competitor quote" },
                     { title: BRAND_CONFIG.motto, sub: "We treat every client like family" },
                   ].map((item) => (
                     <div key={item.title} className="flex items-start gap-3">
-                      <span className="mt-[3px] shrink-0 w-4 h-4 rounded-full bg-primary/[0.12] border border-primary/30 flex items-center justify-center">
-                        <span className="w-1 h-1 rounded-full bg-primary block"></span>
+                      <span className="mt-[3px] shrink-0 w-4 h-4 rounded-full bg-white/[0.12] border border-white/30 flex items-center justify-center">
+                        <span className="w-1 h-1 rounded-full bg-white block"></span>
                       </span>
                       <div>
                         <p className="text-sm font-black text-white leading-tight">{item.title}</p>
@@ -504,9 +578,32 @@ function GetQuoteForm() {
               </div>
             </div>
 
-            <div className="hidden sm:block">
-              <AIChatAssistant />
+            {/* Current Deals */}
+            <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+              <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/50 via-white/20 to-transparent pointer-events-none"></div>
+              <div className="p-5 sm:p-6">
+                <div className="mb-4">
+                  <p className="text-[10px] font-black text-white/50 uppercase tracking-[0.2em] mb-1">Current Deals</p>
+                  <h3 className="text-lg font-display font-black text-white uppercase tracking-tight">Save More</h3>
+                  <div className="h-[2px] w-8 bg-gradient-to-r from-white/40 to-transparent mt-2 rounded-full"></div>
+                </div>
+                <div className="space-y-3">
+                  <a href="/get-quote/basement" className="block p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
+                    <p className="text-sm font-bold text-white">15% Off Basements</p>
+                    <p className="text-xs text-white/30 mt-0.5">Full turnkey development — limited time</p>
+                  </a>
+                  <a href="/get-quote/bundle" className="block p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
+                    <p className="text-sm font-bold text-white">15% Off Bundles</p>
+                    <p className="text-xs text-white/30 mt-0.5">Combine 2+ services and save</p>
+                  </a>
+                  <a href="/get-quote/supplier-deals" className="block p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
+                    <p className="text-sm font-bold text-white">10% Seasonal Specials</p>
+                    <p className="text-xs text-white/30 mt-0.5">Painting, flooring & carpentry</p>
+                  </a>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -518,7 +615,7 @@ export default function GetQuotePage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <Loader2 className="h-8 w-8 text-silver animate-spin" />
+        <Loader2 className="h-8 w-8 text-white/50 animate-spin" />
       </div>
     }>
       <GetQuoteForm />

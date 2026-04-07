@@ -3,8 +3,8 @@ import { BRAND_CONFIG } from "@/lib/utils";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pcnd.ca";
 
 export const metadata = {
-  title: `Get a Quote | ${BRAND_CONFIG.shortName}`,
-  description: `Request a free construction quote from PCND. Calgary flooring, cabinets, countertops, basements & more. Family-owned, expect only the best.`,
+  title: `Free Quote | Calgary Construction | ${BRAND_CONFIG.shortName}`,
+  description: `Get a free Calgary construction quote from PCND. Flooring, cabinets, countertops, basements, showers & more. Family-owned contractors since 1968.`,
   alternates: { canonical: `${SITE_URL}/get-quote` },
 };
 

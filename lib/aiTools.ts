@@ -5,7 +5,7 @@ import { getChatSystemPrompt } from "./chatPrompt";
 /**
  * AI Tools Library
  * Provides AI-powered functions for lead generation, estimation, and project planning
- * All functions gracefully degrade if OpenAI is not configured
+ * All functions gracefully degrade if Anthropic is not configured
  */
 
 export interface ChatConversation {

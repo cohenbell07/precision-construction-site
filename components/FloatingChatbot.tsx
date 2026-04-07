@@ -2,9 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Send, X, MessageCircle, Loader2 } from "lucide-react";
 import type { ChatConversation } from "@/lib/aiTools";
 import { BRAND_CONFIG } from "@/lib/utils";
@@ -20,20 +17,18 @@ export function FloatingChatbot() {
   const [projectDetails, setProjectDetails] = useState<any>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Initialize conversation with greeting
   useEffect(() => {
     if (isOpen && conversation.length === 0) {
       setConversation([
         {
           role: "assistant",
-          content: "Hi! I'm here to help with your construction project. What kind of project are you planning?",
+          content: "Hey! Planning a reno or build? I can help you figure out scope, pricing, and next steps. What are you working on?",
           timestamp: new Date(),
         },
       ]);
     }
   }, [isOpen, conversation.length]);
 
-  // Auto-scroll to bottom only when chat is open (avoid scrolling the whole page)
   useEffect(() => {
     if (isOpen && conversation.length > 0) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -52,7 +47,6 @@ export function FloatingChatbot() {
     setLoading(true);
 
     try {
-      // Send to API for AI processing
       const response = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -69,23 +63,18 @@ export function FloatingChatbot() {
           ...prev,
           { role: "assistant", content: data.response, timestamp: new Date() },
         ]);
-
-        // Update project details if provided
         if (data.projectDetails) {
           setProjectDetails((prev: any) => ({ ...prev, ...data.projectDetails }));
         }
-
-        // Check if we should collect contact info
         if (data.shouldCollectContact) {
           setCollectingContact(true);
         }
       } else {
-        // Fallback response
         setConversation((prev) => [
           ...prev,
           {
             role: "assistant",
-            content: "Thanks for your interest! Would you like to provide your contact information so we can follow up?",
+            content: "I'd love to help you get a quote on this. Drop your contact info below and we'll follow up within 24 hours!",
             timestamp: new Date(),
           },
         ]);
@@ -93,12 +82,11 @@ export function FloatingChatbot() {
       }
     } catch (error) {
       console.error("Chat error:", error);
-      const contactMsg = `I'm having trouble right now. Please contact us directly at ${BRAND_CONFIG.contact.email} or visit our contact page.`;
       setConversation((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: contactMsg,
+          content: `I'm having a moment — reach us directly at ${BRAND_CONFIG.contact.phoneFormatted} or visit our contact page.`,
           timestamp: new Date(),
         },
       ]);
@@ -108,10 +96,7 @@ export function FloatingChatbot() {
   };
 
   const handleContactSubmit = async () => {
-    if (!contactInfo.email) {
-      alert("Please provide at least your email address");
-      return;
-    }
+    if (!contactInfo.email) return;
 
     setLoading(true);
     try {
@@ -134,7 +119,7 @@ export function FloatingChatbot() {
           ...prev,
           {
             role: "assistant",
-            content: "Thank you! We've received your information and will contact you within 24 hours.",
+            content: "You're all set! We'll be in touch within 24 hours with next steps. Thanks for reaching out!",
             timestamp: new Date(),
           },
         ]);
@@ -145,7 +130,7 @@ export function FloatingChatbot() {
           ...prev,
           {
             role: "assistant",
-            content: "Something went wrong. Please try again or contact us directly.",
+            content: "Something went wrong on our end. Try again or call us directly — we're happy to help.",
             timestamp: new Date(),
           },
         ]);
@@ -156,7 +141,7 @@ export function FloatingChatbot() {
         ...prev,
         {
           role: "assistant",
-          content: "Something went wrong. Please try again or contact us directly.",
+          content: "Something went wrong on our end. Try again or call us directly — we're happy to help.",
           timestamp: new Date(),
         },
       ]);
@@ -169,132 +154,132 @@ export function FloatingChatbot() {
     <>
       {/* Floating Button */}
       <button
-        className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl silver-3d-button text-black shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
+        className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white text-black shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-200"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Open chat"
       >
         {isOpen ? (
-          <X className="h-6 w-6" />
+          <X className="h-5 w-5 sm:h-6 sm:w-6" />
         ) : (
-          <MessageCircle className="h-6 w-6" />
+          <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />
         )}
       </button>
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 max-w-sm sm:max-w-none">
-            <Card className="card-premium border-silver/40 h-[500px] sm:h-[580px] max-h-[calc(100vh-7rem)] flex flex-col rounded-2xl shadow-2xl">
-              <CardHeader className="pb-3 border-b border-silver/30">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg font-bold text-text-primary uppercase tracking-wide">
-                    AI Assistant
-                  </CardTitle>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsOpen(false)}
-                    className="h-6 w-6"
+        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px]">
+          <div className="rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0A0A0A] shadow-[0_8px_40px_rgba(0,0,0,0.7)] h-[480px] sm:h-[540px] max-h-[calc(100vh-7rem)] flex flex-col">
+
+            {/* Header */}
+            <div className="px-5 py-4 border-b border-white/[0.06] bg-[#050505] flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-green-500 shrink-0" />
+                <div>
+                  <p className="text-sm font-display font-bold text-white uppercase tracking-wide">Project Helper</p>
+                  <p className="text-[10px] text-white/30">Online now — ask us anything</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="w-7 h-7 rounded-full bg-white/[0.05] hover:bg-white/[0.10] flex items-center justify-center transition-colors"
+              >
+                <X className="h-3.5 w-3.5 text-white/50" />
+              </button>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+              {conversation.map((msg, idx) => (
+                <div
+                  key={idx}
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[82%] rounded-2xl px-4 py-2.5 ${
+                      msg.role === "user"
+                        ? "bg-white text-black rounded-br-sm"
+                        : "bg-white/[0.05] border border-white/[0.06] text-white/70 rounded-bl-sm"
+                    }`}
                   >
-                    <X className="h-4 w-4" />
-                  </Button>
+                    <p className="text-[13px] leading-relaxed">{msg.content}</p>
+                  </div>
                 </div>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col p-4 overflow-hidden">
-                {/* Messages */}
-                <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2">
-                  {conversation.map((msg, idx) => (
-                    <div
-                      key={idx}
-                      className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-                    >
-                      <div
-                        className={`max-w-[80%] rounded-xl p-3 ${
-                          msg.role === "user"
-                            ? "silver-3d-button text-black"
-                            : "card-premium text-text-primary border-silver/20"
-                        }`}
-                      >
-                        <p className="text-sm leading-relaxed">{msg.content}</p>
-                      </div>
-                    </div>
-                  ))}
-                  {loading && (
-                    <div className="flex justify-start">
-                      <div className="card-premium rounded-xl p-3 border-silver/20">
-                        <Loader2 className="h-4 w-4 animate-spin text-silver" />
-                      </div>
-                    </div>
-                  )}
-                  <div ref={messagesEndRef} />
-                </div>
-
-                {/* Contact Form (if collecting) */}
-                {collectingContact && (
-                  <div className="mb-4 p-4 card-premium border-silver/40 rounded-xl shadow-lg">
-                    <p className="text-sm font-semibold text-text-primary mb-3 uppercase">
-                      Get a Free Consultation
-                    </p>
-                    <div className="space-y-2">
-                      <Input
-                        placeholder="Your name"
-                        value={contactInfo.name}
-                        onChange={(e) => setContactInfo({ ...contactInfo, name: e.target.value })}
-                        className="bg-industrial-slate/90 border-silver/30"
-                      />
-                      <Input
-                        type="email"
-                        placeholder="Email *"
-                        value={contactInfo.email}
-                        onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
-                        className="bg-industrial-slate/90 border-silver/30"
-                        required
-                      />
-                      <Input
-                        type="tel"
-                        placeholder="Phone (optional)"
-                        value={contactInfo.phone}
-                        onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
-                        className="bg-industrial-slate/90 border-silver/30"
-                      />
-                      <Button
-                        onClick={handleContactSubmit}
-                        disabled={loading || !contactInfo.email}
-                        className="w-full btn-premium font-bold"
-                      >
-                        Submit
-                      </Button>
+              ))}
+              {loading && (
+                <div className="flex justify-start">
+                  <div className="bg-white/[0.05] border border-white/[0.06] rounded-2xl rounded-bl-sm px-4 py-3">
+                    <div className="flex gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white/30 animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-white/30 animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-white/30 animate-bounce" style={{ animationDelay: "300ms" }} />
                     </div>
                   </div>
-                )}
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
 
-                {/* Message Input */}
-                {!collectingContact && (
-                  <div className="flex gap-2">
-                    <Input
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                      placeholder="Type your message..."
-                      className="flex-1 bg-industrial-slate/90 border-silver/30"
-                    />
-                    <Button
-                      onClick={handleSend}
-                      disabled={loading || !message.trim()}
-                      className="btn-premium"
-                    >
-                      {loading ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        <Send className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+            {/* Contact Form */}
+            {collectingContact && (
+              <div className="px-4 pb-3 shrink-0">
+                <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 space-y-2.5">
+                  <p className="text-xs font-bold text-white/60 uppercase tracking-wider">Get Your Free Quote</p>
+                  <input
+                    placeholder="Name"
+                    value={contactInfo.name}
+                    onChange={(e) => setContactInfo({ ...contactInfo, name: e.target.value })}
+                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email *"
+                    value={contactInfo.email}
+                    onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
+                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                    required
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Phone (optional)"
+                    value={contactInfo.phone}
+                    onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
+                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                  />
+                  <button
+                    onClick={handleContactSubmit}
+                    disabled={loading || !contactInfo.email}
+                    className="w-full bg-white text-black py-2.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors disabled:opacity-40"
+                  >
+                    Send My Info
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Message Input */}
+            {!collectingContact && (
+              <div className="px-4 pb-4 pt-2 border-t border-white/[0.04] shrink-0">
+                <div className="flex gap-2">
+                  <input
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                    placeholder="Ask about your project..."
+                    className="flex-1 px-4 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                  />
+                  <button
+                    onClick={handleSend}
+                    disabled={loading || !message.trim()}
+                    className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-white/90 transition-colors disabled:opacity-40 shrink-0"
+                  >
+                    <Send className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </>
   );
 }
-

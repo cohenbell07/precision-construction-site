@@ -50,6 +50,37 @@ export const deals: Deal[] = [
 
 export const serviceDeals = deals;
 
+/** Which service IDs each deal applies to. Empty = applies to all (bundle). */
+const dealServiceMap: Record<string, string[]> = {
+  basement: ["basements"],
+  bundle: [], // any 2+ services
+  supplier: ["painting", "flooring", "carpentry", "showers", "drywall", "countertops"],
+};
+
+export const PRICE_BEAT_GUARANTEE =
+  "5% Price Beat Guarantee — send us any competitor quote and we'll beat it by at least 5%.";
+
+/** Get deals that apply to a specific service ID. */
+export function getDealsForService(serviceId: string): Deal[] {
+  return deals.filter((deal) => {
+    const ids = dealServiceMap[deal.id] || [];
+    return ids.length === 0 || ids.includes(serviceId);
+  });
+}
+
+/** Generate HTML summary of active deals for admin emails. */
+export function getActiveDealsSummaryForEmail(serviceId: string): string {
+  const applicable = getDealsForService(serviceId);
+  const dealLines = applicable
+    .map((d) => `<li><strong>${d.discount} — ${d.name}</strong>: ${d.description.split(".")[0]}.</li>`)
+    .join("");
+  const pricebeat = `<li>${PRICE_BEAT_GUARANTEE}</li>`;
+  return `<div style="margin-top:16px;padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;">
+    <p style="margin:0 0 4px;font-weight:bold;color:#166534;">${applicable.length > 0 ? "Active Deals for This Service" : "Active Promotions"}</p>
+    <ul style="margin:0;padding-left:18px;color:#15803d;">${dealLines}${pricebeat}</ul>
+  </div>`;
+}
+
 /** Format deals for the AI chat system prompt. */
 export function getDealsForChatPrompt(): string {
   return deals

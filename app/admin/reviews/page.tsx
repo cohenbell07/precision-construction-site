@@ -191,7 +191,7 @@ export default function AdminReviewsPage() {
                 placeholder="Password"
                 className="bg-[#2E2E2E] border-[#3A3A3A] text-white"
               />
-              <Button type="submit" disabled={authLoading} className="w-full bg-gold hover:bg-gold-dark text-[#101820] font-semibold">
+              <Button type="submit" disabled={authLoading} className="w-full bg-white hover:bg-white-dark text-black font-semibold">
                 {authLoading ? "Checking..." : "Unlock"}
               </Button>
             </form>
@@ -227,7 +227,7 @@ export default function AdminReviewsPage() {
   const renderStars = (rating: number | null) => {
     if (!rating) return <span className="text-gray-600">—</span>;
     return (
-      <span className="text-gold">
+      <span className="text-white">
         {"★".repeat(rating)}
         <span className="text-gray-600">{"★".repeat(5 - rating)}</span>
       </span>
@@ -310,7 +310,7 @@ export default function AdminReviewsPage() {
                 <select
                   value={formData.projectType}
                   onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                  className="w-full h-10 rounded-md bg-[#2E2E2E] border border-[#3A3A3A] text-white px-3 text-sm focus:outline-none focus:border-gold"
+                  className="w-full h-10 rounded-md bg-[#2E2E2E] border border-[#3A3A3A] text-white px-3 text-sm focus:outline-none focus:border-white/30"
                 >
                   <option value="">Select project type</option>
                   {PROJECT_TYPES.map((type) => (
@@ -334,7 +334,7 @@ export default function AdminReviewsPage() {
             <Button
               type="submit"
               disabled={submitting}
-              className="bg-gold hover:bg-gold-dark text-[#101820] font-semibold"
+              className="bg-white hover:bg-white-dark text-black font-semibold"
             >
               {submitting ? "Sending..." : "Send Feedback Request"}
             </Button>
@@ -364,7 +364,7 @@ export default function AdminReviewsPage() {
                     onClick={() => setStatusFilter(filter)}
                     className={`px-3 py-1 text-xs rounded-full border transition-colors ${
                       statusFilter === filter
-                        ? "bg-gold/20 text-gold border-gold"
+                        ? "bg-white/20 text-white border-white/30"
                         : "bg-[#2E2E2E] text-gray-400 border-[#3A3A3A] hover:border-[#4A4A4A]"
                     }`}
                   >

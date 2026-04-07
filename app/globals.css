@@ -12,19 +12,19 @@
     --card-foreground: 0 0% 100%;
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 100%;
-    --primary: 22 100% 63%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 91%;
+    --primary-foreground: 0 0% 4%;
     --secondary: 0 0% 18%;
     --secondary-foreground: 0 0% 100%;
     --muted: 0 0% 18%;
     --muted-foreground: 0 0% 69%;
-    --accent: 22 100% 63%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 0 0% 91%;
+    --accent-foreground: 0 0% 4%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 18%;
     --input: 0 0% 18%;
-    --ring: 22 100% 63%;
+    --ring: 0 0% 91%;
     --radius: 0.75rem;
   }
 
@@ -35,8 +35,8 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 43 74% 49%;
-    --primary-foreground: 30 20% 10%;
+    --primary: 0 0% 91%;
+    --primary-foreground: 0 0% 4%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
@@ -47,7 +47,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 43 74% 49%;
+    --ring: 0 0% 91%;
   }
 }
 
@@ -1009,14 +1009,14 @@
   /* Warm orange CTA section glow */
   .cta-warm-bg {
     background:
-      radial-gradient(ellipse at 50% 120%, hsla(22, 100%, 63%, 0.08) 0%, transparent 65%),
+      radial-gradient(ellipse at 50% 120%, rgba(232, 232, 232, 0.06) 0%, transparent 65%),
       #000000;
   }
 
   /* Top accent line for header */
   .header-accent-line {
     height: 2px;
-    background: linear-gradient(90deg, transparent 0%, hsl(22 100% 63% / 0.5) 30%, hsl(22 100% 63% / 0.7) 50%, hsl(22 100% 63% / 0.5) 70%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, hsl(0 0% 91% / 0.5) 30%, hsl(0 0% 91% / 0.7) 50%, hsl(0 0% 91% / 0.5) 70%, transparent 100%);
   }
 
   /* Polished outline button — use instead of raw border-silver/50 classes */
@@ -1069,7 +1069,7 @@
 
   /* Orange accent left-border bar for section variety */
   .accent-bar-left {
-    border-left: 3px solid hsl(22 100% 63% / 0.7);
+    border-left: 3px solid hsl(0 0% 91% / 0.7);
     padding-left: 1rem;
   }
 
@@ -1106,7 +1106,7 @@
   /* Divider with orange tint — for section variety */
   .divider-warm {
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, hsl(22 100% 63% / 0.35) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, hsl(0 0% 91% / 0.35) 50%, transparent 100%);
   }
 
   /* ============================================
@@ -1164,8 +1164,8 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: hsl(22, 100%, 63%);
-    box-shadow: 0 0 6px hsl(22 100% 63% / 0.4);
+    background: hsl(0, 0%, 91%);
+    box-shadow: 0 0 6px hsl(0 0% 91% / 0.4);
   }
 
   .blog-prose ol {
@@ -1190,7 +1190,7 @@
   }
 
   .blog-prose a {
-    color: hsl(22, 100%, 63%);
+    color: hsl(0, 0%, 91%);
     text-decoration: underline;
     text-underline-offset: 3px;
     font-weight: 600;
@@ -1202,16 +1202,88 @@
   }
 
   .blog-prose blockquote {
-    border-left: 3px solid hsl(22 100% 63% / 0.7);
+    border-left: 3px solid hsl(0 0% 91% / 0.7);
     padding-left: 1.25rem;
     margin: 2rem 0;
     color: #C0C0C0;
     font-style: italic;
-    background: hsl(22 100% 63% / 0.04);
+    background: hsl(0 0% 91% / 0.04);
     border-radius: 0 0.5rem 0.5rem 0;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-right: 1rem;
   }
+}
+
+/* ============================================
+   PREMIUM EFFECTS
+   ============================================ */
+
+/* Hero ambient glow */
+.hero-glow {
+  position: absolute;
+  width: 700px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(200, 170, 60, 0.06) 0%, rgba(200, 170, 60, 0.02) 40%, transparent 70%);
+  pointer-events: none;
+  animation: glow-breathe 6s ease-in-out infinite;
+}
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+/* Hero heading shimmer */
+.hero-heading-shimmer {
+  background: linear-gradient(105deg, #808080 0%, #C0C0C0 20%, #F5F5F5 45%, #FFFFFF 50%, #F5F5F5 55%, #C0C0C0 80%, #808080 100%) !important;
+  background-size: 200% 100% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: shimmer 8s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Noise grain overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Spotlight card effect */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: inherit;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.spotlight-card:hover {
+  border-color: rgba(192,192,192,0.2);
+  box-shadow: 0 0 20px rgba(192,192,192,0.06), 0 0 40px rgba(192,192,192,0.03);
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(192,192,192,0.12), transparent);
+}
+.spotlight-card:hover::before {
+  opacity: 1;
 }
 

@@ -13,7 +13,7 @@
    ```
    
    Edit `.env.local` and add your API keys (all optional):
-   - `OPENAI_API_KEY` - For AI chat, instant estimate, and project planner
+   - `ANTHROPIC_API_KEY` - For AI chat, instant estimate, and project planner (Claude)
    - `RESEND_API_KEY` - For email notifications
    - `RESEND_FROM_EMAIL` - Email address to send from
    - `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL
@@ -29,7 +29,7 @@
 
 ## Optional: Supabase Setup
 
-If you want to use Supabase for storing leads and referrals:
+If you want to use Supabase for storing leads:
 
 1. Create a Supabase project at [supabase.com](https://supabase.com)
 2. Run the SQL schema from `supabase-schema.sql` in your Supabase SQL editor
@@ -41,10 +41,10 @@ If you want to use Supabase for storing leads and referrals:
 2. Create an API key
 3. Add `RESEND_API_KEY` and `RESEND_FROM_EMAIL` to `.env.local`
 
-## Optional: AI Features (OpenAI)
+## Optional: AI Features (Claude / Anthropic)
 
-1. Get an API key from [platform.openai.com](https://platform.openai.com)
-2. Add `OPENAI_API_KEY` to `.env.local`
+1. Get an API key from [console.anthropic.com](https://console.anthropic.com)
+2. Add `ANTHROPIC_API_KEY` to `.env.local`
 
 ## Important Notes
 

@@ -16,7 +16,7 @@ export const services: Service[] = [
   {
     id: "flooring",
     title: "Flooring Installation",
-    description: "All types of flooring including LVP, carpet, tile, large format porcelain, and marmoleum. Professional installation with attention to detail.",
+    description: "Professional installation of any flooring type — LVP, tile, carpet, hardwood, and more. We source all materials and handle everything from subfloor prep to final finish.",
     icon: "floor",
     details: [
       "Luxury Vinyl Plank (LVP) installation",
@@ -26,6 +26,7 @@ export const services: Service[] = [
       "Large format porcelain tile",
       "Marmoleum flooring",
       "Professional subfloor preparation",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Expert subfloor preparation ensures longevity",
@@ -64,6 +65,7 @@ export const services: Service[] = [
       "Large Format Porcelain",
       "Marmoleum",
       "Hardwood Alternatives",
+      "Any Custom Material or Finish",
     ],
     faqs: [
       {
@@ -80,7 +82,7 @@ export const services: Service[] = [
       },
       {
         question: "Can you match existing flooring?",
-        answer: "We work with you to find the best match for existing flooring, including color matching and creating seamless transitions between different materials.",
+        answer: "We work with you to find the best match for existing flooring, including color matching and creating seamless transitions between different materials. We can source virtually any material — just let us know what you're looking for.",
       },
     ],
     stats: [
@@ -93,7 +95,7 @@ export const services: Service[] = [
   {
     id: "showers",
     title: "Custom Showers & Steam Showers",
-    description: "Custom-designed showers including luxury steam showers with premium finishes. We create your perfect bathroom retreat.",
+    description: "Custom shower and steam shower design and installation with any tile, stone, or fixture you choose. Full waterproofing and plumbing coordination included.",
     icon: "shower",
     details: [
       "Custom shower design and installation",
@@ -102,6 +104,7 @@ export const services: Service[] = [
       "Accessibility features and grab bars",
       "Waterproofing and sealing",
       "Custom niches and storage",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Complete waterproofing system for leak-free showers",
@@ -139,6 +142,7 @@ export const services: Service[] = [
       "Steam Shower Systems",
       "Premium Fixtures & Hardware",
       "Accessibility Features",
+      "Any Custom Material or Finish",
     ],
     faqs: [
       {
@@ -151,7 +155,7 @@ export const services: Service[] = [
       },
       {
         question: "What's included in waterproofing?",
-        answer: "Complete waterproofing system including membrane installation, proper slope, and sealed penetrations to prevent leaks for years to come.",
+        answer: "Complete waterproofing system including membrane installation, proper slope, and sealed penetrations to prevent leaks for years to come. We can source virtually any material — just let us know what you're looking for.",
       },
       {
         question: "Can you convert an existing bathtub to a shower?",
@@ -168,7 +172,7 @@ export const services: Service[] = [
   {
     id: "countertops",
     title: "Countertops",
-    description: "Premium countertop materials including granite, quartz, porcelain slab, arborite, stainless steel, and natural stone.",
+    description: "Supply and install countertops in any material — granite, quartz, porcelain, marble, stainless steel, and more. We template, fabricate, and install.",
     icon: "countertop",
     details: [
       "Granite countertops",
@@ -178,6 +182,7 @@ export const services: Service[] = [
       "Stainless steel countertops",
       "Natural stone (marble, slate)",
       "Concrete countertops",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Direct relationships with premium suppliers",
@@ -217,6 +222,7 @@ export const services: Service[] = [
       "Natural Marble",
       "Concrete",
       "Butcher Block",
+      "Any Custom Material or Finish",
     ],
     faqs: [
       {
@@ -233,7 +239,7 @@ export const services: Service[] = [
       },
       {
         question: "Can you match existing countertops?",
-        answer: "We work to find the closest match possible. For exact matches, we recommend bringing a sample or photo during consultation.",
+        answer: "We work to find the closest match possible. For exact matches, we recommend bringing a sample or photo during consultation. We can source virtually any material — just let us know what you're looking for.",
       },
     ],
     stats: [
@@ -246,7 +252,7 @@ export const services: Service[] = [
   {
     id: "cabinets",
     title: "Cabinets & Millwork",
-    description: "Custom cabinet designs in any style or color to match your vision. From kitchens to custom closets and Murphy beds.",
+    description: "Custom cabinetry in any style, finish, or configuration. Kitchens, bathrooms, closets, built-ins, and Murphy beds — designed and built to your specs.",
     icon: "cabinet",
     details: [
       "Custom cabinet design (any style or color)",
@@ -256,6 +262,7 @@ export const services: Service[] = [
       "Murphy bed construction",
       "Custom millwork and built-ins",
       "Better pricing than California Closets",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Fully custom designs in any style or color",
@@ -293,6 +300,7 @@ export const services: Service[] = [
       "Soft-Close Hardware",
       "Custom Organizers",
       "Premium Drawer Slides",
+      "Any Custom Material or Finish",
     ],
     faqs: [
       {
@@ -305,7 +313,7 @@ export const services: Service[] = [
       },
       {
         question: "Can you match existing cabinets?",
-        answer: "We work to match existing styles and can refinish or build new cabinets to complement your existing space.",
+        answer: "We work to match existing styles and can refinish or build new cabinets to complement your existing space. We can source virtually any material — just let us know what you're looking for.",
       },
       {
         question: "What's included in the price?",
@@ -322,7 +330,7 @@ export const services: Service[] = [
   {
     id: "carpentry",
     title: "Interior Finishing & Carpentry",
-    description: "Complete interior finishing including trim, baseboards, casing, doors (hollow and solid), and custom built-ins.",
+    description: "Complete interior finishing — trim, baseboards, casing, doors, crown moulding, wainscoting, and custom built-ins. Any profile, any wood species.",
     icon: "carpentry",
     details: [
       "Trim and baseboards",
@@ -332,6 +340,7 @@ export const services: Service[] = [
       "Custom closets",
       "Interior finishing carpentry",
       "Custom storage solutions",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Precision craftsmanship in every detail",
@@ -369,6 +378,7 @@ export const services: Service[] = [
       "Custom Millwork",
       "Premium Hardware",
       "Various Profiles & Styles",
+      "Any Custom Material or Finish",
     ],
     faqs: [
       {
@@ -381,7 +391,7 @@ export const services: Service[] = [
       },
       {
         question: "Can you match existing trim styles?",
-        answer: "We work to match existing profiles and can source or custom-mill trim to match your existing work.",
+        answer: "We work to match existing profiles and can source or custom-mill trim to match your existing work. We can source virtually any material — just let us know what you're looking for.",
       },
       {
         question: "How long does trim installation take?",
@@ -398,7 +408,7 @@ export const services: Service[] = [
   {
     id: "framing",
     title: "Framing",
-    description: "Interior renovation framing, wood framing, and commercial steel stud framing. Expert structural work for your project.",
+    description: "Residential and commercial framing for new builds, renovations, and structural modifications. Wood and steel stud. Permits and inspections handled.",
     icon: "framing",
     details: [
       "Interior renovation framing",
@@ -407,6 +417,7 @@ export const services: Service[] = [
       "Structural modifications",
       "T-bar ceiling installation",
       "Load-bearing wall modifications",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Expert structural knowledge and experience",
@@ -443,6 +454,7 @@ export const services: Service[] = [
       "Engineered Lumber",
       "T-Bar Ceiling Systems",
       "Structural Hardware",
+      "Any Custom Material or Specification",
     ],
     faqs: [
       {
@@ -451,7 +463,7 @@ export const services: Service[] = [
       },
       {
         question: "What's the difference between wood and steel stud framing?",
-        answer: "Wood framing is standard for residential, while steel studs are common in commercial. We're experts in both and will recommend based on your project.",
+        answer: "Wood framing is standard for residential, while steel studs are common in commercial. We're experts in both and will recommend based on your project. We can source virtually any material — just let us know what you're looking for.",
       },
       {
         question: "Can you modify load-bearing walls?",
@@ -472,7 +484,7 @@ export const services: Service[] = [
   {
     id: "drywall",
     title: "Drywall, Taping & Ceiling Texture",
-    description: "Professional drywall installation, taping, mudding, and ceiling texture work. Smooth finishes that make your space shine.",
+    description: "Drywall installation, taping, mudding, and any ceiling texture. Smooth finishes, repairs, patching, and soundproofing options available.",
     icon: "drywall",
     details: [
       "Drywall installation",
@@ -481,6 +493,7 @@ export const services: Service[] = [
       "Smooth finish options",
       "Repair and patching",
       "Soundproofing options",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Flawless finish with professional techniques",
@@ -517,11 +530,12 @@ export const services: Service[] = [
       "Soundproofing Drywall",
       "Various Texture Materials",
       "Premium Joint Compound",
+      "Any Custom Material or Finish",
     ],
     faqs: [
       {
         question: "What texture options do you offer?",
-        answer: "We offer smooth, orange peel, knockdown, skip trowel, and custom textures. We'll show you samples during consultation.",
+        answer: "We offer smooth, orange peel, knockdown, skip trowel, and custom textures. We'll show you samples during consultation. We can source virtually any material — just let us know what you're looking for.",
       },
       {
         question: "How long does drywall work take?",
@@ -546,7 +560,7 @@ export const services: Service[] = [
   {
     id: "painting",
     title: "Interior & Exterior Painting",
-    description: "Professional painting services including all types of painting, specialty coatings, and waterproofing solutions.",
+    description: "Interior and exterior painting, staining, specialty coatings, and waterproofing. We work with all premium paint brands and finishes.",
     icon: "paint",
     details: [
       "Interior painting",
@@ -555,6 +569,7 @@ export const services: Service[] = [
       "Waterproofing and sealants",
       "Color consultation",
       "Surface preparation and priming",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Expert surface preparation for lasting results",
@@ -591,6 +606,7 @@ export const services: Service[] = [
       "Specialty Coatings",
       "Primers & Sealers",
       "Waterproofing Solutions",
+      "Any Custom Material or Finish",
     ],
     faqs: [
       {
@@ -603,7 +619,7 @@ export const services: Service[] = [
       },
       {
         question: "What paint brands do you use?",
-        answer: "We use premium paint brands and can work with your preferred brand. We'll recommend the best products for your project.",
+        answer: "We use premium paint brands and can work with your preferred brand. We'll recommend the best products for your project. We can source virtually any material — just let us know what you're looking for.",
       },
       {
         question: "Do you handle wallpaper removal?",
@@ -620,7 +636,7 @@ export const services: Service[] = [
   {
     id: "basements",
     title: "Basement Developments",
-    description: "Complete basement finishing and development services. Transform your basement into usable living space.",
+    description: "Full basement development from bare concrete to finished living space. We handle permits, framing, electrical, plumbing, drywall, flooring, and all finishes.",
     icon: "basement",
     details: [
       "Basement finishing",
@@ -629,6 +645,7 @@ export const services: Service[] = [
       "Full basement development",
       "Permits and inspections",
       "Electrical and plumbing rough-ins",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Complete turnkey basement development",
@@ -665,6 +682,7 @@ export const services: Service[] = [
       "Insulation & Vapor Barriers",
       "Premium Flooring Options",
       "Custom Lighting Solutions",
+      "Any Custom Material or Finish",
     ],
     faqs: [
       {
@@ -677,7 +695,7 @@ export const services: Service[] = [
       },
       {
         question: "What about moisture issues?",
-        answer: "We thoroughly assess and address moisture issues before finishing, including proper waterproofing and drainage solutions.",
+        answer: "We thoroughly assess and address moisture issues before finishing, including proper waterproofing and drainage solutions. We can source virtually any material — just let us know what you're looking for.",
       },
       {
         question: "Can you add a bathroom or kitchenette?",
@@ -694,7 +712,7 @@ export const services: Service[] = [
   {
     id: "garages",
     title: "Garages, Decks & Fences",
-    description: "Garage construction, deck building, and fence installation. Quality outdoor structures built to last.",
+    description: "Garage construction, decks, fences, pergolas, and outdoor structures. Built to last with any material you choose.",
     icon: "garage",
     details: [
       "Garage construction",
@@ -703,6 +721,7 @@ export const services: Service[] = [
       "Outdoor structures",
       "Permits and planning",
       "Material selection and consultation",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Built to last with quality materials",
@@ -739,6 +758,7 @@ export const services: Service[] = [
       "Cedar & Premium Woods",
       "Vinyl & Aluminum Fencing",
       "Metal & Chain Link Options",
+      "Any Custom Material or Finish",
     ],
     faqs: [
       {
@@ -747,7 +767,7 @@ export const services: Service[] = [
       },
       {
         question: "What materials do you recommend for decks?",
-        answer: "We recommend pressure-treated lumber for budget-friendly options, or composite decking for low-maintenance luxury. We'll discuss all options.",
+        answer: "We recommend pressure-treated lumber for budget-friendly options, or composite decking for low-maintenance luxury. We'll discuss all options. We can source virtually any material — just let us know what you're looking for.",
       },
       {
         question: "How long does deck construction take?",
@@ -763,87 +783,12 @@ export const services: Service[] = [
       { label: "Decks Constructed", value: "180+" },
       { label: "Satisfaction Rate", value: "97%" },
     ],
-    relatedServices: ["framing", "renovations", "stone"],
-  },
-  {
-    id: "stone",
-    title: "Natural Stone & Stone Setting",
-    description: "Expert natural stone installation including marble, granite, slate, and custom stone setting for countertops and surfaces.",
-    icon: "stone",
-    details: [
-      "Marble installation",
-      "Granite installation",
-      "Slate installation",
-      "Natural stone countertops",
-      "Stone setting and fabrication",
-      "Custom stone work",
-    ],
-    benefits: [
-      "Expert stone selection and sourcing",
-      "Precision cutting and fabrication",
-      "Professional installation techniques",
-      "Sealing and maintenance guidance",
-      "Custom stone work available",
-    ],
-    process: [
-      {
-        step: 1,
-        title: "Stone Selection",
-        description: "We help you select the perfect stone from our premium suppliers, considering durability, maintenance, and aesthetics.",
-      },
-      {
-        step: 2,
-        title: "Templating & Fabrication",
-        description: "Precise templating and expert fabrication including cutting, edge work, and polishing.",
-      },
-      {
-        step: 3,
-        title: "Installation",
-        description: "Professional installation with proper support, leveling, and seamless joint work.",
-      },
-      {
-        step: 4,
-        title: "Sealing & Care Instructions",
-        description: "Proper sealing (where required) and detailed care instructions to maintain your stone's beauty.",
-      },
-    ],
-    materials: [
-      "Marble",
-      "Granite",
-      "Slate",
-      "Quartzite",
-      "Limestone",
-      "Travertine",
-    ],
-    faqs: [
-      {
-        question: "How do I maintain natural stone?",
-        answer: "We provide detailed care instructions. Most natural stone requires periodic sealing. We'll explain maintenance based on your specific stone.",
-      },
-      {
-        question: "What's the difference between marble and granite?",
-        answer: "Marble is softer and more porous, requiring more care. Granite is harder and more durable. We'll help you choose based on your needs.",
-      },
-      {
-        question: "Can you repair damaged stone?",
-        answer: "Yes, we provide stone repair services including polishing, filling, and restoration to bring damaged stone back to life.",
-      },
-      {
-        question: "How long does stone installation take?",
-        answer: "From selection to installation typically takes 3-4 weeks including fabrication time. We provide detailed timelines.",
-      },
-    ],
-    stats: [
-      { label: "Stone Projects", value: "240+" },
-      { label: "Stone Types Available", value: "20+" },
-      { label: "Satisfaction Rate", value: "99%" },
-    ],
-    relatedServices: ["countertops", "showers", "renovations"],
+    relatedServices: ["framing", "renovations"],
   },
   {
     id: "renovations",
     title: "Home Additions & Full Home Renovations",
-    description: "Complete home renovations and additions. From single rooms to full home transformations, we handle it all.",
+    description: "Complete home renovations and additions — single rooms to full home transformations. We coordinate all trades and handle every detail start to finish.",
     icon: "renovation",
     details: [
       "Home additions",
@@ -852,6 +797,7 @@ export const services: Service[] = [
       "Bathroom renovations",
       "Multi-room renovations",
       "Project management",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Complete project management",
@@ -887,6 +833,7 @@ export const services: Service[] = [
       "Premium Finishes",
       "Custom Solutions",
       "Energy-Efficient Options",
+      "Any Custom Material or Finish",
     ],
     faqs: [
       {
@@ -895,7 +842,7 @@ export const services: Service[] = [
       },
       {
         question: "Do you handle all trades?",
-        answer: "Yes, we coordinate all trades including plumbing, electrical, HVAC, and more, ensuring seamless project execution.",
+        answer: "Yes, we coordinate all trades including plumbing, electrical, HVAC, and more, ensuring seamless project execution. We can source virtually any material — just let us know what you're looking for.",
       },
       {
         question: "Can I live in my home during renovation?",
@@ -916,7 +863,7 @@ export const services: Service[] = [
   {
     id: "commercial",
     title: "Commercial & Multi-Unit Construction",
-    description: "Extensive experience in commercial construction and multi-unit building projects. We bring the same quality to commercial work.",
+    description: "Commercial construction, tenant improvements, office build-outs, and multi-unit projects. Steel stud framing, T-bar ceilings, and full trade coordination.",
     icon: "commercial",
     details: [
       "Commercial construction",
@@ -925,6 +872,7 @@ export const services: Service[] = [
       "Office build-outs",
       "Retail space construction",
       "Steel stud framing for commercial",
+      "Additional scope available — tell us what you need",
     ],
     benefits: [
       "Commercial construction expertise",
@@ -960,6 +908,7 @@ export const services: Service[] = [
       "Steel Stud Framing",
       "Fire-Rated Materials",
       "Code-Compliant Systems",
+      "Any Custom Material or Specification",
     ],
     faqs: [
       {
@@ -972,7 +921,7 @@ export const services: Service[] = [
       },
       {
         question: "How do you handle code compliance?",
-        answer: "We ensure all work meets commercial building codes, handle all permits, and coordinate with inspectors throughout the project.",
+        answer: "We ensure all work meets commercial building codes, handle all permits, and coordinate with inspectors throughout the project. We can source virtually any material — just let us know what you're looking for.",
       },
       {
         question: "Can you work on occupied buildings?",

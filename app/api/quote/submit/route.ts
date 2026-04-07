@@ -4,6 +4,7 @@ import { sendEmail } from "@/lib/email";
 import { generateAIResponse } from "@/lib/ai";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { env } from "@/lib/env";
+import { getActiveDealsSummaryForEmail, getDealsForService } from "@/lib/deals";
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,11 +14,13 @@ export async function POST(request: NextRequest) {
       email,
       phone,
       serviceTitle,
+      serviceId,
       address,
       projectDetails,
       timeline,
       budgetMin,
       budgetMax,
+      referralSource,
     } = data;
 
     if (!email || !projectDetails) {
@@ -46,6 +49,7 @@ Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `
           name: name || null,
           email,
           phone: phone || null,
+          address: address || null,
           project_type: projectTitle,
           message: projectDescription,
           source: "quote_tool",
@@ -58,7 +62,7 @@ Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `
     // Generate AI summary
     let summary =
       "Thank you for your quote request! We'll review your project details and get back to you within 24 hours with a detailed quote.";
-    if (env.openai.enabled) {
+    if (env.anthropic.enabled) {
       const prompt = `Generate a professional quote summary for a ${projectTitle} project.
       Project details: ${projectDetails}
       Timeline: ${timeline || "Not specified"}
@@ -95,21 +99,32 @@ Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `
         <p>${safe(projectDetails)}</p>
         <p><strong>Timeline:</strong> ${safe(timeline) || "Not specified"}</p>
         <p><strong>Budget Range:</strong> ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `$${budgetMax}` : "Not specified"}</p>
+        ${referralSource ? `<p><strong>How They Found Us:</strong> ${safe(referralSource)}</p>` : ""}
+        ${getActiveDealsSummaryForEmail(serviceId || "")}
       `,
     });
+
+    // Build deal info for customer confirmation
+    const customerDeals = serviceId ? getDealsForService(serviceId) : [];
+    const dealNote = customerDeals.length > 0
+      ? `<p style="margin-top:12px;padding:10px 14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;color:#166534;font-size:14px;">
+          <strong>Good news!</strong> Your selected service qualifies for: ${customerDeals.map(d => `<strong>${d.discount} — ${d.name}</strong>`).join(", ")}. We'll apply the best available deal to your quote.
+        </p>`
+      : "";
 
     // Send confirmation to user
     const confirmResult = await sendEmail({
       to: email,
-      subject: `Thank you for your quote request - ${BRAND_CONFIG.shortName}`,
+      subject: `Your ${safe(projectTitle)} Quote Request - ${BRAND_CONFIG.shortName}`,
       html: `
-        <h2>Thank you for your quote request!</h2>
+        <h2>Thank you for your ${safe(projectTitle)} quote request!</h2>
         <p>Hi ${safe(name) || "there"},</p>
         <p>${safe(summary)}</p>
-        <p>We'll review your request and get back to you within 24 hours.</p>
+        ${dealNote}
+        <p>We'll review your <strong>${safe(projectTitle)}</strong> project details and get back to you within 24 hours with a detailed quote.</p>
         <p><strong>${BRAND_CONFIG.motto}</strong></p>
         <p>We treat every client like family and deliver only the best.</p>
-        <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
+        <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}<br>${BRAND_CONFIG.contact.phoneFormatted}</p>
       `,
     });
 

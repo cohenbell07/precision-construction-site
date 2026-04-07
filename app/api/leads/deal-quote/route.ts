@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getSupabaseClient } from "@/lib/supabase";
 import { sendEmail } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
 import {
   getDealQuoteAdminEmail,
   getDealQuoteConfirmationEmail,
+  getDealQuoteLabels,
   type DealQuoteData,
 } from "@/lib/emailTemplates";
 
@@ -17,6 +19,7 @@ export async function POST(request: NextRequest) {
       phone,
       selectedOptions,
       projectDetails,
+      address,
       timeline,
       budgetMin,
       budgetMax,
@@ -44,6 +47,27 @@ export async function POST(request: NextRequest) {
       budgetMin: budgetMin || undefined,
       budgetMax: budgetMax || undefined,
     };
+
+    // Save to Supabase if configured
+    try {
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        const { label } = getDealQuoteLabels(data);
+        const message = `Selected: ${data.selectedOptions.join(", ")}${data.projectDetails ? `\nDetails: ${data.projectDetails}` : ""}${data.timeline ? `\nTimeline: ${data.timeline}` : ""}${data.budgetMin || data.budgetMax ? `\nBudget: ${data.budgetMin || "—"} to ${data.budgetMax || "—"}` : ""}`;
+        const sourceMap: Record<string, string> = { bundle: "deal_quote_bundle", basement: "deal_quote_basement", supplier: "deal_quote_seasonal" };
+        await supabase.from("leads").insert({
+          name: data.name || null,
+          email: data.email,
+          phone: data.phone || null,
+          address: address || null,
+          project_type: label,
+          message,
+          source: sourceMap[dealType] || `deal_quote_${dealType}`,
+        });
+      }
+    } catch (dbError) {
+      console.error("Supabase save error (non-critical):", dbError);
+    }
 
     const adminEmail = getDealQuoteAdminEmail(data);
     await sendEmail({

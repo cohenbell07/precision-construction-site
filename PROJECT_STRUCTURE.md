@@ -6,12 +6,10 @@ Constructionbusiness/
 │   ├── api/                      # API routes
 │   │   ├── quote/submit/         # Quote form submission
 │   │   ├── products/price-beat/  # Price beat form
-│   │   ├── referral/             # Referral form
 │   │   └── leads/                # Lead submission endpoints
 │   ├── contact/                  # Contact page
 │   ├── get-quote/                # Quote request tool
 │   ├── projects/                 # Project gallery
-│   ├── referral/                 # Refer-a-friend page
 │   ├── services/                 # Services listing
 │   ├── globals.css               # Global styles
 │   ├── layout.tsx                 # Root layout
@@ -59,7 +57,6 @@ Constructionbusiness/
 - **Projects** (`/projects`) - Gallery with lightbox viewer and category filters
 - **Contact** (`/contact`) - Contact form and company information
 - **Get Quote** (`/get-quote`) - Multi-step quote form with AI assistant
-- **Referral** (`/referral`) - Refer-a-friend form
 
 ### AI Features
 - **AI Chat Assistant** - Available on homepage and quote page (floating widget + inline)
@@ -68,7 +65,7 @@ Constructionbusiness/
 - **Project Planner** - AI-powered project planning
 
 ### Integrations (All Optional)
-- **Supabase** - Database for leads and referrals
+- **Supabase** - Database for leads
 - **Resend** - Email notifications
 - **OpenAI** - AI chat and content generation
 

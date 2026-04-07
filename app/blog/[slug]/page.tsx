@@ -26,9 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
   "Renovation Tips": {
-    bg: "rgba(255,107,0,0.1)",
-    text: "hsl(22,100%,63%)",
-    border: "rgba(255,107,0,0.25)",
+    bg: "rgba(255,255,255,0.05)",
+    text: "#E8E8E8",
+    border: "rgba(255,255,255,0.1)",
   },
   "Contractor Advice": {
     bg: "rgba(192,192,192,0.08)",
@@ -54,8 +54,60 @@ export default async function BlogPostPage({ params }: Props) {
   };
   const otherPosts = blogPosts.filter((p) => p.slug !== post.slug);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://www.pcnd.ca/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blog",
+            item: "https://www.pcnd.ca/blog",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.title,
+            item: `https://www.pcnd.ca/blog/${slug}`,
+          },
+        ],
+      },
+      {
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt,
+        datePublished: post.date,
+        author: {
+          "@type": "Organization",
+          name: "Precision Construction & Decora",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Precision Construction & Decora",
+          url: "https://www.pcnd.ca",
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `https://www.pcnd.ca/blog/${slug}`,
+        },
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Post header */}
       <section
         className="pt-32 pb-12 relative"
@@ -87,11 +139,11 @@ export default async function BlogPostPage({ params }: Props) {
             </span>
           </div>
 
-          <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tight leading-none mb-6 premium-heading">
+          <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tight leading-none mb-6">
             {post.title}
           </h1>
 
-          <p className="text-text-muted text-lg leading-relaxed mb-8">{post.excerpt}</p>
+          <p className="text-white/40 text-lg leading-relaxed mb-8">{post.excerpt}</p>
 
           <div className="flex flex-wrap items-center gap-5 text-white/40 text-sm pb-8 border-b border-white/8">
             <span className="flex items-center gap-1.5">
@@ -122,21 +174,21 @@ export default async function BlogPostPage({ params }: Props) {
         <div
           className="px-8 sm:px-12 py-10 text-center rounded-2xl"
           style={{
-            background: "rgba(255,107,0,0.06)",
-            border: "1px solid rgba(255,107,0,0.18)",
+            background: "rgba(255,255,255,0.03)",
+            border: "1px solid rgba(255,255,255,0.06)",
           }}
         >
-          <span className="section-label mb-4 mx-auto block w-fit">Ready to act on this?</span>
-          <p className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight mb-3 premium-heading">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider mb-4 mx-auto block w-fit">Ready to act on this?</span>
+          <p className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight mb-3">
             Get a Free Consultation
           </p>
-          <p className="text-text-muted mb-6 max-w-md mx-auto text-sm leading-relaxed">
+          <p className="text-white/40 mb-6 max-w-md mx-auto text-sm leading-relaxed">
             Talk to Calgary&apos;s most trusted family-owned contractor. We&apos;ll give you an
             honest assessment of your project and a fixed-scope quote — no pressure.
           </p>
           <Link
             href="/get-quote"
-            className="btn-premium inline-flex items-center gap-2 px-7 py-3.5 text-sm rounded-xl"
+            className="bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full inline-flex items-center gap-2 px-7 py-3.5 text-sm rounded-xl"
           >
             Request a Free Quote
             <ArrowRight size={16} strokeWidth={2.5} />

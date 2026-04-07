@@ -1,9 +1,9 @@
 // Safe environment variable access with fallbacks
 
 export const env = {
-  openai: {
-    apiKey: process.env.OPENAI_API_KEY || null,
-    enabled: !!process.env.OPENAI_API_KEY,
+  anthropic: {
+    apiKey: process.env.ANTHROPIC_API_KEY || null,
+    enabled: !!process.env.ANTHROPIC_API_KEY,
   },
   resend: {
     apiKey: process.env.RESEND_API_KEY || null,

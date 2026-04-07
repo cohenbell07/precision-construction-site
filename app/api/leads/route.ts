@@ -43,6 +43,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Send confirmation email to customer
+    if (data.email) {
+      try {
+        await sendEmail({
+          to: data.email,
+          subject: `Thank you for contacting us — ${BRAND_CONFIG.shortName}`,
+          html: `
+            <h2>Thank you for reaching out!</h2>
+            <p>Hi ${escapeHtml(data.name) || "there"},</p>
+            <p>We've received your inquiry${data.projectType ? ` about ${escapeHtml(data.projectType)}` : ""} and will get back to you within 24 hours.</p>
+            <p><strong>${BRAND_CONFIG.motto}</strong></p>
+            <p>We treat every client like family and deliver only the best in service, quality, and satisfaction.</p>
+            <p>If you have any immediate questions, feel free to call us at ${BRAND_CONFIG.contact.phoneFormatted}.</p>
+            <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
+          `,
+        });
+      } catch (confirmError) {
+        console.error("Confirmation email failed (non-critical):", confirmError);
+      }
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error saving lead:", error);

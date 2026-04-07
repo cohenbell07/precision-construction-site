@@ -13,8 +13,8 @@ interface VideoHeroProps {
 /**
  * Optimized Cloudflare Stream video player for hero sections.
  * - Shows poster thumbnail immediately (no black screen while loading)
- * - Starts at lowest quality rendition for fastest initial playback
- * - Adapts quality upward once playing
+ * - Starts at best quality for sharp hero visuals
+ * - Adapts quality based on actual bandwidth
  */
 export function VideoHero({ videoId, className = "w-full h-full object-cover" }: VideoHeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -31,13 +31,12 @@ export function VideoHero({ videoId, className = "w-full h-full object-cover" }:
         const hls = new Hls({
           enableWorker: true,
           lowLatencyMode: false,
-          // Start at lowest quality → fastest initial playback
-          startLevel: 0,
-          // Conservative bandwidth estimate → stays at lower quality initially, avoids stalls
-          abrEwmaDefaultEstimate: 500000,
-          // Smaller initial buffer → starts playing sooner
-          maxBufferLength: 20,
-          maxMaxBufferLength: 30,
+          // Auto-select best quality based on bandwidth
+          startLevel: -1,
+          // Realistic bandwidth estimate (5 Mbps) → picks high quality from the start
+          abrEwmaDefaultEstimate: 5000000,
+          maxBufferLength: 30,
+          maxMaxBufferLength: 60,
         });
         hlsRef.current = hls;
         hls.loadSource(src);
@@ -73,7 +72,7 @@ export function VideoHero({ videoId, className = "w-full h-full object-cover" }:
       // preload="none" — HLS.js handles loading; poster shows immediately
       preload="none"
       // Cloudflare thumbnail shown instantly while HLS loads
-      poster={`${CF_BASE}/${videoId}/thumbnails/thumbnail.jpg?time=1s&height=720`}
+      poster={`${CF_BASE}/${videoId}/thumbnails/thumbnail.jpg?time=1s&height=1080`}
     />
   );
 }

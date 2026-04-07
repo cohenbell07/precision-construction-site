@@ -25,7 +25,6 @@ export function Header() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
-
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ];
@@ -57,7 +56,7 @@ export function Header() {
                 {link.label}
                 <span
                   className={`absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-gradient-to-r from-primary to-primary/30 transition-[width] duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}
-                  style={isActive ? { boxShadow: '0 0 8px hsla(22,100%,63%,0.5)' } : undefined}
+                  style={isActive ? { boxShadow: '0 0 8px rgba(232,232,232,0.3)' } : undefined}
                 ></span>
               </Link>
             );
@@ -96,7 +95,7 @@ export function Header() {
             </div>
           )}
           <div className="hidden md:block">
-            <Button asChild className="btn-premium text-xs px-4 py-2 h-auto uppercase tracking-widest">
+            <Button asChild className="bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full text-xs px-4 py-2 h-auto uppercase tracking-widest">
               <Link href="/get-quote">Request a Quote</Link>
             </Button>
           </div>
@@ -134,7 +133,7 @@ export function Header() {
             })}
 
             <div className="pt-2 pb-1">
-              <Button asChild className="w-full btn-premium uppercase tracking-widest text-xs">
+              <Button asChild className="w-full bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full uppercase tracking-widest text-xs">
                 <Link href="/get-quote" onClick={() => setMobileMenuOpen(false)}>
                   Request a Quote
                 </Link>
