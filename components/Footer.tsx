@@ -32,8 +32,8 @@ export function Footer() {
           <p className="text-[10px] font-bold text-white/25 uppercase tracking-[0.25em]">{BRAND_CONFIG.motto}</p>
           <div className="flex items-center gap-3 text-[10px] text-white/25 font-medium uppercase tracking-widest">
             <span>3rd Generation · Family Owned · Since 1968</span>
-            <span className="hidden sm:inline">·</span>
-            <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="hidden sm:inline hover:text-white/50 transition-colors">
+            <span>·</span>
+            <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="hover:text-white/50 transition-colors">
               {BRAND_CONFIG.contact.phoneFormatted}
             </a>
           </div>
@@ -51,13 +51,13 @@ export function Footer() {
             <p className="text-white/35 text-sm leading-relaxed">{BRAND_CONFIG.tagline}</p>
             <div className="space-y-2.5 text-sm">
               <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-full bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0 mt-0.5">
+                <div className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0 mt-0.5">
                   <MapPin className="h-3.5 w-3.5 text-white/40" />
                 </div>
                 <span className="text-white/40 leading-relaxed pt-1">{BRAND_CONFIG.contact.address}</span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-full bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0">
+                <div className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0">
                   <Phone className="h-3.5 w-3.5 text-white/50" />
                 </div>
                 <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="text-white/60 hover:text-white transition-colors font-semibold">
@@ -65,7 +65,7 @@ export function Footer() {
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-full bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0">
+                <div className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0">
                   <Mail className="h-3.5 w-3.5 text-white/40" />
                 </div>
                 <a href={`mailto:${BRAND_CONFIG.contact.email}`} className="text-white/40 hover:text-white transition-colors break-all text-xs sm:text-sm">
@@ -76,12 +76,12 @@ export function Footer() {
             {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
               <div className="flex items-center gap-2 pt-1">
                 {BRAND_CONFIG.social.facebook && (
-                  <a href={BRAND_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-8 h-8 rounded-full border border-white/[0.06] hover:border-white/20 flex items-center justify-center text-white/30 hover:text-white/60 transition-all">
+                  <a href={BRAND_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full border border-white/[0.06] hover:border-white/20 flex items-center justify-center text-white/30 hover:text-white/60 transition-all">
                     <Facebook className="h-4 w-4" />
                   </a>
                 )}
                 {BRAND_CONFIG.social.instagram && (
-                  <a href={BRAND_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-8 h-8 rounded-full border border-white/[0.06] hover:border-white/20 flex items-center justify-center text-white/30 hover:text-white/60 transition-all">
+                  <a href={BRAND_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full border border-white/[0.06] hover:border-white/20 flex items-center justify-center text-white/30 hover:text-white/60 transition-all">
                     <Instagram className="h-4 w-4" />
                   </a>
                 )}
@@ -99,7 +99,7 @@ export function Footer() {
             <ul className="space-y-1">
               {serviceLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="group flex items-center gap-2 text-sm text-white/35 hover:text-white transition-colors py-1">
+                  <Link href={link.href} className="group flex items-center gap-2 text-sm text-white/35 hover:text-white transition-colors py-2">
                     <ArrowRight className="h-3 w-3 text-white/0 group-hover:text-white/40 -translate-x-1 group-hover:translate-x-0 transition-all duration-200 shrink-0" />
                     {link.label}
                   </Link>
@@ -118,7 +118,7 @@ export function Footer() {
             <ul className="space-y-1">
               {companyLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="group flex items-center gap-2 text-sm text-white/35 hover:text-white transition-colors py-1">
+                  <Link href={link.href} className="group flex items-center gap-2 text-sm text-white/35 hover:text-white transition-colors py-2">
                     <ArrowRight className="h-3 w-3 text-white/0 group-hover:text-white/40 -translate-x-1 group-hover:translate-x-0 transition-all duration-200 shrink-0" />
                     {link.label}
                   </Link>

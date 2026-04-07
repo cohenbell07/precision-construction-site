@@ -53,7 +53,7 @@ export default function Home() {
     <div className="flex flex-col">
 
       {/* ━━━ HERO ━━━ */}
-      <section ref={heroRef} className="relative w-full h-screen min-h-[550px] max-h-[1100px] overflow-hidden bg-black">
+      <section ref={heroRef} className="relative w-full h-[85vh] sm:h-screen min-h-[500px] max-h-[1100px] overflow-hidden bg-black">
         <div className="absolute inset-0">
           <VideoHero videoId="9f32426787cbe2b26a14642463b7b817" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-black/85" />
@@ -115,7 +115,7 @@ export default function Home() {
             ].map((s) => (
               <div key={s.label} className="text-center py-8 sm:py-10">
                 <div className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-1"><AnimatedCounter value={s.val} /></div>
-                <div className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-white/25 font-medium">{s.label}</div>
+                <div className="text-[10px] sm:text-[10px] tracking-[0.15em] uppercase text-white/25 font-medium">{s.label}</div>
               </div>
             ))}
           </div>
@@ -220,7 +220,7 @@ export default function Home() {
               </div>
             </div>
           </Reveal>
-          <div className="flex items-center px-8 sm:px-12 lg:px-16 xl:px-24 py-14 lg:py-20">
+          <div className="flex items-center px-5 sm:px-12 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-20">
             <Reveal delay={0.15}>
               <div>
                 <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Featured</p>

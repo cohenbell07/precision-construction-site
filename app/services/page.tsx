@@ -103,7 +103,7 @@ export default function ServicesPage() {
     <div className="flex flex-col">
 
       {/* ━━━ HERO ━━━ */}
-      <section ref={heroRef} className="relative w-full aspect-[1536/838] sm:aspect-auto sm:h-[60vh] md:h-[65vh] max-h-[650px] overflow-hidden bg-black">
+      <section ref={heroRef} className="relative w-full h-[50vh] sm:h-[60vh] md:h-[65vh] min-h-[300px] max-h-[650px] overflow-hidden bg-black">
         <motion.div style={{ y: heroY }} className="absolute inset-0">
           <Image src="/servicehero.webp" alt="Professional residential and commercial construction services in Calgary by PCND" fill className="object-cover object-center" sizes="100vw" priority />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-black/90" />
@@ -263,7 +263,7 @@ export default function ServicesPage() {
             ].map((s) => (
               <div key={s.label} className="text-center py-8 sm:py-10">
                 <div className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white mb-1"><AnimatedCounter value={s.val} /></div>
-                <div className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-white/20 font-medium">{s.label}</div>
+                <div className="text-[10px] sm:text-[10px] tracking-[0.15em] uppercase text-white/20 font-medium">{s.label}</div>
               </div>
             ))}
           </div>

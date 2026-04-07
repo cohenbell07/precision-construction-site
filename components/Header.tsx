@@ -100,7 +100,7 @@ export function Header() {
             </Button>
           </div>
           <button
-            className="md:hidden text-white/70 hover:text-white transition-colors p-2 -mr-1"
+            className="md:hidden text-white/70 hover:text-white transition-colors p-2.5 -mr-1 w-11 h-11 flex items-center justify-center"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -123,7 +123,7 @@ export function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-3 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${isActive ? 'bg-white/[0.06] text-white border border-silver/15' : 'text-white/55 hover:text-white hover:bg-white/[0.03]'}`}
+                  className={`flex items-center gap-3 py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${isActive ? 'bg-white/[0.06] text-white border border-silver/15' : 'text-white/55 hover:text-white hover:bg-white/[0.03]'}`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors ${isActive ? 'bg-primary' : 'bg-silver/20'}`}></span>
