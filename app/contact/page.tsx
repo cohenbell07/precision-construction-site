@@ -81,38 +81,57 @@ export default function ContactPage() {
         }}></div>
       </div>
       {/* Hero Section */}
-      <section className="relative h-[38vh] sm:h-[48vh] md:h-[55vh] min-h-[280px] sm:min-h-[360px] md:min-h-[420px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[50vh] sm:h-[55vh] md:h-[60vh] min-h-[420px] max-h-[680px] flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
           <Image
             src="/6d86ce69-0210-48e9-ab64-8f0745d631d4.webp"
             alt="Contact Precision Construction & Decora"
             fill
             priority
-            className="object-cover scale-105"
-            quality={90}
+            className="object-cover"
+            quality={85}
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/95"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30"></div>
-          {/* Corner accent marks */}
-          <div className="absolute top-6 left-6 w-10 h-10 border-t-2 border-l-2 rounded-tl pointer-events-none" style={{ borderColor: 'rgba(255,255,255,0.2)' }}></div>
-          <div className="absolute bottom-6 right-6 w-10 h-10 border-b-2 border-r-2 border-white/10 rounded-br pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/95"></div>
+          <div
+            className="absolute inset-0 pointer-events-none opacity-55"
+            style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(196,181,160,0.15) 0%, rgba(0,0,0,0) 55%)" }}
+          ></div>
+          {/* Sandstone corner brackets (on-system) */}
+          <span className="pointer-events-none absolute top-6 left-6 w-5 h-5 border-t border-l border-sandstone/50"></span>
+          <span className="pointer-events-none absolute top-6 right-6 w-5 h-5 border-t border-r border-sandstone/50"></span>
+          <span className="pointer-events-none absolute bottom-6 left-6 w-5 h-5 border-b border-l border-sandstone/50"></span>
+          <span className="pointer-events-none absolute bottom-6 right-6 w-5 h-5 border-b border-r border-sandstone/50"></span>
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
           <div className="text-center">
-            <div className="flex justify-center mb-4 sm:mb-5">
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0 inline-block"></span>
-                Calgary&apos;s Trusted Family Builder · Since 1968
+            <div className="flex justify-center mb-5">
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-sandstone/30 bg-sandstone/10 text-sandstone text-[10px] sm:text-xs font-semibold uppercase tracking-[0.22em] backdrop-blur-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-sandstone animate-pulse inline-block"></span>
+                Calgary&apos;s Family Builder · Since 1968
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black mb-4 sm:mb-5 text-white uppercase tracking-tight px-2">
-              Contact Us
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-hero mb-5 text-white uppercase tracking-wide leading-[0.9]">
+              Let&apos;s Talk
             </h1>
-            <div className="h-[3px] w-14 bg-gradient-to-r from-white/50 to-transparent mx-auto mb-4 sm:mb-5 rounded-full" style={{ boxShadow: '0 0 12px rgba(255,255,255,0.2)' }}></div>
-            <p className="text-sm sm:text-base md:text-lg text-white/75 max-w-xl mx-auto leading-relaxed px-2">
-              We treat every client like family. Tell us about your project and we&apos;ll get back to you within 24 hours.
+            <div className="h-[1.5px] w-16 bg-gradient-to-r from-sandstone via-sandstone/60 to-transparent mx-auto mb-5"></div>
+            <p className="text-base sm:text-lg text-white/75 max-w-xl mx-auto leading-relaxed mb-7 px-2">
+              Tell us about your project. We&apos;ll reply within 24 hours with honest answers — not a sales pitch.
             </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <a
+                href={`tel:${BRAND_CONFIG.contact.phone}`}
+                className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5" /> {BRAND_CONFIG.contact.phoneFormatted}
+              </a>
+              <a
+                href={`mailto:${BRAND_CONFIG.contact.email}`}
+                className="inline-flex items-center gap-2 text-white/80 hover:text-white px-5 py-3 text-sm tracking-wide transition-colors border border-white/20 rounded-full hover:border-sandstone/60 backdrop-blur-sm"
+              >
+                <Mail className="w-3.5 h-3.5" /> Email
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -127,7 +146,7 @@ export default function ContactPage() {
               {/* Header */}
               <div className="mb-6 sm:mb-8">
                 <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-1">Get in touch</p>
-                <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-tight">
                   Send a Message
                 </h2>
                 <div className="h-[3px] w-10 bg-gradient-to-r from-white/50 to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.15)' }}></div>
@@ -231,7 +250,7 @@ export default function ContactPage() {
               <div className="p-6 sm:p-8">
                 <div className="mb-5 sm:mb-6">
                   <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.25em] mb-1">Reach us</p>
-                  <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-tight">
+                  <h2 className="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-tight">
                     Contact Information
                   </h2>
                   <div className="h-[2px] w-8 bg-gradient-to-r from-white/25 to-transparent mt-2.5 rounded-full"></div>
@@ -283,7 +302,7 @@ export default function ContactPage() {
               <div className="p-6 sm:p-8">
                 <div className="mb-5">
                   <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.25em] mb-1">Where we work</p>
-                  <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-tight">
+                  <h2 className="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-tight">
                     Service Areas
                   </h2>
                   <div className="h-[3px] w-8 bg-gradient-to-r from-white/50 to-transparent mt-2.5 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.15)' }}></div>
@@ -315,7 +334,7 @@ export default function ContactPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0 inline-block"></span>
             Free Quote · No Obligation
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-4 sm:mb-5 uppercase tracking-tight mt-5">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-4 sm:mb-5 uppercase tracking-tight mt-5">
             Ready to Get Started?
           </h2>
           <div className="h-px w-24 bg-gradient-to-r from-transparent via-white/15 to-transparent mx-auto mb-5 sm:mb-6"></div>

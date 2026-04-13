@@ -1,5 +1,6 @@
 import { BRAND_CONFIG } from "./utils";
 import { services, getServiceById } from "./services";
+import { deals, PRICE_BEAT_GUARANTEE } from "./deals";
 
 /**
  * Build page-specific context for the chat based on currentPage (pathname).
@@ -69,6 +70,10 @@ export function getChatSystemPrompt(context?: { currentPage?: string }): string 
     .map((s) => `- ${s.title} (${s.id}): ${s.description}`)
     .join("\n");
 
+  const dealsList = deals
+    .map((d) => `- **${d.name}** (${d.discount} off) — ${d.description.split(".")[0]}. → ${d.url}`)
+    .join("\n");
+
   const pageContext = context?.currentPage
     ? buildPageContext(context.currentPage)
     : "";
@@ -87,7 +92,7 @@ You're warm, down-to-earth, and a little witty. Think: the helpful contractor fr
 
 **Tone examples:**
 - Good: "Honestly, LVP is a no-brainer for most Calgary homes — handles the temperature swings way better than hardwood."
-- Good: "Basement renos are kind of our bread and butter. We've done over 500 of them at this point."
+- Good: "Basement renos are kind of our bread and butter. We've done 280+ of them at this point."
 - Bad: "I'd be happy to assist you with your flooring inquiry! 😊"
 - Bad: "As an AI language model, I cannot provide exact pricing."
 
@@ -108,16 +113,16 @@ We use premium materials from trusted brands: Caesarstone, Shaw Flooring, Benjam
 
 ## CURRENT DEALS (mention these proactively when relevant!)
 
-- **15% Off Basement Renovation** — Full turnkey basement development, limited time. → /get-quote/basement
-- **15% Off Bundle & Save** — 15% off when combining 2+ services (e.g. kitchen + bathroom, basement + flooring). → /get-quote/bundle
-- **10% Seasonal Specials** — 10% off painting & drywall, flooring installation, or carpentry & trim. Limited availability. → /get-quote/supplier-deals
+${dealsList}
+
+Plus: ${PRICE_BEAT_GUARANTEE}
 
 **Proactively mention deals when they match** — e.g. if someone mentions a basement project, bring up the 15% off deal naturally. If they're doing multiple things, mention the bundle savings. Don't wait to be asked.
 
 **When to direct where:**
-- Multiple services → /get-quote/bundle (15% off)
 - Basement → /get-quote/basement (15% off)
-- Painting, flooring, or carpentry → /get-quote/supplier-deals (10% off)
+- Multiple services (supply + install combo) → /get-quote/bundle (15% off)
+- Select materials (painting, flooring, carpentry, showers, drywall, countertops) → /get-quote/supplier-deals (10% off)
 - Anything else → /get-quote
 
 ## HOW TO CHAT

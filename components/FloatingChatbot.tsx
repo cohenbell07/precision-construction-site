@@ -154,7 +154,7 @@ export function FloatingChatbot() {
     <>
       {/* Floating Button */}
       <button
-        className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white text-black shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-200"
+        className={`fixed right-4 sm:right-6 sm:bottom-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white text-black shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-200 ${pathname?.startsWith("/services/") && pathname !== "/services" ? "bottom-24" : "bottom-5"}`}
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Open chat"
       >
@@ -167,7 +167,7 @@ export function FloatingChatbot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px]">
+        <div className={`fixed right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] ${pathname?.startsWith("/services/") && pathname !== "/services" ? "bottom-44 sm:bottom-24" : "bottom-24"}`}>
           <div className="rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0A0A0A] shadow-[0_8px_40px_rgba(0,0,0,0.7)] h-[480px] sm:h-[540px] max-h-[calc(100vh-7rem)] flex flex-col">
 
             {/* Header */}
@@ -175,7 +175,7 @@ export function FloatingChatbot() {
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-green-500 shrink-0" />
                 <div>
-                  <p className="text-sm font-display font-bold text-white uppercase tracking-wide">Project Helper</p>
+                  <p className="text-sm font-heading font-bold text-white uppercase tracking-wide">Project Helper</p>
                   <p className="text-[10px] text-white/30">Online now — ask us anything</p>
                 </div>
               </div>
@@ -228,14 +228,14 @@ export function FloatingChatbot() {
                     placeholder="Name"
                     value={contactInfo.name}
                     onChange={(e) => setContactInfo({ ...contactInfo, name: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
                   />
                   <input
                     type="email"
                     placeholder="Email *"
                     value={contactInfo.email}
                     onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
                     required
                   />
                   <input
@@ -243,7 +243,7 @@ export function FloatingChatbot() {
                     placeholder="Phone (optional)"
                     value={contactInfo.phone}
                     onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
                   />
                   <button
                     onClick={handleContactSubmit}
@@ -265,7 +265,7 @@ export function FloatingChatbot() {
                     onChange={(e) => setMessage(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleSend()}
                     placeholder="Ask about your project..."
-                    className="flex-1 px-4 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                    className="flex-1 px-4 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
                   />
                   <button
                     onClick={handleSend}

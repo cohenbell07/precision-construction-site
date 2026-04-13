@@ -1,20 +1,15 @@
 import type { Metadata } from "next";
-import { Inter, Inter_Tight, DM_Serif_Display } from "next/font/google";
+import { Inter, DM_Serif_Display, Bebas_Neue, Montserrat } from "next/font/google";
 import "./globals.css";
 import { LayoutWrapper } from "@/components/LayoutWrapper";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/react";
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-});
-
-const interTight = Inter_Tight({
-  subsets: ["latin"],
-  variable: "--font-inter-tight",
-  display: "swap",
+  preload: true,
 });
 
 const dmSerif = DM_Serif_Display({
@@ -22,6 +17,22 @@ const dmSerif = DM_Serif_Display({
   weight: "400",
   variable: "--font-dm-serif",
   display: "swap",
+  preload: false,
+});
+
+const bebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bebas",
+  display: "swap",
+  preload: true,
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  preload: true,
 });
 
 export const viewport = {
@@ -151,8 +162,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-black">
       <head>
-        <style dangerouslySetInnerHTML={{ __html: `html:not(.hydrated){visibility:hidden;background:#000}html.hydrated{visibility:visible}`}} />
-        <script dangerouslySetInnerHTML={{ __html: `setTimeout(function(){document.documentElement.classList.add("hydrated")},2500)`}} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -208,7 +217,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${interTight.variable} ${dmSerif.variable} font-sans antialiased bg-black`}>
+      <body className={`${inter.variable} ${dmSerif.variable} ${bebasNeue.variable} ${montserrat.variable} font-sans antialiased bg-black`}>
         <LayoutWrapper>{children}</LayoutWrapper>
         <Analytics />
       </body>

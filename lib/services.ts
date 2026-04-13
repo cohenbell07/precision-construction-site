@@ -477,7 +477,7 @@ export const services: Service[] = [
     stats: [
       { label: "Framing Projects", value: "580+" },
       { label: "Commercial Projects", value: "120+" },
-      { label: "Code Compliance", value: "100%" },
+      { label: "Inspections Passed First", value: "99%" },
     ],
     relatedServices: ["drywall", "renovations", "commercial"],
   },
@@ -628,7 +628,7 @@ export const services: Service[] = [
     ],
     stats: [
       { label: "Projects Painted", value: "1,100+" },
-      { label: "Color Consultations", value: "650+" },
+      { label: "Rooms Completed", value: "4,800+" },
       { label: "Satisfaction Rate", value: "98%" },
     ],
     relatedServices: ["drywall", "renovations", "carpentry"],

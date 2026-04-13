@@ -14,35 +14,9 @@ export const metadata: Metadata = {
   },
 };
 
-const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
-  "Renovation Tips": {
-    bg: "rgba(255,255,255,0.05)",
-    text: "#E8E8E8",
-    border: "rgba(255,255,255,0.1)",
-  },
-  "Contractor Advice": {
-    bg: "rgba(192,192,192,0.08)",
-    text: "#E8E8E8",
-    border: "rgba(192,192,192,0.2)",
-  },
-  "Product Guides": {
-    bg: "rgba(34,197,94,0.08)",
-    text: "#86efac",
-    border: "rgba(34,197,94,0.2)",
-  },
-};
-
 function CategoryBadge({ category }: { category: string }) {
-  const colors = categoryColors[category] ?? {
-    bg: "rgba(255,255,255,0.06)",
-    text: "#B0B0B0",
-    border: "rgba(255,255,255,0.1)",
-  };
   return (
-    <span
-      className="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
-      style={{ background: colors.bg, color: colors.text, border: `1px solid ${colors.border}` }}
-    >
+    <span className="inline-block text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1 rounded-full bg-white/[0.05] text-white/50 border border-white/[0.08]">
       {category}
     </span>
   );
@@ -54,26 +28,15 @@ export default function BlogPage() {
   return (
     <>
       {/* Hero */}
-      <section
-        className="pt-32 pb-16 relative"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(16,24,32,0.98) 0%, rgba(0,0,0,1) 100%)",
-        }}
-      >
-        <div className="divider-warm absolute top-0 inset-x-0" />
+      <section className="pt-32 pb-16 bg-black relative">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider mb-5 block w-fit">
+          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-5">
             Precision Construction &amp; Decora Blog
-          </span>
-          <h1 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight leading-none mb-5">
-            Built to Last.
-            <br />
-            <span style={{ color: "#E8E8E8", WebkitTextFillColor: "#E8E8E8" }}>
-              Built to Know.
-            </span>
+          </p>
+          <h1 className="font-hero uppercase tracking-wide text-5xl sm:text-6xl lg:text-7xl leading-[0.95] mb-5 hero-heading-shimmer">
+            Built to Last.<br />Built to Know.
           </h1>
-          <p className="text-white/40 text-lg sm:text-xl max-w-2xl leading-relaxed">
+          <p className="text-white/40 text-base sm:text-lg max-w-2xl leading-relaxed">
             Honest renovation guides, contractor advice, and product comparisons from Calgary&apos;s
             most trusted family-owned construction company.
           </p>
@@ -81,31 +44,26 @@ export default function BlogPage() {
       </section>
 
       {/* Posts */}
-      <section className="py-16 bg-black">
+      <section className="py-16 bg-[#0A0A0A]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
           {/* Featured post */}
           <Link href={`/blog/${featured.slug}`} className="group block">
-            <article
-              className="p-8 sm:p-10 rounded-2xl border border-white/10 hover:border-primary/35 transition-all duration-300 shadow-[0_4px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.6),0_0_30px_rgba(255,255,255,0.04)]"
-              style={{
-                background: "linear-gradient(135deg, rgba(31,31,31,0.9) 0%, rgba(16,16,16,0.9) 100%)",
-              }}
-            >
+            <article className="p-8 sm:p-10 rounded-2xl border border-white/[0.06] hover:border-sandstone/20 transition-all duration-300 bg-white/[0.02]">
               <div className="flex flex-wrap items-center gap-3 mb-5">
                 <CategoryBadge category={featured.category} />
-                <span className="text-white/30 text-xs font-semibold uppercase tracking-wider">
+                <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-sandstone/40 bg-sandstone/[0.06] px-2.5 py-0.5 rounded-full">
                   Featured
                 </span>
               </div>
-              <p className="font-display font-black text-2xl sm:text-3xl text-white mb-3 group-hover:text-primary transition-colors duration-200 uppercase tracking-tight leading-snug">
+              <h2 className="font-heading font-black text-2xl sm:text-3xl text-white mb-3 group-hover:text-white/80 transition-colors duration-200 uppercase tracking-tight leading-snug">
                 {featured.title}
-              </p>
-              <p className="text-white/40 text-base leading-relaxed mb-6 max-w-3xl">
+              </h2>
+              <p className="text-white/35 text-base leading-relaxed mb-6 max-w-3xl">
                 {featured.excerpt}
               </p>
               <div className="flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-4 text-white/40 text-sm">
+                <div className="flex items-center gap-4 text-white/30 text-sm">
                   <span className="flex items-center gap-1.5">
                     <Calendar size={13} />
                     {featured.date}
@@ -115,7 +73,7 @@ export default function BlogPage() {
                     {featured.readTime}
                   </span>
                 </div>
-                <span className="flex items-center gap-1.5 text-primary text-sm font-bold group-hover:gap-2.5 transition-all duration-200 uppercase tracking-wider">
+                <span className="flex items-center gap-1.5 text-sandstone/60 group-hover:text-sandstone text-sm font-bold group-hover:gap-2.5 transition-all duration-200 uppercase tracking-wider">
                   Read Article <ArrowRight size={14} />
                 </span>
               </div>
@@ -126,26 +84,23 @@ export default function BlogPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {rest.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
-                <article
-                  className="h-full p-6 rounded-2xl border border-white/[0.07] hover:border-primary/25 transition-all duration-300 shadow-[0_2px_16px_rgba(0,0,0,0.3)]"
-                  style={{ background: "rgba(255,255,255,0.025)" }}
-                >
+                <article className="h-full p-6 rounded-2xl border border-white/[0.06] hover:border-sandstone/20 transition-all duration-300 bg-white/[0.02]">
                   <CategoryBadge category={post.category} />
-                  <p className="font-display font-black text-lg sm:text-xl text-white mt-4 mb-3 group-hover:text-primary transition-colors duration-200 uppercase tracking-tight leading-snug">
+                  <h2 className="font-heading font-black text-lg sm:text-xl text-white mt-4 mb-3 group-hover:text-white/80 transition-colors duration-200 uppercase tracking-tight leading-snug">
                     {post.title}
-                  </p>
-                  <p className="text-white/40 text-sm leading-relaxed mb-5 line-clamp-3">
+                  </h2>
+                  <p className="text-white/35 text-sm leading-relaxed mb-5 line-clamp-3">
                     {post.excerpt}
                   </p>
                   <div className="flex items-center justify-between mt-auto flex-wrap gap-2">
-                    <div className="flex items-center gap-3 text-white/35 text-xs">
+                    <div className="flex items-center gap-3 text-white/25 text-xs">
                       <span className="flex items-center gap-1">
                         <Clock size={11} />
                         {post.readTime}
                       </span>
                       <span>{post.date}</span>
                     </div>
-                    <span className="text-primary/60 group-hover:text-primary text-sm font-bold transition-colors flex items-center gap-1 uppercase tracking-wider">
+                    <span className="text-sandstone/40 group-hover:text-sandstone/70 text-sm font-bold transition-colors flex items-center gap-1 uppercase tracking-wider">
                       Read <ArrowRight size={13} />
                     </span>
                   </div>
@@ -157,28 +112,24 @@ export default function BlogPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="py-20 border-t border-white/5 bg-black">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider mb-5 mx-auto block w-fit">Ready to build?</span>
-          <p className="font-display font-black text-3xl sm:text-4xl uppercase tracking-tight mb-4">
-            Stop Reading.{" "}
-            <span
-              style={{ color: "#E8E8E8", WebkitTextFillColor: "#E8E8E8" }}
-            >
-              Start Building.
-            </span>
-          </p>
-          <p className="text-white/40 mb-8 text-base leading-relaxed">
+      <section className="py-24 sm:py-32 bg-black relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full" style={{ background: "radial-gradient(circle, rgba(196, 181, 160, 0.05) 0%, transparent 70%)" }} />
+        </div>
+        <div className="max-w-2xl mx-auto px-4 text-center relative z-10">
+          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/25 font-medium mb-5">Ready to Build?</p>
+          <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight leading-[0.9] mb-4">
+            Stop Reading.<br />Start Building.
+          </h2>
+          <p className="text-white/30 mb-10 text-base leading-relaxed max-w-md mx-auto">
             Get a free consultation with Calgary&apos;s most trusted family-owned contractor.
-            We&apos;ll give you an honest assessment and a fixed-scope quote — no pressure,
-            no surprises.
+            No pressure, no surprises.
           </p>
           <Link
             href="/get-quote"
-            className="bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full inline-flex items-center gap-2 px-8 py-4 text-sm rounded-xl"
+            className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors"
           >
-            Get a Free Quote
-            <ArrowRight size={18} strokeWidth={2.5} />
+            Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </section>

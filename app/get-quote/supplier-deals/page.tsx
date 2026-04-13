@@ -102,7 +102,7 @@ export default function SupplierDealsQuotePage() {
                 <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
               </div>
               <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-2">Request Received</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white uppercase tracking-tight mb-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white uppercase tracking-tight mb-3">
                 Thank You!
               </h2>
               <div className="h-[2px] w-10 bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto mb-6 rounded-full"></div>
@@ -135,7 +135,7 @@ export default function SupplierDealsQuotePage() {
               Limited Time · 10% Off · Select Services
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-4 text-white uppercase tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-4 text-white uppercase tracking-tight">
             10% Off — Seasonal Specials
           </h1>
           <div className="h-[3px] w-14 bg-gradient-to-r from-white to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
@@ -153,7 +153,7 @@ export default function SupplierDealsQuotePage() {
             <div className="p-6 sm:p-8 md:p-10">
               <div className="mb-6">
                 <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-1">Step 01</p>
-                <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-tight">Select Service(s)</h2>
+                <h2 className="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-tight">Select Service(s)</h2>
                 <div className="h-[3px] w-10 bg-gradient-to-r from-white to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.4)' }}></div>
                 <p className="text-sm text-white/40 mt-3">Click to add or remove a checkmark.</p>
               </div>
@@ -187,7 +187,7 @@ export default function SupplierDealsQuotePage() {
             <div className="p-6 sm:p-8 md:p-10">
               <div className="mb-6">
                 <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-1">Step 02</p>
-                <h2 className="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-tight">Project Details & Contact</h2>
+                <h2 className="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-tight">Project Details & Contact</h2>
                 <div className="h-[3px] w-10 bg-gradient-to-r from-white to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.4)' }}></div>
               </div>
               <div className="space-y-5">
@@ -274,7 +274,7 @@ export default function SupplierDealsQuotePage() {
                       id="timeline"
                       value={formData.timeline}
                       onChange={(e) => setFormData((p) => ({ ...p, timeline: e.target.value }))}
-                      className="w-full px-3 h-11 rounded-xl border bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:outline-none text-white text-sm transition-colors appearance-none"
+                      className="w-full px-3 h-11 rounded-xl border bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:outline-none text-white text-base sm:text-sm transition-colors appearance-none"
                     >
                       <option value="">Select…</option>
                       <option value="ASAP">ASAP</option>

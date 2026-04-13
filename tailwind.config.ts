@@ -72,6 +72,13 @@ const config: Config = {
           light: "#6A6A6A",
           dark: "#2A2A2A",
         },
+        sandstone: {
+          DEFAULT: "#C4B5A0",
+          light: "#D6CABB",
+          dark: "#A89880",
+          muted: "#8A7D6B",
+          glow: "rgba(196, 181, 160, 0.3)",
+        },
         text: {
           primary: "#FFFFFF",
           secondary: "#F5F5F5", // Off-white
@@ -85,7 +92,8 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["Inter", "IBM Plex Sans", "system-ui", "sans-serif"],
-        display: ["Lexend Deca", "Saira Condensed", "Lexend", "system-ui", "sans-serif"],
+        heading: ["var(--font-montserrat)", "Montserrat", "system-ui", "sans-serif"],
+        hero: ["var(--font-bebas)", "Bebas Neue", "system-ui", "sans-serif"],
         serif: ["DM Serif Display", "Georgia", "serif"],
       },
       spacing: {

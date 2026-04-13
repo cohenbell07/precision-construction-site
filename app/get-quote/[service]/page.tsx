@@ -103,7 +103,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                 <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-white/70" />
               </div>
               <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-2">Request Received</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white uppercase tracking-tight mb-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white uppercase tracking-tight mb-3">
                 Thank You!
               </h2>
               <div className="h-[2px] w-10 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto mb-6 rounded-full"></div>
@@ -141,7 +141,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
               Free Quote · No Obligation · 24-Hour Response
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-4 text-white uppercase tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-4 text-white uppercase tracking-tight">
             Get a Quote — {serviceTitle}
           </h1>
           <div className="h-[3px] w-14 bg-gradient-to-r from-white/50 to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
@@ -157,7 +157,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
           <div className="p-6 sm:p-8 md:p-10">
             <div className="mb-6 sm:mb-8">
               <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-1">Project Details</p>
-              <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-tight">
                 Your Details
               </h2>
               <div className="h-[3px] w-10 bg-gradient-to-r from-white/50 to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.4)' }}></div>
@@ -284,7 +284,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                     id="timeline"
                     value={formData.timeline}
                     onChange={(e) => setFormData((p) => ({ ...p, timeline: e.target.value }))}
-                    className="w-full px-3 h-11 rounded-xl border bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:outline-none text-white text-sm transition-colors appearance-none"
+                    className="w-full px-3 h-11 rounded-xl border bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:outline-none text-white text-base sm:text-sm transition-colors appearance-none"
                   >
                     <option value="">Select...</option>
                     <option value="ASAP">ASAP</option>
@@ -359,7 +359,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                     placeholder="Tell us how you found us…"
                     value={formData.referralOther}
                     onChange={(e) => setFormData((p) => ({ ...p, referralOther: e.target.value }))}
-                    className="mt-3 bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-10 text-sm transition-colors"
+                    className="mt-3 bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-10 text-base sm:text-sm transition-colors"
                   />
                 )}
                 <p className="text-[10px] text-white/20 mt-2">Optional — helps us improve our service.</p>

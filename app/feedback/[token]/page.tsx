@@ -65,7 +65,7 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <div className="w-full max-w-lg">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-display font-black text-white uppercase tracking-tight">{BRAND_CONFIG.shortName}</h1>
+          <h1 className="text-2xl font-heading font-black text-white uppercase tracking-tight">{BRAND_CONFIG.shortName}</h1>
           <p className="text-sm text-white/30 mt-1">{BRAND_CONFIG.motto}</p>
         </div>
         <div className="bg-[#0A0A0A] rounded-2xl border border-white/[0.06] p-6 sm:p-8 shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
@@ -75,7 +75,7 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
     </div>
   );
 
-  const inputClass = "w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-white placeholder:text-white/25 focus:outline-none focus:border-white/20 resize-none text-sm transition-colors";
+  const inputClass = "w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-white placeholder:text-white/25 focus:outline-none focus:border-white/20 resize-none text-base sm:text-sm transition-colors";
 
   if (phase === "error") {
     return (

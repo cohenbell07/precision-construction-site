@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,30 +9,39 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { services, getServiceById } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
-import { getDealsForService, PRICE_BEAT_GUARANTEE, type Deal } from "@/lib/deals";
-import { Loader2, CheckCircle, Wrench } from "lucide-react";
+import { getDealsForService, PRICE_BEAT_GUARANTEE } from "@/lib/deals";
+import { LightRays } from "@/components/LightRays";
+import { Loader2, CheckCircle, Star, Shield, Phone, Home } from "lucide-react";
 import {
   SquaresFour,
   Drop,
-  Package,
-  Rectangle,
+  Door,
+  Table,
   Buildings,
   Wall,
   PaintBrush,
+  Ruler,
+  ArrowSquareDown,
+  TreeEvergreen,
+  HouseLine,
+  BoundingBox,
 } from "phosphor-react";
 
-// Icon mapping for services with phosphor-react
 const POPULAR_SERVICES = new Set(["basements", "renovations", "flooring", "showers"]);
 
 const serviceIcons: { [key: string]: any } = {
   flooring: SquaresFour,
   showers: Drop,
-  cabinets: Package,
-  countertops: Rectangle,
-  carpentry: Wrench,
-  framing: Buildings,
+  cabinets: Door,
+  countertops: Table,
+  carpentry: Ruler,
+  framing: BoundingBox,
   drywall: Wall,
   painting: PaintBrush,
+  basements: ArrowSquareDown,
+  garages: TreeEvergreen,
+  renovations: HouseLine,
+  commercial: Buildings,
   default: Buildings,
 };
 
@@ -56,7 +66,6 @@ function GetQuoteForm() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
-  // Handle service query parameter
   useEffect(() => {
     const serviceParam = searchParams.get("service");
     if (serviceParam) {
@@ -140,6 +149,15 @@ function GetQuoteForm() {
     }
   };
 
+  // Rotating testimonial
+  const testimonials = [
+    { name: "Mark & Teresa W.", text: "The tile work and cabinet install were perfect — you can tell these guys have been doing this a long time.", project: "Kitchen Renovation" },
+    { name: "Dan R.", text: "They handled the permits, passed every inspection first try, and the final result was way better than we expected.", project: "Basement Development" },
+    { name: "Priya S.", text: "The quote came in well under the other companies we called. No corners cut. Really happy.", project: "Flooring Installation" },
+  ];
+  const [testimonialIdx] = useState(() => Math.floor(Math.random() * testimonials.length));
+  const testimonial = testimonials[testimonialIdx];
+
   return (
     <div className="min-h-screen bg-black relative">
       <div className="absolute inset-0 opacity-5 pointer-events-none">
@@ -150,21 +168,33 @@ function GetQuoteForm() {
       </div>
 
       {/* Page header */}
-      <div className="relative border-b border-white/[0.08] bg-[#030303] py-12 sm:py-16 md:py-20">
+      <div className="relative border-b border-white/[0.08] bg-[#030303] py-12 sm:py-16 md:py-20 overflow-hidden">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#C4B5A0"
+          raysSpeed={0.3}
+          lightSpread={1.5}
+          rayLength={2}
+          fadeDistance={1.0}
+          saturation={0.5}
+          followMouse={true}
+          mouseInfluence={0.06}
+          className="opacity-15"
+        />
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
           <div className="flex justify-center mb-4">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 inline-block"></span>
-              Free Quote · No Obligation · 24-Hour Response
+              Free &middot; No Obligation &middot; 24-Hour Response
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-4 text-white uppercase tracking-tight">
-            Request a Quote
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-hero uppercase tracking-wide mb-4 text-white leading-[0.95]">
+            Let&apos;s Talk About<br className="sm:hidden" /> Your Project
           </h1>
           <div className="h-[3px] w-14 bg-gradient-to-r from-white/70 to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
           <p className="text-sm sm:text-base text-white/45 max-w-lg mx-auto leading-relaxed">
-            Tell us about your project — free estimates, no obligation.
+            Tell us what you have in mind — we&apos;ll get back to you with a free, detailed quote within 24 hours.
           </p>
         </div>
       </div>
@@ -212,7 +242,7 @@ function GetQuoteForm() {
                 <div className="p-6 sm:p-8 md:p-10">
                   <div className="mb-6 sm:mb-8">
                     <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-1">Step 01</p>
-                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-tight">
                       Select a Service
                     </h2>
                     <div className="h-[3px] w-10 bg-gradient-to-r from-white/70 to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.4)' }}></div>
@@ -232,12 +262,9 @@ function GetQuoteForm() {
                           </div>
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <p className="font-display font-black text-sm text-white uppercase tracking-tight">{service.title}</p>
+                              <p className="font-heading font-black text-sm text-white uppercase tracking-tight">{service.title}</p>
                               {POPULAR_SERVICES.has(service.id) && (
                                 <span className="text-[8px] font-black uppercase tracking-widest text-white/60 bg-white/[0.08] px-1.5 py-0.5 rounded-full">Popular</span>
-                              )}
-                              {getDealsForService(service.id).filter(d => d.id !== "bundle").length > 0 && (
-                                <span className="text-[8px] font-black uppercase tracking-widest text-white bg-white/[0.15] px-1.5 py-0.5 rounded-full">{getDealsForService(service.id).filter(d => d.id !== "bundle")[0].discount} Off</span>
                               )}
                             </div>
                             <p className="text-[11px] text-white/30 leading-tight mt-0.5 line-clamp-1">{service.description}</p>
@@ -253,7 +280,7 @@ function GetQuoteForm() {
                         <Buildings className="h-5 w-5 text-white/50 group-hover:text-white/70 transition-colors" weight="duotone" />
                       </div>
                       <div>
-                        <p className="font-display font-black text-sm text-white uppercase tracking-tight">Other</p>
+                        <p className="font-heading font-black text-sm text-white uppercase tracking-tight">Other</p>
                         <p className="text-[11px] text-white/30 leading-tight mt-0.5">Have a different project? Select this.</p>
                       </div>
                     </button>
@@ -269,7 +296,7 @@ function GetQuoteForm() {
                 <div className="p-6 sm:p-8 md:p-10">
                   <div className="mb-6 sm:mb-8">
                     <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-1">Step 02</p>
-                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-tight">
                       Project Details
                     </h2>
                     <div className="h-[3px] w-10 bg-gradient-to-r from-white/70 to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.4)' }}></div>
@@ -279,24 +306,6 @@ function GetQuoteForm() {
                         : `Tell us about your ${getServiceById(selectedService)?.title.toLowerCase()} project`}
                     </p>
                   </div>
-
-                  {/* Deal Banner */}
-                  {selectedService && selectedService !== "other" && (() => {
-                    const deals = getDealsForService(selectedService);
-                    if (deals.length === 0) return null;
-                    return (
-                      <div className="mb-6 rounded-xl border border-white/[0.12] bg-white/[0.04] p-4">
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50 mb-2">Deals Available for This Service</p>
-                        {deals.map((deal) => (
-                          <div key={deal.id} className="flex items-center gap-3 py-1.5">
-                            <span className="text-xs font-black text-white bg-white/[0.12] px-2 py-0.5 rounded-full shrink-0">{deal.discount}</span>
-                            <span className="text-sm text-white/60">{deal.name}</span>
-                          </div>
-                        ))}
-                        <p className="text-[11px] text-white/35 mt-2">{PRICE_BEAT_GUARANTEE}</p>
-                      </div>
-                    );
-                  })()}
 
                   <form onSubmit={handleDetailsSubmit} className="space-y-5">
                     {selectedService === "other" && (
@@ -310,7 +319,7 @@ function GetQuoteForm() {
                           required
                           value={customServiceName}
                           onChange={(e) => setCustomServiceName(e.target.value)}
-                          placeholder="e.g., Basement Development, Deck Construction…"
+                          placeholder="e.g., Basement Development, Deck Construction..."
                           className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
                         />
                       </div>
@@ -389,8 +398,8 @@ function GetQuoteForm() {
                         value={formData.projectDetails}
                         onChange={(e) => handleInputChange("projectDetails", e.target.value)}
                         placeholder={selectedService === "other"
-                          ? "Describe your project in detail — what you need, scope, any special requirements…"
-                          : "Describe your project in detail — scope, size, materials you have in mind, etc…"}
+                          ? "Describe your project in detail — what you need, scope, any special requirements..."
+                          : "Describe your project in detail — scope, size, materials you have in mind, etc..."}
                         rows={5}
                         className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl transition-colors resize-none"
                       />
@@ -407,14 +416,14 @@ function GetQuoteForm() {
                           id="timeline"
                           value={formData.timeline}
                           onChange={(e) => handleInputChange("timeline", e.target.value)}
-                          className="w-full px-3 h-11 rounded-xl border bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:outline-none text-white text-sm transition-colors appearance-none"
+                          className="w-full px-3 h-11 rounded-xl border bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:outline-none text-white text-base sm:text-sm transition-colors appearance-none"
                         >
-                          <option value="">Select…</option>
+                          <option value="">Select...</option>
                           <option value="ASAP">ASAP</option>
                           <option value="Within 1 month">Within 1 month</option>
-                          <option value="1–3 months">1–3 months</option>
-                          <option value="3–6 months">3–6 months</option>
-                          <option value="6–12 months">6–12 months</option>
+                          <option value="1-3 months">1-3 months</option>
+                          <option value="3-6 months">3-6 months</option>
+                          <option value="6-12 months">6-12 months</option>
                           <option value="Flexible / No rush">Flexible / No rush</option>
                         </select>
                       </div>
@@ -476,10 +485,10 @@ function GetQuoteForm() {
                       </div>
                       {formData.referralSource === "Other" && (
                         <Input
-                          placeholder="Tell us how you found us…"
+                          placeholder="Tell us how you found us..."
                           value={formData.referralOther}
                           onChange={(e) => handleInputChange("referralOther", e.target.value)}
-                          className="mt-3 bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-10 text-sm transition-colors"
+                          className="mt-3 bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-10 text-base sm:text-sm transition-colors"
                         />
                       )}
                       <p className="text-[10px] text-white/20 mt-2">Optional — helps us improve our service.</p>
@@ -491,19 +500,20 @@ function GetQuoteForm() {
                         onClick={() => setStep("selection")}
                         className="text-xs font-black text-white/35 hover:text-white uppercase tracking-widest transition-colors px-4 py-2.5 rounded-xl border border-white/[0.08] hover:border-white/20"
                       >
-                        ← Back
+                        &larr; Back
                       </button>
                       <Button type="submit" disabled={loading} className="bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full uppercase tracking-widest text-xs sm:text-sm flex-1 py-3 h-auto">
                         {loading ? (
                           <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Submitting…
+                            Submitting...
                           </>
                         ) : (
                           "Submit Quote Request"
                         )}
                       </Button>
                     </div>
+                    <p className="text-[11px] text-white/20 text-center pt-1">We respond within 24 hours. No spam, no pressure.</p>
                   </form>
                 </div>
               </div>
@@ -518,7 +528,7 @@ function GetQuoteForm() {
                     <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
                   </div>
                   <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-2">Request Received</p>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white uppercase tracking-tight mb-3">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white uppercase tracking-tight mb-3">
                     Thank You!
                   </h2>
                   <div className="h-[2px] w-10 bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto mb-6 rounded-full"></div>
@@ -546,23 +556,22 @@ function GetQuoteForm() {
             )}
           </div>
 
-          {/* Sidebar */}
+          {/* ━━━ TRUST SIDEBAR ━━━ */}
           <div className="space-y-5 lg:block">
+            {/* Why Request a Quote */}
             <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
               <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/30 via-white/10 to-transparent pointer-events-none"></div>
               <div className="p-5 sm:p-6">
                 <div className="mb-5">
-                  <p className="text-[10px] font-black text-white/25 uppercase tracking-[0.2em] mb-1">Why us</p>
-                  <h3 className="text-lg font-display font-black text-white uppercase tracking-tight">Why Choose Us?</h3>
+                  <p className="text-[10px] font-black text-white/25 uppercase tracking-[0.2em] mb-1">Why request a quote?</p>
+                  <h3 className="text-lg font-heading font-black text-white uppercase tracking-tight">It&apos;s Simple</h3>
                   <div className="h-[2px] w-8 bg-gradient-to-r from-white/40 to-transparent mt-2 rounded-full"></div>
                 </div>
                 <div className="space-y-4">
                   {[
-                    { title: "Family-Owned Since 1968", sub: "3rd generation of construction expertise" },
-                    { title: "Serving Calgary Since 1997", sub: `Over ${new Date().getFullYear() - BRAND_CONFIG.servingSince} years in the community` },
-                    { title: "5,000+ Projects Completed", sub: "Delivered with excellence and care" },
-                    { title: "5% Price Beat Guarantee", sub: "We beat any legitimate competitor quote" },
-                    { title: BRAND_CONFIG.motto, sub: "We treat every client like family" },
+                    { title: "100% Free", desc: "No cost, no hidden fees to get a quote" },
+                    { title: "No Obligation", desc: "Take your time — zero pressure to commit" },
+                    { title: "24-Hour Response", desc: "We get back to you within one business day" },
                   ].map((item) => (
                     <div key={item.title} className="flex items-start gap-3">
                       <span className="mt-[3px] shrink-0 w-4 h-4 rounded-full bg-white/[0.12] border border-white/30 flex items-center justify-center">
@@ -570,7 +579,7 @@ function GetQuoteForm() {
                       </span>
                       <div>
                         <p className="text-sm font-black text-white leading-tight">{item.title}</p>
-                        <p className="text-xs text-white/35 mt-0.5">{item.sub}</p>
+                        <p className="text-xs text-white/35 mt-0.5">{item.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -578,35 +587,66 @@ function GetQuoteForm() {
               </div>
             </div>
 
-            {/* Current Deals */}
+            {/* Client Testimonial */}
             <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
-              <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/50 via-white/20 to-transparent pointer-events-none"></div>
+              <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/20 via-white/05 to-transparent pointer-events-none"></div>
               <div className="p-5 sm:p-6">
-                <div className="mb-4">
-                  <p className="text-[10px] font-black text-white/50 uppercase tracking-[0.2em] mb-1">Current Deals</p>
-                  <h3 className="text-lg font-display font-black text-white uppercase tracking-tight">Save More</h3>
-                  <div className="h-[2px] w-8 bg-gradient-to-r from-white/40 to-transparent mt-2 rounded-full"></div>
+                <div className="flex gap-0.5 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-3 h-3 fill-sandstone text-sandstone" />
+                  ))}
                 </div>
-                <div className="space-y-3">
-                  <a href="/get-quote/basement" className="block p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
-                    <p className="text-sm font-bold text-white">15% Off Basements</p>
-                    <p className="text-xs text-white/30 mt-0.5">Full turnkey development — limited time</p>
-                  </a>
-                  <a href="/get-quote/bundle" className="block p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
-                    <p className="text-sm font-bold text-white">15% Off Bundles</p>
-                    <p className="text-xs text-white/30 mt-0.5">Combine 2+ services and save</p>
-                  </a>
-                  <a href="/get-quote/supplier-deals" className="block p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
-                    <p className="text-sm font-bold text-white">10% Seasonal Specials</p>
-                    <p className="text-xs text-white/30 mt-0.5">Painting, flooring & carpentry</p>
-                  </a>
+                <p className="text-white/45 text-sm leading-relaxed italic mb-4">&ldquo;{testimonial.text}&rdquo;</p>
+                <div className="border-t border-white/[0.06] pt-3">
+                  <p className="text-xs font-semibold text-white/70">{testimonial.name}</p>
+                  <p className="text-[10px] text-white/25">{testimonial.project}</p>
                 </div>
               </div>
             </div>
 
+            {/* Trust Badges */}
+            <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-[#080808] shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+              <div className="p-5 sm:p-6 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-white/[0.06] border border-white/[0.08] flex items-center justify-center shrink-0">
+                    <Shield className="w-4 h-4 text-white/50" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-white">5% Price Beat Guarantee</p>
+                    <p className="text-[10px] text-white/30">We beat any legitimate quote</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-white/[0.06] border border-white/[0.08] flex items-center justify-center shrink-0">
+                    <Home className="w-4 h-4 text-white/50" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-white">Family-Owned Since 1968</p>
+                    <p className="text-[10px] text-white/30">3rd generation builder</p>
+                  </div>
+                </div>
+                <div className="border-t border-white/[0.06] pt-4">
+                  <p className="text-[10px] font-black text-white/25 uppercase tracking-[0.2em] mb-2">Prefer to talk?</p>
+                  <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-bold text-white/60 hover:text-white transition-colors">
+                    <Phone className="w-3.5 h-3.5" /> Contact Us
+                  </Link>
+                  <p className="text-[10px] text-white/20 mt-1">Ask for {BRAND_CONFIG.owner}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* noscript fallback */}
+      <noscript>
+        <div className="bg-black text-white p-8 text-center">
+          <h2 className="text-2xl font-bold mb-4">Request a Quote</h2>
+          <p className="mb-4">JavaScript is required for our quote form. Please call us directly:</p>
+          <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="text-xl font-bold underline">{BRAND_CONFIG.contact.phoneFormatted}</a>
+          <p className="mt-2">or email <a href={`mailto:${BRAND_CONFIG.contact.email}`} className="underline">{BRAND_CONFIG.contact.email}</a></p>
+        </div>
+      </noscript>
     </div>
   );
 }
