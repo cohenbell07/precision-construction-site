@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Menu, X, Facebook, Instagram, Phone } from "lucide-react";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Logo } from "@/components/Logo";
@@ -19,6 +20,20 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add("mobile-menu-open");
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.classList.remove("mobile-menu-open");
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.classList.remove("mobile-menu-open");
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -111,10 +126,10 @@ export function Header() {
         </div>
       </nav>
 
-      {/* Mobile Menu - fullscreen overlay */}
-      {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-16 sm:top-[4.5rem] bg-black z-[60] overflow-y-auto">
-          <div className="container mx-auto px-6 py-10 flex flex-col min-h-full">
+      {/* Mobile Menu - fullscreen overlay (rendered via portal to escape header stacking context) */}
+      {mounted && mobileMenuOpen && createPortal(
+        <div className="md:hidden fixed inset-0 top-16 sm:top-[4.5rem] bg-black z-[100] overflow-y-auto">
+          <div className="container mx-auto px-6 py-10 flex flex-col h-full">
             <div className="space-y-1 flex-1">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href || (link.href !== "/" && pathname?.startsWith(link.href));
@@ -179,7 +194,8 @@ export function Header() {
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );
