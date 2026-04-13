@@ -121,7 +121,7 @@ function InquiryForm({ serviceName }: { serviceName: string }) {
   };
 
   return (
-    <section className="py-20 sm:py-28 bg-[#0A0A0A]">
+    <section className="py-14 sm:py-20 md:py-28 bg-[#0A0A0A]">
       <div className="container mx-auto px-6 max-w-2xl">
         <Reveal>
           <div className="text-center mb-8 sm:mb-10">
@@ -286,9 +286,9 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       </section>
 
       {/* ━━━ OVERVIEW ━━━ */}
-      <section className="py-20 sm:py-28 bg-black">
+      <section className="py-14 sm:py-20 md:py-28 bg-black">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 sm:gap-12 lg:gap-20">
             <Reveal className="lg:col-span-3">
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/70 font-medium mb-4">Overview</p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-4">
@@ -328,7 +328,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               </div>
             </Reveal>
             <Reveal delay={0.15} className="lg:col-span-2">
-              <div className="relative bg-gradient-to-b from-white/[0.04] to-white/[0.01] border border-sandstone/20 rounded-xl p-7 overflow-hidden lg:sticky lg:top-24">
+              <div className="relative bg-gradient-to-b from-white/[0.04] to-white/[0.01] border border-sandstone/20 rounded-xl p-6 sm:p-7 overflow-hidden lg:sticky lg:top-24">
                 <span className="pointer-events-none absolute top-3 left-3 w-4 h-4 border-t border-l border-sandstone/50" />
                 <span className="pointer-events-none absolute top-3 right-3 w-4 h-4 border-t border-r border-sandstone/50" />
                 <span className="pointer-events-none absolute bottom-3 left-3 w-4 h-4 border-b border-l border-sandstone/50" />
@@ -382,11 +382,11 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* ━━━ WHAT'S INCLUDED ━━━ */}
       {service.details && service.details.length > 0 && (
-        <section className="py-20 sm:py-28 bg-[#0A0A0A]">
+        <section className="py-14 sm:py-20 md:py-28 bg-[#0A0A0A]">
           <div className="container mx-auto px-6 max-w-7xl">
             <Reveal>
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Scope</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-10">What&apos;s Included</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-8 sm:mb-10">What&apos;s Included</h2>
             </Reveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-3">
               {service.details.map((detail, idx) => (
@@ -404,7 +404,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* ━━━ BENEFITS / WHY CHOOSE US ━━━ */}
       {service.benefits && service.benefits.length > 0 && (
-        <section className="py-20 sm:py-28 bg-black relative overflow-hidden">
+        <section className="py-14 sm:py-20 md:py-28 bg-black relative overflow-hidden">
           <div
             className="absolute inset-0 pointer-events-none opacity-60"
             style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(196,181,160,0.08) 0%, rgba(0,0,0,0) 55%)" }}
@@ -433,17 +433,17 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* ━━━ PROCESS ━━━ */}
       {service.process && service.process.length > 0 && (
-        <section className="py-20 sm:py-28 bg-black">
+        <section className="py-14 sm:py-20 md:py-28 bg-black">
           <div className="container mx-auto px-6 max-w-7xl">
             <Reveal>
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">How It Works</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-10">Our Process</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-8 sm:mb-10">Our Process</h2>
             </Reveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {service.process.map((step, idx) => (
                 <Reveal key={step.title} delay={idx * 0.1}>
-                  <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-7 h-full">
-                    <span className="text-3xl font-heading font-black text-white/10 block mb-4">{String(step.step).padStart(2, "0")}</span>
+                  <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-6 sm:p-7 h-full">
+                    <span className="text-3xl font-heading font-black text-white/10 block mb-3 sm:mb-4">{String(step.step).padStart(2, "0")}</span>
                     <h3 className="text-base font-heading font-bold uppercase tracking-tight text-white mb-2">{step.title}</h3>
                     <p className="text-white/35 text-sm leading-relaxed">{step.description}</p>
                   </div>
@@ -462,25 +462,25 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         />
         <div className="container mx-auto px-6 max-w-5xl relative">
           <Reveal>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div className="text-center md:text-left">
                 <div className="inline-flex items-center gap-2 bg-sandstone/10 border border-sandstone/30 px-3 py-1 rounded-full mb-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-sandstone animate-pulse" />
                   <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sandstone">Booking Now</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-heading font-black uppercase tracking-tight text-white mb-2 leading-tight">Ready to Get Started?</h3>
-                <p className="text-white/50 text-sm sm:text-base max-w-lg">Free estimate in under 24 hours. No obligation, no pressure — just a detailed quote and a crew that shows up.</p>
+                <p className="text-white/50 text-sm sm:text-base max-w-lg mx-auto md:mx-0">Free estimate in under 24 hours. No obligation, no pressure — just a detailed quote and a crew that shows up.</p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto md:shrink-0">
                 <Link
                   href={`/get-quote?service=${service.id}`}
-                  className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors"
+                  className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors"
                 >
                   Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 text-white/80 hover:text-sandstone px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-sandstone/50"
+                  className="inline-flex items-center justify-center gap-2 text-white/80 hover:text-sandstone px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-sandstone/50"
                 >
                   <Phone className="w-3.5 h-3.5" /> Contact
                 </Link>
@@ -492,11 +492,11 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* ━━━ MATERIALS ━━━ */}
       {service.materials && service.materials.length > 0 && (
-        <section className="py-20 sm:py-28 bg-black">
+        <section className="py-14 sm:py-20 md:py-28 bg-black">
           <div className="container mx-auto px-6 max-w-7xl">
             <Reveal>
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Options</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-10">Materials & Options</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-8 sm:mb-10">Materials & Options</h2>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="flex flex-wrap gap-3">
@@ -511,7 +511,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* ━━━ TESTIMONIAL ━━━ */}
       {testimonial && (
-        <section className="py-20 sm:py-28 bg-[#0A0A0A] relative overflow-hidden">
+        <section className="py-14 sm:py-20 md:py-28 bg-[#0A0A0A] relative overflow-hidden">
           <div
             className="absolute inset-0 pointer-events-none opacity-50"
             style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(196,181,160,0.08) 0%, rgba(0,0,0,0) 60%)" }}
@@ -532,7 +532,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               </div>
             </Reveal>
             <Reveal delay={0.1}>
-              <div className="relative bg-gradient-to-b from-white/[0.04] to-white/[0.01] border border-sandstone/20 rounded-xl p-8 sm:p-12 max-w-2xl mx-auto overflow-hidden">
+              <div className="relative bg-gradient-to-b from-white/[0.04] to-white/[0.01] border border-sandstone/20 rounded-xl p-6 sm:p-10 md:p-12 max-w-2xl mx-auto overflow-hidden">
                 {/* Corner brackets */}
                 <span className="pointer-events-none absolute top-3 left-3 w-4 h-4 border-t border-l border-sandstone/50" />
                 <span className="pointer-events-none absolute top-3 right-3 w-4 h-4 border-t border-r border-sandstone/50" />
@@ -542,7 +542,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                 {/* Decorative quote mark */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute top-4 left-6 font-serif text-[140px] leading-none text-sandstone/15 select-none"
+                  className="pointer-events-none absolute top-3 left-4 sm:top-4 sm:left-6 font-serif text-[90px] sm:text-[140px] leading-none text-sandstone/15 select-none"
                 >
                   &ldquo;
                 </span>
@@ -574,7 +574,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* ━━━ FAQS ━━━ */}
       {service.faqs && service.faqs.length > 0 && (
-        <section className="py-20 sm:py-28 bg-black">
+        <section className="py-14 sm:py-20 md:py-28 bg-black">
           <div className="container mx-auto px-6 max-w-3xl">
             <Reveal>
               <div className="text-center mb-10">
@@ -608,7 +608,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* ━━━ RELATED SERVICES ━━━ */}
       {relatedServiceData.length > 0 && (
-        <section className="py-20 sm:py-28 bg-[#0A0A0A]">
+        <section className="py-14 sm:py-20 md:py-28 bg-[#0A0A0A]">
           <div className="container mx-auto px-6 max-w-7xl">
             <Reveal>
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
@@ -683,7 +683,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       <InquiryForm serviceName={service.title} />
 
       {/* ━━━ CTA ━━━ */}
-      <section className="py-24 sm:py-32 bg-black relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-10">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)" }} />
         </div>

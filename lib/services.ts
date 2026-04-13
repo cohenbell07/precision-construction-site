@@ -165,7 +165,7 @@ export const services: Service[] = [
     stats: [
       { label: "Showers Installed", value: "420+" },
       { label: "Steam Showers", value: "85+" },
-      { label: "Warranty Coverage", value: "10 Years" },
+      { label: "Satisfaction Rate", value: "98%" },
     ],
     relatedServices: ["countertops", "cabinets", "renovations"],
   },
