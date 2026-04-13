@@ -10,16 +10,40 @@ export async function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pcnd.ca";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/servicehero.webp`;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) return {};
+  const url = `${SITE_URL}/blog/${slug}`;
   return {
     title: `${post.title} | Precision Construction & Decora`,
     description: post.excerpt,
+    keywords: [
+      post.category,
+      "Calgary construction blog",
+      "Calgary renovation tips",
+      "PCND blog",
+      "Precision Construction & Decora",
+    ],
+    alternates: { canonical: url },
     openGraph: {
+      type: "article",
       title: post.title,
       description: post.excerpt,
+      url,
+      publishedTime: post.date,
+      authors: ["Precision Construction & Decora"],
+      tags: [post.category],
+      images: [{ url: DEFAULT_OG_IMAGE, width: 1536, height: 838, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }
@@ -47,8 +71,16 @@ export default async function BlogPostPage({ params }: Props) {
         headline: post.title,
         description: post.excerpt,
         datePublished: post.date,
-        author: { "@type": "Organization", name: "Precision Construction & Decora" },
-        publisher: { "@type": "Organization", name: "Precision Construction & Decora", url: "https://www.pcnd.ca" },
+        dateModified: post.date,
+        image: [DEFAULT_OG_IMAGE],
+        articleSection: post.category,
+        author: { "@type": "Organization", name: "Precision Construction & Decora", url: "https://www.pcnd.ca" },
+        publisher: {
+          "@type": "Organization",
+          name: "Precision Construction & Decora",
+          url: "https://www.pcnd.ca",
+          logo: { "@type": "ImageObject", url: "https://www.pcnd.ca/android-chrome-512x512.png" },
+        },
         mainEntityOfPage: { "@type": "WebPage", "@id": `https://www.pcnd.ca/blog/${slug}` },
       },
     ],
