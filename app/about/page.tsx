@@ -117,13 +117,13 @@ export default function AboutPage() {
       </section>
 
       {/* ━━━ OUR STORY ━━━ */}
-      <section className="py-20 sm:py-28 md:py-36 bg-black">
+      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-black">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-20 items-center">
             <Reveal>
               <div>
                 <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Our Story</p>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-6">Built on Family Values</h2>
+                <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">Built on Family Values</h2>
                 <div className="space-y-5 text-white/50 text-base sm:text-lg leading-relaxed max-w-xl">
                   <p>
                     What began in 1968 as a small family operation has grown into one of Calgary&apos;s most trusted construction companies. Three generations of the Olivito family have upheld one unwavering standard: treat every client like family and deliver only the best.
@@ -152,12 +152,12 @@ export default function AboutPage() {
       </section>
 
       {/* ━━━ MEET JOHN OLIVITO ━━━ */}
-      <section className="py-20 sm:py-28 md:py-36 bg-[#0A0A0A]">
+      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-[#0A0A0A]">
         <div className="container mx-auto px-6 max-w-5xl">
           <Reveal>
-            <div className="text-center mb-14 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-14 md:mb-20">
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">The Owner</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Meet {BRAND_CONFIG.owner}</h2>
+              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Meet {BRAND_CONFIG.owner}</h2>
             </div>
           </Reveal>
 
@@ -190,7 +190,7 @@ export default function AboutPage() {
 
           {/* Prominent quote */}
           <Reveal delay={0.2}>
-            <div className="mt-16 sm:mt-20 text-center relative">
+            <div className="mt-12 sm:mt-16 md:mt-20 text-center relative">
               <div className="text-6xl sm:text-8xl font-serif text-sandstone/[0.08] absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 select-none">&ldquo;</div>
               <blockquote className="relative z-10 max-w-2xl mx-auto">
                 <p className="text-xl sm:text-2xl md:text-3xl font-serif text-white/70 leading-snug italic">
@@ -206,12 +206,12 @@ export default function AboutPage() {
       </section>
 
       {/* ━━━ TIMELINE ━━━ */}
-      <section className="py-20 sm:py-28 md:py-36 bg-black">
+      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-black">
         <div className="container mx-auto px-6 max-w-4xl">
           <Reveal>
-            <div className="text-center mb-14 sm:mb-20">
+            <div className="text-center mb-10 sm:mb-14 md:mb-20">
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Our Journey</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Milestones</h2>
+              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Milestones</h2>
             </div>
           </Reveal>
 
@@ -220,7 +220,7 @@ export default function AboutPage() {
             {/* Center line */}
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-sandstone/[0.12] md:-translate-x-px" />
 
-            <div className="space-y-12 md:space-y-16">
+            <div className="space-y-10 sm:space-y-12 md:space-y-16">
               {milestones.map((m, idx) => (
                 <Reveal key={m.year} delay={idx * 0.12}>
                   <div className={`relative flex items-start gap-6 md:gap-0 ${m.side === "right" ? "md:flex-row-reverse" : ""}`}>
@@ -245,16 +245,16 @@ export default function AboutPage() {
       </section>
 
       {/* ━━━ HOW WE WORK ━━━ */}
-      <section className="py-20 sm:py-28 md:py-36 bg-[#0A0A0A]">
+      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-[#0A0A0A]">
         <div className="container mx-auto px-6 max-w-7xl">
           <Reveal>
-            <div className="mb-14 sm:mb-20">
+            <div className="mb-10 sm:mb-14 md:mb-20">
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Our Process</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">How We Work</h2>
+              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">How We Work</h2>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {[
               { step: "01", title: "Consultation", desc: "We visit your space, listen to your vision, take measurements, and discuss your budget and timeline." },
               { step: "02", title: "Planning", desc: "Detailed project plan with material selections, scheduling, permits, and a transparent quote — no hidden costs." },
@@ -262,9 +262,9 @@ export default function AboutPage() {
               { step: "04", title: "Completion", desc: "Final walkthrough with you. We don't leave until everything meets our standard — and yours." },
             ].map((s, idx) => (
               <Reveal key={s.step} delay={idx * 0.1}>
-                <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-7 h-full">
-                  <span className="text-3xl font-heading font-black text-white/10 block mb-4">{s.step}</span>
-                  <h3 className="text-lg font-heading font-bold uppercase tracking-tight text-white mb-3">{s.title}</h3>
+                <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-6 sm:p-7 h-full">
+                  <span className="text-3xl font-heading font-black text-white/10 block mb-3 sm:mb-4">{s.step}</span>
+                  <h3 className="text-lg font-heading font-bold uppercase tracking-tight text-white mb-2 sm:mb-3">{s.title}</h3>
                   <p className="text-white/35 text-sm leading-relaxed">{s.desc}</p>
                 </div>
               </Reveal>
@@ -274,20 +274,20 @@ export default function AboutPage() {
       </section>
 
       {/* ━━━ VALUES ━━━ */}
-      <section className="py-20 sm:py-28 md:py-36 bg-black">
+      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-black">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-20">
             <Reveal>
               <div>
                 <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Our Mission</p>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-6">What We Stand For</h2>
+                <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">What We Stand For</h2>
                 <p className="text-white/50 text-base sm:text-lg leading-relaxed max-w-lg">
                   We believe construction is about more than structures — it&apos;s about building trust, creating spaces where families thrive, and standing behind every nail, every joint, every finish.
                 </p>
               </div>
             </Reveal>
             <Reveal delay={0.15}>
-              <div className="space-y-6">
+              <div className="space-y-5 sm:space-y-6">
                 {[
                   { title: "Quality Without Compromise", desc: "Premium materials, expert craftsmanship, and attention to every detail — no shortcuts." },
                   { title: "Family Values", desc: "We treat every client the way we'd treat our own family. Your home matters to us." },
@@ -306,12 +306,12 @@ export default function AboutPage() {
       </section>
 
       {/* ━━━ TESTIMONIALS ━━━ */}
-      <section className="py-20 sm:py-28 md:py-36 bg-[#0A0A0A]">
+      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-[#0A0A0A]">
         <div className="container mx-auto px-6 max-w-7xl">
           <Reveal>
             <div className="text-center mb-12 sm:mb-16">
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Client Stories</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">What Our Clients Say</h2>
+              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">What Our Clients Say</h2>
             </div>
           </Reveal>
 
@@ -323,7 +323,7 @@ export default function AboutPage() {
             ].map((t, idx) => (
               <Reveal key={t.name} delay={idx * 0.1}>
                 <SpotlightCard className="rounded-xl h-full" spotlightColor="rgba(196, 181, 160, 0.15)">
-                  <div className="p-7 sm:p-8 h-full flex flex-col">
+                  <div className="p-6 sm:p-8 h-full flex flex-col">
                     <div className="flex items-center justify-between mb-5">
                       <div className="flex gap-0.5">
                         {[...Array(5)].map((_, i) => (
@@ -351,7 +351,7 @@ export default function AboutPage() {
       </section>
 
       {/* ━━━ CTA ━━━ */}
-      <section className="py-24 sm:py-32 md:py-40 bg-black relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 lg:py-40 bg-black relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-10">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)" }} />
         </div>
@@ -362,11 +362,11 @@ export default function AboutPage() {
             <p className="text-white/30 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
               Tell us about your project. We&apos;ll get back to you within 24 hours with a plan.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-              <Link href="/get-quote" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
+              <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
                 Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 text-white/30 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/10 rounded-full hover:border-white/30">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-sandstone/50">
                 <Phone className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </div>

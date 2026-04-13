@@ -154,25 +154,25 @@ export default function ServicesPage() {
     <div className="flex flex-col">
 
       {/* ━━━ HERO ━━━ */}
-      <section ref={heroRef} className="relative w-full h-[50vh] sm:h-[60vh] md:h-[65vh] min-h-[300px] max-h-[650px] overflow-hidden bg-black">
+      <section ref={heroRef} className="relative w-full h-[60vh] sm:h-[60vh] md:h-[65vh] min-h-[480px] sm:min-h-[380px] max-h-[700px] overflow-hidden bg-black">
         <motion.div style={{ y: heroY }} className="absolute inset-0">
           <Image src="/servicehero.webp" alt="Professional residential and commercial construction services in Calgary by PCND" fill className="object-cover object-center" sizes="100vw" priority />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/90" />
         </motion.div>
         <div className="hero-glow absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 z-[1]" />
-        <motion.div style={{ opacity: heroOpacity }} className="absolute inset-0 flex items-end pb-12 sm:pb-16 z-10">
-          <div className="container mx-auto px-6 max-w-7xl">
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/70 font-medium mb-4">
+        <motion.div style={{ opacity: heroOpacity }} className="absolute inset-0 flex items-end pb-10 sm:pb-14 md:pb-16 z-10">
+          <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-white/75 font-medium mb-3 sm:mb-4">
               Residential &amp; Commercial
             </motion.p>
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-hero uppercase tracking-wide leading-[0.95] mb-6 max-w-4xl hero-heading-shimmer">
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-hero uppercase tracking-wide leading-[0.95] mb-5 sm:mb-6 max-w-4xl hero-heading-shimmer">
               Our Services
             </motion.h1>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="flex flex-col sm:flex-row gap-3 items-start">
-              <Link href="/get-quote" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
+              <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
                 Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 text-white/40 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-white/30">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/80 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/25 rounded-full hover:border-sandstone/60 backdrop-blur-sm">
                 <Phone className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </motion.div>
@@ -185,18 +185,18 @@ export default function ServicesPage() {
         <section
           key={cat.id}
           id={cat.id}
-          className={`py-20 sm:py-28 ${catIdx % 2 === 0 ? "bg-[#0A0A0A]" : "bg-black"}`}
+          className={`py-14 sm:py-20 md:py-28 ${catIdx % 2 === 0 ? "bg-[#0A0A0A]" : "bg-black"}`}
         >
           <div className="container mx-auto px-6 max-w-7xl">
             <Reveal>
-              <div className="mb-12 sm:mb-16">
-                <div className="flex items-center gap-3 mb-5">
+              <div className="mb-8 sm:mb-12 md:mb-16">
+                <div className="flex items-center gap-3 mb-4 sm:mb-5">
                   <span className="h-px w-8 bg-sandstone/40" />
                   <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/70 font-medium">
                     {catIdx === 0 ? "Most Requested" : catIdx === 1 ? "Full-Scope Build" : "Detail Work"}
                   </p>
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black uppercase tracking-tight leading-[0.92] mb-4">
+                <h2 className="text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black uppercase tracking-tight leading-[0.95] sm:leading-[0.92] mb-3 sm:mb-4">
                   {cat.heading}
                 </h2>
                 <div className="h-[1.5px] w-16 bg-gradient-to-r from-sandstone to-transparent mb-5" />
@@ -204,7 +204,7 @@ export default function ServicesPage() {
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
               {cat.serviceIds.map((id, idx) => {
                 const s = getService(id);
                 if (!s) return null;
@@ -220,15 +220,15 @@ export default function ServicesPage() {
       ))}
 
       {/* ━━━ MID-PAGE CTA (Moving Border) ━━━ */}
-      <section className="py-16 sm:py-20 bg-[#0A0A0A]">
-        <div className="container mx-auto px-6 max-w-4xl">
+      <section className="py-12 sm:py-16 md:py-20 bg-[#0A0A0A]">
+        <div className="container mx-auto px-5 sm:px-6 max-w-4xl">
           <Reveal>
-            <div className="moving-border-container bg-white/[0.02] p-8 sm:p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="moving-border-container bg-white/[0.02] p-6 sm:p-10 md:p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-5 md:gap-6 text-center md:text-left">
               <div>
                 <h3 className="text-xl sm:text-2xl font-heading font-black uppercase tracking-tight mb-2">Not Sure Where to Start?</h3>
-                <p className="text-white/35 text-sm sm:text-base max-w-md">Tell us about your project and we&apos;ll recommend the right approach. Free consultation, no obligation.</p>
+                <p className="text-white/50 text-sm sm:text-base max-w-md mx-auto md:mx-0">Tell us about your project and we&apos;ll recommend the right approach. Free consultation, no obligation.</p>
               </div>
-              <Link href="/get-quote" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors shrink-0">
+              <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors md:shrink-0">
                 Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -258,7 +258,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ━━━ FINAL CTA ━━━ */}
-      <section className="py-24 sm:py-32 md:py-40 bg-black relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 lg:py-40 bg-black relative overflow-hidden">
         {/* Subtle CSS radial glow */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full" style={{ background: "radial-gradient(circle, rgba(196, 181, 160, 0.06) 0%, transparent 70%)" }} />
@@ -270,11 +270,11 @@ export default function ServicesPage() {
             <p className="text-white/30 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
               Free quote within 24 hours. 5% price beat guarantee on any competitor estimate.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-              <Link href="/get-quote" className="group inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-sm tracking-wide transition-all duration-300 text-black bg-gradient-to-b from-[#F0F0F0] via-[#D8D8D8] to-[#B8B8B8] border border-white/40 shadow-[0_2px_10px_rgba(200,200,200,0.15),inset_0_1px_0_rgba(255,255,255,0.5)] hover:shadow-[0_4px_20px_rgba(200,200,200,0.25),inset_0_1px_0_rgba(255,255,255,0.6)] hover:translate-y-[-1px]">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
+              <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-bold text-sm tracking-wide transition-all duration-300 text-black bg-gradient-to-b from-[#F0F0F0] via-[#D8D8D8] to-[#B8B8B8] border border-white/40 shadow-[0_2px_10px_rgba(200,200,200,0.15),inset_0_1px_0_rgba(255,255,255,0.5)] hover:shadow-[0_4px_20px_rgba(200,200,200,0.25),inset_0_1px_0_rgba(255,255,255,0.6)] hover:translate-y-[-1px]">
                 Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 text-white/30 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-sandstone/15 rounded-full hover:border-sandstone/40 hover:text-sandstone/70">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-sandstone/20 rounded-full hover:border-sandstone/50 hover:text-sandstone">
                 <Phone className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </div>
