@@ -113,38 +113,40 @@ export function Header() {
 
       {/* Mobile Menu - fullscreen overlay */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-16 sm:top-[4.5rem] bg-black/98 backdrop-blur-md z-40">
-          <div className="container mx-auto px-6 py-10 flex flex-col h-full">
-            <div className="space-y-2 flex-1">
-              {navLinks.map((link, idx) => {
+        <div className="md:hidden fixed inset-0 top-16 sm:top-[4.5rem] bg-black z-[60] overflow-y-auto">
+          <div className="container mx-auto px-6 py-10 flex flex-col min-h-full">
+            <div className="space-y-1 flex-1">
+              {navLinks.map((link) => {
                 const isActive = pathname === link.href || (link.href !== "/" && pathname?.startsWith(link.href));
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`block text-3xl font-hero uppercase tracking-wide py-3 transition-colors ${isActive ? 'text-white' : 'text-white/30 hover:text-white/70'}`}
+                    className={`flex items-center justify-between text-3xl font-hero uppercase tracking-wide py-4 border-b border-white/[0.06] transition-colors ${isActive ? 'text-sandstone' : 'text-white hover:text-sandstone'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {link.label}
+                    <span>{link.label}</span>
+                    {isActive && <span className="h-1.5 w-1.5 rounded-full bg-sandstone" />}
                   </Link>
                 );
               })}
 
-              <div className="pt-6">
+              <div className="pt-8">
                 <Link
                   href="/get-quote"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex items-center px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.18em] border border-sandstone/30 text-sandstone/80 hover:border-sandstone/60 transition-all"
+                  className="inline-flex items-center justify-center gap-2 w-full px-7 py-4 rounded-full text-sm font-bold uppercase tracking-[0.18em] bg-white text-black hover:bg-sandstone transition-colors"
                 >
-                  Request a Quote
+                  Get a Free Quote
                 </Link>
               </div>
             </div>
 
-            <div className="pb-8 border-t border-white/[0.06] pt-6 space-y-4">
+            <div className="pb-8 pt-8 mt-4 border-t border-white/[0.08] space-y-4">
               <Link
                 href="/contact"
-                className="flex items-center gap-2 text-sm font-semibold text-white/40 hover:text-white transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 text-base font-semibold text-white/80 hover:text-sandstone transition-colors"
               >
                 <Phone className="h-4 w-4" />
                 Contact Us

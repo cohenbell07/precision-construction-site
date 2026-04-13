@@ -226,21 +226,21 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       />
 
       {/* ━━━ HERO ━━━ */}
-      <section className="relative w-full aspect-[3/2] sm:aspect-[2/1] md:aspect-auto md:min-h-[620px] md:h-[70vh] lg:h-[72vh] max-h-[760px] overflow-hidden bg-black">
+      <section className="relative w-full min-h-[620px] sm:min-h-[560px] md:min-h-[620px] md:h-[70vh] lg:h-[72vh] max-h-[780px] overflow-hidden bg-black">
         <Image src={image} alt={`${service.title} - professional Calgary construction services by PCND`} fill className={`object-cover ${imgPosition}`} sizes="100vw" priority />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/35 to-black/95" />
         <div
           className="absolute inset-0 pointer-events-none opacity-50"
           style={{ background: "radial-gradient(ellipse at 30% 80%, rgba(196,181,160,0.18) 0%, rgba(0,0,0,0) 55%)" }}
         />
-        <div className="absolute inset-0 flex items-end pb-12 sm:pb-16 z-10">
-          <div className="container mx-auto px-6 max-w-7xl">
-            <Link href="/services" className="inline-flex items-center gap-2 text-xs sm:text-sm tracking-[0.15em] uppercase text-white/70 hover:text-sandstone transition-colors mb-5 font-medium">
+        <div className="absolute inset-0 flex items-end pb-10 sm:pb-14 md:pb-16 z-10">
+          <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
+            <Link href="/services" className="inline-flex items-center gap-2 text-[11px] sm:text-sm tracking-[0.15em] uppercase text-white/70 hover:text-sandstone transition-colors mb-4 sm:mb-5 font-medium">
               <ArrowRight className="w-3.5 h-3.5 rotate-180" /> All Services
             </Link>
 
             {/* Rating row */}
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-2.5 mb-4 sm:mb-5">
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-3.5 h-3.5 fill-sandstone text-sandstone" />
@@ -251,30 +251,30 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               </span>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-hero uppercase tracking-wide leading-[0.9] max-w-4xl mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-hero uppercase tracking-wide leading-[0.9] max-w-4xl mb-4 sm:mb-6">
               {service.title}
             </h1>
-            <p className="text-white/70 text-base sm:text-lg max-w-2xl mb-8 leading-relaxed">
+            <p className="text-white/70 text-[15px] sm:text-base md:text-lg max-w-2xl mb-6 sm:mb-8 leading-relaxed">
               {service.description}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 items-start mb-6">
+            <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start mb-5 sm:mb-6">
               <Link
                 href={`/get-quote?service=${service.id}`}
-                className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors"
+                className="group inline-flex items-center justify-center gap-3 bg-white text-black px-6 sm:px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors"
               >
                 Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 text-white/80 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/20 rounded-full hover:border-sandstone/60 backdrop-blur-sm"
+                className="inline-flex items-center justify-center gap-2 text-white/80 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/20 rounded-full hover:border-sandstone/60 backdrop-blur-sm"
               >
                 <Phone className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </div>
 
             {/* Trust micro-row */}
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.18em] text-white/60 font-medium">
+            <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2 text-[10px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.18em] text-white/60 font-medium">
               <span className="flex items-center gap-1.5"><Shield className="w-3 h-3 text-sandstone" /> Licensed &amp; Insured</span>
               <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
               <span className="flex items-center gap-1.5"><Clock className="w-3 h-3 text-sandstone" /> 24hr Response</span>
@@ -301,11 +301,11 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
               {/* Service-specific stats */}
               {service.stats && service.stats.length > 0 && (
-                <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-8 max-w-2xl">
+                <div className="grid grid-cols-3 gap-3 sm:gap-5 md:gap-6 mb-8 max-w-2xl">
                   {service.stats.map((stat) => (
-                    <div key={stat.label} className="relative border-l-2 border-sandstone/40 pl-4 sm:pl-5">
-                      <p className="font-hero text-3xl sm:text-4xl md:text-5xl text-white leading-none tracking-wide mb-1.5">{stat.value}</p>
-                      <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-white/45 font-medium leading-tight">{stat.label}</p>
+                    <div key={stat.label} className="relative border-l-2 border-sandstone/40 pl-3 sm:pl-4 md:pl-5">
+                      <p className="font-hero text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white leading-none tracking-wide mb-1.5">{stat.value}</p>
+                      <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.12em] sm:tracking-[0.15em] text-white/45 font-medium leading-tight">{stat.label}</p>
                     </div>
                   ))}
                 </div>
