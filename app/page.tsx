@@ -147,8 +147,8 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
+        {/* Scroll indicator — hidden on mobile (collides with CTAs in short hero) */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="hidden sm:block absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 2, repeat: Infinity }} className="flex flex-col items-center gap-2">
             <span className="text-[9px] uppercase tracking-[0.3em] text-white/25 font-medium">Scroll</span>
             <div className="w-px h-6 bg-gradient-to-b from-white/30 to-transparent" />
@@ -198,7 +198,7 @@ export default function Home() {
       </section>
 
       {/* ━━━ ABOUT LEGACY ━━━ */}
-      <section className="py-20 sm:py-28 md:py-36 bg-black">
+      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-black">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-20 items-center">
             <Reveal className="lg:col-span-2">
@@ -216,13 +216,13 @@ export default function Home() {
 
             <Reveal delay={0.15} className="lg:col-span-3">
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">About Our Legacy</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-6">
+              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
                 Three Generations<br />of Quality
               </h2>
               <p className="text-white/50 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
                 Since 1968, the Olivito family has built a reputation on one simple promise: treat every client like family and deliver only the best. Now in our third generation, that commitment hasn&apos;t wavered.
               </p>
-              <div className="flex flex-wrap gap-x-10 gap-y-4 mb-10">
+              <div className="flex flex-wrap gap-x-6 sm:gap-x-10 gap-y-4 mb-8 sm:mb-10">
                 {[
                   { val: "24hr", label: "Response" },
                   { val: "$0", label: "Hidden Fees" },
@@ -245,13 +245,13 @@ export default function Home() {
       </section>
 
       {/* ━━━ SERVICES ━━━ */}
-      <section className="py-20 sm:py-28 md:py-36 bg-[#0A0A0A]">
+      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-[#0A0A0A]">
         <div className="container mx-auto px-6 max-w-7xl">
           <Reveal>
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12 sm:mb-16">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12 md:mb-16">
               <div>
                 <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">What We Do</p>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Our Services</h2>
+                <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Our Services</h2>
               </div>
               <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/40 hover:text-white transition-colors group shrink-0">
                 View All <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -337,7 +337,7 @@ export default function Home() {
             <Reveal delay={0.15}>
               <div>
                 <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Featured</p>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-6">Basement<br />Developments</h2>
+                <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">Basement<br />Developments</h2>
                 <p className="text-white/40 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
                   Turnkey development — framing, electrical, plumbing, drywall, flooring, and finishes. Permits handled. One team, start to finish.
                 </p>
@@ -359,12 +359,12 @@ export default function Home() {
       </section>
 
       {/* ━━━ TESTIMONIALS ━━━ */}
-      <section className="py-20 sm:py-28 md:py-36 bg-[#0A0A0A]">
+      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-[#0A0A0A]">
         <div className="container mx-auto px-6 max-w-7xl">
           <Reveal>
-            <div className="text-center mb-12 sm:mb-16">
+            <div className="text-center mb-8 sm:mb-12 md:mb-16">
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Client Stories</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">What Our Clients Say</h2>
+              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">What Our Clients Say</h2>
             </div>
           </Reveal>
 
@@ -372,7 +372,7 @@ export default function Home() {
             {testimonials.map((t, idx) => (
               <Reveal key={t.name} delay={idx * 0.1}>
                 <SpotlightCard className="rounded-xl h-full" spotlightColor="rgba(196, 181, 160, 0.15)">
-                  <div className="p-7 sm:p-8 h-full flex flex-col">
+                  <div className="p-6 sm:p-8 h-full flex flex-col">
                     <div className="flex items-center justify-between mb-5">
                       <div className="flex gap-0.5">
                         {[...Array(5)].map((_, i) => (
@@ -401,7 +401,7 @@ export default function Home() {
       </section>
 
       {/* ━━━ FINAL CTA ━━━ */}
-      <section className="py-24 sm:py-32 md:py-40 bg-black relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 lg:py-40 bg-black relative overflow-hidden">
         <LightRays
           raysOrigin="top-center"
           raysColor="#C4B5A0"
@@ -417,15 +417,15 @@ export default function Home() {
         <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
           <Reveal>
             <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/25 font-medium mb-5">Free Consultation</p>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-6">Ready to Build?</h2>
+            <h2 className="text-[32px] sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-5 sm:mb-6">Ready to Build?</h2>
             <p className="text-white/30 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
               No pressure, no obligation. Tell us about your project and we&apos;ll get back to you within 24 hours.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-              <Link href="/get-quote" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
+              <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
                 Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 text-white/30 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/10 rounded-full hover:border-white/30">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-sandstone/50">
                 <Phone className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </div>
