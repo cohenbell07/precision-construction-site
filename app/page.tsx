@@ -82,20 +82,25 @@ export default function Home() {
     <div className="flex flex-col">
 
       {/* ━━━ HERO ━━━ */}
-      <section ref={heroRef} className="relative w-full h-[85vh] sm:h-screen min-h-[500px] max-h-[1100px] overflow-hidden bg-black">
+      <section ref={heroRef} className="relative w-full h-[85vh] sm:h-screen min-h-[560px] max-h-[1100px] overflow-hidden bg-black">
         <div className="absolute inset-0">
           <VideoHero videoId="9f32426787cbe2b26a14642463b7b817" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-black/85" />
+          {/* Readability overlays — layered for stronger legibility on mobile */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/90 sm:from-black/50 sm:via-black/25 sm:to-black/85" />
+          <div
+            className="absolute inset-0 sm:hidden"
+            style={{ background: "radial-gradient(ellipse at 30% 65%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 60%)" }}
+          />
         </div>
 
         <div className="hero-glow absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 z-[1]" />
         <motion.div style={{ opacity: heroOpacity, y: heroTextY }} className="absolute inset-0 flex items-center z-10">
-          <div className="container mx-auto px-6 max-w-7xl">
+          <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-5"
+              className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-5 whitespace-nowrap"
             >
               {["3rd Generation", "Family Owned", "Since 1968"].map((word, i) => (
                 <motion.span
@@ -103,9 +108,10 @@ export default function Home() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 + i * 0.15 }}
-                  className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/70 font-medium"
+                  className="flex items-center gap-2 sm:gap-3 text-[9px] sm:text-xs tracking-[0.18em] sm:tracking-[0.3em] uppercase text-white/85 font-medium"
                 >
-                  {word}{i < 2 && <span className="ml-3 text-white/30">&middot;</span>}
+                  {word}
+                  {i < 2 && <span className="text-sandstone/60">&middot;</span>}
                 </motion.span>
               ))}
             </motion.div>
@@ -121,7 +127,7 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-white/40 text-base sm:text-lg max-w-xl mb-8 leading-relaxed"
+              className="text-white/75 sm:text-white/60 text-[15px] sm:text-lg max-w-xl mb-7 sm:mb-8 leading-relaxed"
             >
               Your home deserves a builder who&apos;s been here since 1968. Three generations of quality craftsmanship — one family, one standard.
             </motion.p>
@@ -129,12 +135,12 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.9 }}
-              className="flex flex-col sm:flex-row gap-3 items-start"
+              className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start"
             >
-              <Link href="/get-quote" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
+              <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
                 Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/services" className="inline-flex items-center gap-2 text-white/50 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-white/40">
+              <Link href="/services" className="inline-flex items-center justify-center gap-2 text-white hover:text-sandstone px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/40 rounded-full hover:border-sandstone/60 backdrop-blur-sm">
                 Our Services
               </Link>
             </motion.div>

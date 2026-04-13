@@ -168,10 +168,12 @@ export function Footer() {
       <div className="bg-black/60">
         <div className="h-px bg-gradient-to-r from-transparent via-white/[0.04] to-transparent" />
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-          <div className="py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-white/15 uppercase tracking-[0.1em]">
+          <div className="py-6 sm:py-5 flex flex-col items-center gap-2.5 sm:flex-row sm:justify-between sm:gap-3 text-center sm:text-left text-[11px] sm:text-[10px] text-white/40 sm:text-white/30 uppercase tracking-[0.12em] sm:tracking-[0.1em] leading-relaxed">
             <p>&copy; {new Date().getFullYear()} {BRAND_CONFIG.name}</p>
-            <p>Serving Calgary, Airdrie, Cochrane, Okotoks &amp; Surrounding Areas</p>
-            <p>Licensed &amp; Insured &middot; Family-Owned Since 1968</p>
+            <p className="max-w-xs sm:max-w-none">
+              Serving Calgary, Airdrie, Cochrane &amp; Okotoks
+            </p>
+            <p>Licensed &amp; Insured &middot; Since 1968</p>
           </div>
         </div>
       </div>
