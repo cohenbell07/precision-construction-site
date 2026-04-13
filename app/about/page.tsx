@@ -317,8 +317,8 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
             {[
-              { name: "Sarah & Mike K.", text: "John built a custom Murphy bed and shelving unit for our guest room. The quality blew us away — solid wood, soft-close hardware, and it fits the space like it was always meant to be there. Way better than anything we found at stores.", project: "Custom Carpentry", year: "2024" },
-              { name: "Rob T.", text: "Had our entire basement done — bedroom, bathroom, rec room, the works. Crew showed up on time every day, kept the site clean, and the final walkthrough had zero punch list items. That never happens.", project: "Basement Development", year: "2023" },
+              { name: "Sarah & Micah K.", text: "John built a custom Murphy bed and shelving unit for our guest room. The quality blew us away — solid wood, soft-close hardware, and it fits the space like it was always meant to be there. Way better than anything we found at stores.", project: "Custom Carpentry", year: "2024" },
+              { name: "Kaveh T.", text: "Had our entire basement done — bedroom, bathroom, rec room, the works. Crew showed up on time every day, kept the site clean, and the final walkthrough had zero punch list items. That never happens.", project: "Basement Development", year: "2023" },
               { name: "Nina P.", text: "We wanted a frameless glass steam shower and most companies wouldn't even quote it. John's team handled the whole thing — waterproofing, tile, glass, steam unit. Turned out incredible.", project: "Bathroom Renovation", year: "2024" },
             ].map((t, idx) => (
               <Reveal key={t.name} delay={idx * 0.1}>

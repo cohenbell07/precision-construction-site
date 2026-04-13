@@ -32,12 +32,12 @@ const serviceTestimonials: Record<string, { name: string; text: string; project:
     project: "Main Floor LVP Installation",
   },
   showers: {
-    name: "Angela T.",
+    name: "Ayla T.",
     text: "We had them do a full custom shower with a bench and niche in our ensuite. The tile work looks great — grout lines are nice and straight and the waterproofing was done properly. Took about a week and they kept everything clean the whole time.",
     project: "Custom Ensuite Shower",
   },
   countertops: {
-    name: "Mike & Laura D.",
+    name: "Jas & Raman D.",
     text: "Got quartz countertops installed in our kitchen and the seams are basically invisible. They templated everything on-site and the fit was perfect around the sink and cooktop. Turnaround was faster than we expected too.",
     project: "Kitchen Quartz Countertops",
   },
@@ -47,12 +47,12 @@ const serviceTestimonials: Record<string, { name: string; text: string; project:
     project: "Custom Cabinetry Install",
   },
   carpentry: {
-    name: "Tyler B.",
+    name: "Connor M.",
     text: "Had them do all the interior trim and built-ins in our new home — baseboards, casings, crown moulding, and a built-in bookshelf. Everything is tight and level. You can tell they actually care about the details.",
     project: "Interior Trim & Built-Ins",
   },
   framing: {
-    name: "Greg H.",
+    name: "Lukas N.",
     text: "They framed our garage suite addition and everything was plumb and square when the inspector came through. Passed on the first go. The crew worked fast but didn't cut corners — exactly what you want on a structural job.",
     project: "Garage Suite Framing",
   },
@@ -62,17 +62,17 @@ const serviceTestimonials: Record<string, { name: string; text: string; project:
     project: "Basement Drywall & Texture",
   },
   painting: {
-    name: "Chris & Jen M.",
+    name: "Wes & Aliya M.",
     text: "They painted our entire main floor and stairwell — walls and trim. The prep work was thorough, all the edges are crisp, and they used quality Benjamin Moore paint. Took three days and the place looked brand new after.",
     project: "Main Floor Interior Painting",
   },
   basements: {
-    name: "Dan R.",
+    name: "Ahmed R.",
     text: "Had them finish our basement — full development from bare concrete to a liveable space with a bathroom, bedroom, and rec room. They handled the permits, passed every inspection first try, and the final result was way better than we expected for the price.",
     project: "Full Basement Development",
   },
   garages: {
-    name: "Steve L.",
+    name: "Kenji L.",
     text: "Built us a detached double garage with a concrete pad and man door. The framing and siding match the house perfectly. They dealt with the city permits and the whole thing was done in under three weeks. No complaints at all.",
     project: "Detached Garage Build",
   },
@@ -82,7 +82,7 @@ const serviceTestimonials: Record<string, { name: string; text: string; project:
     project: "Full Kitchen Renovation",
   },
   commercial: {
-    name: "David A.",
+    name: "Hakeem A.",
     text: "We hired them for a tenant improvement on a retail unit — new walls, ceiling grid, flooring, and paint. They worked around our schedule, kept the neighbouring units undisturbed, and finished on time. Professional from start to finish.",
     project: "Commercial Tenant Improvement",
   },
