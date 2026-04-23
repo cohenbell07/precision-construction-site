@@ -63,7 +63,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[11px] font-bold transition-colors relative group uppercase tracking-[0.18em] whitespace-nowrap ${isActive ? 'text-white' : 'text-white/45 hover:text-white'}`}
+                className={`text-[11px] font-bold transition-colors relative group uppercase tracking-[0.18em] whitespace-nowrap ${isActive ? 'text-white' : 'text-white/70 hover:text-white'}`}
               >
                 {link.label}
                 <span
@@ -85,7 +85,7 @@ export function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit our Facebook page"
-                  className="w-7 h-7 rounded-full border border-white/10 hover:border-sandstone/30 flex items-center justify-center text-white/35 hover:text-sandstone/70 transition-all duration-300"
+                  className="w-7 h-7 rounded-full border border-white/10 hover:border-sandstone/30 flex items-center justify-center text-white/60 hover:text-sandstone/70 transition-all duration-300"
                 >
                   <Facebook className="h-3.5 w-3.5" />
                 </a>
@@ -96,7 +96,7 @@ export function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit our Instagram profile"
-                  className="w-7 h-7 rounded-full border border-white/10 hover:border-sandstone/30 flex items-center justify-center text-white/35 hover:text-sandstone/70 transition-all duration-300"
+                  className="w-7 h-7 rounded-full border border-white/10 hover:border-sandstone/30 flex items-center justify-center text-white/60 hover:text-sandstone/70 transition-all duration-300"
                 >
                   <Instagram className="h-3.5 w-3.5" />
                 </a>
@@ -174,7 +174,7 @@ export function Header() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Facebook"
-                      className="w-10 h-10 rounded-full border border-white/[0.08] hover:border-sandstone/30 flex items-center justify-center text-white/35 hover:text-sandstone/60 transition-all"
+                      className="w-10 h-10 rounded-full border border-white/[0.08] hover:border-sandstone/30 flex items-center justify-center text-white/60 hover:text-sandstone/60 transition-all"
                     >
                       <Facebook className="h-4 w-4" />
                     </a>
@@ -185,7 +185,7 @@ export function Header() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Instagram"
-                      className="w-10 h-10 rounded-full border border-white/[0.08] hover:border-sandstone/30 flex items-center justify-center text-white/35 hover:text-sandstone/60 transition-all"
+                      className="w-10 h-10 rounded-full border border-white/[0.08] hover:border-sandstone/30 flex items-center justify-center text-white/60 hover:text-sandstone/60 transition-all"
                     >
                       <Instagram className="h-4 w-4" />
                     </a>

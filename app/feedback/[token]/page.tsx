@@ -66,7 +66,7 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
       <div className="w-full max-w-lg">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-heading font-black text-white uppercase tracking-tight">{BRAND_CONFIG.shortName}</h1>
-          <p className="text-sm text-white/30 mt-1">{BRAND_CONFIG.motto}</p>
+          <p className="text-sm text-white/55 mt-1">{BRAND_CONFIG.motto}</p>
         </div>
         <div className="bg-[#0A0A0A] rounded-2xl border border-white/[0.06] p-6 sm:p-8 shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
           {children}
@@ -75,14 +75,14 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
     </div>
   );
 
-  const inputClass = "w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-white placeholder:text-white/25 focus:outline-none focus:border-white/20 resize-none text-base sm:text-sm transition-colors";
+  const inputClass = "w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-white placeholder:text-white/55 focus:outline-none focus:border-white/20 resize-none text-base sm:text-sm transition-colors";
 
   if (phase === "error") {
     return (
       <PageWrapper>
         <div className="text-center py-8">
           <h2 className="text-xl font-semibold text-white mb-3">{errorMessage || "This link has expired or already been used"}</h2>
-          <p className="text-white/40">
+          <p className="text-white/60">
             If you need help, contact us at{" "}
             <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="text-white hover:underline">{BRAND_CONFIG.contact.phoneFormatted}</a>
           </p>
@@ -96,7 +96,7 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
       <PageWrapper>
         <div className="text-center">
           <h2 className="text-xl sm:text-2xl font-semibold text-white mb-2">How was your experience?</h2>
-          <p className="text-white/35 mb-8">We&apos;d love to hear how your project went</p>
+          <p className="text-white/60 mb-8">We&apos;d love to hear how your project went</p>
 
           <div className="flex justify-center gap-2 sm:gap-3 mb-8">
             {[1, 2, 3, 4, 5].map((star) => (
@@ -141,14 +141,14 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
         <div className="text-center py-4">
           <h2 className="text-2xl font-bold text-white mb-3">Thank you so much!</h2>
           <p className="text-white/50 mb-2">We&apos;re thrilled you had a great experience.</p>
-          <p className="text-white/35 mb-8">Would you mind sharing your experience on Google? It really helps our family business grow.</p>
+          <p className="text-white/60 mb-8">Would you mind sharing your experience on Google? It really helps our family business grow.</p>
 
           {googleReviewUrl && (
             <a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" onClick={handleGoogleReviewClick} className="inline-block w-full bg-white text-black font-bold py-3.5 px-6 rounded-full hover:bg-white/90 transition-colors text-sm mb-4">
               Leave a Google Review
             </a>
           )}
-          <button onClick={() => setPhase("done")} className="text-white/30 hover:text-white/60 text-sm transition-colors">
+          <button onClick={() => setPhase("done")} className="text-white/55 hover:text-white/60 text-sm transition-colors">
             No thanks, I&apos;m done
           </button>
         </div>
@@ -161,11 +161,11 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
       <PageWrapper>
         <div className="py-2">
           <h2 className="text-xl font-semibold text-white mb-2 text-center">We&apos;re sorry to hear that</h2>
-          <p className="text-white/35 mb-6 text-center">We take this seriously and would love to make it right. Could you tell us more?</p>
+          <p className="text-white/60 mb-6 text-center">We take this seriously and would love to make it right. Could you tell us more?</p>
 
           <textarea value={detailedFeedback} onChange={(e) => setDetailedFeedback(e.target.value)} placeholder="Please share what we could have done better..." rows={5} className={`${inputClass} mb-6`} />
 
-          <p className="text-sm text-white/35 mb-3">Would you like us to follow up?</p>
+          <p className="text-sm text-white/60 mb-3">Would you like us to follow up?</p>
           <div className="space-y-2 mb-6">
             {[
               { value: "email", label: "Yes, email me back" },
@@ -192,7 +192,7 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
       <PageWrapper>
         <div className="text-center py-8">
           <h2 className="text-xl font-semibold text-white mb-3">Thank you for your feedback</h2>
-          <p className="text-white/35">We truly appreciate you taking the time. Your feedback helps us improve.</p>
+          <p className="text-white/60">We truly appreciate you taking the time. Your feedback helps us improve.</p>
         </div>
       </PageWrapper>
     );

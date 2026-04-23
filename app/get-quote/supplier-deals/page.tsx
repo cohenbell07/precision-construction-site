@@ -130,7 +130,7 @@ export default function SupplierDealsQuotePage() {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
           <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/60 text-xs font-semibold uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 inline-block"></span>
               Limited Time · 10% Off · Select Services
             </span>
@@ -139,7 +139,7 @@ export default function SupplierDealsQuotePage() {
             10% Off — Seasonal Specials
           </h1>
           <div className="h-[3px] w-14 bg-gradient-to-r from-white to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
-          <p className="text-sm sm:text-base text-white/45 max-w-lg mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-white/70 max-w-lg mx-auto leading-relaxed">
             Select one or more services below and tell us about your project. We&apos;ll send you a quote with 10% off — limited availability.
           </p>
         </div>
@@ -155,7 +155,7 @@ export default function SupplierDealsQuotePage() {
                 <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-1">Step 01</p>
                 <h2 className="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-tight">Select Service(s)</h2>
                 <div className="h-[3px] w-10 bg-gradient-to-r from-white to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.4)' }}></div>
-                <p className="text-sm text-white/40 mt-3">Click to add or remove a checkmark.</p>
+                <p className="text-sm text-white/60 mt-3">Click to add or remove a checkmark.</p>
               </div>
               <div className="space-y-3">
                 {SEASONAL_OPTIONS.map((option) => (
@@ -192,7 +192,7 @@ export default function SupplierDealsQuotePage() {
               </div>
               <div className="space-y-5">
                 <div>
-                  <label htmlFor="projectDetails" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="projectDetails" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
                     Describe Your Project <span className="text-white/70">*</span>
                   </label>
@@ -203,12 +203,12 @@ export default function SupplierDealsQuotePage() {
                     value={formData.projectDetails}
                     onChange={(e) => setFormData((p) => ({ ...p, projectDetails: e.target.value }))}
                     rows={4}
-                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl transition-colors resize-none"
+                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl transition-colors resize-none"
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                    <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                       <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
                       Name <span className="text-white/70">*</span>
                     </label>
@@ -219,11 +219,11 @@ export default function SupplierDealsQuotePage() {
                       placeholder="Your name"
                       value={formData.name}
                       onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
-                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                    <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                       <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
                       Email <span className="text-white/70">*</span>
                     </label>
@@ -236,12 +236,12 @@ export default function SupplierDealsQuotePage() {
                       placeholder="your@email.com"
                       value={formData.email}
                       onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
-                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                     />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="phone" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="phone" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                     Phone
                   </label>
@@ -253,11 +253,11 @@ export default function SupplierDealsQuotePage() {
                     placeholder="Your phone number"
                     value={formData.phone}
                     onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
                 <div>
-                  <label htmlFor="address" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="address" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                     Project Address
                   </label>
@@ -266,12 +266,12 @@ export default function SupplierDealsQuotePage() {
                     placeholder="Calgary, AB (optional)"
                     value={formData.address}
                     onChange={(e) => setFormData((p) => ({ ...p, address: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                   <div>
-                    <label htmlFor="timeline" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                    <label htmlFor="timeline" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                       <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                       Timeline
                     </label>
@@ -290,7 +290,7 @@ export default function SupplierDealsQuotePage() {
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="budgetMin" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                    <label htmlFor="budgetMin" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                       <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                       Budget Min ($)
                     </label>
@@ -300,11 +300,11 @@ export default function SupplierDealsQuotePage() {
                       placeholder="e.g., 5,000"
                       value={formData.budgetMin}
                       onChange={(e) => setFormData((p) => ({ ...p, budgetMin: e.target.value }))}
-                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                     />
                   </div>
                   <div>
-                    <label htmlFor="budgetMax" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                    <label htmlFor="budgetMax" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                       <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                       Budget Max ($)
                     </label>
@@ -314,11 +314,11 @@ export default function SupplierDealsQuotePage() {
                       placeholder="e.g., 25,000"
                       value={formData.budgetMax}
                       onChange={(e) => setFormData((p) => ({ ...p, budgetMax: e.target.value }))}
-                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                     />
                   </div>
                 </div>
-                <p className="text-[11px] text-white/25">Timeline and budget are optional — they help us tailor your quote.</p>
+                <p className="text-[11px] text-white/55">Timeline and budget are optional — they help us tailor your quote.</p>
               </div>
             </div>
           </div>
@@ -332,7 +332,7 @@ export default function SupplierDealsQuotePage() {
           </Button>
         </form>
 
-        <p className="text-center text-white/25 text-xs mt-6">
+        <p className="text-center text-white/55 text-xs mt-6">
           {BRAND_CONFIG.motto}
         </p>
       </div>

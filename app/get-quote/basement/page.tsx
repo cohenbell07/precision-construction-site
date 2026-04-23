@@ -109,7 +109,7 @@ export default function BasementQuotePage() {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
           <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/60 text-xs font-semibold uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 inline-block"></span>
               Limited Time · 15% Off · Full Basement Renovations
             </span>
@@ -118,7 +118,7 @@ export default function BasementQuotePage() {
             15% Off — Basement Renovation
           </h1>
           <div className="h-[3px] w-14 bg-gradient-to-r from-white/70 to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
-          <p className="text-sm sm:text-base text-white/45 max-w-lg mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-white/70 max-w-lg mx-auto leading-relaxed">
             Tell us about your basement project. We&apos;ll send you a quote with 15% off — for a limited time.
           </p>
         </div>
@@ -139,7 +139,7 @@ export default function BasementQuotePage() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
                     Name <span className="text-white/70">*</span>
                   </label>
@@ -150,11 +150,11 @@ export default function BasementQuotePage() {
                     placeholder="Your name"
                     value={formData.name}
                     onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
                     Email <span className="text-white/70">*</span>
                   </label>
@@ -167,13 +167,13 @@ export default function BasementQuotePage() {
                     placeholder="your@email.com"
                     value={formData.email}
                     onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="phone" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                <label htmlFor="phone" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                   <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                   Phone
                 </label>
@@ -190,7 +190,7 @@ export default function BasementQuotePage() {
               </div>
 
               <div>
-                <label htmlFor="address" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                <label htmlFor="address" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                   <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                   Project Address
                 </label>
@@ -199,12 +199,12 @@ export default function BasementQuotePage() {
                   placeholder="Calgary, AB (optional)"
                   value={formData.address}
                   onChange={(e) => setFormData((p) => ({ ...p, address: e.target.value }))}
-                  className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                  className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                 />
               </div>
 
               <div>
-                <label htmlFor="timeline" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                <label htmlFor="timeline" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                   <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                   When do you want to start?
                 </label>
@@ -226,7 +226,7 @@ export default function BasementQuotePage() {
 
               <div className="grid grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="budgetMin" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="budgetMin" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                     Min Budget ($)
                   </label>
@@ -236,11 +236,11 @@ export default function BasementQuotePage() {
                     placeholder="e.g. 15,000"
                     value={formData.budgetMin}
                     onChange={(e) => setFormData((p) => ({ ...p, budgetMin: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
                 <div>
-                  <label htmlFor="budgetMax" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="budgetMax" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                     Max Budget ($)
                   </label>
@@ -250,14 +250,14 @@ export default function BasementQuotePage() {
                     placeholder="e.g. 50,000"
                     value={formData.budgetMax}
                     onChange={(e) => setFormData((p) => ({ ...p, budgetMax: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
               </div>
-              <p className="text-[11px] text-white/25">Budget is optional — it helps us tailor your quote.</p>
+              <p className="text-[11px] text-white/55">Budget is optional — it helps us tailor your quote.</p>
 
               <div>
-                <label htmlFor="projectDetails" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                <label htmlFor="projectDetails" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                   <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
                   Basement Details <span className="text-white/70">*</span>
                 </label>
@@ -268,7 +268,7 @@ export default function BasementQuotePage() {
                   value={formData.projectDetails}
                   onChange={(e) => setFormData((p) => ({ ...p, projectDetails: e.target.value }))}
                   rows={4}
-                  className="bg-white/[0.04] border-white/[0.08] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/25 rounded-xl transition-colors resize-none"
+                  className="bg-white/[0.04] border-white/[0.08] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/55 rounded-xl transition-colors resize-none"
                 />
               </div>
 
@@ -283,7 +283,7 @@ export default function BasementQuotePage() {
           </div>
         </div>
 
-        <p className="text-center text-white/25 text-xs mt-6">
+        <p className="text-center text-white/55 text-xs mt-6">
           {BRAND_CONFIG.motto}
         </p>
       </div>

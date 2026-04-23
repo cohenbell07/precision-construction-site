@@ -145,7 +145,7 @@ export default function ContactPage() {
             <div className="p-6 sm:p-8 md:p-10">
               {/* Header */}
               <div className="mb-6 sm:mb-8">
-                <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-1">Get in touch</p>
+                <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-1">Get in touch</p>
                 <h2 className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-tight">
                   Send a Message
                 </h2>
@@ -157,7 +157,7 @@ export default function ContactPage() {
                   <div>
                     <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/50 uppercase tracking-[0.2em]">
                       <span className="w-1 h-1 rounded-full bg-white/60 shrink-0"></span>
-                      Name <span className="text-white/40">*</span>
+                      Name <span className="text-white/60">*</span>
                     </label>
                     <Input
                       id="name"
@@ -166,13 +166,13 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Your name"
-                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                     />
                   </div>
                   <div>
                     <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/50 uppercase tracking-[0.2em]">
                       <span className="w-1 h-1 rounded-full bg-white/60 shrink-0"></span>
-                      Email <span className="text-white/40">*</span>
+                      Email <span className="text-white/60">*</span>
                     </label>
                     <Input
                       id="email"
@@ -183,7 +183,7 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="your@email.com"
-                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                     />
                   </div>
                 </div>
@@ -201,7 +201,7 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="Your phone number"
-                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                     />
                   </div>
                   <div>
@@ -214,14 +214,14 @@ export default function ContactPage() {
                       value={formData.projectType}
                       onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                       placeholder="e.g., Flooring, Cabinets…"
-                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                      className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                     />
                   </div>
                 </div>
                 <div>
                   <label htmlFor="message" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/50 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/60 shrink-0"></span>
-                    Message <span className="text-white/40">*</span>
+                    Message <span className="text-white/60">*</span>
                   </label>
                   <Textarea
                     id="message"
@@ -230,7 +230,7 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell us about your project — scope, timeline, budget, anything relevant…"
                     rows={6}
-                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl transition-colors resize-none"
+                    className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl transition-colors resize-none"
                   />
                 </div>
                 <Button type="submit" disabled={loading} className="w-full bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full uppercase tracking-widest text-sm py-3 h-auto">
@@ -241,7 +241,7 @@ export default function ContactPage() {
                     </>
                   )}
                 </Button>
-                <p className="text-center text-xs text-white/25">We respond within 24 hours — usually much sooner.</p>
+                <p className="text-center text-xs text-white/55">We respond within 24 hours — usually much sooner.</p>
               </form>
             </div>
           </div>
@@ -254,7 +254,7 @@ export default function ContactPage() {
               <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/20 via-white/[0.06] to-transparent pointer-events-none"></div>
               <div className="p-6 sm:p-8">
                 <div className="mb-5 sm:mb-6">
-                  <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.25em] mb-1">Reach us</p>
+                  <p className="text-[10px] font-black text-white/55 uppercase tracking-[0.25em] mb-1">Reach us</p>
                   <h2 className="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-tight">
                     Contact Information
                   </h2>
@@ -263,19 +263,19 @@ export default function ContactPage() {
                 <div className="space-y-5">
                   <div className="flex items-center gap-4">
                     <div className="w-11 h-11 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0">
-                      <MapPin className="h-5 w-5 text-white/40" />
+                      <MapPin className="h-5 w-5 text-white/60" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black text-white/35 uppercase tracking-[0.2em] mb-0.5">Address</p>
+                      <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.2em] mb-0.5">Address</p>
                       <p className="text-white/80 text-sm font-medium">{BRAND_CONFIG.contact.address}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="w-11 h-11 rounded-xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center shrink-0">
-                      <Phone className="h-5 w-5 text-white/40" />
+                      <Phone className="h-5 w-5 text-white/60" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black text-white/35 uppercase tracking-[0.2em] mb-0.5">Phone</p>
+                      <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.2em] mb-0.5">Phone</p>
                       <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="text-white font-black text-base hover:text-white/80 transition-colors">
                         {BRAND_CONFIG.contact.phoneFormatted}
                       </a>
@@ -283,17 +283,17 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="w-11 h-11 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0">
-                      <Mail className="h-5 w-5 text-white/40" />
+                      <Mail className="h-5 w-5 text-white/60" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black text-white/35 uppercase tracking-[0.2em] mb-0.5">Email</p>
+                      <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.2em] mb-0.5">Email</p>
                       <a href={`mailto:${BRAND_CONFIG.contact.email}`} className="text-white/70 hover:text-white transition-colors text-sm font-medium break-all">
                         {BRAND_CONFIG.contact.email}
                       </a>
                     </div>
                   </div>
                   <div className="pt-4 border-t border-white/[0.06]">
-                    <p className="text-xs text-white/40 leading-relaxed">
+                    <p className="text-xs text-white/60 leading-relaxed">
                       <span className="text-white/60 font-black">Owner:</span> {BRAND_CONFIG.owner} · {BRAND_CONFIG.contact.cta}
                     </p>
                   </div>
@@ -306,7 +306,7 @@ export default function ContactPage() {
               <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/25 via-white/10 to-transparent pointer-events-none"></div>
               <div className="p-6 sm:p-8">
                 <div className="mb-5">
-                  <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.25em] mb-1">Where we work</p>
+                  <p className="text-[10px] font-black text-white/55 uppercase tracking-[0.25em] mb-1">Where we work</p>
                   <h2 className="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-tight">
                     Service Areas
                   </h2>
@@ -335,7 +335,7 @@ export default function ContactPage() {
       <section className="py-16 sm:py-20 md:py-24 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
         <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center relative z-10">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider mb-5">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/60 text-xs font-semibold uppercase tracking-wider mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0 inline-block"></span>
             Free Quote · No Obligation
           </span>

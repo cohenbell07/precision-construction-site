@@ -184,7 +184,7 @@ function GetQuoteForm() {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
           <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/60 text-xs font-semibold uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 inline-block"></span>
               Free &middot; No Obligation &middot; 24-Hour Response
             </span>
@@ -193,7 +193,7 @@ function GetQuoteForm() {
             Let&apos;s Talk About<br className="sm:hidden" /> Your Project
           </h1>
           <div className="h-[3px] w-14 bg-gradient-to-r from-white/70 to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
-          <p className="text-sm sm:text-base text-white/45 max-w-lg mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-white/70 max-w-lg mx-auto leading-relaxed">
             Tell us what you have in mind — we&apos;ll get back to you with a free, detailed quote within 24 hours.
           </p>
         </div>
@@ -217,10 +217,10 @@ function GetQuoteForm() {
                 return (
                   <div key={s.key} className="flex items-center">
                     <div className="flex flex-col items-center gap-1.5">
-                      <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300 border-2 ${isCompleted ? 'bg-white border-white text-black shadow-[0_0_12px_rgba(255,255,255,0.4)]' : isActive ? 'border-white/70 bg-white/[0.12] text-white' : 'border-white/[0.08] bg-white/[0.03] text-white/30'}`}>
+                      <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300 border-2 ${isCompleted ? 'bg-white border-white text-black shadow-[0_0_12px_rgba(255,255,255,0.4)]' : isActive ? 'border-white/70 bg-white/[0.12] text-white' : 'border-white/[0.08] bg-white/[0.03] text-white/55'}`}>
                         {isCompleted ? <CheckCircle className="h-4 w-4" /> : s.num}
                       </div>
-                      <span className={`text-[10px] font-black uppercase tracking-widest ${isActive ? 'text-white' : isCompleted ? 'text-white/70' : 'text-white/25'}`}>{s.label}</span>
+                      <span className={`text-[10px] font-black uppercase tracking-widest ${isActive ? 'text-white' : isCompleted ? 'text-white/70' : 'text-white/55'}`}>{s.label}</span>
                     </div>
                     {i < arr.length - 1 && (
                       <div className={`w-14 sm:w-20 h-[2px] mx-2 mb-5 rounded-full transition-all duration-500 ${isCompleted ? 'bg-white/50' : 'bg-white/10'}`}></div>
@@ -246,7 +246,7 @@ function GetQuoteForm() {
                       Select a Service
                     </h2>
                     <div className="h-[3px] w-10 bg-gradient-to-r from-white/70 to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.4)' }}></div>
-                    <p className="text-sm text-white/40 mt-3">Which service are you interested in?</p>
+                    <p className="text-sm text-white/60 mt-3">Which service are you interested in?</p>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {services.map((service) => {
@@ -267,7 +267,7 @@ function GetQuoteForm() {
                                 <span className="text-[8px] font-black uppercase tracking-widest text-white/60 bg-white/[0.08] px-1.5 py-0.5 rounded-full">Popular</span>
                               )}
                             </div>
-                            <p className="text-[11px] text-white/30 leading-tight mt-0.5 line-clamp-1">{service.description}</p>
+                            <p className="text-[11px] text-white/55 leading-tight mt-0.5 line-clamp-1">{service.description}</p>
                           </div>
                         </button>
                       );
@@ -281,7 +281,7 @@ function GetQuoteForm() {
                       </div>
                       <div>
                         <p className="font-heading font-black text-sm text-white uppercase tracking-tight">Other</p>
-                        <p className="text-[11px] text-white/30 leading-tight mt-0.5">Have a different project? Select this.</p>
+                        <p className="text-[11px] text-white/55 leading-tight mt-0.5">Have a different project? Select this.</p>
                       </div>
                     </button>
                   </div>
@@ -300,7 +300,7 @@ function GetQuoteForm() {
                       Project Details
                     </h2>
                     <div className="h-[3px] w-10 bg-gradient-to-r from-white/70 to-transparent mt-3 rounded-full" style={{ boxShadow: '0 0 8px rgba(255,255,255,0.4)' }}></div>
-                    <p className="text-sm text-white/40 mt-3">
+                    <p className="text-sm text-white/60 mt-3">
                       {selectedService === "other"
                         ? "Tell us about your project"
                         : `Tell us about your ${getServiceById(selectedService)?.title.toLowerCase()} project`}
@@ -310,7 +310,7 @@ function GetQuoteForm() {
                   <form onSubmit={handleDetailsSubmit} className="space-y-5">
                     {selectedService === "other" && (
                       <div>
-                        <label htmlFor="customServiceName" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                        <label htmlFor="customServiceName" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                           <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
                           Project Type <span className="text-white/70">*</span>
                         </label>
@@ -320,7 +320,7 @@ function GetQuoteForm() {
                           value={customServiceName}
                           onChange={(e) => setCustomServiceName(e.target.value)}
                           placeholder="e.g., Basement Development, Deck Construction..."
-                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                         />
                       </div>
                     )}
@@ -328,7 +328,7 @@ function GetQuoteForm() {
                     {/* Contact fields */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                        <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                           <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
                           Name <span className="text-white/70">*</span>
                         </label>
@@ -339,11 +339,11 @@ function GetQuoteForm() {
                           value={formData.name}
                           onChange={(e) => handleInputChange("name", e.target.value)}
                           placeholder="Your name"
-                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                        <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                           <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
                           Email <span className="text-white/70">*</span>
                         </label>
@@ -356,13 +356,13 @@ function GetQuoteForm() {
                           value={formData.email}
                           onChange={(e) => handleInputChange("email", e.target.value)}
                           placeholder="your@email.com"
-                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label htmlFor="phone" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                        <label htmlFor="phone" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                           <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                           Phone
                         </label>
@@ -378,7 +378,7 @@ function GetQuoteForm() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="address" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                        <label htmlFor="address" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                           <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                           Project Address
                         </label>
@@ -387,13 +387,13 @@ function GetQuoteForm() {
                           value={formData.address}
                           onChange={(e) => handleInputChange("address", e.target.value)}
                           placeholder="Calgary, AB (optional)"
-                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label htmlFor="projectDetails" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                      <label htmlFor="projectDetails" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                         <span className="w-1 h-1 rounded-full bg-white shrink-0"></span>
                         Project Details <span className="text-white/70">*</span>
                       </label>
@@ -406,14 +406,14 @@ function GetQuoteForm() {
                           ? "Describe your project in detail — what you need, scope, any special requirements..."
                           : "Describe your project in detail — scope, size, materials you have in mind, etc..."}
                         rows={5}
-                        className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl transition-colors resize-none"
+                        className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl transition-colors resize-none"
                       />
                     </div>
 
                     {/* Timeline + Budget */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                       <div>
-                        <label htmlFor="timeline" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                        <label htmlFor="timeline" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                           <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                           Timeline
                         </label>
@@ -433,7 +433,7 @@ function GetQuoteForm() {
                         </select>
                       </div>
                       <div>
-                        <label htmlFor="budgetMin" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                        <label htmlFor="budgetMin" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                           <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                           Budget Min ($)
                         </label>
@@ -443,11 +443,11 @@ function GetQuoteForm() {
                           placeholder="e.g., 10,000"
                           value={formData.budgetMin}
                           onChange={(e) => handleInputChange("budgetMin", e.target.value)}
-                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                         />
                       </div>
                       <div>
-                        <label htmlFor="budgetMax" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                        <label htmlFor="budgetMax" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                           <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                           Budget Max ($)
                         </label>
@@ -457,15 +457,15 @@ function GetQuoteForm() {
                           placeholder="e.g., 50,000"
                           value={formData.budgetMax}
                           onChange={(e) => handleInputChange("budgetMax", e.target.value)}
-                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                         />
                       </div>
                     </div>
-                    <p className="text-[11px] text-white/25">Timeline and budget are optional — they help us tailor your quote.</p>
+                    <p className="text-[11px] text-white/55">Timeline and budget are optional — they help us tailor your quote.</p>
 
                     {/* How did you hear about us */}
                     <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
-                      <label className="flex items-center gap-1.5 text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-3">
+                      <label className="flex items-center gap-1.5 text-[10px] font-black text-white/60 uppercase tracking-[0.2em] mb-3">
                         <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                         How did you hear about us?
                       </label>
@@ -481,7 +481,7 @@ function GetQuoteForm() {
                             className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${
                               formData.referralSource === option
                                 ? "border-white/30 bg-white/[0.10] text-white"
-                                : "border-white/[0.08] bg-white/[0.02] text-white/40 hover:border-white/15 hover:text-white/60"
+                                : "border-white/[0.08] bg-white/[0.02] text-white/60 hover:border-white/15 hover:text-white/60"
                             }`}
                           >
                             {option}
@@ -493,7 +493,7 @@ function GetQuoteForm() {
                           placeholder="Tell us how you found us..."
                           value={formData.referralOther}
                           onChange={(e) => handleInputChange("referralOther", e.target.value)}
-                          className="mt-3 bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-10 text-base sm:text-sm transition-colors"
+                          className="mt-3 bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-10 text-base sm:text-sm transition-colors"
                         />
                       )}
                       <p className="text-[10px] text-white/20 mt-2">Optional — helps us improve our service.</p>
@@ -503,7 +503,7 @@ function GetQuoteForm() {
                       <button
                         type="button"
                         onClick={() => setStep("selection")}
-                        className="text-xs font-black text-white/35 hover:text-white uppercase tracking-widest transition-colors px-4 py-2.5 rounded-xl border border-white/[0.08] hover:border-white/20"
+                        className="text-xs font-black text-white/60 hover:text-white uppercase tracking-widest transition-colors px-4 py-2.5 rounded-xl border border-white/[0.08] hover:border-white/20"
                       >
                         &larr; Back
                       </button>
@@ -551,7 +551,7 @@ function GetQuoteForm() {
                         setCustomServiceName("");
                         setFormData({ name: "", email: "", phone: "", address: "", projectDetails: "", timeline: "", budgetMin: "", budgetMax: "", referralSource: "", referralOther: "" });
                       }}
-                      className="text-xs font-black text-white/35 hover:text-white uppercase tracking-widest transition-colors px-6 py-3 rounded-md border border-white/[0.08] hover:border-white/20"
+                      className="text-xs font-black text-white/60 hover:text-white uppercase tracking-widest transition-colors px-6 py-3 rounded-md border border-white/[0.08] hover:border-white/20"
                     >
                       Request Another Quote
                     </button>
@@ -568,7 +568,7 @@ function GetQuoteForm() {
               <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/30 via-white/10 to-transparent pointer-events-none"></div>
               <div className="p-5 sm:p-6">
                 <div className="mb-5">
-                  <p className="text-[10px] font-black text-white/25 uppercase tracking-[0.2em] mb-1">Why request a quote?</p>
+                  <p className="text-[10px] font-black text-white/55 uppercase tracking-[0.2em] mb-1">Why request a quote?</p>
                   <h3 className="text-lg font-heading font-black text-white uppercase tracking-tight">It&apos;s Simple</h3>
                   <div className="h-[2px] w-8 bg-gradient-to-r from-white/40 to-transparent mt-2 rounded-full"></div>
                 </div>
@@ -584,7 +584,7 @@ function GetQuoteForm() {
                       </span>
                       <div>
                         <p className="text-sm font-black text-white leading-tight">{item.title}</p>
-                        <p className="text-xs text-white/35 mt-0.5">{item.desc}</p>
+                        <p className="text-xs text-white/60 mt-0.5">{item.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -601,10 +601,10 @@ function GetQuoteForm() {
                     <Star key={i} className="w-3 h-3 fill-sandstone text-sandstone" />
                   ))}
                 </div>
-                <p className="text-white/45 text-sm leading-relaxed italic mb-4">&ldquo;{testimonial.text}&rdquo;</p>
+                <p className="text-white/70 text-sm leading-relaxed italic mb-4">&ldquo;{testimonial.text}&rdquo;</p>
                 <div className="border-t border-white/[0.06] pt-3">
                   <p className="text-xs font-semibold text-white/70">{testimonial.name}</p>
-                  <p className="text-[10px] text-white/25">{testimonial.project}</p>
+                  <p className="text-[10px] text-white/55">{testimonial.project}</p>
                 </div>
               </div>
             </div>
@@ -618,7 +618,7 @@ function GetQuoteForm() {
                   </div>
                   <div>
                     <p className="text-xs font-bold text-white">5% Price Beat Guarantee</p>
-                    <p className="text-[10px] text-white/30">We beat any legitimate quote</p>
+                    <p className="text-[10px] text-white/55">We beat any legitimate quote</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -627,11 +627,11 @@ function GetQuoteForm() {
                   </div>
                   <div>
                     <p className="text-xs font-bold text-white">Family-Owned Since 1968</p>
-                    <p className="text-[10px] text-white/30">3rd generation builder</p>
+                    <p className="text-[10px] text-white/55">3rd generation builder</p>
                   </div>
                 </div>
                 <div className="border-t border-white/[0.06] pt-4">
-                  <p className="text-[10px] font-black text-white/25 uppercase tracking-[0.2em] mb-2">Prefer to talk?</p>
+                  <p className="text-[10px] font-black text-white/55 uppercase tracking-[0.2em] mb-2">Prefer to talk?</p>
                   <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-bold text-white/60 hover:text-white transition-colors">
                     <Phone className="w-3.5 h-3.5" /> Contact Us
                   </Link>

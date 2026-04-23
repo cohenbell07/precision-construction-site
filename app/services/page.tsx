@@ -200,7 +200,7 @@ export default function ServicesPage() {
                   {cat.heading}
                 </h2>
                 <div className="h-[1.5px] w-16 bg-gradient-to-r from-sandstone to-transparent mb-5" />
-                <p className="text-white/45 text-base sm:text-lg max-w-xl leading-relaxed">{cat.desc}</p>
+                <p className="text-white/70 text-base sm:text-lg max-w-xl leading-relaxed">{cat.desc}</p>
               </div>
             </Reveal>
 
@@ -246,8 +246,8 @@ export default function ServicesPage() {
               { val: "58+", text: "Years Experience" },
               { text: "5% Price Beat Guarantee" },
             ].map((item) => (
-              <div key={item.text} className="flex items-center gap-2 text-white/35">
-                {"icon" in item && item.icon && <item.icon className="w-4 h-4 text-white/40" />}
+              <div key={item.text} className="flex items-center gap-2 text-white/60">
+                {"icon" in item && item.icon && <item.icon className="w-4 h-4 text-white/60" />}
                 {"val" in item && <span className="text-lg font-heading font-black text-white"><AnimatedCounter value={item.val!} /></span>}
                 {!("icon" in item) && !("val" in item) && <div className="w-1 h-1 rounded-full bg-white/25 shrink-0" />}
                 <span className="text-xs uppercase tracking-[0.12em] font-medium">{item.text}</span>
@@ -267,7 +267,7 @@ export default function ServicesPage() {
           <Reveal>
             <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/30 font-medium mb-5">Ready to Start?</p>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-6">Let&apos;s Build Together</h2>
-            <p className="text-white/30 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
+            <p className="text-white/55 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
               Free quote within 24 hours. 5% price beat guarantee on any competitor estimate.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">

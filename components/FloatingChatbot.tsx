@@ -176,7 +176,7 @@ export function FloatingChatbot() {
                 <div className="w-2 h-2 rounded-full bg-green-500 shrink-0" />
                 <div>
                   <p className="text-sm font-heading font-bold text-white uppercase tracking-wide">Project Helper</p>
-                  <p className="text-[10px] text-white/30">Online now — ask us anything</p>
+                  <p className="text-[10px] text-white/55">Online now — ask us anything</p>
                 </div>
               </div>
               <button
@@ -232,7 +232,7 @@ export function FloatingChatbot() {
                     placeholder="Name"
                     value={contactInfo.name}
                     onChange={(e) => setContactInfo({ ...contactInfo, name: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/55 focus:outline-none focus:border-white/20 transition-colors"
                   />
                   <label htmlFor="chat-email" className="sr-only">Email</label>
                   <input
@@ -244,7 +244,7 @@ export function FloatingChatbot() {
                     placeholder="Email *"
                     value={contactInfo.email}
                     onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/55 focus:outline-none focus:border-white/20 transition-colors"
                     required
                   />
                   <label htmlFor="chat-phone" className="sr-only">Phone</label>
@@ -257,7 +257,7 @@ export function FloatingChatbot() {
                     placeholder="Phone (optional)"
                     value={contactInfo.phone}
                     onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                    className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/55 focus:outline-none focus:border-white/20 transition-colors"
                   />
                   <button
                     onClick={handleContactSubmit}
@@ -279,7 +279,7 @@ export function FloatingChatbot() {
                     onChange={(e) => setMessage(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleSend()}
                     placeholder="Ask about your project..."
-                    className="flex-1 px-4 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                    className="flex-1 px-4 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/55 focus:outline-none focus:border-white/20 transition-colors"
                   />
                   <button
                     onClick={handleSend}

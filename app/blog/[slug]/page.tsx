@@ -95,7 +95,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-white/35 hover:text-white text-xs font-bold uppercase tracking-[0.18em] transition-colors mb-8 group"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-white text-xs font-bold uppercase tracking-[0.18em] transition-colors mb-8 group"
           >
             <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
             Back to Blog
@@ -111,9 +111,9 @@ export default async function BlogPostPage({ params }: Props) {
             {post.title}
           </h1>
 
-          <p className="text-white/40 text-base sm:text-lg leading-relaxed mb-8">{post.excerpt}</p>
+          <p className="text-white/60 text-base sm:text-lg leading-relaxed mb-8">{post.excerpt}</p>
 
-          <div className="flex flex-wrap items-center gap-5 text-white/30 text-sm pb-8 border-b border-white/[0.06]">
+          <div className="flex flex-wrap items-center gap-5 text-white/55 text-sm pb-8 border-b border-white/[0.06]">
             <span className="flex items-center gap-1.5">
               <Calendar size={13} />
               {post.date}
@@ -122,7 +122,7 @@ export default async function BlogPostPage({ params }: Props) {
               <Clock size={13} />
               {post.readTime}
             </span>
-            <span className="font-semibold text-white/40">Precision Construction &amp; Decora</span>
+            <span className="font-semibold text-white/60">Precision Construction &amp; Decora</span>
           </div>
         </div>
       </section>
@@ -137,11 +137,11 @@ export default async function BlogPostPage({ params }: Props) {
       {/* CTA */}
       <section className="py-16 mx-4 sm:mx-6 lg:mx-auto mb-16 max-w-3xl">
         <div className="px-8 sm:px-12 py-10 text-center rounded-2xl bg-white/[0.02] border border-white/[0.06]">
-          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/25 font-medium mb-4">Ready to act on this?</p>
+          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Ready to act on this?</p>
           <h2 className="font-heading font-black text-2xl sm:text-3xl uppercase tracking-tight mb-3">
             Get a Free Consultation
           </h2>
-          <p className="text-white/35 mb-6 max-w-md mx-auto text-sm leading-relaxed">
+          <p className="text-white/60 mb-6 max-w-md mx-auto text-sm leading-relaxed">
             Talk to Calgary&apos;s most trusted family-owned contractor. Honest assessment, fixed-scope quote — no pressure.
           </p>
           <Link

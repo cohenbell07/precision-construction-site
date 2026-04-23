@@ -109,7 +109,7 @@ export default function AboutPage() {
             ].map((s) => (
               <div key={s.label} className="text-center py-8 sm:py-10">
                 <div className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white mb-1"><AnimatedCounter value={s.val} /></div>
-                <div className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-white/25 font-medium">{s.label}</div>
+                <div className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-white/55 font-medium">{s.label}</div>
               </div>
             ))}
           </div>
@@ -122,7 +122,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-20 items-center">
             <Reveal>
               <div>
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Our Story</p>
+                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Our Story</p>
                 <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">Built on Family Values</h2>
                 <div className="space-y-5 text-white/50 text-base sm:text-lg leading-relaxed max-w-xl">
                   <p>
@@ -156,7 +156,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 max-w-5xl">
           <Reveal>
             <div className="text-center mb-10 sm:mb-14 md:mb-20">
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">The Owner</p>
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">The Owner</p>
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Meet {BRAND_CONFIG.owner}</h2>
             </div>
           </Reveal>
@@ -164,9 +164,9 @@ export default function AboutPage() {
           <Reveal delay={0.1}>
             <div className="max-w-2xl mx-auto">
               <div>
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-2">Owner &amp; 3rd Generation Builder</p>
+                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-2">Owner &amp; 3rd Generation Builder</p>
                 <h3 className="text-2xl sm:text-3xl font-heading font-black uppercase tracking-tight text-white mb-5">{BRAND_CONFIG.owner}</h3>
-                <div className="space-y-4 text-white/45 text-base leading-relaxed max-w-lg mb-8">
+                <div className="space-y-4 text-white/70 text-base leading-relaxed max-w-lg mb-8">
                   <p>
                     John grew up on job sites, learning the craft from his father and grandfather. That hands-on upbringing shaped his approach to every project: show up, do it right, and don&apos;t leave until the client is happy.
                   </p>
@@ -210,7 +210,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 max-w-4xl">
           <Reveal>
             <div className="text-center mb-10 sm:mb-14 md:mb-20">
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Our Journey</p>
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Our Journey</p>
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Milestones</h2>
             </div>
           </Reveal>
@@ -231,7 +231,7 @@ export default function AboutPage() {
                     <div className={`pl-10 md:pl-0 md:w-1/2 ${m.side === "right" ? "md:pl-12" : "md:pr-12 md:text-right"}`}>
                       <p className="text-2xl sm:text-3xl font-heading font-black text-white mb-1">{m.year}</p>
                       <p className="text-sm font-semibold text-white/60 uppercase tracking-wider mb-3">{m.title}</p>
-                      <p className="text-white/35 text-sm leading-relaxed">{m.desc}</p>
+                      <p className="text-white/60 text-sm leading-relaxed">{m.desc}</p>
                     </div>
 
                     {/* Spacer for other side */}
@@ -249,7 +249,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 max-w-7xl">
           <Reveal>
             <div className="mb-10 sm:mb-14 md:mb-20">
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Our Process</p>
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Our Process</p>
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">How We Work</h2>
             </div>
           </Reveal>
@@ -265,7 +265,7 @@ export default function AboutPage() {
                 <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-6 sm:p-7 h-full">
                   <span className="text-3xl font-heading font-black text-white/10 block mb-3 sm:mb-4">{s.step}</span>
                   <h3 className="text-lg font-heading font-bold uppercase tracking-tight text-white mb-2 sm:mb-3">{s.title}</h3>
-                  <p className="text-white/35 text-sm leading-relaxed">{s.desc}</p>
+                  <p className="text-white/60 text-sm leading-relaxed">{s.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -279,7 +279,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-20">
             <Reveal>
               <div>
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Our Mission</p>
+                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Our Mission</p>
                 <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">What We Stand For</h2>
                 <p className="text-white/50 text-base sm:text-lg leading-relaxed max-w-lg">
                   We believe construction is about more than structures — it&apos;s about building trust, creating spaces where families thrive, and standing behind every nail, every joint, every finish.
@@ -296,7 +296,7 @@ export default function AboutPage() {
                 ].map((v) => (
                   <div key={v.title} className="border-l border-white/[0.08] pl-6">
                     <h3 className="text-base font-heading font-bold uppercase tracking-tight text-white mb-1">{v.title}</h3>
-                    <p className="text-white/35 text-sm leading-relaxed">{v.desc}</p>
+                    <p className="text-white/60 text-sm leading-relaxed">{v.desc}</p>
                   </div>
                 ))}
               </div>
@@ -310,7 +310,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 max-w-7xl">
           <Reveal>
             <div className="text-center mb-12 sm:mb-16">
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Client Stories</p>
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Client Stories</p>
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">What Our Clients Say</h2>
             </div>
           </Reveal>
@@ -330,7 +330,7 @@ export default function AboutPage() {
                           <Star key={i} className="w-3.5 h-3.5 fill-white text-white" />
                         ))}
                       </div>
-                      <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-white/35 bg-white/[0.05] px-2 py-0.5 rounded-full border border-white/[0.08]">
+                      <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-white/60 bg-white/[0.05] px-2 py-0.5 rounded-full border border-white/[0.08]">
                         <CheckCircle2 className="w-2.5 h-2.5" /> Verified
                       </span>
                     </div>
@@ -339,7 +339,7 @@ export default function AboutPage() {
                       <InitialsAvatar name={t.name} />
                       <div>
                         <p className="font-semibold text-white text-sm">{t.name}</p>
-                        <p className="text-[11px] text-white/25 mt-0.5">{t.project} &middot; {t.year}</p>
+                        <p className="text-[11px] text-white/55 mt-0.5">{t.project} &middot; {t.year}</p>
                       </div>
                     </div>
                   </div>
@@ -357,9 +357,9 @@ export default function AboutPage() {
         </div>
         <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
           <Reveal>
-            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/25 font-medium mb-5">Let&apos;s Talk</p>
+            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-5">Let&apos;s Talk</p>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-6">Ready to Build?</h2>
-            <p className="text-white/30 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
+            <p className="text-white/55 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
               Tell us about your project. We&apos;ll get back to you within 24 hours with a plan.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">

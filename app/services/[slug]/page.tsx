@@ -125,9 +125,9 @@ function InquiryForm({ serviceName }: { serviceName: string }) {
       <div className="container mx-auto px-6 max-w-2xl">
         <Reveal>
           <div className="text-center mb-8 sm:mb-10">
-            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Have a Question?</p>
+            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Have a Question?</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-4">Ask Us Anything</h2>
-            <p className="text-sm text-white/35 max-w-md mx-auto">Questions about materials, availability, or scope? We&apos;ll get back to you within 24 hours.</p>
+            <p className="text-sm text-white/60 max-w-md mx-auto">Questions about materials, availability, or scope? We&apos;ll get back to you within 24 hours.</p>
           </div>
         </Reveal>
 
@@ -136,20 +136,20 @@ function InquiryForm({ serviceName }: { serviceName: string }) {
             <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-8 text-center">
               <CheckCircle className="h-10 w-10 text-white mx-auto mb-3" />
               <p className="text-white font-bold uppercase tracking-wide">Message Received</p>
-              <p className="text-white/35 text-sm mt-1">We&apos;ll reply within 24 hours.</p>
+              <p className="text-white/60 text-sm mt-1">We&apos;ll reply within 24 hours.</p>
             </div>
           ) : (
             <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-6 sm:p-8">
               <form onSubmit={handleSubmit} className="space-y-4">
-                <Input placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} className="bg-white/[0.03] border-white/[0.08] focus:border-white/30 text-white placeholder:text-white/25 rounded-lg h-11" />
-                <Input type="email" placeholder="Email *" required value={email} onChange={(e) => setEmail(e.target.value)} className="bg-white/[0.03] border-white/[0.08] focus:border-white/30 text-white placeholder:text-white/25 rounded-lg h-11" />
+                <Input placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} className="bg-white/[0.03] border-white/[0.08] focus:border-white/30 text-white placeholder:text-white/55 rounded-lg h-11" />
+                <Input type="email" placeholder="Email *" required value={email} onChange={(e) => setEmail(e.target.value)} className="bg-white/[0.03] border-white/[0.08] focus:border-white/30 text-white placeholder:text-white/55 rounded-lg h-11" />
                 <textarea
                   placeholder="What would you like to know?"
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
-                  className="flex w-full rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-white/30 min-h-[110px] resize-none transition-colors"
+                  className="flex w-full rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/55 focus:outline-none focus:border-white/30 min-h-[110px] resize-none transition-colors"
                 />
                 <button type="submit" disabled={loading} className="w-full bg-white text-black py-3 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors disabled:opacity-50">
                   {loading ? "Sending…" : "Send Message"}
@@ -305,7 +305,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                   {service.stats.map((stat) => (
                     <div key={stat.label} className="relative border-l-2 border-sandstone/40 pl-3 sm:pl-4 md:pl-5">
                       <p className="font-hero text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white leading-none tracking-wide mb-1.5">{stat.value}</p>
-                      <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.12em] sm:tracking-[0.15em] text-white/45 font-medium leading-tight">{stat.label}</p>
+                      <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.12em] sm:tracking-[0.15em] text-white/70 font-medium leading-tight">{stat.label}</p>
                     </div>
                   ))}
                 </div>
@@ -345,19 +345,19 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between items-center border-b border-white/[0.06] pb-2.5">
-                    <span className="text-white/45 text-[13px]">Experience</span>
+                    <span className="text-white/70 text-[13px]">Experience</span>
                     <span className="text-white font-semibold text-sm">{yearsExp}+ years</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-white/[0.06] pb-2.5">
-                    <span className="text-white/45 text-[13px]">Service Area</span>
+                    <span className="text-white/70 text-[13px]">Service Area</span>
                     <span className="text-white font-semibold text-sm">Calgary &amp; Area</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-white/[0.06] pb-2.5">
-                    <span className="text-white/45 text-[13px]">Response Time</span>
+                    <span className="text-white/70 text-[13px]">Response Time</span>
                     <span className="text-white font-semibold text-sm">Within 24 hrs</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-white/45 text-[13px]">Price Match</span>
+                    <span className="text-white/70 text-[13px]">Price Match</span>
                     <span className="text-sandstone font-semibold text-sm">5% Beat Guarantee</span>
                   </div>
                 </div>
@@ -385,7 +385,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         <section className="py-14 sm:py-20 md:py-28 bg-[#0A0A0A]">
           <div className="container mx-auto px-6 max-w-7xl">
             <Reveal>
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Scope</p>
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Scope</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-8 sm:mb-10">What&apos;s Included</h2>
             </Reveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-3">
@@ -393,7 +393,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                 <Reveal key={detail} delay={idx * 0.03}>
                   <div className="flex items-start gap-3 py-3 border-b border-white/[0.04]">
                     <div className="w-1 h-1 rounded-full bg-white/30 shrink-0 mt-2" />
-                    <span className="text-white/45 text-sm">{detail}</span>
+                    <span className="text-white/70 text-sm">{detail}</span>
                   </div>
                 </Reveal>
               ))}
@@ -436,7 +436,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         <section className="py-14 sm:py-20 md:py-28 bg-black">
           <div className="container mx-auto px-6 max-w-7xl">
             <Reveal>
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">How It Works</p>
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">How It Works</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-8 sm:mb-10">Our Process</h2>
             </Reveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -445,7 +445,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                   <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-6 sm:p-7 h-full">
                     <span className="text-3xl font-heading font-black text-white/10 block mb-3 sm:mb-4">{String(step.step).padStart(2, "0")}</span>
                     <h3 className="text-base font-heading font-bold uppercase tracking-tight text-white mb-2">{step.title}</h3>
-                    <p className="text-white/35 text-sm leading-relaxed">{step.description}</p>
+                    <p className="text-white/60 text-sm leading-relaxed">{step.description}</p>
                   </div>
                 </Reveal>
               ))}
@@ -495,7 +495,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         <section className="py-14 sm:py-20 md:py-28 bg-black">
           <div className="container mx-auto px-6 max-w-7xl">
             <Reveal>
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Options</p>
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Options</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-8 sm:mb-10">Materials & Options</h2>
             </Reveal>
             <Reveal delay={0.1}>
@@ -558,7 +558,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                   </p>
                   <div className="flex items-center justify-between gap-4 pt-5 border-t border-sandstone/15">
                     <div>
-                      <p className="font-semibold text-white text-sm tracking-wide">{testimonial.name} <span className="text-white/40 font-normal">· Calgary</span></p>
+                      <p className="font-semibold text-white text-sm tracking-wide">{testimonial.name} <span className="text-white/60 font-normal">· Calgary</span></p>
                       <p className="text-[11px] uppercase tracking-[0.2em] text-sandstone/70 mt-1 font-medium">{testimonial.project}</p>
                     </div>
                     <span className="shrink-0 inline-flex items-center gap-1.5 bg-sandstone/10 border border-sandstone/30 text-sandstone text-[9px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-full">
@@ -578,7 +578,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
           <div className="container mx-auto px-6 max-w-3xl">
             <Reveal>
               <div className="text-center mb-10">
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">FAQ</p>
+                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">FAQ</p>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95]">Common Questions</h2>
               </div>
             </Reveal>
@@ -591,11 +591,11 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                       className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition-colors"
                     >
                       <span className="text-white/70 text-sm font-medium pr-4">{faq.question}</span>
-                      <ChevronDown className={`w-4 h-4 text-white/30 shrink-0 transition-transform duration-300 ${openFaq === idx ? "rotate-180" : ""}`} />
+                      <ChevronDown className={`w-4 h-4 text-white/55 shrink-0 transition-transform duration-300 ${openFaq === idx ? "rotate-180" : ""}`} />
                     </button>
                     {openFaq === idx && (
                       <div className="px-6 pb-4">
-                        <p className="text-white/35 text-sm leading-relaxed">{faq.answer}</p>
+                        <p className="text-white/60 text-sm leading-relaxed">{faq.answer}</p>
                       </div>
                     )}
                   </div>
@@ -613,10 +613,10 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             <Reveal>
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
                 <div>
-                  <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Explore More</p>
+                  <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Explore More</p>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95]">Related Services</h2>
                 </div>
-                <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/40 hover:text-white transition-colors group shrink-0">
+                <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white transition-colors group shrink-0">
                   View All <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
@@ -667,7 +667,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       {/* ━━━ TRUST STRIP ━━━ */}
       <section className="bg-[#0A0A0A] border-y border-white/[0.04]">
         <div className="container mx-auto px-6 max-w-5xl">
-          <div className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-10 gap-y-2 py-5 text-[10px] sm:text-[11px] uppercase tracking-[0.12em] text-white/30 font-medium">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-10 gap-y-2 py-5 text-[10px] sm:text-[11px] uppercase tracking-[0.12em] text-white/55 font-medium">
             <span>Licensed &amp; Insured</span>
             <span className="w-1 h-1 rounded-full bg-white/15" />
             <span>5,000+ Projects</span>
@@ -690,14 +690,14 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-6">Get Started Today</h2>
-            <p className="text-white/30 text-base leading-relaxed mb-10 max-w-md mx-auto">
+            <p className="text-white/55 text-base leading-relaxed mb-10 max-w-md mx-auto">
               Free consultation. No obligation. {yearsExp}+ years of experience behind every project.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
               <Link href={`/get-quote?service=${service.id}`} className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
                 Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 text-white/30 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/10 rounded-full hover:border-white/30">
+              <Link href="/contact" className="inline-flex items-center gap-2 text-white/55 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/10 rounded-full hover:border-white/30">
                 <Phone className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </div>

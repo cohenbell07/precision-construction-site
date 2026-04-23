@@ -150,7 +150,7 @@ export default function Home() {
         {/* Scroll indicator — hidden on mobile (collides with CTAs in short hero) */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="hidden sm:block absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 2, repeat: Infinity }} className="flex flex-col items-center gap-2">
-            <span className="text-[9px] uppercase tracking-[0.3em] text-white/25 font-medium">Scroll</span>
+            <span className="text-[9px] uppercase tracking-[0.3em] text-white/55 font-medium">Scroll</span>
             <div className="w-px h-6 bg-gradient-to-b from-white/30 to-transparent" />
           </motion.div>
         </motion.div>
@@ -166,8 +166,8 @@ export default function Home() {
               { icon: null, text: "3rd Generation Builder" },
               { icon: null, text: "5% Price Beat Guarantee" },
             ].map((item) => (
-              <div key={item.text} className="flex items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-white/40 font-medium">
-                {item.icon && <item.icon className={`w-3.5 h-3.5 ${item.highlight ? "fill-white text-white" : "text-white/40"}`} />}
+              <div key={item.text} className="flex items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-white/60 font-medium">
+                {item.icon && <item.icon className={`w-3.5 h-3.5 ${item.highlight ? "fill-white text-white" : "text-white/60"}`} />}
                 {!item.icon && <div className="w-1 h-1 rounded-full bg-white/25 shrink-0" />}
                 <span className={item.highlight ? "text-white/60" : ""}>{item.text}</span>
               </div>
@@ -189,7 +189,7 @@ export default function Home() {
               <Reveal key={s.label} delay={idx * 0.08}>
                 <div className="text-center py-8 sm:py-10">
                   <div className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white mb-1"><AnimatedCounter value={s.val} /></div>
-                  <div className="text-[10px] sm:text-[10px] tracking-[0.15em] uppercase text-white/25 font-medium">{s.label}</div>
+                  <div className="text-[10px] sm:text-[10px] tracking-[0.15em] uppercase text-white/55 font-medium">{s.label}</div>
                 </div>
               </Reveal>
             ))}
@@ -215,7 +215,7 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.15} className="lg:col-span-3">
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">About Our Legacy</p>
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">About Our Legacy</p>
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
                 Three Generations<br />of Quality
               </h2>
@@ -231,7 +231,7 @@ export default function Home() {
                   <BlurReveal key={s.label} delay={0.3 + idx * 0.25} direction="bottom">
                     <div>
                       <span className="text-2xl sm:text-3xl font-heading font-black text-white">{s.val}</span>
-                      <span className="text-xs text-white/25 uppercase tracking-wider ml-2">{s.label}</span>
+                      <span className="text-xs text-white/55 uppercase tracking-wider ml-2">{s.label}</span>
                     </div>
                   </BlurReveal>
                 ))}
@@ -250,10 +250,10 @@ export default function Home() {
           <Reveal>
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12 md:mb-16">
               <div>
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">What We Do</p>
+                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">What We Do</p>
                 <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Our Services</h2>
               </div>
-              <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/40 hover:text-white transition-colors group shrink-0">
+              <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white transition-colors group shrink-0">
                 View All <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -305,7 +305,7 @@ export default function Home() {
 
       {/* ━━━ BRAND PARTNERS (MARQUEE) ━━━ */}
       <section className="py-10 sm:py-12 bg-[#0A0A0A] border-y border-white/[0.04] overflow-hidden">
-        <p className="text-center text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-white/40 font-medium mb-6">Trusted Brands We Work With</p>
+        <p className="text-center text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-white/60 font-medium mb-6">Trusted Brands We Work With</p>
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0A0A0A] to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0A0A0A] to-transparent z-10" />
@@ -336,14 +336,14 @@ export default function Home() {
           <div className="flex items-center px-5 sm:px-12 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-20">
             <Reveal delay={0.15}>
               <div>
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Featured</p>
+                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Featured</p>
                 <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">Basement<br />Developments</h2>
-                <p className="text-white/40 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
+                <p className="text-white/60 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
                   Turnkey development — framing, electrical, plumbing, drywall, flooring, and finishes. Permits handled. One team, start to finish.
                 </p>
                 <ul className="space-y-3 mb-10">
                   {["Full turnkey development", "Permits & inspections handled", "Moisture control included"].map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-white/45 text-sm">
+                    <li key={item} className="flex items-center gap-3 text-white/70 text-sm">
                       <div className="w-1 h-1 rounded-full bg-white/40 shrink-0" />
                       {item}
                     </li>
@@ -368,7 +368,7 @@ export default function Home() {
         <div className="container mx-auto px-6 max-w-7xl">
           <Reveal>
             <div className="text-center mb-8 sm:mb-12 md:mb-16">
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-4">Client Stories</p>
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Client Stories</p>
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">What Our Clients Say</h2>
             </div>
           </Reveal>
@@ -384,7 +384,7 @@ export default function Home() {
                           <Star key={i} className="w-3.5 h-3.5 fill-white text-white" />
                         ))}
                       </div>
-                      <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-white/35 bg-white/[0.05] px-2 py-0.5 rounded-full border border-white/[0.08]">
+                      <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-white/60 bg-white/[0.05] px-2 py-0.5 rounded-full border border-white/[0.08]">
                         <CheckCircle2 className="w-2.5 h-2.5" /> Verified
                       </span>
                     </div>
@@ -393,7 +393,7 @@ export default function Home() {
                       <InitialsAvatar name={t.name} />
                       <div>
                         <p className="font-semibold text-white text-sm">{t.name}</p>
-                        <p className="text-[11px] text-white/25 mt-0.5">{t.project} &middot; {t.year}</p>
+                        <p className="text-[11px] text-white/55 mt-0.5">{t.project} &middot; {t.year}</p>
                       </div>
                     </div>
                   </div>
@@ -421,9 +421,9 @@ export default function Home() {
         />
         <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
           <Reveal>
-            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/25 font-medium mb-5">Free Consultation</p>
+            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-5">Free Consultation</p>
             <h2 className="text-[32px] sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-5 sm:mb-6">Ready to Build?</h2>
-            <p className="text-white/30 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
+            <p className="text-white/55 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
               No pressure, no obligation. Tell us about your project and we&apos;ll get back to you within 24 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">

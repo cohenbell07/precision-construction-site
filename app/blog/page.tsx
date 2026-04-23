@@ -30,13 +30,13 @@ export default function BlogPage() {
       {/* Hero */}
       <section className="pt-32 pb-16 bg-black relative">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/30 font-medium mb-5">
+          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-5">
             Precision Construction &amp; Decora Blog
           </p>
           <h1 className="font-hero uppercase tracking-wide text-5xl sm:text-6xl lg:text-7xl leading-[0.95] mb-5 hero-heading-shimmer">
             Built to Last.<br />Built to Know.
           </h1>
-          <p className="text-white/40 text-base sm:text-lg max-w-2xl leading-relaxed">
+          <p className="text-white/60 text-base sm:text-lg max-w-2xl leading-relaxed">
             Honest renovation guides, contractor advice, and product comparisons from Calgary&apos;s
             most trusted family-owned construction company.
           </p>
@@ -59,11 +59,11 @@ export default function BlogPage() {
               <h2 className="font-heading font-black text-2xl sm:text-3xl text-white mb-3 group-hover:text-white/80 transition-colors duration-200 uppercase tracking-tight leading-snug">
                 {featured.title}
               </h2>
-              <p className="text-white/35 text-base leading-relaxed mb-6 max-w-3xl">
+              <p className="text-white/60 text-base leading-relaxed mb-6 max-w-3xl">
                 {featured.excerpt}
               </p>
               <div className="flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-4 text-white/30 text-sm">
+                <div className="flex items-center gap-4 text-white/55 text-sm">
                   <span className="flex items-center gap-1.5">
                     <Calendar size={13} />
                     {featured.date}
@@ -89,11 +89,11 @@ export default function BlogPage() {
                   <h2 className="font-heading font-black text-lg sm:text-xl text-white mt-4 mb-3 group-hover:text-white/80 transition-colors duration-200 uppercase tracking-tight leading-snug">
                     {post.title}
                   </h2>
-                  <p className="text-white/35 text-sm leading-relaxed mb-5 line-clamp-3">
+                  <p className="text-white/60 text-sm leading-relaxed mb-5 line-clamp-3">
                     {post.excerpt}
                   </p>
                   <div className="flex items-center justify-between mt-auto flex-wrap gap-2">
-                    <div className="flex items-center gap-3 text-white/25 text-xs">
+                    <div className="flex items-center gap-3 text-white/55 text-xs">
                       <span className="flex items-center gap-1">
                         <Clock size={11} />
                         {post.readTime}
@@ -117,11 +117,11 @@ export default function BlogPage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full" style={{ background: "radial-gradient(circle, rgba(196, 181, 160, 0.05) 0%, transparent 70%)" }} />
         </div>
         <div className="max-w-2xl mx-auto px-4 text-center relative z-10">
-          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/25 font-medium mb-5">Ready to Build?</p>
+          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-5">Ready to Build?</p>
           <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight leading-[0.9] mb-4">
             Stop Reading.<br />Start Building.
           </h2>
-          <p className="text-white/30 mb-10 text-base leading-relaxed max-w-md mx-auto">
+          <p className="text-white/55 mb-10 text-base leading-relaxed max-w-md mx-auto">
             Get a free consultation with Calgary&apos;s most trusted family-owned contractor.
             No pressure, no surprises.
           </p>

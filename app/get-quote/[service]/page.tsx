@@ -102,7 +102,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/[0.06] border border-white/[0.15] flex items-center justify-center mx-auto mb-6" style={{ boxShadow: '0 0 30px rgba(255,255,255,0.12)' }}>
                 <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-white/70" />
               </div>
-              <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-2">Request Received</p>
+              <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-2">Request Received</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white uppercase tracking-tight mb-3">
                 Thank You!
               </h2>
@@ -114,7 +114,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                 <Button asChild className="bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full uppercase tracking-widest text-xs sm:text-sm px-6 py-3 h-auto">
                   <Link href="/">Return Home</Link>
                 </Button>
-                <Button asChild variant="outline" className="text-xs font-black text-white/35 hover:text-white uppercase tracking-widest transition-colors px-6 py-3 rounded-full border border-white/[0.08] hover:border-white/[0.15] h-auto">
+                <Button asChild variant="outline" className="text-xs font-black text-white/60 hover:text-white uppercase tracking-widest transition-colors px-6 py-3 rounded-full border border-white/[0.08] hover:border-white/[0.15] h-auto">
                   <Link href="/get-quote">Request Another Quote</Link>
                 </Button>
               </div>
@@ -136,7 +136,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent"></div>
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
           <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/40 text-xs font-semibold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/60 text-xs font-semibold uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-white/50 shrink-0 inline-block"></span>
               Free Quote · No Obligation · 24-Hour Response
             </span>
@@ -145,7 +145,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
             Get a Quote — {serviceTitle}
           </h1>
           <div className="h-[3px] w-14 bg-gradient-to-r from-white/50 to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
-          <p className="text-sm sm:text-base text-white/45 max-w-lg mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-white/70 max-w-lg mx-auto leading-relaxed">
             Tell us about your {serviceTitle.toLowerCase()} project. We&apos;ll send you a detailed quote within 24 hours.
           </p>
         </div>
@@ -156,7 +156,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
           <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-white/40 via-white/[0.15] to-transparent pointer-events-none"></div>
           <div className="p-6 sm:p-8 md:p-10">
             <div className="mb-6 sm:mb-8">
-              <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-1">Project Details</p>
+              <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-1">Project Details</p>
               <h2 className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-tight">
                 Your Details
               </h2>
@@ -176,7 +176,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                       <span className="text-sm text-white/60">{deal.name}</span>
                     </div>
                   ))}
-                  <p className="text-[11px] text-white/35 mt-2">{PRICE_BEAT_GUARANTEE}</p>
+                  <p className="text-[11px] text-white/60 mt-2">{PRICE_BEAT_GUARANTEE}</p>
                 </div>
               );
             })()}
@@ -184,7 +184,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Project Type - pre-filled */}
               <div>
-                <label className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                <label className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                   <span className="w-1 h-1 rounded-full bg-white/50 shrink-0"></span>
                   Service Type
                 </label>
@@ -198,7 +198,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
               {/* Contact fields */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="name" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/50 shrink-0"></span>
                     Name <span className="text-white/50">*</span>
                   </label>
@@ -209,11 +209,11 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                     placeholder="Your name"
                     value={formData.name}
                     onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="email" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/50 shrink-0"></span>
                     Email <span className="text-white/50">*</span>
                   </label>
@@ -226,13 +226,13 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                     placeholder="your@email.com"
                     value={formData.email}
                     onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="phone" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="phone" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/20 shrink-0"></span>
                     Phone
                   </label>
@@ -244,11 +244,11 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                     placeholder="Your phone number"
                     value={formData.phone}
                     onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
                 <div>
-                  <label htmlFor="address" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="address" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/20 shrink-0"></span>
                     Project Address
                   </label>
@@ -257,13 +257,13 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                     placeholder="Calgary, AB (optional)"
                     value={formData.address}
                     onChange={(e) => setFormData((p) => ({ ...p, address: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="projectDetails" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                <label htmlFor="projectDetails" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                   <span className="w-1 h-1 rounded-full bg-white/50 shrink-0"></span>
                   Project Details <span className="text-white/50">*</span>
                 </label>
@@ -274,14 +274,14 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                   value={formData.projectDetails}
                   onChange={(e) => setFormData((p) => ({ ...p, projectDetails: e.target.value }))}
                   rows={5}
-                  className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/25 rounded-xl transition-colors resize-none"
+                  className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/55 rounded-xl transition-colors resize-none"
                 />
               </div>
 
               {/* Timeline + Budget */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div>
-                  <label htmlFor="timeline" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="timeline" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/20 shrink-0"></span>
                     Timeline
                   </label>
@@ -301,7 +301,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="budgetMin" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="budgetMin" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/20 shrink-0"></span>
                     Budget Min ($)
                   </label>
@@ -311,11 +311,11 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                     placeholder="e.g. 10,000"
                     value={formData.budgetMin}
                     onChange={(e) => setFormData((p) => ({ ...p, budgetMin: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
                 <div>
-                  <label htmlFor="budgetMax" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/40 uppercase tracking-[0.2em]">
+                  <label htmlFor="budgetMax" className="flex items-center gap-1.5 text-[10px] font-black mb-2 text-white/60 uppercase tracking-[0.2em]">
                     <span className="w-1 h-1 rounded-full bg-white/20 shrink-0"></span>
                     Budget Max ($)
                   </label>
@@ -325,15 +325,15 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                     placeholder="e.g. 50,000"
                     value={formData.budgetMax}
                     onChange={(e) => setFormData((p) => ({ ...p, budgetMax: e.target.value }))}
-                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                    className="bg-white/[0.04] border-white/[0.10] focus:border-white/30 focus:ring-1 focus:ring-white/[0.10] text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                   />
                 </div>
               </div>
-              <p className="text-[11px] text-white/25">Timeline and budget are optional — they help us tailor your quote.</p>
+              <p className="text-[11px] text-white/55">Timeline and budget are optional — they help us tailor your quote.</p>
 
               {/* How did you hear about us */}
               <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
-                <label className="flex items-center gap-1.5 text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-3">
+                <label className="flex items-center gap-1.5 text-[10px] font-black text-white/60 uppercase tracking-[0.2em] mb-3">
                   <span className="w-1 h-1 rounded-full bg-white/30 shrink-0"></span>
                   How did you hear about us?
                 </label>
@@ -352,7 +352,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                       className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${
                         formData.referralSource === option
                           ? "border-white/30 bg-white/[0.10] text-white"
-                          : "border-white/[0.08] bg-white/[0.02] text-white/40 hover:border-white/15 hover:text-white/60"
+                          : "border-white/[0.08] bg-white/[0.02] text-white/60 hover:border-white/15 hover:text-white/60"
                       }`}
                     >
                       {option}
@@ -364,7 +364,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
                     placeholder="Tell us how you found us…"
                     value={formData.referralOther}
                     onChange={(e) => setFormData((p) => ({ ...p, referralOther: e.target.value }))}
-                    className="mt-3 bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-10 text-base sm:text-sm transition-colors"
+                    className="mt-3 bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-10 text-base sm:text-sm transition-colors"
                   />
                 )}
                 <p className="text-[10px] text-white/20 mt-2">Optional — helps us improve our service.</p>
@@ -384,7 +384,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
           </div>
         </div>
 
-        <p className="text-center text-white/25 text-xs mt-6">
+        <p className="text-center text-white/55 text-xs mt-6">
           {BRAND_CONFIG.motto}
         </p>
       </div>
