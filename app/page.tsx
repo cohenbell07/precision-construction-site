@@ -51,16 +51,16 @@ export default function Home() {
   const heroTextY = useTransform(scrollYProgress, [0, 0.85], [0, 40]);
 
   const featuredServices = services.filter((s) =>
-    ["cabinets", "showers", "countertops", "renovations", "carpentry", "garages"].includes(s.id)
+    ["basements", "cabinets", "showers", "countertops", "renovations", "carpentry"].includes(s.id)
   );
 
   const serviceImages: Record<string, string> = {
+    basements: "/basementland02.webp",
     cabinets: "/service-millwork.webp",
     showers: "/service-steam-shower.webp",
     countertops: "/countertopsservice3.webp",
     renovations: "/home-additions.webp",
     carpentry: "/interiorfinishingservice1.webp",
-    garages: "/garage-deck-fence.webp",
   };
 
   const brands = [
@@ -349,9 +349,14 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/get-quote/basement" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
-                  Get 15% Off <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5">
+                  <Link href="/services/basements" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
+                    See Basement Services <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <Link href="/get-quote/basement" className="text-sm font-semibold text-white/75 hover:text-white underline underline-offset-4 decoration-white/30 hover:decoration-sandstone transition-colors">
+                    Or claim 15% off →
+                  </Link>
+                </div>
               </div>
             </Reveal>
           </div>
