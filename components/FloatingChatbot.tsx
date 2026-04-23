@@ -224,22 +224,36 @@ export function FloatingChatbot() {
               <div className="px-4 pb-3 shrink-0">
                 <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 space-y-2.5">
                   <p className="text-xs font-bold text-white/60 uppercase tracking-wider">Get Your Free Quote</p>
+                  <label htmlFor="chat-name" className="sr-only">Name</label>
                   <input
+                    id="chat-name"
+                    autoComplete="name"
+                    aria-label="Name"
                     placeholder="Name"
                     value={contactInfo.name}
                     onChange={(e) => setContactInfo({ ...contactInfo, name: e.target.value })}
                     className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
                   />
+                  <label htmlFor="chat-email" className="sr-only">Email</label>
                   <input
+                    id="chat-email"
                     type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    aria-label="Email"
                     placeholder="Email *"
                     value={contactInfo.email}
                     onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
                     className="w-full px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white text-base sm:text-sm placeholder:text-white/25 focus:outline-none focus:border-white/20 transition-colors"
                     required
                   />
+                  <label htmlFor="chat-phone" className="sr-only">Phone</label>
                   <input
+                    id="chat-phone"
                     type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    aria-label="Phone (optional)"
                     placeholder="Phone (optional)"
                     value={contactInfo.phone}
                     onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}

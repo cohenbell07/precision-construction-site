@@ -335,6 +335,7 @@ function GetQuoteForm() {
                         <Input
                           id="name"
                           required
+                          autoComplete="name"
                           value={formData.name}
                           onChange={(e) => handleInputChange("name", e.target.value)}
                           placeholder="Your name"
@@ -349,6 +350,8 @@ function GetQuoteForm() {
                         <Input
                           id="email"
                           type="email"
+                          inputMode="email"
+                          autoComplete="email"
                           required
                           value={formData.email}
                           onChange={(e) => handleInputChange("email", e.target.value)}
@@ -366,10 +369,12 @@ function GetQuoteForm() {
                         <Input
                           id="phone"
                           type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
                           value={formData.phone}
                           onChange={(e) => handleInputChange("phone", e.target.value)}
-                          placeholder="(403) 818-7767"
-                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
+                          placeholder="Your phone number"
+                          className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/50 rounded-xl h-11 transition-colors"
                         />
                       </div>
                       <div>

@@ -162,6 +162,7 @@ export default function ContactPage() {
                     <Input
                       id="name"
                       required
+                      autoComplete="name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Your name"
@@ -176,6 +177,8 @@ export default function ContactPage() {
                     <Input
                       id="email"
                       type="email"
+                      inputMode="email"
+                      autoComplete="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -193,9 +196,11 @@ export default function ContactPage() {
                     <Input
                       id="phone"
                       type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="(403) 818-7767"
+                      placeholder="Your phone number"
                       className="bg-white/[0.04] border-white/[0.08] focus:border-white/20 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
                     />
                   </div>

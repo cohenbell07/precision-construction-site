@@ -197,6 +197,7 @@ export default function BundleQuotePage() {
                     <Input
                       id="name"
                       required
+                      autoComplete="name"
                       placeholder="Your name"
                       value={formData.name}
                       onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
@@ -211,6 +212,8 @@ export default function BundleQuotePage() {
                     <Input
                       id="email"
                       type="email"
+                      inputMode="email"
+                      autoComplete="email"
                       required
                       placeholder="your@email.com"
                       value={formData.email}
@@ -227,7 +230,9 @@ export default function BundleQuotePage() {
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="(403) 818-7767"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    placeholder="Your phone number"
                     value={formData.phone}
                     onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
                     className="bg-white/[0.04] border-white/[0.12] focus:border-white/50 focus:ring-1 focus:ring-white/20 text-white placeholder:text-white/25 rounded-xl h-11 transition-colors"
