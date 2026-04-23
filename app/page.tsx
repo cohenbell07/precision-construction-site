@@ -264,7 +264,7 @@ export default function Home() {
               <Reveal key={service.id} delay={idx * 0.07}>
                 <Link
                   href={`/services/${service.id}`}
-                  className="group block relative aspect-[5/4] rounded-xl overflow-hidden bg-[#0C0C0C] ring-1 ring-white/[0.06] hover:ring-sandstone/30 hover:shadow-[0_20px_50px_-20px_rgba(196,181,160,0.25)] transition-all duration-500"
+                  className="group block relative aspect-[5/4] rounded-xl overflow-hidden bg-[#0C0C0C] ring-1 ring-white/[0.06] hover:ring-sandstone/30 hover:shadow-[0_20px_50px_-20px_rgba(196,181,160,0.25)] transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-sandstone focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <Image
                     src={serviceImages[service.id] || "/service-millwork.webp"}

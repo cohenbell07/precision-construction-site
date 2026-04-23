@@ -18,8 +18,14 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <ChunkErrorBoundary>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded-md focus:font-semibold focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sandstone"
+      >
+        Skip to content
+      </a>
       <Header />
-      <main className="min-h-screen">
+      <main id="main" className="min-h-screen">
         <AnimatePresence mode="wait">
           <motion.div
             key={pathname}
