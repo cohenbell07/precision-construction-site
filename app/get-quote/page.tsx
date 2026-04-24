@@ -11,38 +11,43 @@ import { services, getServiceById } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { getDealsForService, PRICE_BEAT_GUARANTEE } from "@/lib/deals";
 import { LightRays } from "@/components/LightRays";
-import { Loader2, CheckCircle, Star, Shield, Phone, Home } from "lucide-react";
 import {
-  SquaresFour,
-  Drop,
-  Door,
-  Table,
-  Buildings,
-  Wall,
-  PaintBrush,
+  Loader2,
+  CheckCircle,
+  Star,
+  Shield,
+  Phone,
+  Home,
+  LayoutGrid,
+  Droplets,
+  DoorOpen,
+  SquareStack,
+  Building2,
+  Square,
+  Paintbrush2,
   Ruler,
-  ArrowSquareDown,
-  TreeEvergreen,
-  HouseLine,
-  BoundingBox,
-} from "phosphor-react";
+  ArrowDownSquare,
+  Trees,
+  HomeIcon,
+  Frame,
+} from "lucide-react";
 
 const POPULAR_SERVICES = new Set(["basements", "renovations", "flooring", "showers"]);
 
 const serviceIcons: { [key: string]: any } = {
-  flooring: SquaresFour,
-  showers: Drop,
-  cabinets: Door,
-  countertops: Table,
+  flooring: LayoutGrid,
+  showers: Droplets,
+  cabinets: DoorOpen,
+  countertops: SquareStack,
   carpentry: Ruler,
-  framing: BoundingBox,
-  drywall: Wall,
-  painting: PaintBrush,
-  basements: ArrowSquareDown,
-  garages: TreeEvergreen,
-  renovations: HouseLine,
-  commercial: Buildings,
-  default: Buildings,
+  framing: Frame,
+  drywall: Square,
+  painting: Paintbrush2,
+  basements: ArrowDownSquare,
+  garages: Trees,
+  renovations: HomeIcon,
+  commercial: Building2,
+  default: Building2,
 };
 
 function GetQuoteForm() {
