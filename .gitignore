@@ -33,6 +33,7 @@ yarn-error.log*
 
 # audit artifacts (local only)
 /audit/
+/.playwright-mcp/
 
 # typescript
 *.tsbuildinfo

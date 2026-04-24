@@ -265,7 +265,7 @@ function GetQuoteForm() {
                           className="group text-left p-4 sm:p-5 rounded-xl border border-white/[0.08] bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/25 transition-all duration-200 flex items-center gap-3 sm:gap-4"
                         >
                           <div className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.08] group-hover:border-white/20 flex items-center justify-center shrink-0 transition-colors">
-                            <IconComponent className="h-5 w-5 text-white/50 group-hover:text-white/70 transition-colors" weight="duotone" />
+                            <IconComponent className="h-5 w-5 text-white/50 group-hover:text-white/70 transition-colors" />
                           </div>
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
@@ -284,7 +284,7 @@ function GetQuoteForm() {
                       className="group text-left p-4 sm:p-5 rounded-xl border border-white/[0.08] bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/25 transition-all duration-200 flex items-center gap-3 sm:gap-4"
                     >
                       <div className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.08] group-hover:border-white/20 flex items-center justify-center shrink-0 transition-colors">
-                        <Buildings className="h-5 w-5 text-white/50 group-hover:text-white/70 transition-colors" weight="duotone" />
+                        <Building2 className="h-5 w-5 text-white/50 group-hover:text-white/70 transition-colors" />
                       </div>
                       <div>
                         <p className="font-heading font-black text-sm text-white uppercase tracking-tight">Other</p>
