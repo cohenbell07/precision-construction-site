@@ -59,14 +59,6 @@ const config: Config = {
           light: "#3A3A3A",
           dark: "#1F1F1F",
         },
-        gold: {
-          DEFAULT: "#D4AF37", // Legacy - being replaced with silver
-          dark: "#B8941F",
-          light: "#E5C158",
-          bright: "#F5D76E",
-          cream: "#F5F5F5",
-          glow: "rgba(212, 175, 55, 0.4)",
-        },
         steel: {
           DEFAULT: "#4A4A4A",
           light: "#6A6A6A",

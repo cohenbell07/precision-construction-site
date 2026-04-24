@@ -625,7 +625,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                       src={serviceImageMap[related!.id] || "/service-millwork.webp"}
                       alt={`${related!.title} services in Calgary by PCND`}
                       fill
-                      className="object-cover group-hover:scale-[1.08] transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                      className="object-cover group-active:scale-[1.02] transition-transform duration-300 ease-out"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/10 group-hover:from-black group-hover:via-black/40 transition-all duration-700" />

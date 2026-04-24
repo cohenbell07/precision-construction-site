@@ -57,7 +57,7 @@ function ServiceCard({ service, featured = false }: { service: typeof services[0
           src={image}
           alt={`${service.title} services in Calgary by PCND`}
           fill
-          className={`${imgClass} group-hover:scale-[1.08] transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]`}
+          className={`${imgClass} group-active:scale-[1.02] transition-transform duration-300 ease-out`}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
 

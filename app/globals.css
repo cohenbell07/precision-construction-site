@@ -264,11 +264,6 @@
       0 0 20px rgba(245, 245, 245, 0.3);
   }
   
-  /* Legacy glow-gold for backward compatibility */
-  .glow-gold {
-    @apply glow-silver;
-  }
-  
   /* Steel button - secondary */
   .btn-steel {
     background: linear-gradient(135deg, rgba(74, 74, 74, 0.8) 0%, rgba(46, 46, 46, 0.8) 100%);
@@ -326,11 +321,6 @@
     box-shadow: 0 0 12px rgba(232, 232, 232, 0.4);
   }
   
-  /* Legacy logo-gold for backward compatibility */
-  .logo-gold {
-    @apply logo-silver;
-  }
-  
   /* Footer logo - Lighter standout silver */
   .logo-silver-footer {
     background: linear-gradient(
@@ -352,11 +342,6 @@
   
   .logo-silver-footer:hover {
     transform: scale(1.05);
-  }
-  
-  /* Legacy logo-gold-footer for backward compatibility */
-  .logo-gold-footer {
-    @apply logo-silver-footer;
   }
   
   @keyframes metalStrike {
@@ -587,11 +572,6 @@
     font-weight: 700;
   }
   
-  /* Legacy premium-gold-text for backward compatibility */
-  .premium-gold-text {
-    @apply premium-silver-text;
-  }
-
   .premium-text {
     color: #E8E8E8;
     text-shadow: 
