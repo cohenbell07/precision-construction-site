@@ -331,31 +331,6 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <section className="py-16 sm:py-20 md:py-24 bg-black relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-        <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center relative z-10">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/60 text-xs font-semibold uppercase tracking-wider mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0 inline-block"></span>
-            Free Quote · No Obligation
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-4 sm:mb-5 uppercase tracking-tight mt-5">
-            Ready to Get Started?
-          </h2>
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-white/15 to-transparent mx-auto mb-5 sm:mb-6"></div>
-          <p className="text-sm sm:text-base md:text-lg text-white/55 mb-8 sm:mb-10 max-w-xl mx-auto leading-relaxed px-2">
-            Experience the difference of working with a 3rd generation family-owned company. We beat any competitor quote by 5%.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-            <Button asChild size="lg" className="bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full px-8 py-4 text-sm sm:text-base uppercase tracking-wider w-full sm:w-auto">
-              <Link href="/get-quote">Request a Quote</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="px-8 py-4 text-sm sm:text-base w-full sm:w-auto">
-              <Link href="/services">View Our Services</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

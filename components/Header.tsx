@@ -35,6 +35,16 @@ export function Header() {
     };
   }, [mobileMenuOpen]);
 
+  // Escape-to-close mobile menu (M7)
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },

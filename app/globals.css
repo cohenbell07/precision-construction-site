@@ -101,6 +101,15 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+    text-wrap: balance; /* M4 — prevents orphan words on hero/section headings */
+  }
+  p {
+    text-wrap: pretty; /* M4 — body copy avoids awkward last-line breaks */
+  }
+  /* M9 — tabular numerals in stats so digits don't reflow during AnimatedCounter */
+  .stats-number,
+  [class*="font-hero"] {
+    font-variant-numeric: tabular-nums;
   }
   /* Mobile only: fix logo compositing / black blur on iOS */
   @media (max-width: 767px) {

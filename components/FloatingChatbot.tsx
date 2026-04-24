@@ -35,6 +35,16 @@ export function FloatingChatbot() {
     }
   }, [conversation, isOpen]);
 
+  // Escape-to-close (M7/M20)
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen]);
+
   const handleSend = async () => {
     if (!message.trim() || loading) return;
 
@@ -156,7 +166,9 @@ export function FloatingChatbot() {
       <button
         className={`fixed right-4 sm:right-6 sm:bottom-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white text-black shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-200 ${pathname?.startsWith("/services/") && pathname !== "/services" ? "bottom-24" : "bottom-5"}`}
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Open chat"
+        aria-label={isOpen ? "Close chat" : "Open chat"}
+        aria-expanded={isOpen}
+        aria-controls="pcnd-chat-panel"
       >
         {isOpen ? (
           <X className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -167,7 +179,14 @@ export function FloatingChatbot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className={`fixed right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] ${pathname?.startsWith("/services/") && pathname !== "/services" ? "bottom-44 sm:bottom-24" : "bottom-24"}`}>
+        <div
+          id="pcnd-chat-panel"
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby="pcnd-chat-heading"
+          className={`fixed right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] ${pathname?.startsWith("/services/") && pathname !== "/services" ? "bottom-44 sm:bottom-24" : "bottom-24"}`}
+          style={{ overscrollBehavior: "contain" }}
+        >
           <div className="rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0A0A0A] shadow-[0_8px_40px_rgba(0,0,0,0.7)] h-[480px] sm:h-[540px] max-h-[calc(100vh-7rem)] flex flex-col">
 
             {/* Header */}
@@ -175,13 +194,14 @@ export function FloatingChatbot() {
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full bg-green-500 shrink-0" />
                 <div>
-                  <p className="text-sm font-heading font-bold text-white uppercase tracking-wide">Project Helper</p>
+                  <p id="pcnd-chat-heading" className="text-sm font-heading font-bold text-white uppercase tracking-wide">Project Helper</p>
                   <p className="text-[10px] text-white/55">Online now — ask us anything</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-7 h-7 rounded-full bg-white/[0.05] hover:bg-white/[0.10] flex items-center justify-center transition-colors"
+                aria-label="Close chat"
+                className="w-11 h-11 rounded-full bg-white/[0.05] hover:bg-white/[0.10] flex items-center justify-center transition-colors"
               >
                 <X className="h-3.5 w-3.5 text-white/50" />
               </button>

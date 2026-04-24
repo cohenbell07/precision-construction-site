@@ -701,13 +701,13 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         >
           Free Quote <ArrowRight className="w-3.5 h-3.5" />
         </Link>
-        <Link
-          href="/contact"
-          aria-label="Contact Us"
+        <a
+          href={`tel:${BRAND_CONFIG.contact.phone}`}
+          aria-label={`Call ${BRAND_CONFIG.contact.phoneFormatted}`}
           className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sandstone/15 border border-sandstone/40 text-sandstone"
         >
           <Phone className="w-4 h-4" />
-        </Link>
+        </a>
       </div>
       {/* Padding for sticky bar on mobile */}
       <div className="h-20 md:hidden" aria-hidden />

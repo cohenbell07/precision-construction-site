@@ -146,7 +146,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
           </h1>
           <div className="h-[3px] w-14 bg-gradient-to-r from-white/50 to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
           <p className="text-sm sm:text-base text-white/70 max-w-lg mx-auto leading-relaxed">
-            Tell us about your {serviceTitle.toLowerCase()} project. We&apos;ll send you a detailed quote within 24 hours.
+            Tell us about your {serviceTitle} project. We&apos;ll send you a detailed quote within 24 hours.
           </p>
         </div>
       </div>

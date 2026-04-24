@@ -310,7 +310,7 @@ function GetQuoteForm() {
                     <p className="text-sm text-white/60 mt-3">
                       {selectedService === "other"
                         ? "Tell us about your project"
-                        : `Tell us about your ${getServiceById(selectedService)?.title.toLowerCase()} project`}
+                        : `Tell us about your ${getServiceById(selectedService)?.title ?? "project"}`}
                     </p>
                   </div>
 
@@ -446,10 +446,12 @@ function GetQuoteForm() {
                         </label>
                         <Input
                           id="budgetMin"
-                          type="number"
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9,]*"
                           placeholder="e.g., 10,000"
                           value={formData.budgetMin}
-                          onChange={(e) => handleInputChange("budgetMin", e.target.value)}
+                          onChange={(e) => handleInputChange("budgetMin", e.target.value.replace(/[^0-9,]/g, ""))}
                           className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                         />
                       </div>
@@ -460,10 +462,12 @@ function GetQuoteForm() {
                         </label>
                         <Input
                           id="budgetMax"
-                          type="number"
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9,]*"
                           placeholder="e.g., 50,000"
                           value={formData.budgetMax}
-                          onChange={(e) => handleInputChange("budgetMax", e.target.value)}
+                          onChange={(e) => handleInputChange("budgetMax", e.target.value.replace(/[^0-9,]/g, ""))}
                           className="bg-white/[0.04] border-white/[0.08] focus:border-white/25 focus:ring-1 focus:ring-white/10 text-white placeholder:text-white/55 rounded-xl h-11 transition-colors"
                         />
                       </div>
