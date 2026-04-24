@@ -86,12 +86,12 @@ export function Footer() {
             {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
               <div className="flex items-center gap-2 pt-1">
                 {BRAND_CONFIG.social.facebook && (
-                  <a href={BRAND_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-9 h-9 rounded-full border border-white/[0.06] hover:border-sandstone/25 flex items-center justify-center text-white/55 hover:text-sandstone/60 transition-all duration-300">
+                  <a href={BRAND_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-11 h-11 rounded-full border border-white/[0.06] hover:border-sandstone/25 flex items-center justify-center text-white/55 hover:text-sandstone/60 transition-all duration-300">
                     <Facebook className="h-4 w-4" />
                   </a>
                 )}
                 {BRAND_CONFIG.social.instagram && (
-                  <a href={BRAND_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-9 h-9 rounded-full border border-white/[0.06] hover:border-sandstone/25 flex items-center justify-center text-white/55 hover:text-sandstone/60 transition-all duration-300">
+                  <a href={BRAND_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-11 h-11 rounded-full border border-white/[0.06] hover:border-sandstone/25 flex items-center justify-center text-white/55 hover:text-sandstone/60 transition-all duration-300">
                     <Instagram className="h-4 w-4" />
                   </a>
                 )}

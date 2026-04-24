@@ -86,7 +86,7 @@ export default function BasementQuotePage() {
               </h2>
               <div className="h-[2px] w-10 bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto mb-6 rounded-full"></div>
               <p className="text-white/50 text-sm sm:text-base leading-relaxed mb-8 max-w-md mx-auto">
-                Thanks for your 15% Basement Renovation quote request. We&apos;ll get back to you within 24 hours.
+                Thanks for your 15% off basement project quote. We&apos;ll get back to you within 24 hours.
               </p>
               <Button asChild className="bg-white text-black font-bold hover:bg-white/90 transition-colors rounded-full uppercase tracking-widest text-xs sm:text-sm px-6 py-3 h-auto">
                 <Link href="/">Return Home</Link>
@@ -111,15 +111,15 @@ export default function BasementQuotePage() {
           <div className="flex justify-center mb-4">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/60 text-xs font-semibold uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 inline-block"></span>
-              Limited Time · 15% Off · Full Basement Renovations
+              Limited Time · 15% Off · Basement Development, Repair & Renovation
             </span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-4 text-white uppercase tracking-tight">
-            15% Off — Basement Renovation
+            15% Off — Basement Projects
           </h1>
           <div className="h-[3px] w-14 bg-gradient-to-r from-white/70 to-transparent mx-auto mb-4 rounded-full" style={{ boxShadow: '0 0 10px rgba(255,255,255,0.5)' }}></div>
           <p className="text-sm sm:text-base text-white/70 max-w-lg mx-auto leading-relaxed">
-            Tell us about your basement project. We&apos;ll send you a quote with 15% off — for a limited time.
+            Finishing, fixing, or fully developing a basement? Tell us about your project — we&apos;ll send a detailed quote with 15% off, for a limited time.
           </p>
         </div>
       </div>
