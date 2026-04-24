@@ -239,18 +239,6 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <ArrowRight className="w-3.5 h-3.5 rotate-180" /> All Services
             </Link>
 
-            {/* Rating row */}
-            <div className="flex items-center gap-2.5 mb-4 sm:mb-5">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-sandstone text-sandstone" />
-                ))}
-              </div>
-              <span className="text-[11px] sm:text-xs text-white/70 font-medium tracking-wide">
-                5.0 &middot; Calgary&apos;s Trusted Builder
-              </span>
-            </div>
-
             <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-hero uppercase tracking-wide leading-[0.9] max-w-4xl mb-4 sm:mb-6">
               {service.title}
             </h1>
@@ -258,29 +246,34 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               {service.description}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start mb-5 sm:mb-6">
-              <Link
-                href={`/get-quote?service=${service.id}`}
-                className="group inline-flex items-center justify-center gap-3 bg-white text-black px-6 sm:px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors"
-              >
-                Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 text-white/80 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/20 rounded-full hover:border-sandstone/60 backdrop-blur-sm"
-              >
-                <Phone className="w-3.5 h-3.5" /> Contact Us
-              </Link>
-            </div>
+            <Link
+              href={`/get-quote?service=${service.id}`}
+              className="group inline-flex items-center justify-center gap-3 bg-white text-black px-9 py-4 rounded-full font-black text-base tracking-wide hover:bg-sandstone transition-colors shadow-[0_4px_24px_rgba(255,255,255,0.12)]"
+            >
+              Get a Free Quote <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </div>
+      </section>
 
-            {/* Trust micro-row */}
-            <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2 text-[10px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.18em] text-white/60 font-medium">
-              <span className="flex items-center gap-1.5"><Shield className="w-3 h-3 text-sandstone" /> Licensed &amp; Insured</span>
-              <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
-              <span className="flex items-center gap-1.5"><Clock className="w-3 h-3 text-sandstone" /> 24hr Response</span>
-              <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
-              <span className="flex items-center gap-1.5"><Award className="w-3 h-3 text-sandstone" /> 5% Price Beat</span>
-            </div>
+      {/* ━━━ TRUST BAND (H16: moved out of hero) ━━━ */}
+      <section className="bg-[#050505] border-y border-white/[0.04]">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-3 py-6 sm:py-7 text-[11px] sm:text-xs uppercase tracking-[0.16em] sm:tracking-[0.2em] text-white/65 font-medium">
+            <span className="flex items-center gap-2">
+              <span className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3 h-3 fill-sandstone text-sandstone" />
+                ))}
+              </span>
+              <span>5.0 · Calgary&apos;s Trusted Builder</span>
+            </span>
+            <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
+            <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-sandstone" /> Licensed &amp; Insured</span>
+            <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
+            <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-sandstone" /> 24-Hour Response</span>
+            <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
+            <span className="flex items-center gap-1.5"><Award className="w-3.5 h-3.5 text-sandstone" /> 5% Price Beat</span>
           </div>
         </div>
       </section>
