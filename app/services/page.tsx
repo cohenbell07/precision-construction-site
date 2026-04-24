@@ -68,12 +68,6 @@ function ServiceCard({ service, featured = false }: { service: typeof services[0
           style={{ background: "linear-gradient(180deg, rgba(196,181,160,0.15) 0%, rgba(0,0,0,0) 50%, rgba(196,181,160,0.08) 100%)" }}
         />
 
-        {/* Corner brackets — industrial blueprint marks */}
-        <span className="pointer-events-none absolute top-3 left-3 w-4 h-4 border-t border-l border-sandstone/40 group-hover:border-sandstone/80 transition-colors duration-500" />
-        <span className="pointer-events-none absolute top-3 right-3 w-4 h-4 border-t border-r border-sandstone/40 group-hover:border-sandstone/80 transition-colors duration-500" />
-        <span className="pointer-events-none absolute bottom-3 left-3 w-4 h-4 border-b border-l border-sandstone/40 group-hover:border-sandstone/80 transition-colors duration-500" />
-        <span className="pointer-events-none absolute bottom-3 right-3 w-4 h-4 border-b border-r border-sandstone/40 group-hover:border-sandstone/80 transition-colors duration-500" />
-
         {/* Featured badge */}
         {featured && (
           <div className="absolute top-5 right-5 z-10">
@@ -159,7 +153,6 @@ export default function ServicesPage() {
           <Image src="/servicehero.webp" alt="Professional residential and commercial construction services in Calgary by PCND" fill className="object-cover object-center" sizes="100vw" priority />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/90" />
         </motion.div>
-        <div className="hero-glow absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 z-[1]" />
         <motion.div style={{ opacity: heroOpacity }} className="absolute inset-0 flex items-end pb-10 sm:pb-14 md:pb-16 z-10">
           <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-white/75 font-medium mb-3 sm:mb-4">

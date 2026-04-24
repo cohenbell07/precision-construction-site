@@ -40,7 +40,6 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
       <Footer />
       <FloatingChatbot />
       <Toaster />
-      <div className="noise-overlay" aria-hidden="true" />
     </ChunkErrorBoundary>
   );
 }

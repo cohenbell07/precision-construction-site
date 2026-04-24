@@ -640,11 +640,6 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                       className="absolute inset-0 mix-blend-soft-light opacity-40 pointer-events-none"
                       style={{ background: "linear-gradient(180deg, rgba(196,181,160,0.15) 0%, rgba(0,0,0,0) 50%, rgba(196,181,160,0.08) 100%)" }}
                     />
-                    <span className="pointer-events-none absolute top-3 left-3 w-4 h-4 border-t border-l border-sandstone/40 group-hover:border-sandstone/80 transition-colors duration-500" />
-                    <span className="pointer-events-none absolute top-3 right-3 w-4 h-4 border-t border-r border-sandstone/40 group-hover:border-sandstone/80 transition-colors duration-500" />
-                    <span className="pointer-events-none absolute bottom-3 left-3 w-4 h-4 border-b border-l border-sandstone/40 group-hover:border-sandstone/80 transition-colors duration-500" />
-                    <span className="pointer-events-none absolute bottom-3 right-3 w-4 h-4 border-b border-r border-sandstone/40 group-hover:border-sandstone/80 transition-colors duration-500" />
-
                     <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
                       <div className="h-[1.5px] w-8 bg-sandstone/60 mb-4 group-hover:w-16 transition-all duration-500" />
                       <h3 className="text-lg sm:text-xl font-heading font-bold uppercase tracking-tight text-white leading-[1.05] mb-2">{related!.title}</h3>

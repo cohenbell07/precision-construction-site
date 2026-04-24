@@ -1200,21 +1200,6 @@
    PREMIUM EFFECTS
    ============================================ */
 
-/* Hero ambient glow */
-.hero-glow {
-  position: absolute;
-  width: 700px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(200, 170, 60, 0.06) 0%, rgba(200, 170, 60, 0.02) 40%, transparent 70%);
-  pointer-events: none;
-  animation: glow-breathe 6s ease-in-out infinite;
-}
-@keyframes glow-breathe {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.08); }
-}
-
 /* Hero heading — static metallic gradient (shimmer animation removed H1) */
 .hero-heading-shimmer {
   background: linear-gradient(105deg, #D8D8D8 0%, #F5F5F5 50%, #D8D8D8 100%) !important;
@@ -1222,19 +1207,6 @@
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7)) !important;
-}
-
-/* Noise grain overlay */
-.noise-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.025;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
 }
 
 /* Spotlight card effect */
