@@ -10,7 +10,9 @@ import { useToast } from "@/components/ui/use-toast";
 import { services, getServiceById } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { getDealsForService, PRICE_BEAT_GUARANTEE } from "@/lib/deals";
-import { LightRays } from "@/components/LightRays";
+import dynamic from "next/dynamic";
+
+const LightRays = dynamic(() => import("@/components/LightRays").then((m) => ({ default: m.LightRays })), { ssr: false });
 import {
   Loader2,
   CheckCircle,

@@ -10,7 +10,9 @@ import { VideoHero } from "@/components/VideoHero";
 import { ArrowRight, Star, Phone, Shield, CheckCircle2 } from "lucide-react";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { SpotlightCard } from "@/components/SpotlightCard";
-import { LightRays } from "@/components/LightRays";
+import dynamic from "next/dynamic";
+
+const LightRays = dynamic(() => import("@/components/LightRays").then((m) => ({ default: m.LightRays })), { ssr: false });
 import { BlurReveal } from "@/components/BlurReveal";
 
 /* ─── Scroll reveal ─── */

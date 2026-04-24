@@ -3,11 +3,15 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
 import { ChunkErrorBoundary } from "./ChunkErrorBoundary";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { FloatingChatbot } from "./FloatingChatbot";
 import { Toaster } from "./ui/toaster";
+
+const FloatingChatbot = dynamic(() => import("./FloatingChatbot").then((m) => ({ default: m.FloatingChatbot })), {
+  ssr: false,
+});
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
