@@ -203,7 +203,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-20 items-center">
             <Reveal className="lg:col-span-2">
               <div className="relative aspect-[3/4] rounded-xl overflow-hidden">
-                <Image src="/hpimage0302.png" alt="John Olivito reviewing blueprints with his crew on a Calgary construction site" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
+                <Image src="/hpimage0302.webp" alt="John Olivito reviewing blueprints with his crew on a Calgary construction site" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" quality={85} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 <div className="absolute bottom-5 left-5 right-5">
                   <div className="relative pl-5 border-l-2 border-sandstone/40">

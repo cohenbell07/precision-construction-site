@@ -139,7 +139,7 @@ export default function AboutPage() {
             </Reveal>
             <Reveal delay={0.15}>
               <div className="relative aspect-[4/5] rounded-xl overflow-hidden">
-                <Image src="/img060802.png" alt="John Olivito overseeing a finished kitchen renovation with his crew" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                <Image src="/img060802.webp" alt="John Olivito overseeing a finished kitchen renovation with his crew" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={85} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-5 left-5 right-5">
                   <p className="text-white/80 text-base font-serif italic">&ldquo;{BRAND_CONFIG.motto}&rdquo;</p>
