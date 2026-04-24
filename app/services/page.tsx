@@ -235,14 +235,12 @@ export default function ServicesPage() {
           <div className="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-12 gap-y-3 py-8 sm:py-10">
             {[
               { icon: Shield, text: "Licensed & Insured" },
-              { val: "5,000+", text: "Projects Completed" },
-              { val: "58+", text: "Years Experience" },
+              { text: "Free On-Site Estimates" },
               { text: "5% Price Beat Guarantee" },
             ].map((item) => (
               <div key={item.text} className="flex items-center gap-2 text-white/60">
                 {"icon" in item && item.icon && <item.icon className="w-4 h-4 text-white/60" />}
-                {"val" in item && <span className="text-lg font-heading font-black text-white"><AnimatedCounter value={item.val!} /></span>}
-                {!("icon" in item) && !("val" in item) && <div className="w-1 h-1 rounded-full bg-white/25 shrink-0" />}
+                {!("icon" in item) && <div className="w-1 h-1 rounded-full bg-white/25 shrink-0" />}
                 <span className="text-xs uppercase tracking-[0.12em] font-medium">{item.text}</span>
               </div>
             ))}
