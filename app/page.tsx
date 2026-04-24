@@ -307,7 +307,7 @@ export default function Home() {
           <div className="flex marquee-track">
             {[...brands, ...brands, ...brands, ...brands].map((brand, i) => (
               <div key={`${brand.name}-${i}`} className="relative h-8 sm:h-10 w-32 sm:w-40 shrink-0 mx-6 sm:mx-8 invert grayscale opacity-50 hover:opacity-80 hover:grayscale-0 transition-all duration-500">
-                <Image src={`/${brand.file}`} alt={brand.name} fill className="object-contain" sizes="160px" />
+                <Image src={`/${brand.file}`} alt={brand.name} fill className="object-contain" sizes="160px" quality={70} />
               </div>
             ))}
           </div>
@@ -319,7 +319,7 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[550px]">
           <Reveal>
             <div className="relative h-[350px] sm:h-[400px] lg:h-full">
-              <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" />
+              <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" quality={80} />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
               <div className="absolute top-4 left-4">
                 <span className="inline-block bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full border border-white/10">

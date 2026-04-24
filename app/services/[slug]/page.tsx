@@ -227,7 +227,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* ━━━ HERO ━━━ */}
       <section className="relative w-full min-h-[620px] sm:min-h-[560px] md:min-h-[620px] md:h-[70vh] lg:h-[72vh] max-h-[780px] overflow-hidden bg-black">
-        <Image src={image} alt={`${service.title} - professional Calgary construction services by PCND`} fill className={`object-cover ${imgPosition}`} sizes="100vw" priority />
+        <Image src={image} alt={`${service.title} - professional Calgary construction services by PCND`} fill className={`object-cover ${imgPosition}`} sizes="100vw" priority quality={85} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/35 to-black/95" />
         <div
           className="absolute inset-0 pointer-events-none opacity-50"

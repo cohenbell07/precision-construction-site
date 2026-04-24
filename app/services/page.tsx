@@ -150,7 +150,7 @@ export default function ServicesPage() {
       {/* ━━━ HERO ━━━ */}
       <section ref={heroRef} className="relative w-full h-[60vh] sm:h-[60vh] md:h-[65vh] min-h-[480px] sm:min-h-[380px] max-h-[700px] overflow-hidden bg-black">
         <motion.div style={{ y: heroY }} className="absolute inset-0">
-          <Image src="/servicehero.webp" alt="Professional residential and commercial construction services in Calgary by PCND" fill className="object-cover object-center" sizes="100vw" priority />
+          <Image src="/servicehero.webp" alt="Professional residential and commercial construction services in Calgary by PCND" fill className="object-cover object-center" sizes="100vw" priority quality={85} />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/90" />
         </motion.div>
         <motion.div style={{ opacity: heroOpacity }} className="absolute inset-0 flex items-end pb-10 sm:pb-14 md:pb-16 z-10">
