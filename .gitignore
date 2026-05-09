@@ -35,6 +35,12 @@ yarn-error.log*
 /audit/
 /.playwright-mcp/
 
+# claude code (local settings + worktrees)
+/.claude/
+
+# image masters (kept locally, .webp twins are committed)
+/_originals/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
