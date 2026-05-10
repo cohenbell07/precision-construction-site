@@ -192,7 +192,7 @@
       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55  0 0 0 0 0.50  0 0 0 0 0.42  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
   .cream-canvas .cream-eyebrow {
-    color: #8A7D6B; /* sandstone-muted */
+    color: #6E5F45; /* darker sandstone tone, 5.3:1 contrast on bone — passes WCAG AA at small size */
   }
   .cream-canvas .cream-rule {
     background: linear-gradient(90deg, #A89880 0%, transparent 100%);
@@ -958,6 +958,24 @@
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-right: 1rem;
+  }
+
+  /* Cream variant of blog-prose — used in cream-canvas article sections. */
+  .cream-canvas .blog-prose { color: #5C5750; }
+  .cream-canvas .blog-prose ul li::before {
+    background: #A89880; /* sandstone-dark */
+    box-shadow: none;
+  }
+  .cream-canvas .blog-prose ol li { color: #5C5750; }
+  .cream-canvas .blog-prose strong { color: #1A1A1A; }
+  .cream-canvas .blog-prose em { color: #5C5750; }
+  .cream-canvas .blog-prose a { color: #A89880; }
+  .cream-canvas .blog-prose a:hover { color: #1A1A1A; }
+  .cream-canvas .blog-prose blockquote {
+    border-left-color: #A89880;
+    color: #1A1A1A;
+    background: rgba(196, 181, 160, 0.10);
+    font-family: var(--font-dm-serif), "DM Serif Display", Georgia, serif;
   }
 }
 

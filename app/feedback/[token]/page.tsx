@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * Customer feedback page (`/feedback/[token]`) — Showroom + Studio canvas.
+ * Single cream paper-card centered on the page. Feedback is a friction-reducer
+ * studio moment, not a sales pitch.
+ */
+
 import { useState } from "react";
 import { BRAND_CONFIG } from "@/lib/utils";
 
@@ -15,7 +21,6 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
   const [contactPreference, setContactPreference] = useState("none");
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [customerName, setCustomerName] = useState("");
 
   const googleReviewUrl = process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL || "";
 
@@ -62,29 +67,29 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
   };
 
   const PageWrapper = ({ children }: { children: React.ReactNode }) => (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
+    <div className="min-h-screen cream-canvas flex items-center justify-center p-4">
       <div className="w-full max-w-lg">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-heading font-black text-white uppercase tracking-tight">{BRAND_CONFIG.shortName}</h1>
-          <p className="text-sm text-white/55 mt-1">{BRAND_CONFIG.motto}</p>
+          <h1 className="text-2xl font-heading font-black text-ink uppercase tracking-tight">{BRAND_CONFIG.shortName}</h1>
+          <p className="font-serif italic text-base text-ink-muted mt-2">{BRAND_CONFIG.motto}</p>
         </div>
-        <div className="bg-[#0A0A0A] rounded-2xl border border-white/[0.06] p-6 sm:p-8 shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
+        <div className="paper-card rounded-md p-6 sm:p-8">
           {children}
         </div>
       </div>
     </div>
   );
 
-  const inputClass = "w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-white placeholder:text-white/55 focus:outline-none focus:border-white/20 resize-none text-base sm:text-sm transition-colors";
+  const inputClass = "w-full bg-bone-paper border border-bone-hairline rounded-md px-4 py-3 text-ink placeholder:text-ink-muted/60 focus:outline-none focus:border-sandstone-dark resize-none text-base sm:text-sm transition-colors";
 
   if (phase === "error") {
     return (
       <PageWrapper>
         <div className="text-center py-8">
-          <h2 className="text-xl font-semibold text-white mb-3">{errorMessage || "This link has expired or already been used"}</h2>
-          <p className="text-white/60">
+          <h2 className="text-xl font-semibold text-ink mb-3">{errorMessage || "This link has expired or already been used"}</h2>
+          <p className="text-ink-muted">
             If you need help, contact us at{" "}
-            <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="text-white hover:underline">{BRAND_CONFIG.contact.phoneFormatted}</a>
+            <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="text-sandstone-dark hover:underline font-semibold">{BRAND_CONFIG.contact.phoneFormatted}</a>
           </p>
         </div>
       </PageWrapper>
@@ -95,20 +100,18 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
     return (
       <PageWrapper>
         <div className="text-center">
-          <h2 className="text-xl sm:text-2xl font-semibold text-white mb-2">How was your experience?</h2>
-          <p className="text-white/60 mb-8">We&apos;d love to hear how your project went</p>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-px w-8 cream-rule" />
+            <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Your Project</p>
+            <div className="h-px w-8 cream-rule-rtl" />
+          </div>
+          <h2 className="text-xl sm:text-2xl font-heading font-black text-ink uppercase tracking-tight mb-2">How Was Your Experience?</h2>
+          <p className="font-serif italic text-ink-muted mb-8 text-base">We&apos;d love to hear how your project went.</p>
 
           <div className="flex justify-center gap-2 sm:gap-3 mb-8">
             {[1, 2, 3, 4, 5].map((star) => (
-              <button
-                key={star}
-                type="button"
-                onClick={() => setRating(star)}
-                onMouseEnter={() => setHoveredStar(star)}
-                onMouseLeave={() => setHoveredStar(0)}
-                className="transition-transform hover:scale-110 active:scale-95 focus:outline-none"
-              >
-                <svg width="48" height="48" viewBox="0 0 24 24" fill={star <= (hoveredStar || rating) ? "#fff" : "none"} stroke={star <= (hoveredStar || rating) ? "#fff" : "#333"} strokeWidth="1.5" className="sm:w-14 sm:h-14">
+              <button key={star} type="button" onClick={() => setRating(star)} onMouseEnter={() => setHoveredStar(star)} onMouseLeave={() => setHoveredStar(0)} className="transition-transform hover:scale-110 active:scale-95 focus:outline-none">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill={star <= (hoveredStar || rating) ? "#A89880" : "none"} stroke={star <= (hoveredStar || rating) ? "#A89880" : "#D9D0BE"} strokeWidth="1.5" className="sm:w-14 sm:h-14">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
               </button>
@@ -116,18 +119,18 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
           </div>
 
           {rating > 0 && (
-            <p className="text-white font-medium mb-6">
+            <p className="text-ink font-serif italic text-lg mb-6">
               {rating === 5 && "Amazing!"}
               {rating === 4 && "Great!"}
-              {rating === 3 && "It was okay"}
-              {rating === 2 && "Not great"}
-              {rating === 1 && "Poor experience"}
+              {rating === 3 && "It was okay."}
+              {rating === 2 && "Not great."}
+              {rating === 1 && "Poor experience."}
             </p>
           )}
 
           <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Anything you'd like to share? (optional)" rows={3} className={`${inputClass} mb-6`} />
 
-          <button onClick={handleRatingSubmit} disabled={rating === 0 || submitting} className="w-full bg-white text-black font-bold py-3.5 px-6 rounded-full disabled:opacity-40 hover:bg-white/90 transition-colors text-sm">
+          <button onClick={handleRatingSubmit} disabled={rating === 0 || submitting} className="btn-ink w-full py-3.5 disabled:opacity-40 disabled:cursor-not-allowed">
             {submitting ? "Submitting..." : "Submit Feedback"}
           </button>
         </div>
@@ -139,16 +142,16 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
     return (
       <PageWrapper>
         <div className="text-center py-4">
-          <h2 className="text-2xl font-bold text-white mb-3">Thank you so much!</h2>
-          <p className="text-white/50 mb-2">We&apos;re thrilled you had a great experience.</p>
-          <p className="text-white/60 mb-8">Would you mind sharing your experience on Google? It really helps our family business grow.</p>
+          <h2 className="text-2xl font-heading font-black uppercase tracking-tight text-ink mb-3">Thank You!</h2>
+          <p className="font-serif italic text-ink text-lg mb-2">We&apos;re thrilled you had a great experience.</p>
+          <p className="text-ink-muted mb-8">Would you mind sharing your experience on Google? It really helps our family business grow.</p>
 
           {googleReviewUrl && (
-            <a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" onClick={handleGoogleReviewClick} className="inline-block w-full bg-white text-black font-bold py-3.5 px-6 rounded-full hover:bg-white/90 transition-colors text-sm mb-4">
+            <a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" onClick={handleGoogleReviewClick} className="btn-ink w-full py-3.5 mb-4">
               Leave a Google Review
             </a>
           )}
-          <button onClick={() => setPhase("done")} className="text-white/55 hover:text-white/60 text-sm transition-colors">
+          <button onClick={() => setPhase("done")} className="text-ink-muted hover:text-ink text-sm transition-colors">
             No thanks, I&apos;m done
           </button>
         </div>
@@ -160,26 +163,26 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
     return (
       <PageWrapper>
         <div className="py-2">
-          <h2 className="text-xl font-semibold text-white mb-2 text-center">We&apos;re sorry to hear that</h2>
-          <p className="text-white/60 mb-6 text-center">We take this seriously and would love to make it right. Could you tell us more?</p>
+          <h2 className="text-xl font-heading font-black uppercase tracking-tight text-ink mb-2 text-center">We&apos;re Sorry to Hear That</h2>
+          <p className="font-serif italic text-ink-muted mb-6 text-center">We take this seriously and would love to make it right.</p>
 
           <textarea value={detailedFeedback} onChange={(e) => setDetailedFeedback(e.target.value)} placeholder="Please share what we could have done better..." rows={5} className={`${inputClass} mb-6`} />
 
-          <p className="text-sm text-white/60 mb-3">Would you like us to follow up?</p>
+          <p className="text-sm text-sandstone-muted font-bold uppercase tracking-[0.18em] mb-3">Would You Like Us to Follow Up?</p>
           <div className="space-y-2 mb-6">
             {[
               { value: "email", label: "Yes, email me back" },
               { value: "phone", label: "Yes, call me" },
               { value: "none", label: "No thanks" },
             ].map((option) => (
-              <label key={option.value} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] cursor-pointer hover:border-white/[0.12] transition-colors">
-                <input type="radio" name="contactPreference" value={option.value} checked={contactPreference === option.value} onChange={(e) => setContactPreference(e.target.value)} className="accent-white w-4 h-4" />
-                <span className="text-white/60 text-sm">{option.label}</span>
+              <label key={option.value} className="flex items-center gap-3 p-3 rounded-md bg-bone-paper border border-bone-hairline cursor-pointer hover:border-sandstone-dark transition-colors">
+                <input type="radio" name="contactPreference" value={option.value} checked={contactPreference === option.value} onChange={(e) => setContactPreference(e.target.value)} className="accent-sandstone-dark w-4 h-4" />
+                <span className="text-ink text-sm">{option.label}</span>
               </label>
             ))}
           </div>
 
-          <button onClick={handleNegativeFeedbackSubmit} disabled={!detailedFeedback.trim() || submitting} className="w-full bg-white text-black font-bold py-3.5 px-6 rounded-full disabled:opacity-40 hover:bg-white/90 transition-colors text-sm">
+          <button onClick={handleNegativeFeedbackSubmit} disabled={!detailedFeedback.trim() || submitting} className="btn-ink w-full py-3.5 disabled:opacity-40 disabled:cursor-not-allowed">
             {submitting ? "Submitting..." : "Submit Feedback"}
           </button>
         </div>
@@ -191,8 +194,8 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
     return (
       <PageWrapper>
         <div className="text-center py-8">
-          <h2 className="text-xl font-semibold text-white mb-3">Thank you for your feedback</h2>
-          <p className="text-white/60">We truly appreciate you taking the time. Your feedback helps us improve.</p>
+          <h2 className="text-xl font-heading font-black uppercase tracking-tight text-ink mb-3">Thank You for Your Feedback</h2>
+          <p className="font-serif italic text-ink-muted">Your feedback helps us improve.</p>
         </div>
       </PageWrapper>
     );
