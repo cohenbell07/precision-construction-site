@@ -103,6 +103,16 @@
     filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
     text-wrap: balance; /* M4 — prevents orphan words on hero/section headings */
   }
+  /* Cream "Studio" canvas — headings revert to ink (no silver gradient).
+     Specificity (0,1,1) cleanly beats the (0,0,1) global rule above. */
+  .cream-canvas :is(h1, h2, h3, h4, h5, h6) {
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: initial;
+    color: #1A1A1A;
+    filter: none;
+  }
   p {
     text-wrap: pretty; /* M4 — body copy avoids awkward last-line breaks */
   }
@@ -168,7 +178,58 @@
   .prose blockquote {
     @apply border-l-4 border-silver/40 pl-4 italic my-4 text-text-secondary;
   }
-  
+
+  /* ============================================
+     CREAM "STUDIO" CANVAS — Showroom + Studio direction
+     Paired with the heading-reset rule in @layer base above.
+     Apply to a <section> via the `.cream-canvas` class (or the
+     <Section variant="cream"> component).
+     ============================================ */
+  .cream-canvas {
+    background-color: #F5EFE4; /* bone */
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(196, 181, 160, 0.10), transparent 60%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55  0 0 0 0 0.50  0 0 0 0 0.42  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .cream-canvas .cream-eyebrow {
+    color: #8A7D6B; /* sandstone-muted */
+  }
+  .cream-canvas .cream-rule {
+    background: linear-gradient(90deg, #A89880 0%, transparent 100%);
+  }
+  .cream-canvas .cream-rule-rtl {
+    background: linear-gradient(270deg, #A89880 0%, transparent 100%);
+  }
+  .cream-canvas .paper-card {
+    background: #FBF7EE;
+    border: 1px solid #E4DCC9;
+    box-shadow:
+      0 1px 2px rgba(110, 90, 60, 0.04),
+      0 12px 32px -16px rgba(110, 90, 60, 0.10);
+  }
+  /* Architectural hairline drawn at the top of every cream section. */
+  .cream-divider-top {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #A89880 50%, transparent);
+    opacity: 0.5;
+  }
+  /* Primary CTA on cream — ink button with sandstone-deep hover. */
+  .btn-ink {
+    @apply inline-flex items-center justify-center gap-3 bg-ink text-bone px-7 py-3.5 rounded-full font-bold text-sm tracking-wide transition-colors;
+  }
+  .btn-ink:hover {
+    background-color: #A89880; /* sandstone-dark */
+    color: #1A1A1A;
+  }
+  /* Secondary CTA on cream — ghost with warm hairline. */
+  .btn-ink-ghost {
+    @apply inline-flex items-center justify-center gap-2 text-ink px-5 py-3.5 text-sm tracking-wide font-semibold rounded-full transition-colors;
+    border: 1px solid #D9D0BE; /* bone-hairline */
+  }
+  .btn-ink-ghost:hover {
+    background-color: #EDE5D5; /* bone-soft */
+  }
+
   /* ============================================
      3D METALLIC SILVER EFFECT SYSTEM
      Metallic silver gradient matching favicon aesthetic
