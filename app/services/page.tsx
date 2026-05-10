@@ -15,6 +15,7 @@ import Image from "next/image";
 import { ArrowRight, Phone, Shield } from "lucide-react";
 import { BlurReveal } from "@/components/BlurReveal";
 import { Section } from "@/components/Section";
+import { ServiceCard } from "@/components/ServiceCard";
 
 const serviceImageMap: Record<string, string> = {
   cabinets: "/service-millwork.webp",
@@ -38,44 +39,6 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
     <motion.div ref={ref} initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6, delay, ease: [0.25, 0.46, 0.45, 0.94] }} className={className}>
       {children}
     </motion.div>
-  );
-}
-
-function ServiceCard({ service, featured = false }: { service: typeof services[0]; featured?: boolean }) {
-  const image = serviceImageMap[service.id] || "/service-millwork.webp";
-
-  return (
-    <Link
-      href={`/services/${service.id}`}
-      className="group block relative aspect-[5/4] overflow-hidden bg-[#0C0C0C] rounded-xl ring-1 ring-white/[0.06] hover:ring-sandstone/30 hover:shadow-[0_20px_50px_-20px_rgba(196,181,160,0.25)] transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-sandstone focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-    >
-      <Image src={image} alt={`${service.title} services in Calgary by PCND`} fill className="object-cover group-active:scale-[1.02] transition-transform duration-300 ease-out" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/10 group-hover:from-black group-hover:via-black/40 transition-all duration-700" />
-      <div className="absolute inset-0 mix-blend-soft-light opacity-40 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(196,181,160,0.15) 0%, rgba(0,0,0,0) 50%, rgba(196,181,160,0.08) 100%)" }} />
-
-      {featured && (
-        <div className="absolute top-5 right-5 z-10">
-          <span className="inline-flex items-center gap-1.5 bg-sandstone/10 backdrop-blur-md text-sandstone text-[9px] font-bold uppercase tracking-[0.22em] px-2.5 py-1 rounded-full border border-sandstone/30">
-            <span className="w-1 h-1 rounded-full bg-sandstone animate-pulse" />
-            15% Off
-          </span>
-        </div>
-      )}
-
-      <div className="absolute bottom-0 left-0 right-0 z-10 p-5 sm:p-6">
-        <div className="h-[1.5px] w-8 bg-sandstone/60 mb-4 group-hover:w-16 transition-all duration-500" />
-        <h3 className="text-lg sm:text-xl font-heading font-bold uppercase tracking-tight text-white leading-[1.05] mb-2">{service.title}</h3>
-        <p className="text-white/50 group-hover:text-white/75 text-[13px] leading-relaxed line-clamp-2 transition-colors duration-500 mb-4">{service.description}</p>
-        <div className="flex items-center justify-between pt-3 border-t border-white/[0.08] group-hover:border-sandstone/30 transition-colors duration-500">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/60 group-hover:text-sandstone transition-colors duration-300">View Service</span>
-          <span className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-white/20 group-hover:border-sandstone group-hover:bg-sandstone transition-all duration-300">
-            <ArrowRight className="w-3 h-3 text-white group-hover:text-black transition-colors duration-300 group-hover:translate-x-[1px]" />
-          </span>
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: "inset 0 0 60px rgba(196,181,160,0.08)" }} />
-    </Link>
   );
 }
 
@@ -164,7 +127,14 @@ export default function ServicesPage() {
                 if (!s) return null;
                 return (
                   <BlurReveal key={id} delay={0.1 + idx * 0.12} direction="bottom">
-                    <ServiceCard service={s} featured={id === "basements"} />
+                    <ServiceCard
+                      href={`/services/${s.id}`}
+                      title={s.title}
+                      image={serviceImageMap[s.id] || "/service-millwork.webp"}
+                      alt={`${s.title} services in Calgary by PCND`}
+                      eyebrow={cat.label}
+                      featuredBadge={id === "basements" ? "15% Off" : undefined}
+                    />
                   </BlurReveal>
                 );
               })}

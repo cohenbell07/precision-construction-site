@@ -18,6 +18,7 @@ import { VideoHero } from "@/components/VideoHero";
 import { ArrowRight, Star, Phone, Shield, CheckCircle2 } from "lucide-react";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Section } from "@/components/Section";
+import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import dynamic from "next/dynamic";
 
@@ -218,22 +219,12 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {featuredServices.map((service, idx) => (
             <Reveal key={service.id} delay={idx * 0.07}>
-              <Link href={`/services/${service.id}`} className="group block relative aspect-[5/4] rounded-xl overflow-hidden bg-[#0C0C0C] ring-1 ring-white/[0.06] hover:ring-sandstone/30 hover:shadow-[0_20px_50px_-20px_rgba(196,181,160,0.25)] transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-sandstone focus-visible:ring-offset-2 focus-visible:ring-offset-black">
-                <Image src={serviceImages[service.id] || "/service-millwork.webp"} alt={`${service.title} - Calgary construction services by PCND`} fill className="object-cover group-active:scale-[1.02] transition-transform duration-300 ease-out" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/10 group-hover:from-black group-hover:via-black/40 transition-all duration-700" />
-                <div className="absolute inset-0 mix-blend-soft-light opacity-40 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(196,181,160,0.15) 0%, rgba(0,0,0,0) 50%, rgba(196,181,160,0.08) 100%)" }} />
-                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
-                  <div className="h-[1.5px] w-8 bg-sandstone/60 mb-4 group-hover:w-16 transition-all duration-500" />
-                  <h3 className="text-lg sm:text-xl font-heading font-bold uppercase tracking-tight text-white leading-[1.05] mb-2">{service.title}</h3>
-                  <p className="text-white/50 group-hover:text-white/75 text-[13px] leading-relaxed line-clamp-2 transition-colors duration-500 mb-4">{service.description}</p>
-                  <div className="flex items-center justify-between pt-3 border-t border-white/[0.08] group-hover:border-sandstone/30 transition-colors duration-500">
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/60 group-hover:text-sandstone transition-colors duration-300">View Service</span>
-                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-white/20 group-hover:border-sandstone group-hover:bg-sandstone transition-all duration-300">
-                      <ArrowRight className="w-3 h-3 text-white group-hover:text-black transition-colors duration-300" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
+              <ServiceCard
+                href={`/services/${service.id}`}
+                title={service.title}
+                image={serviceImages[service.id] || "/service-millwork.webp"}
+                alt={`${service.title} - Calgary construction services by PCND`}
+              />
             </Reveal>
           ))}
         </div>
