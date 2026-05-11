@@ -173,10 +173,10 @@ export default function AboutPage() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto text-center">
             <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium mb-2">Owner &amp; 3rd Generation Builder</p>
             <h3 className="text-2xl sm:text-3xl font-heading font-black uppercase tracking-tight text-ink mb-5">{BRAND_CONFIG.owner}</h3>
-            <div className="space-y-4 text-ink-muted text-base leading-relaxed max-w-lg mb-8">
+            <div className="space-y-4 text-ink-muted text-base leading-relaxed max-w-lg mx-auto mb-8">
               <p>
                 John grew up on job sites, learning the craft from his father and grandfather. That hands-on upbringing shaped his approach to every project: show up, do it right, and don&apos;t leave until the client is happy.
               </p>
@@ -184,7 +184,7 @@ export default function AboutPage() {
                 As the third generation to lead the family business, John combines old-school craftsmanship with modern building science — delivering results that stand the test of time.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="inline-flex items-center gap-2 text-sm font-semibold text-ink-muted hover:text-ink transition-colors">
                 <Phone className="w-4 h-4" /> {BRAND_CONFIG.contact.phoneFormatted}
               </a>
