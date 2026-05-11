@@ -102,48 +102,59 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* ━━━ OUR STORY — CREAM ━━━ */}
-      <Section variant="cream">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-20 items-center">
-          <Reveal>
-            <div>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="h-px w-10 cream-rule" />
-                <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Our Story</p>
-              </div>
-              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-6 sm:mb-7">
-                Built on Family Values
-              </h2>
-              <p className="font-serif italic text-[20px] sm:text-2xl leading-snug text-ink mb-6 max-w-2xl">
-                What began in 1968 as a small family operation has grown into one of Calgary&apos;s most trusted construction companies.
+      {/* ━━━ OUR STORY — CREAM (centered editorial layout) ━━━ */}
+      <Section variant="cream" containerClassName="container mx-auto px-6 max-w-5xl">
+        <Reveal>
+          <div className="text-center mb-10 sm:mb-14">
+            <div className="flex items-center justify-center gap-3 mb-5">
+              <div className="h-px w-8 cream-rule" />
+              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Our Story</p>
+              <div className="h-px w-8 cream-rule-rtl" />
+            </div>
+            <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-6 sm:mb-7">
+              Built on Family Values
+            </h2>
+            <p className="font-serif italic text-[20px] sm:text-2xl leading-snug text-ink mb-7 max-w-2xl mx-auto">
+              What began in 1968 as a small family operation has grown into one of Calgary&apos;s most trusted construction companies.
+            </p>
+            <div className="space-y-5 text-ink-muted text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+              <p>
+                Three generations of the Olivito family have upheld one unwavering standard: treat every client like family and deliver only the best.
               </p>
-              <div className="space-y-5 text-ink-muted text-base sm:text-lg leading-relaxed max-w-xl">
-                <p>
-                  Three generations of the Olivito family have upheld one unwavering standard: treat every client like family and deliver only the best.
-                </p>
-                <p>
-                  Today, {BRAND_CONFIG.owner} carries forward that legacy — combining decades of hands-on experience with modern techniques and premium materials. We don&apos;t cut corners, we don&apos;t rush, and we don&apos;t leave until you&apos;re completely satisfied.
-                </p>
-                <p>
-                  From kitchen renovations to full commercial builds, our reputation is built on the same foundation as our projects: quality that stands the test of time.
-                </p>
-              </div>
+              <p>
+                Today, {BRAND_CONFIG.owner} carries forward that legacy — combining decades of hands-on experience with modern techniques and premium materials. We don&apos;t cut corners, we don&apos;t rush, and we don&apos;t leave until you&apos;re completely satisfied.
+              </p>
+              <p>
+                From kitchen renovations to full commercial builds, our reputation is built on the same foundation as our projects: quality that stands the test of time.
+              </p>
             </div>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <div>
-              <div className="relative aspect-[4/5] rounded-sm overflow-hidden ring-1 ring-bone-hairline">
-                <Image src="/img060802.webp" alt="John Olivito overseeing a finished kitchen renovation with his crew" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={85} />
-              </div>
-              <div className="mt-6 pl-5 border-l-2 border-sandstone-dark">
-                <p className="font-serif italic text-[22px] sm:text-[26px] leading-tight text-ink">&ldquo;{BRAND_CONFIG.motto}&rdquo;</p>
-                <p className="mt-2 text-[10px] tracking-[0.25em] uppercase font-medium text-sandstone-muted">
-                  — {BRAND_CONFIG.owner}, Owner
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.15}>
+          <div className="relative aspect-[3/2] rounded-sm overflow-hidden ring-1 ring-bone-hairline">
+            <Image
+              src="/img060802.webp"
+              alt="The Olivito crew installing cabinetry, marble, and finish flooring on a high-end Calgary kitchen renovation"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              quality={85}
+            />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.25}>
+          <div className="mt-10 sm:mt-12 max-w-2xl mx-auto text-center">
+            <div className="h-px w-12 bg-sandstone-dark mx-auto mb-5" />
+            <p className="font-serif italic text-[22px] sm:text-[26px] leading-tight text-ink">
+              &ldquo;{BRAND_CONFIG.motto}&rdquo;
+            </p>
+            <p className="mt-3 text-[10px] tracking-[0.25em] uppercase font-medium text-sandstone-muted">
+              — {BRAND_CONFIG.owner}, Owner
+            </p>
+          </div>
+        </Reveal>
       </Section>
 
       {/* ━━━ MEET JOHN OLIVITO — CREAM ━━━ */}
