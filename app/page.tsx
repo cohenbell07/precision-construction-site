@@ -190,11 +190,8 @@ export default function Home() {
           {stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.06}>
               <div className="group relative h-full bg-white/[0.02] border border-white/[0.08] hover:border-sandstone/45 transition-colors duration-300 rounded-sm p-5 sm:p-6 md:p-7 flex flex-col">
-                <div className="flex items-center gap-2 mb-5 sm:mb-6">
-                  <stat.Icon aria-hidden="true" className="w-4 h-4 text-sandstone/80 group-hover:text-sandstone transition-colors" />
-                  <span className="text-[9px] tracking-[0.3em] uppercase text-sandstone/60 font-mono tabular-nums">
-                    / {String(i + 1).padStart(2, "0")}
-                  </span>
+                <div className="mb-5 sm:mb-6">
+                  <stat.Icon aria-hidden="true" className="w-7 h-7 sm:w-8 sm:h-8 text-sandstone/80 group-hover:text-sandstone transition-colors" strokeWidth={1.5} />
                 </div>
                 <div className="flex-1 flex flex-col justify-end">
                   <p className="font-heading font-black text-white text-2xl sm:text-3xl md:text-[34px] leading-none tracking-tight uppercase tabular-nums mb-2.5">
