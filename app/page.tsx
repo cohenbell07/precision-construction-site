@@ -95,7 +95,7 @@ export default function Home() {
                 </motion.span>
               ))}
             </motion.div>
-            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }} className="text-[clamp(2.8rem,9vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl hero-heading-shimmer">
+            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }} className="text-[clamp(2.5rem,7.5vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl hero-heading-shimmer">
               Your Home.<br />Our Legacy.
             </motion.h1>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="text-white/75 sm:text-white/60 text-[15px] sm:text-lg max-w-xl mb-7 sm:mb-8 leading-relaxed">
@@ -259,7 +259,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
               <div className="absolute top-4 left-4">
                 <span className="inline-block bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full border border-white/10">
-                  15% Off — Limited Time
+                  15% Off Basement Quotes
                 </span>
               </div>
             </div>

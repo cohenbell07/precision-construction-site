@@ -3,7 +3,7 @@ import { BRAND_CONFIG } from "@/lib/utils";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pcnd.ca";
 
 export const metadata = {
-  title: `15% Off Bundle (Supply + Install) Calgary | ${BRAND_CONFIG.shortName}`,
+  title: "15% Off Bundle (Supply + Install) Calgary",
   description: `Bundle supply and installation for 15% off in Calgary. Flooring + install, cabinets + countertops + install, full bathroom renos & more. Free quote from PCND, Calgary's family-owned contractor since 1968.`,
   keywords: [
     "supply and install Calgary",

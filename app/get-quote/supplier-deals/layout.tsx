@@ -3,7 +3,7 @@ import { BRAND_CONFIG } from "@/lib/utils";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pcnd.ca";
 
 export const metadata = {
-  title: `10% Off Select Materials Calgary | Supplier Discount | ${BRAND_CONFIG.shortName}`,
+  title: "10% Off Select Materials Calgary | Supplier Discount",
   description: `Save 10% on select construction materials in Calgary when bundled with our services. Quartz, porcelain, LVP, laminate, hardware & fixtures. Free quote from PCND.`,
   keywords: [
     "10% off construction materials Calgary",

@@ -9,9 +9,9 @@ type Props = { params: { service: string } };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { service } = params;
   const svc = getServiceById(service);
-  if (!svc) return { title: `Quote | ${BRAND_CONFIG.shortName}` };
+  if (!svc) return { title: "Quote" };
   return {
-    title: `Get Quote — ${svc.title} | ${BRAND_CONFIG.shortName}`,
+    title: `Get Quote — ${svc.title}`,
     description: `Request a ${svc.title} quote from PCND. Calgary construction - expect only the best.`,
     alternates: { canonical: `${SITE_URL}/get-quote/${service}` },
   };

@@ -12,12 +12,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { Section } from "@/components/Section";
 
 const FIELD_CLASS = "bg-bone-paper border-bone-hairline focus:border-sandstone-dark focus:ring-1 focus:ring-sandstone-dark/20 text-ink placeholder:text-ink-muted/60 rounded-md h-11 transition-colors";
 const TEXTAREA_CLASS = "bg-bone-paper border-bone-hairline focus:border-sandstone-dark focus:ring-1 focus:ring-sandstone-dark/20 text-ink placeholder:text-ink-muted/60 rounded-md transition-colors resize-none";
+
+type FormErrors = Partial<Record<"name" | "email" | "message", string>>;
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -27,11 +29,31 @@ export default function ContactPage() {
     projectType: "",
     message: "",
   });
+  const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
   const { toast } = useToast();
+
+  const validate = (): FormErrors => {
+    const next: FormErrors = {};
+    if (!formData.name.trim()) next.name = "Please enter your name.";
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim());
+    if (!formData.email.trim()) next.email = "Please enter your email.";
+    else if (!emailOk) next.email = "That email doesn't look right.";
+    if (!formData.message.trim()) next.message = "Please tell us a little about your project.";
+    return next;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errs = validate();
+    setErrors(errs);
+    if (Object.keys(errs).length) {
+      /* Focus the first invalid field so a keyboard user lands on the issue. */
+      const firstKey = Object.keys(errs)[0];
+      document.getElementById(firstKey)?.focus();
+      return;
+    }
     setLoading(true);
 
     try {
@@ -51,10 +73,7 @@ export default function ContactPage() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        toast({
-          title: "Message sent!",
-          description: "We'll get back to you within 24 hours.",
-        });
+        setSent(true);
         setFormData({ name: "", email: "", phone: "", projectType: "", message: "" });
       } else {
         toast({
@@ -118,56 +137,85 @@ export default function ContactPage() {
       <Section variant="cream" padding="lg">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
 
-          {/* Form */}
+          {/* Form (or success state once submitted) */}
           <div className="paper-card rounded-md">
             <div className="p-6 sm:p-8 md:p-10">
-              <div className="mb-7 sm:mb-8">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="h-px w-8 cream-rule" />
-                  <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Get in Touch</p>
+              {sent ? (
+                <div className="text-center py-4">
+                  <div className="w-16 h-16 rounded-full bg-bone-soft border-2 border-sandstone-dark flex items-center justify-center mx-auto mb-6">
+                    <Send className="h-7 w-7 text-sandstone-dark" aria-hidden="true" />
+                  </div>
+                  <div className="flex items-center justify-center gap-3 mb-3">
+                    <div className="h-px w-8 cream-rule" />
+                    <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Message Received</p>
+                    <div className="h-px w-8 cream-rule-rtl" />
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-heading font-black text-ink uppercase tracking-tight mb-3">Thanks — we&apos;re on it.</h2>
+                  <p className="font-serif italic text-ink text-lg mb-2">We&apos;ll reply within 24 hours.</p>
+                  <p className="text-ink-muted text-sm leading-relaxed mb-6 max-w-sm mx-auto">
+                    If it&apos;s urgent, give us a call at{" "}
+                    <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="text-ink font-semibold hover:text-sandstone-dark transition-colors">
+                      {BRAND_CONFIG.contact.phoneFormatted}
+                    </a>.
+                  </p>
+                  <button onClick={() => setSent(false)} className="btn-ink-ghost px-6 py-3 uppercase tracking-widest text-xs">
+                    Send another message
+                  </button>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-heading font-black text-ink uppercase tracking-tight">Send a Message</h2>
-                <p className="font-serif italic text-ink-muted text-base sm:text-lg mt-3 leading-snug">
-                  Tell us what you&apos;re thinking — we&apos;ll take it from there.
-                </p>
-              </div>
+              ) : (
+                <>
+                  <div className="mb-7 sm:mb-8">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="h-px w-8 cream-rule" />
+                      <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Get in Touch</p>
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl font-heading font-black text-ink uppercase tracking-tight">Send a Message</h2>
+                    <p className="font-serif italic text-ink-muted text-base sm:text-lg mt-3 leading-snug">
+                      Tell us what you&apos;re thinking — we&apos;ll take it from there.
+                    </p>
+                  </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="name" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                      Name <span className="text-ink">*</span>
-                    </label>
-                    <Input id="name" required autoComplete="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Your name" className={FIELD_CLASS} />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                      Email <span className="text-ink">*</span>
-                    </label>
-                    <Input id="email" type="email" inputMode="email" autoComplete="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="your@email.com" className={FIELD_CLASS} />
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="phone" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">Phone</label>
-                    <Input id="phone" type="tel" inputMode="tel" autoComplete="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="Your phone number" className={FIELD_CLASS} />
-                  </div>
-                  <div>
-                    <label htmlFor="projectType" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">Project Type</label>
-                    <Input id="projectType" value={formData.projectType} onChange={(e) => setFormData({ ...formData, projectType: e.target.value })} placeholder="e.g., Flooring, Cabinets…" className={FIELD_CLASS} />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                    Message <span className="text-ink">*</span>
-                  </label>
-                  <Textarea id="message" required value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} placeholder="Tell us about your project — scope, timeline, budget, anything relevant…" rows={6} className={TEXTAREA_CLASS} />
-                </div>
-                <button type="submit" disabled={loading} className="btn-ink w-full py-3.5 disabled:opacity-60 disabled:cursor-not-allowed">
-                  {loading ? "Sending…" : (<><Send className="h-4 w-4" /> Send Message</>)}
-                </button>
-                <p className="text-center text-xs text-ink-muted">We respond within 24 hours — usually much sooner.</p>
-              </form>
+                  <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label htmlFor="name" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
+                          Name <span aria-hidden="true" className="text-ink">*</span>
+                        </label>
+                        <Input id="name" required autoComplete="name" aria-required="true" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} value={formData.name} onChange={(e) => { setFormData({ ...formData, name: e.target.value }); if (errors.name) setErrors({ ...errors, name: undefined }); }} placeholder="Your name" className={FIELD_CLASS} />
+                        {errors.name && <p id="name-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.name}</p>}
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
+                          Email <span aria-hidden="true" className="text-ink">*</span>
+                        </label>
+                        <Input id="email" type="email" inputMode="email" autoComplete="email" required aria-required="true" aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} value={formData.email} onChange={(e) => { setFormData({ ...formData, email: e.target.value }); if (errors.email) setErrors({ ...errors, email: undefined }); }} placeholder="your@email.com" className={FIELD_CLASS} />
+                        {errors.email && <p id="email-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.email}</p>}
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label htmlFor="phone" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">Phone</label>
+                        <Input id="phone" type="tel" inputMode="tel" autoComplete="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="Your phone number" className={FIELD_CLASS} />
+                      </div>
+                      <div>
+                        <label htmlFor="projectType" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">Project Type</label>
+                        <Input id="projectType" value={formData.projectType} onChange={(e) => setFormData({ ...formData, projectType: e.target.value })} placeholder="e.g., Flooring, Cabinets…" className={FIELD_CLASS} />
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
+                        Message <span aria-hidden="true" className="text-ink">*</span>
+                      </label>
+                      <Textarea id="message" required aria-required="true" aria-invalid={!!errors.message} aria-describedby={errors.message ? "message-error" : undefined} value={formData.message} onChange={(e) => { setFormData({ ...formData, message: e.target.value }); if (errors.message) setErrors({ ...errors, message: undefined }); }} placeholder="Tell us about your project — scope, timeline, budget, anything relevant…" rows={6} className={TEXTAREA_CLASS} />
+                      {errors.message && <p id="message-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.message}</p>}
+                    </div>
+                    <button type="submit" disabled={loading} className="btn-ink w-full py-3.5 disabled:opacity-60 disabled:cursor-not-allowed">
+                      {loading ? (<><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Sending…</>) : (<><Send className="h-4 w-4" aria-hidden="true" /> Send Message</>)}
+                    </button>
+                    <p className="text-center text-xs text-ink-muted">We respond within 24 hours — usually much sooner.</p>
+                  </form>
+                </>
+              )}
             </div>
           </div>
 

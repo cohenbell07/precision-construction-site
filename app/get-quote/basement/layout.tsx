@@ -3,7 +3,7 @@ import { BRAND_CONFIG } from "@/lib/utils";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pcnd.ca";
 
 export const metadata = {
-  title: `15% Off Basement Development Calgary | Free Quote | ${BRAND_CONFIG.shortName}`,
+  title: "15% Off Basement Development Calgary | Free Quote",
   description: `Save 15% on full basement renovations in Calgary. Turnkey development — framing, electrical, plumbing, drywall, flooring & finishes. Permits handled. Free quote within 24 hours.`,
   keywords: [
     "15% off basement renovation Calgary",

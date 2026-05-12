@@ -149,7 +149,17 @@ function GetQuoteForm() {
 
         {/* Progress Indicator */}
         {step !== "summary" && (
-          <div className="mb-8 sm:mb-10">
+          <div
+            className="mb-8 sm:mb-10"
+            role="progressbar"
+            aria-valuemin={1}
+            aria-valuemax={2}
+            aria-valuenow={step === "selection" ? 1 : 2}
+            aria-valuetext={step === "selection" ? "Step 1 of 2: Service" : "Step 2 of 2: Details"}
+          >
+            <p className="text-center text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-medium text-sandstone-muted mb-4">
+              Step {step === "selection" ? "1" : "2"} of 2 — {step === "selection" ? "Choose your service" : "Tell us about your project"}
+            </p>
             <div className="flex items-center justify-center gap-0">
               {[
                 { num: "01", label: "Service", key: "selection" },
@@ -199,7 +209,7 @@ function GetQuoteForm() {
                     {services.map((service) => {
                       const IconComponent = serviceIcons[service.id] || serviceIcons.default;
                       return (
-                        <button key={service.id} onClick={() => handleServiceSelect(service.id)} className="group text-left p-4 sm:p-5 rounded-md border border-bone-hairline bg-bone-paper hover:bg-bone-soft hover:border-sandstone-dark transition-all duration-200 flex items-center gap-3 sm:gap-4">
+                        <button key={service.id} type="button" onClick={() => handleServiceSelect(service.id)} className="group text-left p-4 sm:p-5 rounded-md border border-bone-hairline bg-bone-paper hover:bg-bone-soft hover:border-sandstone-dark transition-all duration-200 flex items-center gap-3 sm:gap-4">
                           <div className="w-10 h-10 rounded-md bg-bone-soft border border-bone-hairline group-hover:border-sandstone-dark flex items-center justify-center shrink-0 transition-colors">
                             <IconComponent className="h-5 w-5 text-sandstone-dark" />
                           </div>
@@ -215,7 +225,7 @@ function GetQuoteForm() {
                         </button>
                       );
                     })}
-                    <button onClick={() => handleServiceSelect("other")} className="group text-left p-4 sm:p-5 rounded-md border border-bone-hairline bg-bone-paper hover:bg-bone-soft hover:border-sandstone-dark transition-all duration-200 flex items-center gap-3 sm:gap-4">
+                    <button type="button" onClick={() => handleServiceSelect("other")} className="group text-left p-4 sm:p-5 rounded-md border border-bone-hairline bg-bone-paper hover:bg-bone-soft hover:border-sandstone-dark transition-all duration-200 flex items-center gap-3 sm:gap-4">
                       <div className="w-10 h-10 rounded-md bg-bone-soft border border-bone-hairline group-hover:border-sandstone-dark flex items-center justify-center shrink-0 transition-colors">
                         <Building2 className="h-5 w-5 text-sandstone-dark" />
                       </div>

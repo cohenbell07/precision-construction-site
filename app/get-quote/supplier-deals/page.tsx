@@ -113,7 +113,7 @@ export default function SupplierDealsQuotePage() {
           <div className="flex justify-center mb-4">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-sandstone/30 bg-sandstone/10 text-sandstone text-xs font-semibold uppercase tracking-wider backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-sandstone animate-pulse shrink-0 inline-block" />
-              Limited Time · 10% Off · Seasonal Specials
+              10% Off · Seasonal Specials
             </span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-4 text-white uppercase tracking-tight">
