@@ -16,7 +16,7 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { services, getServiceCtaLabel } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { VideoHero } from "@/components/VideoHero";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Phone, Hammer, Users, Clock, BadgePercent, MapPin } from "lucide-react";
 import { Section } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
@@ -88,14 +88,14 @@ export default function Home() {
     { name: "Priya S.", text: "We needed new flooring throughout our main floor and the quote came in well under the other companies we called. The LVP they sourced looks amazing and the install was super clean. No corners cut. Really happy with how it turned out.", project: "Main Floor LVP Installation", year: "2024" },
   ];
 
-  /* Five spec-sheet rows — the year (1968) lives as the section's typographic
-     anchor above, so it is not duplicated here. */
-  const dossier = [
-    { label: "Projects Delivered", value: "5,000+",                                  italic: false },
-    { label: "Generation",         value: "Third",                                   italic: true },
-    { label: "Response Time",      value: "Within 24 Hours",                         italic: false },
-    { label: "Price Guarantee",    value: "Beats Competitors by 5%",                 italic: false },
-    { label: "Service Area",       value: "Calgary · Airdrie · Cochrane · Okotoks",  italic: false },
+  /* Spec stats — paired with refined lucide icons + a sandstone leader prefix.
+     Service area lives as a footer line below the grid so the four cards stay
+     visually balanced. */
+  const stats = [
+    { Icon: Hammer,       label: "Projects Delivered", value: "5,000+" },
+    { Icon: Users,        label: "Generation",         value: "Third" },
+    { Icon: Clock,        label: "Response Time",      value: "24 Hours" },
+    { Icon: BadgePercent, label: "Price Guarantee",    value: "Beats by 5%" },
   ];
 
   return (
@@ -150,11 +150,12 @@ export default function Home() {
       </section>
 
       {/* ━━━ BY THE NUMBERS — DARK ━━━
-          Editorial spec-sheet: a typographic anchor (Est. 1968) at the top of
-          the section sets the heritage tone, followed by five hairline-divided
-          rows that read like a project brief. One value renders in DM Serif
-          italic ("Third") to give the rhythm a single typographic break. */}
-      <Section variant="dark" bg="bg-[#0A0A0A]" padding="md" containerClassName="container mx-auto px-6 max-w-5xl">
+          Editorial spec-sheet, upgrade pass: keeps the EST. 1968 typographic
+          anchor, then breaks the linear row list into a four-card stat grid
+          with lucide icons and a sandstone hover-rise — each card reads as a
+          standalone spec tile while the row beneath ties the service area
+          back to the brand's geography. */}
+      <Section variant="dark" bg="bg-[#0A0A0A]" padding="md" containerClassName="container mx-auto px-6 max-w-6xl">
         {/* Masthead — quiet eyebrow + place stamp */}
         <Reveal>
           <div className="flex items-baseline justify-between pb-7 mb-8 sm:mb-10 border-b border-sandstone/20">
@@ -166,9 +167,7 @@ export default function Home() {
           </div>
         </Reveal>
 
-        {/* Typographic anchor — the year as a display moment, with editorial
-            italic line beneath. Replaces the equal-weight "Working Since 1968"
-            row so the heritage gets visual primacy. */}
+        {/* Heritage anchor — Est. 1968 + editorial italic line. */}
         <Reveal>
           <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] items-end gap-6 md:gap-12 pb-10 sm:pb-12 mb-10 sm:mb-12 border-b border-sandstone/15">
             <div className="flex items-end gap-3 sm:gap-5">
@@ -183,29 +182,45 @@ export default function Home() {
           </div>
         </Reveal>
 
-        {/* Spec rows — refined hairline ledger. Stack on mobile (label above
-            value), side-by-side from sm+ (label left, value left-aligned). */}
-        <dl>
-          {dossier.map((row, i) => (
-            <Reveal key={row.label} delay={i * 0.05}>
-              <div className="flex flex-col sm:grid sm:grid-cols-[260px_1fr] sm:items-baseline gap-2 sm:gap-10 py-5 sm:py-6 border-b border-white/[0.06] last:border-b-0">
-                <dt className="flex items-baseline gap-3 sm:gap-4 text-[10px] sm:text-[11px] tracking-[0.25em] uppercase text-white/55 font-medium">
-                  <span className="text-sandstone/70 tabular-nums font-mono text-[10px]">/ {String(i + 1).padStart(2, "0")}</span>
-                  <span>{row.label}</span>
-                </dt>
-                <dd
-                  className={
-                    row.italic
-                      ? "font-serif italic text-white text-2xl sm:text-3xl md:text-4xl leading-none tracking-tight"
-                      : "font-heading font-black text-white text-[20px] sm:text-2xl md:text-3xl leading-tight tracking-tight uppercase tabular-nums"
-                  }
-                >
-                  {row.value}
-                </dd>
+        {/* Stat-card grid — 2x2 on mobile, four-across on desktop. Each card
+            carries an icon, a tabular leader number, the value (heading
+            display) and the label (tracked small caps). Hover lifts the
+            sandstone hairline + brightens the icon. */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+          {stats.map((stat, i) => (
+            <Reveal key={stat.label} delay={i * 0.06}>
+              <div className="group relative h-full bg-white/[0.02] border border-white/[0.08] hover:border-sandstone/45 transition-colors duration-300 rounded-sm p-5 sm:p-6 md:p-7 flex flex-col">
+                <div className="flex items-center gap-2 mb-5 sm:mb-6">
+                  <stat.Icon aria-hidden="true" className="w-4 h-4 text-sandstone/80 group-hover:text-sandstone transition-colors" />
+                  <span className="text-[9px] tracking-[0.3em] uppercase text-sandstone/60 font-mono tabular-nums">
+                    / {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className="flex-1 flex flex-col justify-end">
+                  <p className="font-heading font-black text-white text-2xl sm:text-3xl md:text-[34px] leading-none tracking-tight uppercase tabular-nums mb-2.5">
+                    {stat.value}
+                  </p>
+                  <p className="text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-white/55 font-medium leading-snug">
+                    {stat.label}
+                  </p>
+                </div>
+                {/* Sandstone hairline accent that grows on hover — a quiet kinetic flourish */}
+                <span aria-hidden="true" className="absolute left-5 sm:left-6 md:left-7 bottom-5 sm:bottom-6 md:bottom-7 h-px w-6 bg-sandstone/40 group-hover:w-10 group-hover:bg-sandstone/80 transition-all duration-300" style={{ marginBottom: -2 }} />
               </div>
             </Reveal>
           ))}
-        </dl>
+        </div>
+
+        {/* Service area — ties the four stats back to the brand's geography.
+            Renders as a quiet hairline-flanked tagline below the grid. */}
+        <Reveal delay={0.3}>
+          <div className="mt-10 sm:mt-12 pt-7 sm:pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center">
+            <MapPin aria-hidden="true" className="w-3.5 h-3.5 text-sandstone/70" />
+            <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/55 font-medium">
+              Serving Calgary · Airdrie · Cochrane · Okotoks
+            </p>
+          </div>
+        </Reveal>
       </Section>
 
       {/* ━━━ ABOUT LEGACY — CREAM ━━━ */}
