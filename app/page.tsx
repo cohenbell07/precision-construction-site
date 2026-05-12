@@ -3,17 +3,10 @@
 /**
  * Homepage — "Showroom + Studio" two-canvas direction.
  *
- * Aesthetic vocabulary: architect's monograph. Roman-numeral chapter markers
- * (I–VI) punctuate the page; the previously generic trust-pill + stats-tile
- * pair collapses into a single editorial "Dossier" spec-sheet section
- * (hairline-divided rows, label-left / value-right). Service cards carry a
- * numeric atlas index (01–06). The basement promo wears a price-tag stamp
- * instead of a SaaS pill. The final CTA drops the LightRays glow for a quiet
- * blueprint-grid backdrop with a registration-mark footer stamp.
- *
- * Dark canvases carry the showroom drama (hero, dossier, services, basement
- * promo, final CTA). Cream canvases carry the studio voice (about, material
- * partners, testimony). See memory `project_showroom_studio_design.md`.
+ * Dark canvases carry the showroom drama (hero, spec sheet, services,
+ * basement promo, final CTA). Cream canvases carry the studio voice (about,
+ * material partners, testimonials). See memory
+ * `project_showroom_studio_design.md`.
  */
 
 import Link from "next/link";
@@ -45,16 +38,12 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
   );
 }
 
-/* Small reusable chapter marker — Roman numeral + label, sandstone hairline.
-   Used on the major editorial sections to give the page a print-book rhythm. */
-function ChapterMark({ numeral, label, theme = "dark" }: { numeral: string; label: string; theme?: "dark" | "cream" }) {
+/* Small reusable section label — sandstone hairline + uppercase tracking. */
+function SectionLabel({ label, theme = "dark" }: { label: string; theme?: "dark" | "cream" }) {
   const isDark = theme === "dark";
   return (
     <div className="flex items-center gap-3 mb-4 sm:mb-5">
-      <span className={`font-serif italic text-base sm:text-lg leading-none ${isDark ? "text-sandstone" : "text-sandstone-dark"}`}>
-        {numeral}
-      </span>
-      <span className={`h-px w-6 ${isDark ? "bg-sandstone/50" : "bg-sandstone-dark/50"}`} aria-hidden="true" />
+      <span className={`h-px w-6 ${isDark ? "bg-sandstone/60" : "bg-sandstone-dark/50"}`} aria-hidden="true" />
       <span className={`text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium ${isDark ? "text-white/55" : ""} ${!isDark ? "cream-eyebrow" : ""}`}>
         {label}
       </span>
@@ -128,7 +117,6 @@ export default function Home() {
         <motion.div style={{ opacity: heroOpacity, y: heroTextY }} className="absolute inset-0 flex items-center z-10">
           <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.3 }} className="flex items-center gap-3 mb-5 sm:mb-6">
-              <span className="font-serif italic text-base sm:text-lg leading-none text-sandstone">I</span>
               <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
               <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/75 font-medium">A Family of Builders</span>
             </motion.div>
@@ -159,14 +147,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ━━━ DOSSIER — DARK (replaces prior trust-bar + stats) ━━━ */}
+      {/* ━━━ BY THE NUMBERS — DARK (spec-sheet replaces prior trust-bar + stats) ━━━ */}
       <Section variant="dark" bg="bg-[#0A0A0A]" padding="md" containerClassName="container mx-auto px-6 max-w-5xl">
         {/* Section header — a quiet masthead */}
         <Reveal>
           <div className="flex items-baseline justify-between pb-5 sm:pb-6 mb-2 border-b border-sandstone/20">
             <div className="flex items-center gap-3">
-              <span className="font-serif italic text-base sm:text-lg leading-none text-sandstone">II</span>
-              <span className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/55 font-medium">The Dossier</span>
+              <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
+              <span className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/55 font-medium">By the Numbers</span>
             </div>
             <span className="hidden sm:inline text-[10px] tracking-[0.25em] uppercase text-white/35 font-medium">Precision Construction &amp; Decora · Calgary, AB</span>
           </div>
@@ -206,7 +194,7 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={0.15} className="lg:col-span-3">
-            <ChapterMark numeral="III" label="The Family" theme="cream" />
+            <SectionLabel label="The Family" theme="cream" />
             <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-6 sm:mb-7">
               Three Generations<br />of Quality
             </h2>
@@ -242,9 +230,9 @@ export default function Home() {
         <Reveal>
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12 md:mb-16">
             <div>
-              <ChapterMark numeral="IV" label="Selected Capabilities" theme="dark" />
+              <SectionLabel label="Selected Capabilities" theme="dark" />
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">
-                The Atlas
+                What We Build
               </h2>
               <p className="font-serif italic text-white/65 text-lg sm:text-xl mt-3 max-w-md">
                 A short index of the work we&apos;re known for.
@@ -275,7 +263,6 @@ export default function Home() {
       {/* ━━━ MATERIAL PARTNERS — CREAM ━━━ */}
       <Section variant="cream" padding="md" withContainer={false} className="overflow-hidden">
         <div className="flex items-center justify-center gap-3 mb-7 px-6">
-          <span className="font-serif italic text-base text-sandstone-dark leading-none">V</span>
           <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
           <p className="cream-eyebrow text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium">Material Partners</p>
           <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
@@ -318,7 +305,7 @@ export default function Home() {
           <div className="flex items-center px-5 sm:px-12 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-20">
             <Reveal delay={0.15}>
               <div>
-                <ChapterMark numeral="VI" label="On the Boards" theme="dark" />
+                <SectionLabel label="Featured Service" theme="dark" />
                 <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
                   Basement<br />Developments
                 </h2>
@@ -355,9 +342,8 @@ export default function Home() {
         <Reveal>
           <div className="text-center mb-12 sm:mb-16 md:mb-20">
             <div className="flex items-center justify-center gap-3 mb-5">
-              <span className="font-serif italic text-base text-sandstone-dark leading-none">VII</span>
               <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
-              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Testimony</p>
+              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Testimonials</p>
               <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
             </div>
             <h2 className="text-[30px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5">
@@ -400,9 +386,9 @@ export default function Home() {
         <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
           <Reveal>
             <div className="flex items-center justify-center gap-3 mb-6">
-              <span className="font-serif italic text-base text-sandstone leading-none">VIII</span>
               <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
               <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium">Start the Conversation</p>
+              <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
             </div>
             <h2 className="text-[32px] sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-5 sm:mb-6">Ready to Build?</h2>
             <p className="font-serif italic text-white/85 text-lg sm:text-2xl max-w-xl mx-auto mb-3">
