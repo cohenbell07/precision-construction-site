@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Input } from "@/components/ui/input";
-import { getServiceById, services as allServices } from "@/lib/services";
+import { getServiceById, services as allServices, getServiceCtaLabel } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { CheckCircle, ChevronDown, ArrowRight, Phone, Star, Shield, Clock, Award, Sparkles, Quote } from "lucide-react";
 import { Section } from "@/components/Section";
@@ -102,7 +102,7 @@ function InquiryForm({ serviceName }: { serviceName: string }) {
       <Reveal delay={0.1}>
         {sent ? (
           <div className="paper-card rounded-md p-8 text-center">
-            <CheckCircle className="h-10 w-10 text-sandstone-dark mx-auto mb-3" />
+            <CheckCircle aria-hidden="true" className="h-10 w-10 text-sandstone-dark mx-auto mb-3" />
             <p className="text-ink font-bold uppercase tracking-wide">Message Received</p>
             <p className="text-ink-muted text-sm mt-1">We&apos;ll reply within 24 hours.</p>
           </div>
@@ -180,7 +180,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         <div className="absolute inset-0 flex items-end pb-10 sm:pb-14 md:pb-16 z-10">
           <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
             <Link href="/services" className="inline-flex items-center gap-2 text-[11px] sm:text-sm tracking-[0.15em] uppercase text-white/70 hover:text-sandstone transition-colors mb-4 sm:mb-5 font-medium">
-              <ArrowRight className="w-3.5 h-3.5 rotate-180" /> All Services
+              <ArrowRight aria-hidden="true" className="w-3.5 h-3.5 rotate-180" /> All Services
             </Link>
             <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-hero uppercase tracking-wide leading-[0.9] max-w-4xl mb-4 sm:mb-6">
               {service.title}
@@ -189,7 +189,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               {service.description}
             </p>
             <Link href={`/get-quote?service=${service.id}`} className="group inline-flex items-center justify-center gap-3 bg-white text-black px-9 py-4 rounded-full font-black text-base tracking-wide hover:bg-sandstone transition-colors shadow-[0_4px_24px_rgba(255,255,255,0.12)]">
-              Get a Free Quote <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              Get a Free Quote <ArrowRight aria-hidden="true" className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
@@ -201,16 +201,16 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-8 sm:gap-x-10 gap-y-3 py-6 sm:py-7 text-[11px] sm:text-xs uppercase tracking-[0.16em] sm:tracking-[0.2em] text-white/65 font-medium">
             <span className="flex items-center gap-2">
               <span className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (<Star key={i} className="w-3 h-3 fill-sandstone text-sandstone" />))}
+                {[...Array(5)].map((_, i) => (<Star key={i} aria-hidden="true" className="w-3 h-3 fill-sandstone text-sandstone" />))}
               </span>
               <span>5.0 · Calgary&apos;s Trusted Builder</span>
             </span>
             <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
-            <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-sandstone" /> Licensed &amp; Insured</span>
+            <span className="flex items-center gap-1.5"><Shield aria-hidden="true" className="w-3.5 h-3.5 text-sandstone" /> Licensed &amp; Insured</span>
             <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
-            <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-sandstone" /> 24-Hour Response</span>
+            <span className="flex items-center gap-1.5"><Clock aria-hidden="true" className="w-3.5 h-3.5 text-sandstone" /> 24-Hour Response</span>
             <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
-            <span className="flex items-center gap-1.5"><Award className="w-3.5 h-3.5 text-sandstone" /> 5% Price Beat</span>
+            <span className="flex items-center gap-1.5"><Award aria-hidden="true" className="w-3.5 h-3.5 text-sandstone" /> 5% Price Beat</span>
           </div>
         </div>
       </section>
@@ -251,7 +251,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                 { icon: Award, label: "Workmanship Warranty" },
               ].map((chip) => (
                 <span key={chip.label} className="inline-flex items-center gap-2 bg-bone-paper border border-bone-hairline hover:border-sandstone-dark text-ink text-xs font-medium tracking-wide px-3.5 py-2 rounded-full transition-colors">
-                  <chip.icon className="w-3.5 h-3.5 text-sandstone-dark" /> {chip.label}
+                  <chip.icon aria-hidden="true" className="w-3.5 h-3.5 text-sandstone-dark" /> {chip.label}
                 </span>
               ))}
             </div>
@@ -265,7 +265,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <span className="pointer-events-none absolute bottom-3 right-3 w-4 h-4 border-b border-r border-sandstone-dark/50" />
 
               <div className="flex items-center gap-2 mb-5">
-                <Sparkles className="w-3.5 h-3.5 text-sandstone-dark" />
+                <Sparkles aria-hidden="true" className="w-3.5 h-3.5 text-sandstone-dark" />
                 <h3 className="text-[11px] font-heading font-bold uppercase tracking-[0.2em] text-sandstone-dark">Free Estimate</h3>
               </div>
 
@@ -293,10 +293,10 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               </div>
 
               <Link href={`/get-quote?service=${service.id}`} className="btn-ink w-full mb-2.5">
-                Get Free Quote <ArrowRight className="w-4 h-4" />
+                Get Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4" />
               </Link>
               <Link href="/contact" className="flex items-center justify-center gap-2 w-full text-ink-muted hover:text-sandstone-dark py-2.5 text-xs tracking-[0.15em] uppercase transition-colors">
-                <Phone className="w-3 h-3" /> Contact Us
+                <Phone aria-hidden="true" className="w-3 h-3" /> Contact Us
               </Link>
             </div>
           </Reveal>
@@ -317,7 +317,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             {service.details.map((detail, idx) => (
               <Reveal key={detail} delay={idx * 0.03}>
                 <div className="flex items-start gap-3 py-3 border-b border-bone-hairline">
-                  <CheckCircle className="w-4 h-4 text-sandstone-dark shrink-0 mt-0.5" />
+                  <CheckCircle aria-hidden="true" className="w-4 h-4 text-sandstone-dark shrink-0 mt-0.5" />
                   <span className="text-ink-muted text-sm">{detail}</span>
                 </div>
               </Reveal>
@@ -342,7 +342,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <Reveal key={benefit} delay={idx * 0.05}>
                 <div className="group flex items-start gap-4 paper-card rounded-md p-5">
                   <div className="shrink-0 w-9 h-9 rounded-full bg-bone-soft border border-sandstone-dark flex items-center justify-center">
-                    <CheckCircle className="w-4 h-4 text-sandstone-dark" />
+                    <CheckCircle aria-hidden="true" className="w-4 h-4 text-sandstone-dark" />
                   </div>
                   <span className="text-ink text-[15px] leading-relaxed pt-1">{benefit}</span>
                 </div>
@@ -392,10 +392,10 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               </div>
               <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto md:shrink-0">
                 <Link href={`/get-quote?service=${service.id}`} className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
-                  Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/80 hover:text-sandstone px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-sandstone/50">
-                  <Phone className="w-3.5 h-3.5" /> Contact
+                  <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact
                 </Link>
               </div>
             </div>
@@ -436,7 +436,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-4 text-ink">What Our Clients Say</h2>
               <div className="flex items-center justify-center gap-2">
                 <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (<Star key={i} className="w-3.5 h-3.5 fill-sandstone-dark text-sandstone-dark" />))}
+                  {[...Array(5)].map((_, i) => (<Star key={i} aria-hidden="true" className="w-3.5 h-3.5 fill-sandstone-dark text-sandstone-dark" />))}
                 </div>
                 <span className="text-[11px] text-sandstone-muted font-medium tracking-wide">5.0 · Verified Client</span>
               </div>
@@ -452,7 +452,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
               <div className="relative">
                 <div className="flex gap-0.5 mb-6">
-                  {[...Array(5)].map((_, i) => (<Star key={i} className="w-4 h-4 fill-sandstone-dark text-sandstone-dark" />))}
+                  {[...Array(5)].map((_, i) => (<Star key={i} aria-hidden="true" className="w-4 h-4 fill-sandstone-dark text-sandstone-dark" />))}
                 </div>
                 <p className="font-serif italic text-ink text-base sm:text-lg leading-relaxed mb-7">
                   &ldquo;{testimonial.text}&rdquo;
@@ -463,7 +463,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     <p className="text-[11px] uppercase tracking-[0.2em] text-sandstone-muted mt-1 font-medium">{testimonial.project}</p>
                   </div>
                   <span className="shrink-0 inline-flex items-center gap-1.5 bg-bone-soft border border-sandstone-dark/40 text-sandstone-dark text-[9px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-full">
-                    <CheckCircle className="w-3 h-3" /> Verified
+                    <CheckCircle aria-hidden="true" className="w-3 h-3" /> Verified
                   </span>
                 </div>
               </div>
@@ -494,7 +494,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-bone-soft/50 transition-colors"
                   >
                     <span className="text-ink text-sm font-medium pr-4">{faq.question}</span>
-                    <ChevronDown className={`w-4 h-4 text-sandstone-dark shrink-0 transition-transform duration-300 ${openFaq === idx ? "rotate-180" : ""}`} />
+                    <ChevronDown aria-hidden="true" className={`w-4 h-4 text-sandstone-dark shrink-0 transition-transform duration-300 ${openFaq === idx ? "rotate-180" : ""}`} />
                   </button>
                   {openFaq === idx && (
                     <div className="px-6 pb-4">
@@ -519,7 +519,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95]">Related Services</h2>
                 </div>
                 <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white transition-colors group shrink-0">
-                  View All <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  View All <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </Reveal>
@@ -531,6 +531,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     title={related!.title}
                     image={serviceImageMap[related!.id] || "/service-millwork.webp"}
                     alt={`${related!.title} services in Calgary by PCND`}
+                    ctaLabel={getServiceCtaLabel(related!.id)}
                   />
                 </Reveal>
               ))}
@@ -570,10 +571,10 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
               <Link href={`/get-quote?service=${service.id}`} className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
-                Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link href="/contact" className="inline-flex items-center gap-2 text-white/55 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/10 rounded-full hover:border-white/30">
-                <Phone className="w-3.5 h-3.5" /> Contact Us
+                <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </div>
           </Reveal>
@@ -583,10 +584,10 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       {/* ━━━ STICKY MOBILE CTA ━━━ */}
       <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-black/90 backdrop-blur-md border-t border-sandstone/20 px-4 py-3 flex gap-2 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
         <Link href={`/get-quote?service=${service.id}`} className="flex-1 inline-flex items-center justify-center gap-2 bg-white text-black px-5 py-3 rounded-full font-bold text-[13px] tracking-wide">
-          Free Quote <ArrowRight className="w-3.5 h-3.5" />
+          Free Quote <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
         </Link>
         <a href={`tel:${BRAND_CONFIG.contact.phone}`} aria-label={`Call ${BRAND_CONFIG.contact.phoneFormatted}`} className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sandstone/15 border border-sandstone/40 text-sandstone">
-          <Phone className="w-4 h-4" />
+          <Phone aria-hidden="true" className="w-4 h-4" />
         </a>
       </div>
       <div className="h-20 md:hidden" aria-hidden />

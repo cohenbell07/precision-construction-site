@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Loader2, Check, CheckCircle } from "lucide-react";
 import { Section } from "@/components/Section";
+import { validateLeadForm, type LeadFormErrors } from "@/lib/forms";
 
 const BUNDLE_OPTIONS = [
   "Kitchen + Bathroom renovation",
@@ -30,9 +31,14 @@ export default function BundleQuotePage() {
     name: "", email: "", phone: "", address: "",
     projectDetails: "", timeline: "", budgetMin: "", budgetMax: "",
   });
+  const [errors, setErrors] = useState<LeadFormErrors>({});
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
+
+  const clearError = (field: keyof LeadFormErrors) => {
+    if (errors[field]) setErrors({ ...errors, [field]: undefined });
+  };
 
   const toggle = (option: string) => {
     setSelected((prev) => {
@@ -46,9 +52,13 @@ export default function BundleQuotePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (selected.size === 0) { toast({ title: "Select at least one option", variant: "destructive" }); return; }
-    if (!formData.name.trim()) { toast({ title: "Name is required", variant: "destructive" }); return; }
-    if (!formData.email.trim()) { toast({ title: "Email is required", variant: "destructive" }); return; }
-    if (!formData.projectDetails.trim()) { toast({ title: "Please provide project details", variant: "destructive" }); return; }
+    const errs = validateLeadForm(formData);
+    setErrors(errs);
+    if (Object.keys(errs).length) {
+      const first = Object.keys(errs)[0];
+      document.getElementById(first)?.focus();
+      return;
+    }
     setLoading(true);
     try {
       const res = await fetch("/api/leads/deal-quote", {
@@ -82,7 +92,7 @@ export default function BundleQuotePage() {
         <div className="paper-card rounded-md">
           <div className="p-8 sm:p-10 md:p-12 text-center">
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-bone-soft border-2 border-sandstone-dark flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-sandstone-dark" />
+              <CheckCircle aria-hidden="true" className="h-8 w-8 sm:h-10 sm:w-10 text-sandstone-dark" />
             </div>
             <div className="flex items-center justify-center gap-3 mb-3">
               <div className="h-px w-8 cream-rule" />
@@ -110,7 +120,7 @@ export default function BundleQuotePage() {
           <div className="flex justify-center mb-4">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-sandstone/30 bg-sandstone/10 text-sandstone text-xs font-semibold uppercase tracking-wider backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-sandstone animate-pulse shrink-0 inline-block" />
-              Most Popular · 15% Off · Bundle Services
+              Most Popular · 15% Off · Kitchen + Bath, Basement + Flooring, or Full Home
             </span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-4 text-white uppercase tracking-tight">
@@ -125,7 +135,7 @@ export default function BundleQuotePage() {
 
       {/* ━━━ FORM — CREAM ━━━ */}
       <Section variant="cream" padding="lg" containerClassName="container mx-auto px-4 sm:px-6 max-w-2xl">
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" noValidate>
 
           {/* Bundle Selection */}
           <div className="paper-card rounded-md">
@@ -153,7 +163,7 @@ export default function BundleQuotePage() {
                     <span className="font-semibold text-sm">{option}</span>
                     {selected.has(option) && (
                       <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sandstone-dark text-bone">
-                        <Check className="h-4 w-4" />
+                        <Check aria-hidden="true" className="h-4 w-4" />
                       </span>
                     )}
                   </button>
@@ -176,15 +186,17 @@ export default function BundleQuotePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label htmlFor="name" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                      Name <span className="text-ink">*</span>
+                      Name <span aria-hidden="true" className="text-ink">*</span>
                     </label>
-                    <Input id="name" required autoComplete="name" placeholder="Your name" value={formData.name} onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))} className={FIELD_CLASS} />
+                    <Input id="name" required aria-required="true" autoComplete="name" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} placeholder="Your name" value={formData.name} onChange={(e) => { setFormData((p) => ({ ...p, name: e.target.value })); clearError("name"); }} className={FIELD_CLASS} />
+                    {errors.name && <p id="name-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.name}</p>}
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                      Email <span className="text-ink">*</span>
+                      Email <span aria-hidden="true" className="text-ink">*</span>
                     </label>
-                    <Input id="email" type="email" inputMode="email" autoComplete="email" required placeholder="your@email.com" value={formData.email} onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))} className={FIELD_CLASS} />
+                    <Input id="email" type="email" inputMode="email" autoComplete="email" required aria-required="true" aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} placeholder="your@email.com" value={formData.email} onChange={(e) => { setFormData((p) => ({ ...p, email: e.target.value })); clearError("email"); }} className={FIELD_CLASS} />
+                    {errors.email && <p id="email-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.email}</p>}
                   </div>
                 </div>
                 <div>
@@ -219,16 +231,17 @@ export default function BundleQuotePage() {
                 </div>
                 <div>
                   <label htmlFor="projectDetails" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                    Project Details <span className="text-ink">*</span>
+                    Project Details <span aria-hidden="true" className="text-ink">*</span>
                   </label>
-                  <Textarea id="projectDetails" required placeholder="Describe your project, rooms, scope, etc." value={formData.projectDetails} onChange={(e) => setFormData((p) => ({ ...p, projectDetails: e.target.value }))} rows={4} className={TEXTAREA_CLASS} />
+                  <Textarea id="projectDetails" required aria-required="true" aria-invalid={!!errors.projectDetails} aria-describedby={errors.projectDetails ? "projectDetails-error" : undefined} placeholder="Describe your project, rooms, scope, etc." value={formData.projectDetails} onChange={(e) => { setFormData((p) => ({ ...p, projectDetails: e.target.value })); clearError("projectDetails"); }} rows={4} className={TEXTAREA_CLASS} />
+                  {errors.projectDetails && <p id="projectDetails-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.projectDetails}</p>}
                 </div>
               </div>
             </div>
           </div>
 
           <button type="submit" disabled={loading || selected.size === 0} className="btn-ink w-full py-3 uppercase tracking-widest text-sm disabled:opacity-60 disabled:cursor-not-allowed">
-            {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Request 15% Bundle Quote"}
+            {loading ? (<><Loader2 aria-hidden="true" className="h-5 w-5 animate-spin" /><span className="sr-only">Submitting</span></>) : "Request 15% Bundle Quote"}
           </button>
         </form>
 

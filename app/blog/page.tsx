@@ -69,16 +69,16 @@ export default function BlogPage() {
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-4 text-sandstone-muted text-sm">
                   <span className="flex items-center gap-1.5">
-                    <Calendar size={13} />
+                    <Calendar aria-hidden="true" size={13} />
                     {featured.date}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Clock size={13} />
+                    <Clock aria-hidden="true" size={13} />
                     {featured.readTime}
                   </span>
                 </div>
                 <span className="flex items-center gap-1.5 text-ink group-hover:text-sandstone-dark text-sm font-bold group-hover:gap-2.5 transition-all duration-200 uppercase tracking-wider">
-                  Read Article <ArrowRight size={14} />
+                  Read Article <ArrowRight aria-hidden="true" size={14} />
                 </span>
               </div>
             </article>
@@ -99,13 +99,13 @@ export default function BlogPage() {
                   <div className="flex items-center justify-between mt-auto flex-wrap gap-2">
                     <div className="flex items-center gap-3 text-sandstone-muted text-xs">
                       <span className="flex items-center gap-1">
-                        <Clock size={11} />
+                        <Clock aria-hidden="true" size={11} />
                         {post.readTime}
                       </span>
                       <span>{post.date}</span>
                     </div>
                     <span className="text-ink group-hover:text-sandstone-dark text-sm font-bold transition-colors flex items-center gap-1 uppercase tracking-wider">
-                      Read <ArrowRight size={13} />
+                      Read <ArrowRight aria-hidden="true" size={13} />
                     </span>
                   </div>
                 </article>
@@ -130,7 +130,7 @@ export default function BlogPage() {
             No pressure, no surprises.
           </p>
           <Link href="/get-quote" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
-            Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </section>

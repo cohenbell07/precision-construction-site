@@ -75,7 +75,7 @@ export function Footer() {
                   hover:bg-sandstone-light hover:-translate-y-[1px] hover:shadow-[0_8px_24px_-4px_rgba(196,181,160,0.55)]
                 "
               >
-                Get a Free Quote <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
               <div className="flex items-center gap-3 text-white/70">
                 <span className="hidden sm:inline text-xs uppercase tracking-[0.2em] text-white/40">or call</span>
@@ -83,7 +83,7 @@ export function Footer() {
                   href={`tel:${BRAND_CONFIG.contact.phone}`}
                   className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-white hover:text-sandstone transition-colors"
                 >
-                  <Phone className="h-4 w-4 text-sandstone" />
+                  <Phone aria-hidden="true" className="h-4 w-4 text-sandstone" />
                   {BRAND_CONFIG.contact.phoneFormatted}
                 </a>
               </div>
@@ -106,15 +106,15 @@ export function Footer() {
             </p>
             <div className="space-y-3 text-sm">
               <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="flex items-center gap-3 text-white/65 hover:text-sandstone transition-colors">
-                <Phone className="h-4 w-4 text-sandstone/70" />
+                <Phone aria-hidden="true" className="h-4 w-4 text-sandstone/70" />
                 <span className="font-semibold">{BRAND_CONFIG.contact.phoneFormatted}</span>
               </a>
               <a href={`mailto:${BRAND_CONFIG.contact.email}`} className="flex items-center gap-3 text-white/65 hover:text-sandstone transition-colors">
-                <Mail className="h-4 w-4 text-sandstone/70 shrink-0" />
+                <Mail aria-hidden="true" className="h-4 w-4 text-sandstone/70 shrink-0" />
                 <span className="break-all">{BRAND_CONFIG.contact.email}</span>
               </a>
               <div className="flex items-center gap-3 text-white/65">
-                <MapPin className="h-4 w-4 text-sandstone/70 shrink-0" />
+                <MapPin aria-hidden="true" className="h-4 w-4 text-sandstone/70 shrink-0" />
                 <span>{BRAND_CONFIG.contact.address}</span>
               </div>
             </div>
@@ -122,12 +122,12 @@ export function Footer() {
               <div className="flex items-center gap-2 pt-1">
                 {BRAND_CONFIG.social.facebook && (
                   <a href={BRAND_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-11 h-11 rounded-full border border-white/10 hover:border-sandstone/40 flex items-center justify-center text-white/55 hover:text-sandstone transition-colors duration-200">
-                    <Facebook className="h-4 w-4" />
+                    <Facebook aria-hidden="true" className="h-4 w-4" />
                   </a>
                 )}
                 {BRAND_CONFIG.social.instagram && (
                   <a href={BRAND_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-11 h-11 rounded-full border border-white/10 hover:border-sandstone/40 flex items-center justify-center text-white/55 hover:text-sandstone transition-colors duration-200">
-                    <Instagram className="h-4 w-4" />
+                    <Instagram aria-hidden="true" className="h-4 w-4" />
                   </a>
                 )}
               </div>
@@ -144,7 +144,7 @@ export function Footer() {
               {serviceLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="group inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-150">
-                    <ArrowRight className="h-3 w-3 text-sandstone/0 group-hover:text-sandstone/70 -translate-x-2 group-hover:translate-x-0 transition-[transform,color] duration-200 shrink-0" />
+                    <ArrowRight aria-hidden="true" className="h-3 w-3 text-sandstone/0 group-hover:text-sandstone/70 -translate-x-2 group-hover:translate-x-0 transition-[transform,color] duration-200 shrink-0" />
                     {link.label}
                   </Link>
                 </li>
@@ -162,7 +162,7 @@ export function Footer() {
               {companyLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="group inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-150">
-                    <ArrowRight className="h-3 w-3 text-sandstone/0 group-hover:text-sandstone/70 -translate-x-2 group-hover:translate-x-0 transition-[transform,color] duration-200 shrink-0" />
+                    <ArrowRight aria-hidden="true" className="h-3 w-3 text-sandstone/0 group-hover:text-sandstone/70 -translate-x-2 group-hover:translate-x-0 transition-[transform,color] duration-200 shrink-0" />
                     {link.label}
                   </Link>
                 </li>

@@ -89,7 +89,7 @@ export default async function BlogPostPage({ params }: Props) {
       <section className="pt-32 pb-12 bg-black">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link href="/blog" className="inline-flex items-center gap-2 text-white/60 hover:text-white text-xs font-bold uppercase tracking-[0.18em] transition-colors mb-8 group">
-            <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
+            <ArrowLeft aria-hidden="true" size={14} className="group-hover:-translate-x-0.5 transition-transform" />
             Back to Blog
           </Link>
 
@@ -107,11 +107,11 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="flex flex-wrap items-center gap-5 text-white/55 text-sm pb-8 border-b border-white/[0.06]">
             <span className="flex items-center gap-1.5">
-              <Calendar size={13} />
+              <Calendar aria-hidden="true" size={13} />
               {post.date}
             </span>
             <span className="flex items-center gap-1.5">
-              <Clock size={13} />
+              <Clock aria-hidden="true" size={13} />
               {post.readTime}
             </span>
             <span className="font-semibold text-white/60">Precision Construction &amp; Decora</span>
@@ -139,7 +139,7 @@ export default async function BlogPostPage({ params }: Props) {
             Talk to Calgary&apos;s most trusted family-owned contractor. Honest assessment, fixed-scope quote — no pressure.
           </p>
           <Link href="/get-quote" className="btn-ink px-7 py-3.5">
-            Request a Free Quote <ArrowRight className="w-4 h-4" />
+            Request a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4" />
           </Link>
         </div>
       </Section>
@@ -161,7 +161,7 @@ export default async function BlogPostPage({ params }: Props) {
                   {other.title}
                 </p>
                 <span className="text-sandstone-muted group-hover:text-sandstone-dark text-xs font-bold flex items-center gap-1 transition-colors uppercase tracking-wider">
-                  Read <ArrowRight size={11} />
+                  Read <ArrowRight aria-hidden="true" size={11} />
                 </span>
               </Link>
             ))}

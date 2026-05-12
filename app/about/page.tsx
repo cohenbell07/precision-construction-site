@@ -68,18 +68,18 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 items-start mb-6">
               <Link href="/services" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
-                Explore Our Work <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                Explore Our Work <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link href="/contact" className="inline-flex items-center gap-2 text-white/80 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/20 rounded-full hover:border-sandstone/60 backdrop-blur-sm">
-                <Phone className="w-3.5 h-3.5" /> Contact Us
+                <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </div>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.18em] text-white/60 font-medium">
-              <span className="flex items-center gap-1.5"><Award className="w-3 h-3 text-sandstone" /> Family Owned Since 1968</span>
+              <span className="flex items-center gap-1.5"><Award aria-hidden="true" className="w-3 h-3 text-sandstone" /> Family Owned Since 1968</span>
               <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
-              <span className="flex items-center gap-1.5"><Shield className="w-3 h-3 text-sandstone" /> Licensed &amp; Insured</span>
+              <span className="flex items-center gap-1.5"><Shield aria-hidden="true" className="w-3 h-3 text-sandstone" /> Licensed &amp; Insured</span>
               <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
-              <span className="flex items-center gap-1.5"><Star className="w-3 h-3 fill-sandstone text-sandstone" /> Calgary Based</span>
+              <span className="flex items-center gap-1.5"><Star aria-hidden="true" className="w-3 h-3 fill-sandstone text-sandstone" /> Calgary Based</span>
             </div>
           </div>
         </div>
@@ -186,10 +186,10 @@ export default function AboutPage() {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="inline-flex items-center gap-2 text-sm font-semibold text-ink-muted hover:text-ink transition-colors">
-                <Phone className="w-4 h-4" /> {BRAND_CONFIG.contact.phoneFormatted}
+                <Phone aria-hidden="true" className="w-4 h-4" /> {BRAND_CONFIG.contact.phoneFormatted}
               </a>
               <a href={`mailto:${BRAND_CONFIG.contact.email}`} className="inline-flex items-center gap-2 text-sm font-semibold text-ink-muted hover:text-ink transition-colors">
-                <Mail className="w-4 h-4" /> {BRAND_CONFIG.contact.email}
+                <Mail aria-hidden="true" className="w-4 h-4" /> {BRAND_CONFIG.contact.email}
               </a>
             </div>
           </div>
@@ -348,10 +348,10 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
-                Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-sandstone/50">
-                <Phone className="w-3.5 h-3.5" /> Contact Us
+                <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </div>
           </Reveal>

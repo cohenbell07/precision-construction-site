@@ -123,10 +123,10 @@ export default function ContactPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
               <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
-                <Phone className="w-3.5 h-3.5" /> {BRAND_CONFIG.contact.phoneFormatted}
+                <Phone aria-hidden="true" className="w-3.5 h-3.5" /> {BRAND_CONFIG.contact.phoneFormatted}
               </a>
               <a href={`mailto:${BRAND_CONFIG.contact.email}`} className="inline-flex items-center gap-2 text-white/80 hover:text-white px-5 py-3 text-sm tracking-wide transition-colors border border-white/20 rounded-full hover:border-sandstone/60 backdrop-blur-sm">
-                <Mail className="w-3.5 h-3.5" /> Email
+                <Mail aria-hidden="true" className="w-3.5 h-3.5" /> Email
               </a>
             </div>
           </div>
@@ -234,7 +234,7 @@ export default function ContactPage() {
                 <div className="space-y-5">
                   <div className="flex items-center gap-4">
                     <div className="w-11 h-11 rounded-md bg-bone-soft border border-bone-hairline flex items-center justify-center shrink-0">
-                      <MapPin className="h-5 w-5 text-sandstone-dark" />
+                      <MapPin aria-hidden="true" className="h-5 w-5 text-sandstone-dark" />
                     </div>
                     <div>
                       <p className="text-[10px] font-bold text-sandstone-muted uppercase tracking-[0.2em] mb-0.5">Address</p>
@@ -243,7 +243,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="w-11 h-11 rounded-md bg-bone-soft border border-bone-hairline flex items-center justify-center shrink-0">
-                      <Phone className="h-5 w-5 text-sandstone-dark" />
+                      <Phone aria-hidden="true" className="h-5 w-5 text-sandstone-dark" />
                     </div>
                     <div>
                       <p className="text-[10px] font-bold text-sandstone-muted uppercase tracking-[0.2em] mb-0.5">Phone</p>
@@ -254,7 +254,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="w-11 h-11 rounded-md bg-bone-soft border border-bone-hairline flex items-center justify-center shrink-0">
-                      <Mail className="h-5 w-5 text-sandstone-dark" />
+                      <Mail aria-hidden="true" className="h-5 w-5 text-sandstone-dark" />
                     </div>
                     <div>
                       <p className="text-[10px] font-bold text-sandstone-muted uppercase tracking-[0.2em] mb-0.5">Email</p>

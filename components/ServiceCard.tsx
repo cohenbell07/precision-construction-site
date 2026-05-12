@@ -28,9 +28,12 @@ export interface ServiceCardProps {
   eyebrow?: string;
   /** Show a small "15% Off" sandstone badge in the top-right corner. */
   featuredBadge?: string;
+  /** Per-service CTA label. Defaults to "View Service" — pass a sharper verb
+   *  phrase via lib/services#getServiceCtaLabel for better conversion. */
+  ctaLabel?: string;
 }
 
-export function ServiceCard({ href, title, image, alt, eyebrow, featuredBadge }: ServiceCardProps) {
+export function ServiceCard({ href, title, image, alt, eyebrow, featuredBadge, ctaLabel = "View Service" }: ServiceCardProps) {
   return (
     <Link
       href={href}
@@ -81,8 +84,8 @@ export function ServiceCard({ href, title, image, alt, eyebrow, featuredBadge }:
           {title}
         </h3>
         <span className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/70 group-hover:text-sandstone transition-colors duration-200">
-          View Service
-          <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1" />
+          {ctaLabel}
+          <ArrowRight aria-hidden="true" className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1" />
         </span>
       </div>
     </Link>

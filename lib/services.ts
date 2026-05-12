@@ -3,6 +3,10 @@ export interface Service {
   title: string;
   description: string;
   icon: string;
+  /** Per-service CTA label shown on service cards (homepage grid, services index, related-services).
+   *  Defaults to "View Service" if not set — but specifying it sharpens conversion vs. 12 identical
+   *  "View Service →" chips. Keep these as short verb phrases under ~30 chars. */
+  ctaLabel?: string;
   details?: string[];
   benefits?: string[];
   process?: { step: number; title: string; description: string }[];
@@ -943,4 +947,26 @@ export function getServiceById(id: string): Service | undefined {
 
 export function getRelatedServices(serviceIds: string[]): Service[] {
   return services.filter((s) => serviceIds.includes(s.id));
+}
+
+/* Per-service CTA labels used on service cards (homepage grid, services index,
+   related-services on service detail). Sharper than 12 identical "View Service →"
+   chips — every label tells the visitor what they'll see on the other side. */
+const SERVICE_CTA_LABELS: Record<string, string> = {
+  flooring: "See flooring options",
+  showers: "See custom shower work",
+  countertops: "See countertop materials",
+  cabinets: "See cabinet styles",
+  carpentry: "See trim & built-ins",
+  framing: "See framing scope",
+  drywall: "See drywall services",
+  painting: "See painting services",
+  basements: "See basement scope & pricing",
+  garages: "See garage & deck work",
+  renovations: "See renovation scope",
+  commercial: "See commercial scope",
+};
+
+export function getServiceCtaLabel(id: string): string {
+  return SERVICE_CTA_LABELS[id] ?? "View Service";
 }

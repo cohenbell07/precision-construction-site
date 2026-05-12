@@ -16,6 +16,7 @@ import { BRAND_CONFIG } from "@/lib/utils";
 import { getDealsForService, PRICE_BEAT_GUARANTEE } from "@/lib/deals";
 import { Loader2, CheckCircle } from "lucide-react";
 import { Section } from "@/components/Section";
+import { validateLeadForm, type LeadFormErrors } from "@/lib/forms";
 
 const FIELD_CLASS = "bg-bone-paper border-bone-hairline focus:border-sandstone-dark focus:ring-1 focus:ring-sandstone-dark/20 text-ink placeholder:text-ink-muted/60 rounded-md h-11 transition-colors";
 const READONLY_CLASS = "bg-bone-soft border-bone-hairline text-ink cursor-default rounded-md h-11";
@@ -33,8 +34,13 @@ export default function ServiceQuotePage({ params }: { params: { service: string
     projectDetails: "", timeline: "", budgetMin: "", budgetMax: "",
     referralSource: "", referralOther: "",
   });
+  const [errors, setErrors] = useState<LeadFormErrors>({});
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const clearError = (field: keyof LeadFormErrors) => {
+    if (errors[field]) setErrors({ ...errors, [field]: undefined });
+  };
 
   if (!service) {
     router.replace("/get-quote");
@@ -44,9 +50,13 @@ export default function ServiceQuotePage({ params }: { params: { service: string
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim()) { toast({ title: "Name is required", variant: "destructive" }); return; }
-    if (!formData.email.trim()) { toast({ title: "Email is required", variant: "destructive" }); return; }
-    if (!formData.projectDetails.trim()) { toast({ title: "Project details are required", variant: "destructive" }); return; }
+    const errs = validateLeadForm(formData);
+    setErrors(errs);
+    if (Object.keys(errs).length) {
+      const first = Object.keys(errs)[0];
+      document.getElementById(first)?.focus();
+      return;
+    }
     setLoading(true);
     try {
       const res = await fetch("/api/quote/submit", {
@@ -89,7 +99,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
         <div className="paper-card rounded-md">
           <div className="p-8 sm:p-10 md:p-12 text-center">
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-bone-soft border-2 border-sandstone-dark flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-sandstone-dark" />
+              <CheckCircle aria-hidden="true" className="h-8 w-8 sm:h-10 sm:w-10 text-sandstone-dark" />
             </div>
             <div className="flex items-center justify-center gap-3 mb-3">
               <div className="h-px w-8 cream-rule" />
@@ -162,7 +172,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div>
                 <label className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">Service Type</label>
                 <Input readOnly value={serviceTitle} className={READONLY_CLASS} />
@@ -171,15 +181,17 @@ export default function ServiceQuotePage({ params }: { params: { service: string
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="name" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                    Name <span className="text-ink">*</span>
+                    Name <span aria-hidden="true" className="text-ink">*</span>
                   </label>
-                  <Input id="name" required autoComplete="name" placeholder="Your name" value={formData.name} onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))} className={FIELD_CLASS} />
+                  <Input id="name" required aria-required="true" autoComplete="name" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} placeholder="Your name" value={formData.name} onChange={(e) => { setFormData((p) => ({ ...p, name: e.target.value })); clearError("name"); }} className={FIELD_CLASS} />
+                  {errors.name && <p id="name-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.name}</p>}
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                    Email <span className="text-ink">*</span>
+                    Email <span aria-hidden="true" className="text-ink">*</span>
                   </label>
-                  <Input id="email" type="email" inputMode="email" autoComplete="email" required placeholder="your@email.com" value={formData.email} onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))} className={FIELD_CLASS} />
+                  <Input id="email" type="email" inputMode="email" autoComplete="email" required aria-required="true" aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} placeholder="your@email.com" value={formData.email} onChange={(e) => { setFormData((p) => ({ ...p, email: e.target.value })); clearError("email"); }} className={FIELD_CLASS} />
+                  {errors.email && <p id="email-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.email}</p>}
                 </div>
               </div>
 
@@ -196,9 +208,10 @@ export default function ServiceQuotePage({ params }: { params: { service: string
 
               <div>
                 <label htmlFor="projectDetails" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                  Project Details <span className="text-ink">*</span>
+                  Project Details <span aria-hidden="true" className="text-ink">*</span>
                 </label>
-                <Textarea id="projectDetails" required placeholder="Describe your project in detail — scope, size, materials you have in mind, etc." value={formData.projectDetails} onChange={(e) => setFormData((p) => ({ ...p, projectDetails: e.target.value }))} rows={5} className={TEXTAREA_CLASS} />
+                <Textarea id="projectDetails" required aria-required="true" aria-invalid={!!errors.projectDetails} aria-describedby={errors.projectDetails ? "projectDetails-error" : undefined} placeholder="Describe your project in detail — scope, size, materials you have in mind, etc." value={formData.projectDetails} onChange={(e) => { setFormData((p) => ({ ...p, projectDetails: e.target.value })); clearError("projectDetails"); }} rows={5} className={TEXTAREA_CLASS} />
+                {errors.projectDetails && <p id="projectDetails-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.projectDetails}</p>}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -256,7 +269,7 @@ export default function ServiceQuotePage({ params }: { params: { service: string
               </div>
 
               <button type="submit" disabled={loading} className="btn-ink w-full py-3 uppercase tracking-widest text-sm disabled:opacity-60 disabled:cursor-not-allowed">
-                {loading ? (<><Loader2 className="h-4 w-4 animate-spin" /> Submitting...</>) : "Submit Quote Request"}
+                {loading ? (<><Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" /> Submitting...</>) : "Submit Quote Request"}
               </button>
             </form>
           </div>

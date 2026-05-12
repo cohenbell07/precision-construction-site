@@ -22,6 +22,7 @@ import {
   ArrowDownSquare, Trees, HomeIcon, Frame,
 } from "lucide-react";
 import { Section } from "@/components/Section";
+import { validateLeadForm, type LeadFormErrors } from "@/lib/forms";
 
 const LightRays = dynamic(() => import("@/components/LightRays").then((m) => ({ default: m.LightRays })), { ssr: false });
 
@@ -49,8 +50,13 @@ function GetQuoteForm() {
     referralSource: "", referralOther: "",
   });
   const [summary, setSummary] = useState("");
+  const [errors, setErrors] = useState<LeadFormErrors>({});
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+
+  const clearError = (field: keyof LeadFormErrors) => {
+    if (errors[field]) setErrors({ ...errors, [field]: undefined });
+  };
 
   useEffect(() => {
     const serviceParam = searchParams.get("service");
@@ -71,9 +77,18 @@ function GetQuoteForm() {
 
   const handleDetailsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim()) { toast({ title: "Name is required", variant: "destructive" }); return; }
-    if (!formData.email.trim()) { toast({ title: "Email is required", variant: "destructive" }); return; }
-    if (!formData.projectDetails.trim()) { toast({ title: "Please provide project details.", variant: "destructive" }); return; }
+    if (selectedService === "other" && !customServiceName.trim()) {
+      toast({ title: "Please enter your project type.", variant: "destructive" });
+      document.getElementById("customServiceName")?.focus();
+      return;
+    }
+    const errs = validateLeadForm(formData);
+    setErrors(errs);
+    if (Object.keys(errs).length) {
+      const first = Object.keys(errs)[0];
+      document.getElementById(first)?.focus();
+      return;
+    }
     setLoading(true);
     try {
       const service = selectedService === "other" ? null : getServiceById(selectedService);
@@ -174,7 +189,7 @@ function GetQuoteForm() {
                   <div key={s.key} className="flex items-center">
                     <div className="flex flex-col items-center gap-1.5">
                       <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300 border-2 ${isCompleted ? 'bg-ink border-ink text-bone' : isActive ? 'border-sandstone-dark bg-bone-soft text-ink' : 'border-bone-hairline bg-bone-paper text-ink-muted'}`}>
-                        {isCompleted ? <CheckCircle className="h-4 w-4" /> : s.num}
+                        {isCompleted ? <CheckCircle aria-hidden="true" className="h-4 w-4" /> : s.num}
                       </div>
                       <span className={`text-[10px] font-black uppercase tracking-widest ${isActive ? 'text-ink' : isCompleted ? 'text-sandstone-dark' : 'text-ink-muted'}`}>{s.label}</span>
                     </div>
@@ -211,7 +226,7 @@ function GetQuoteForm() {
                       return (
                         <button key={service.id} type="button" onClick={() => handleServiceSelect(service.id)} className="group text-left p-4 sm:p-5 rounded-md border border-bone-hairline bg-bone-paper hover:bg-bone-soft hover:border-sandstone-dark transition-all duration-200 flex items-center gap-3 sm:gap-4">
                           <div className="w-10 h-10 rounded-md bg-bone-soft border border-bone-hairline group-hover:border-sandstone-dark flex items-center justify-center shrink-0 transition-colors">
-                            <IconComponent className="h-5 w-5 text-sandstone-dark" />
+                            <IconComponent aria-hidden="true" className="h-5 w-5 text-sandstone-dark" />
                           </div>
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
@@ -227,7 +242,7 @@ function GetQuoteForm() {
                     })}
                     <button type="button" onClick={() => handleServiceSelect("other")} className="group text-left p-4 sm:p-5 rounded-md border border-bone-hairline bg-bone-paper hover:bg-bone-soft hover:border-sandstone-dark transition-all duration-200 flex items-center gap-3 sm:gap-4">
                       <div className="w-10 h-10 rounded-md bg-bone-soft border border-bone-hairline group-hover:border-sandstone-dark flex items-center justify-center shrink-0 transition-colors">
-                        <Building2 className="h-5 w-5 text-sandstone-dark" />
+                        <Building2 aria-hidden="true" className="h-5 w-5 text-sandstone-dark" />
                       </div>
                       <div>
                         <p className="font-heading font-black text-sm text-ink uppercase tracking-tight">Other</p>
@@ -254,7 +269,7 @@ function GetQuoteForm() {
                     </p>
                   </div>
 
-                  <form onSubmit={handleDetailsSubmit} className="space-y-5">
+                  <form onSubmit={handleDetailsSubmit} className="space-y-5" noValidate>
                     {selectedService === "other" && (
                       <div>
                         <label htmlFor="customServiceName" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
@@ -267,15 +282,17 @@ function GetQuoteForm() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label htmlFor="name" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                          Name <span className="text-ink">*</span>
+                          Name <span aria-hidden="true" className="text-ink">*</span>
                         </label>
-                        <Input id="name" required autoComplete="name" value={formData.name} onChange={(e) => handleInputChange("name", e.target.value)} placeholder="Your name" className={FIELD_CLASS} />
+                        <Input id="name" required aria-required="true" autoComplete="name" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} value={formData.name} onChange={(e) => { handleInputChange("name", e.target.value); clearError("name"); }} placeholder="Your name" className={FIELD_CLASS} />
+                        {errors.name && <p id="name-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.name}</p>}
                       </div>
                       <div>
                         <label htmlFor="email" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                          Email <span className="text-ink">*</span>
+                          Email <span aria-hidden="true" className="text-ink">*</span>
                         </label>
-                        <Input id="email" type="email" inputMode="email" autoComplete="email" required value={formData.email} onChange={(e) => handleInputChange("email", e.target.value)} placeholder="your@email.com" className={FIELD_CLASS} />
+                        <Input id="email" type="email" inputMode="email" autoComplete="email" required aria-required="true" aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} value={formData.email} onChange={(e) => { handleInputChange("email", e.target.value); clearError("email"); }} placeholder="your@email.com" className={FIELD_CLASS} />
+                        {errors.email && <p id="email-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.email}</p>}
                       </div>
                     </div>
 
@@ -292,9 +309,10 @@ function GetQuoteForm() {
 
                     <div>
                       <label htmlFor="projectDetails" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                        Project Details <span className="text-ink">*</span>
+                        Project Details <span aria-hidden="true" className="text-ink">*</span>
                       </label>
-                      <Textarea id="projectDetails" required value={formData.projectDetails} onChange={(e) => handleInputChange("projectDetails", e.target.value)} placeholder={selectedService === "other" ? "Describe your project in detail — what you need, scope, any special requirements..." : "Describe your project in detail — scope, size, materials you have in mind, etc..."} rows={5} className={TEXTAREA_CLASS} />
+                      <Textarea id="projectDetails" required aria-required="true" aria-invalid={!!errors.projectDetails} aria-describedby={errors.projectDetails ? "projectDetails-error" : undefined} value={formData.projectDetails} onChange={(e) => { handleInputChange("projectDetails", e.target.value); clearError("projectDetails"); }} placeholder={selectedService === "other" ? "Describe your project in detail — what you need, scope, any special requirements..." : "Describe your project in detail — scope, size, materials you have in mind, etc..."} rows={5} className={TEXTAREA_CLASS} />
+                      {errors.projectDetails && <p id="projectDetails-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.projectDetails}</p>}
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -354,7 +372,7 @@ function GetQuoteForm() {
                         &larr; Back
                       </button>
                       <button type="submit" disabled={loading} className="btn-ink flex-1 py-3 uppercase tracking-widest text-xs sm:text-sm disabled:opacity-60 disabled:cursor-not-allowed">
-                        {loading ? (<><Loader2 className="h-4 w-4 animate-spin" /> Submitting...</>) : "Submit Quote Request"}
+                        {loading ? (<><Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" /> Submitting...</>) : "Submit Quote Request"}
                       </button>
                     </div>
                     <p className="text-[11px] text-ink-muted/70 text-center pt-1">We respond within 24 hours. No spam, no pressure.</p>
@@ -368,7 +386,7 @@ function GetQuoteForm() {
               <div className="paper-card rounded-md">
                 <div className="p-8 sm:p-10 md:p-12 text-center">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-bone-soft border-2 border-sandstone-dark flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-sandstone-dark" />
+                    <CheckCircle aria-hidden="true" className="h-8 w-8 sm:h-10 sm:w-10 text-sandstone-dark" />
                   </div>
                   <div className="flex items-center justify-center gap-3 mb-3">
                     <div className="h-px w-8 cream-rule" />
@@ -436,7 +454,7 @@ function GetQuoteForm() {
               <div className="p-5 sm:p-6">
                 <div className="flex gap-0.5 mb-3">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3 h-3 fill-sandstone-dark text-sandstone-dark" />
+                    <Star key={i} aria-hidden="true" className="w-3 h-3 fill-sandstone-dark text-sandstone-dark" />
                   ))}
                 </div>
                 <p className="text-ink text-sm leading-relaxed italic font-serif mb-4">&ldquo;{testimonial.text}&rdquo;</p>
@@ -451,7 +469,7 @@ function GetQuoteForm() {
               <div className="p-5 sm:p-6 space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-bone-soft border border-bone-hairline flex items-center justify-center shrink-0">
-                    <Shield className="w-4 h-4 text-sandstone-dark" />
+                    <Shield aria-hidden="true" className="w-4 h-4 text-sandstone-dark" />
                   </div>
                   <div>
                     <p className="text-xs font-bold text-ink">5% Price Beat Guarantee</p>
@@ -460,7 +478,7 @@ function GetQuoteForm() {
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-bone-soft border border-bone-hairline flex items-center justify-center shrink-0">
-                    <Home className="w-4 h-4 text-sandstone-dark" />
+                    <Home aria-hidden="true" className="w-4 h-4 text-sandstone-dark" />
                   </div>
                   <div>
                     <p className="text-xs font-bold text-ink">Family-Owned Since 1968</p>
@@ -470,7 +488,7 @@ function GetQuoteForm() {
                 <div className="border-t border-bone-hairline pt-4">
                   <p className="text-[10px] font-bold text-sandstone-muted uppercase tracking-[0.2em] mb-2">Prefer to Talk?</p>
                   <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-bold text-ink hover:text-sandstone-dark transition-colors">
-                    <Phone className="w-3.5 h-3.5" /> Contact Us
+                    <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact Us
                   </Link>
                   <p className="text-[10px] text-ink-muted mt-1">Ask for {BRAND_CONFIG.owner}</p>
                 </div>
@@ -495,8 +513,8 @@ function GetQuoteForm() {
 export default function GetQuotePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <Loader2 className="h-8 w-8 text-white/50 animate-spin" />
+      <div role="status" aria-label="Loading quote form" className="min-h-screen bg-black flex items-center justify-center">
+        <Loader2 aria-hidden="true" className="h-8 w-8 text-white/50 animate-spin" />
       </div>
     }>
       <GetQuoteForm />

@@ -12,7 +12,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { services } from "@/lib/services";
+import { services, getServiceCtaLabel } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { VideoHero } from "@/components/VideoHero";
 import { ArrowRight, Star, Phone, Shield, CheckCircle2 } from "lucide-react";
@@ -103,7 +103,7 @@ export default function Home() {
             </motion.p>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.9 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-9 py-4 rounded-full font-black text-base tracking-wide hover:bg-sandstone transition-colors shadow-[0_4px_24px_rgba(255,255,255,0.12)]">
-                Get a Free Quote <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Get a Free Quote <ArrowRight aria-hidden="true" className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link href="/services" className="inline-flex items-center justify-center gap-2 text-white/80 hover:text-white px-6 py-3.5 text-sm font-semibold tracking-wide transition-colors">
                 Our Services →
@@ -123,7 +123,7 @@ export default function Home() {
             { icon: null, text: "5% Price Beat Guarantee" },
           ].map((item) => (
             <div key={item.text} className="flex items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-white/60 font-medium">
-              {item.icon && <item.icon className={`w-3.5 h-3.5 ${item.highlight ? "fill-white text-white" : "text-white/60"}`} />}
+              {item.icon && <item.icon aria-hidden="true" className={`w-3.5 h-3.5 ${item.highlight ? "fill-white text-white" : "text-white/60"}`} />}
               {!item.icon && <div className="w-1 h-1 rounded-full bg-white/25 shrink-0" />}
               <span className={item.highlight ? "text-white/60" : ""}>{item.text}</span>
             </div>
@@ -196,7 +196,7 @@ export default function Home() {
               ))}
             </div>
             <Link href="/about" className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-ink hover:text-sandstone-dark transition-colors group">
-              Our Story <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Our Story <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Reveal>
         </div>
@@ -211,7 +211,7 @@ export default function Home() {
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Our Services</h2>
             </div>
             <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white transition-colors group shrink-0">
-              View All <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              View All <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </Reveal>
@@ -224,6 +224,7 @@ export default function Home() {
                 title={service.title}
                 image={serviceImages[service.id] || "/service-millwork.webp"}
                 alt={`${service.title} - Calgary construction services by PCND`}
+                ctaLabel={getServiceCtaLabel(service.id)}
               />
             </Reveal>
           ))}
@@ -241,7 +242,8 @@ export default function Home() {
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-bone to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-bone to-transparent z-10" />
           <div className="flex marquee-track">
-            {[...brands, ...brands, ...brands, ...brands].map((brand, i) => (
+            {/* Two copies — first set is "the lineup," second set provides the seamless wrap for the CSS keyframe animation. Four cycles read as padding. */}
+            {[...brands, ...brands].map((brand, i) => (
               <div key={`${brand.name}-${i}`} className="relative h-9 sm:h-11 w-32 sm:w-40 shrink-0 mx-6 sm:mx-8 opacity-70 hover:opacity-100 transition-opacity duration-500" style={{ filter: "saturate(0.7)" }}>
                 <Image src={`/${brand.file}`} alt={brand.name} fill className="object-contain" sizes="160px" quality={70} />
               </div>
@@ -282,7 +284,7 @@ export default function Home() {
                 </ul>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5">
                   <Link href="/services/basements" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
-                    See Basement Services <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    See Basement Services <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link href="/get-quote/basement" className="text-sm font-semibold text-white/75 hover:text-white underline underline-offset-4 decoration-white/30 hover:decoration-sandstone transition-colors">
                     Or claim 15% off →
@@ -333,10 +335,10 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
-                Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-sandstone/50">
-                <Phone className="w-3.5 h-3.5" /> Contact Us
+                <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </div>
           </Reveal>

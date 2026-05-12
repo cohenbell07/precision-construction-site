@@ -9,7 +9,7 @@
 
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { services } from "@/lib/services";
+import { services, getServiceCtaLabel } from "@/lib/services";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Phone, Shield } from "lucide-react";
@@ -93,10 +93,10 @@ export default function ServicesPage() {
             </motion.h1>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-9 py-4 rounded-full font-black text-base tracking-wide hover:bg-sandstone transition-colors shadow-[0_4px_24px_rgba(255,255,255,0.12)]">
-                Get a Free Quote <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Get a Free Quote <ArrowRight aria-hidden="true" className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/80 hover:text-white px-6 py-3.5 text-sm font-semibold tracking-wide transition-colors">
-                <Phone className="w-4 h-4" /> Contact Us
+                <Phone aria-hidden="true" className="w-4 h-4" /> Contact Us
               </Link>
             </motion.div>
           </div>
@@ -134,6 +134,7 @@ export default function ServicesPage() {
                       alt={`${s.title} services in Calgary by PCND`}
                       eyebrow={cat.label}
                       featuredBadge={id === "basements" ? "15% Off" : undefined}
+                      ctaLabel={getServiceCtaLabel(s.id)}
                     />
                   </BlurReveal>
                 );
@@ -158,7 +159,7 @@ export default function ServicesPage() {
               </p>
             </div>
             <Link href="/get-quote" className="btn-ink md:shrink-0 px-7 py-3.5">
-              Get a Free Quote <ArrowRight className="w-4 h-4" />
+              Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4" />
             </Link>
           </div>
         </Reveal>
@@ -173,7 +174,7 @@ export default function ServicesPage() {
             { text: "5% Price Beat Guarantee" },
           ].map((item) => (
             <div key={item.text} className="flex items-center gap-2 text-ink">
-              {"icon" in item && item.icon && <item.icon className="w-4 h-4 text-sandstone-dark" />}
+              {"icon" in item && item.icon && <item.icon aria-hidden="true" className="w-4 h-4 text-sandstone-dark" />}
               {!("icon" in item) && <div className="w-1 h-1 rounded-full bg-sandstone-dark shrink-0" />}
               <span className="text-xs uppercase tracking-[0.12em] font-medium">{item.text}</span>
             </div>
@@ -195,10 +196,10 @@ export default function ServicesPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-bold text-sm tracking-wide transition-all duration-300 text-black bg-gradient-to-b from-[#F0F0F0] via-[#D8D8D8] to-[#B8B8B8] border border-white/40 shadow-[0_2px_10px_rgba(200,200,200,0.15),inset_0_1px_0_rgba(255,255,255,0.5)] hover:shadow-[0_4px_20px_rgba(200,200,200,0.25),inset_0_1px_0_rgba(255,255,255,0.6)] hover:translate-y-[-1px]">
-                Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-sandstone/20 rounded-full hover:border-sandstone/50 hover:text-sandstone">
-                <Phone className="w-3.5 h-3.5" /> Contact Us
+                <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact Us
               </Link>
             </div>
           </Reveal>

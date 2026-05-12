@@ -43,7 +43,7 @@ export function TestimonialCard({ name, text, project, year, rating = 5 }: Testi
       />
       <div className="flex items-center gap-1 mb-5">
         {Array.from({ length: rating }).map((_, i) => (
-          <Star key={i} className="w-3.5 h-3.5 fill-sandstone-dark text-sandstone-dark" />
+          <Star key={i} aria-hidden="true" className="w-3.5 h-3.5 fill-sandstone-dark text-sandstone-dark" />
         ))}
       </div>
       <p className="font-serif italic text-[17px] sm:text-[18px] leading-snug text-ink flex-1 mb-7">
@@ -60,7 +60,7 @@ export function TestimonialCard({ name, text, project, year, rating = 5 }: Testi
           </div>
         </div>
         <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full text-ink-muted bg-bone-soft border border-bone-hairline">
-          <CheckCircle2 className="w-2.5 h-2.5" /> Verified
+          <CheckCircle2 aria-hidden="true" className="w-2.5 h-2.5" /> Verified
         </span>
       </div>
     </div>
