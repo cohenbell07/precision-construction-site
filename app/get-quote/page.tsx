@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { Section } from "@/components/Section";
 import { validateLeadForm, type LeadFormErrors } from "@/lib/forms";
+import { getActivePromo } from "@/lib/promo";
 
 const LightRays = dynamic(() => import("@/components/LightRays").then((m) => ({ default: m.LightRays })), { ssr: false });
 
@@ -41,6 +42,7 @@ const SELECT_CLASS = "w-full px-3 h-11 rounded-md border bg-bone-paper border-bo
 
 function GetQuoteForm() {
   const searchParams = useSearchParams();
+  const activePromo = getActivePromo();
   const [step, setStep] = useState<"selection" | "details" | "summary">("selection");
   const [selectedService, setSelectedService] = useState<string>("");
   const [customServiceName, setCustomServiceName] = useState<string>("");
@@ -144,17 +146,26 @@ function GetQuoteForm() {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center relative z-10">
           <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/60 text-xs font-semibold uppercase tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 inline-block" />
-              Free &middot; No Obligation &middot; 24-Hour Response
-            </span>
+            {activePromo ? (
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-sandstone/40 bg-sandstone/[0.08] text-sandstone text-xs font-semibold uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-sandstone shrink-0 inline-block animate-pulse" />
+                {activePromo.label} &middot; 15% Off &middot; Ends {activePromo.endsAtDisplay}
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-white/60 text-xs font-semibold uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 inline-block" />
+                Free &middot; No Obligation &middot; 24-Hour Response
+              </span>
+            )}
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-hero uppercase tracking-wide mb-4 text-white leading-[0.95]">
             Let&apos;s Talk About<br className="sm:hidden" /> Your Project
           </h1>
           <div className="h-[1.5px] w-16 bg-gradient-to-r from-sandstone via-sandstone/60 to-transparent mx-auto mb-4 rounded-full" />
           <p className="text-sm sm:text-base text-white/70 max-w-lg mx-auto leading-relaxed">
-            Tell us what you have in mind — we&apos;ll get back to you with a free, detailed quote within 24 hours.
+            {activePromo
+              ? <>Tell us what you have in mind — your 15% spring rate is applied to every quote we send back within 24 hours.</>
+              : <>Tell us what you have in mind — we&apos;ll get back to you with a free, detailed quote within 24 hours.</>}
           </p>
         </div>
       </div>

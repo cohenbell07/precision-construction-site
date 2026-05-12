@@ -21,6 +21,7 @@ import { Section } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { BlurReveal } from "@/components/BlurReveal";
+import { getActivePromo } from "@/lib/promo";
 
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
@@ -56,6 +57,7 @@ export default function Home() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
   const heroTextY = useTransform(scrollYProgress, [0, 0.85], [0, 40]);
+  const activePromo = getActivePromo();
 
   const featuredServices = services.filter((s) =>
     ["basements", "cabinets", "showers", "countertops", "renovations", "carpentry"].includes(s.id)
@@ -308,42 +310,56 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* ━━━ BASEMENT PROMO — DARK ━━━ */}
-      <Section variant="dark" padding="none" withContainer={false} className="overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[550px]">
-          <Reveal>
-            <div className="relative h-[350px] sm:h-[400px] lg:h-full">
-              <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" quality={80} />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
-
-              {/* Architect's price stamp — replaces the prior pill badge. Two-block tag
-                  that reads like something stamped on a project sheet. */}
-              <div className="absolute top-6 left-6 flex items-stretch shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)]">
-                <div className="bg-sandstone text-black font-heading font-black text-3xl sm:text-4xl tracking-tight px-4 sm:px-5 py-3 leading-none flex items-center">
-                  &minus;15%
-                </div>
-                <div className="ml-px bg-black/80 backdrop-blur-sm flex flex-col justify-center px-3 sm:px-4 py-3 border-l border-sandstone/20">
-                  <p className="text-[9px] tracking-[0.3em] uppercase text-sandstone/90 leading-none mb-1.5 font-medium">Client Rate</p>
-                  <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-white/85 leading-none font-semibold">Basement Work</p>
-                </div>
+      {/* ━━━ FEATURE PROMO — DARK ━━━
+          During an active site promo (SPRING_BUILD), this slot shows the
+          event with the marketing poster as visual anchor + a 5% price-beat
+          stacking note. When the promo expires the same slot reverts to the
+          basement-developments feature with its own price-tag stamp. */}
+      {activePromo ? (
+        <Section variant="dark" padding="none" withContainer={false} className="relative overflow-hidden">
+          {/* Subtle blueprint-grid backdrop — echoes the poster's drafting feel. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-[0.05]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(196,181,160,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(196,181,160,0.55) 1px, transparent 1px)",
+              backgroundSize: "44px 44px",
+              maskImage: "radial-gradient(ellipse 90% 75% at 50% 50%, black 25%, transparent 95%)",
+              WebkitMaskImage: "radial-gradient(ellipse 90% 75% at 50% 50%, black 25%, transparent 95%)",
+            }}
+          />
+          <div className="relative grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-10 lg:gap-16 items-center px-5 sm:px-12 lg:px-16 xl:px-20 py-14 sm:py-16 lg:py-20">
+            <Reveal>
+              <div className="relative aspect-[4/5] w-full max-w-[420px] mx-auto rounded-sm overflow-hidden ring-1 ring-sandstone/25 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.7)]">
+                <Image
+                  src={activePromo.image.src}
+                  alt={activePromo.image.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  quality={88}
+                />
               </div>
-            </div>
-          </Reveal>
-          <div className="flex items-center px-5 sm:px-12 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-20">
+            </Reveal>
             <Reveal delay={0.15}>
               <div>
-                <SectionLabel label="Featured Service" theme="dark" />
+                <SectionLabel label={activePromo.label} theme="dark" />
                 <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
-                  Basement<br />Developments
+                  15% Off<br />Every Service.
                 </h2>
                 <p className="font-serif italic text-white/85 text-lg sm:text-xl leading-snug mb-3 max-w-md">
-                  A turnkey transformation — concrete to finished space.
+                  Now through {activePromo.endsAtDisplay} — our spring rate applies to every quote.
                 </p>
                 <p className="text-white/60 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
-                  Framing, electrical, plumbing, drywall, flooring, finishes. Permits handled. One team, start to finish.
+                  From a single steam shower to a full basement development. Whatever you bring us, we&apos;ll bring our spring rate to it.
                 </p>
                 <ul className="space-y-3 mb-10">
-                  {["Full turnkey development", "Permits & inspections handled", "Moisture control included"].map((item) => (
+                  {[
+                    "All services eligible",
+                    "No minimum project size",
+                    "Stacks with our 5% price-beat guarantee",
+                  ].map((item) => (
                     <li key={item} className="flex items-center gap-3 text-white/70 text-sm">
                       <div className="w-1 h-1 rounded-full bg-sandstone shrink-0" aria-hidden="true" />
                       {item}
@@ -351,18 +367,62 @@ export default function Home() {
                   ))}
                 </ul>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5">
-                  <Link href="/services/basements" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
-                    See Basement Services <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <Link
+                    href={activePromo.cta.href}
+                    className="group inline-flex items-center gap-3 bg-sandstone text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone-light transition-colors shadow-[0_4px_18px_-4px_rgba(196,181,160,0.45)]"
+                  >
+                    {activePromo.cta.label} <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
-                  <Link href="/get-quote/basement" className="text-sm font-semibold text-white/75 hover:text-white underline underline-offset-4 decoration-white/30 hover:decoration-sandstone transition-colors">
-                    Or claim 15% off →
+                  <Link
+                    href="/services"
+                    className="text-sm font-semibold text-white/75 hover:text-white underline underline-offset-4 decoration-white/30 hover:decoration-sandstone transition-colors"
+                  >
+                    Browse all services →
                   </Link>
                 </div>
               </div>
             </Reveal>
           </div>
-        </div>
-      </Section>
+        </Section>
+      ) : (
+        <Section variant="dark" padding="none" withContainer={false} className="overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[550px]">
+            <Reveal>
+              <div className="relative h-[350px] sm:h-[400px] lg:h-full">
+                <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" quality={80} />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
+              </div>
+            </Reveal>
+            <div className="flex items-center px-5 sm:px-12 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-20">
+              <Reveal delay={0.15}>
+                <div>
+                  <SectionLabel label="Featured Service" theme="dark" />
+                  <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
+                    Basement<br />Developments
+                  </h2>
+                  <p className="font-serif italic text-white/85 text-lg sm:text-xl leading-snug mb-3 max-w-md">
+                    A turnkey transformation — concrete to finished space.
+                  </p>
+                  <p className="text-white/60 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
+                    Framing, electrical, plumbing, drywall, flooring, finishes. Permits handled. One team, start to finish.
+                  </p>
+                  <ul className="space-y-3 mb-10">
+                    {["Full turnkey development", "Permits & inspections handled", "Moisture control included"].map((item) => (
+                      <li key={item} className="flex items-center gap-3 text-white/70 text-sm">
+                        <div className="w-1 h-1 rounded-full bg-sandstone shrink-0" aria-hidden="true" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/services/basements" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
+                    See Basement Services <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </Section>
+      )}
 
       {/* ━━━ TESTIMONIALS — CREAM ━━━ */}
       <Section variant="cream">

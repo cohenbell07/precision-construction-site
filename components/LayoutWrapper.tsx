@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { ChunkErrorBoundary } from "./ChunkErrorBoundary";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { PromoStrip } from "./PromoStrip";
 import { Toaster } from "./ui/toaster";
 
 const FloatingChatbot = dynamic(() => import("./FloatingChatbot").then((m) => ({ default: m.FloatingChatbot })), {
@@ -34,6 +35,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         >
           Skip to content
         </a>
+        <PromoStrip />
         <Header />
         <main id="main" className="min-h-screen">
           <AnimatePresence mode="wait">
