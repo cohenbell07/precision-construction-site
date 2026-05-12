@@ -2,10 +2,18 @@
 
 /**
  * Homepage — "Showroom + Studio" two-canvas direction.
- * Dark sections (hero, trust bar, stats, services, basement promo, final CTA)
- * carry the showroom drama. Cream sections (about, brand partners marquee,
- * testimonials) carry the studio voice. See memory file
- * `project_showroom_studio_design.md` for the why.
+ *
+ * Aesthetic vocabulary: architect's monograph. Roman-numeral chapter markers
+ * (I–VI) punctuate the page; the previously generic trust-pill + stats-tile
+ * pair collapses into a single editorial "Dossier" spec-sheet section
+ * (hairline-divided rows, label-left / value-right). Service cards carry a
+ * numeric atlas index (01–06). The basement promo wears a price-tag stamp
+ * instead of a SaaS pill. The final CTA drops the LightRays glow for a quiet
+ * blueprint-grid backdrop with a registration-mark footer stamp.
+ *
+ * Dark canvases carry the showroom drama (hero, dossier, services, basement
+ * promo, final CTA). Cream canvases carry the studio voice (about, material
+ * partners, testimony). See memory `project_showroom_studio_design.md`.
  */
 
 import Link from "next/link";
@@ -15,14 +23,10 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { services, getServiceCtaLabel } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { VideoHero } from "@/components/VideoHero";
-import { ArrowRight, Star, Phone, Shield, CheckCircle2 } from "lucide-react";
-import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { ArrowRight, Phone } from "lucide-react";
 import { Section } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
-import dynamic from "next/dynamic";
-
-const LightRays = dynamic(() => import("@/components/LightRays").then((m) => ({ default: m.LightRays })), { ssr: false });
 import { BlurReveal } from "@/components/BlurReveal";
 
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -38,6 +42,23 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
     >
       {children}
     </motion.div>
+  );
+}
+
+/* Small reusable chapter marker — Roman numeral + label, sandstone hairline.
+   Used on the major editorial sections to give the page a print-book rhythm. */
+function ChapterMark({ numeral, label, theme = "dark" }: { numeral: string; label: string; theme?: "dark" | "cream" }) {
+  const isDark = theme === "dark";
+  return (
+    <div className="flex items-center gap-3 mb-4 sm:mb-5">
+      <span className={`font-serif italic text-base sm:text-lg leading-none ${isDark ? "text-sandstone" : "text-sandstone-dark"}`}>
+        {numeral}
+      </span>
+      <span className={`h-px w-6 ${isDark ? "bg-sandstone/50" : "bg-sandstone-dark/50"}`} aria-hidden="true" />
+      <span className={`text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium ${isDark ? "text-white/55" : ""} ${!isDark ? "cream-eyebrow" : ""}`}>
+        {label}
+      </span>
+    </div>
   );
 }
 
@@ -75,8 +96,20 @@ export default function Home() {
     { name: "Priya S.", text: "We needed new flooring throughout our main floor and the quote came in well under the other companies we called. The LVP they sourced looks amazing and the install was super clean. No corners cut. Really happy with how it turned out.", project: "Main Floor LVP Installation", year: "2024" },
   ];
 
+  /* Dossier rows — the editorial spec-sheet that replaces the prior trust-pill
+     row + stats-tile grid. Reads like a project brief from an architect's studio. */
+  const dossier = [
+    { label: "Working Since",   value: "1968" },
+    { label: "Projects Delivered", value: "5,000+" },
+    { label: "Generation",      value: "Third" },
+    { label: "Response Time",   value: "Within 24 Hours" },
+    { label: "Price Guarantee", value: "Beats Competitors by 5%" },
+    { label: "Service Area",    value: "Calgary · Airdrie · Cochrane · Okotoks" },
+  ];
+
   return (
     <div className="flex flex-col">
+
       {/* ━━━ HERO — DARK ━━━ */}
       <section ref={heroRef} className="relative w-full h-[85vh] sm:h-screen min-h-[560px] max-h-[1100px] overflow-hidden bg-black">
         <div className="absolute inset-0">
@@ -85,23 +118,30 @@ export default function Home() {
           <div className="absolute inset-0 sm:hidden" style={{ background: "radial-gradient(ellipse at 30% 65%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 60%)" }} />
         </div>
 
+        {/* Architect's stamp — top-right, restrained, gives the hero a printed-page feel. */}
+        <div className="hidden sm:flex absolute top-6 right-6 z-10 items-center gap-3 text-[10px] tracking-[0.3em] uppercase text-white/55 font-medium">
+          <span>Est. 1968</span>
+          <span className="h-px w-5 bg-sandstone/50" aria-hidden="true" />
+          <span>Calgary · Alberta</span>
+        </div>
+
         <motion.div style={{ opacity: heroOpacity, y: heroTextY }} className="absolute inset-0 flex items-center z-10">
           <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.3 }} className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-5 whitespace-nowrap">
-              {["3rd Generation", "Family Owned", "Since 1968"].map((word, i) => (
-                <motion.span key={word} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 + i * 0.15 }} className="flex items-center gap-2 sm:gap-3 text-[9px] sm:text-xs tracking-[0.18em] sm:tracking-[0.3em] uppercase text-white/85 font-medium">
-                  {word}
-                  {i < 2 && <span className="text-sandstone/60">&middot;</span>}
-                </motion.span>
-              ))}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.3 }} className="flex items-center gap-3 mb-5 sm:mb-6">
+              <span className="font-serif italic text-base sm:text-lg leading-none text-sandstone">I</span>
+              <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
+              <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/75 font-medium">A Family of Builders</span>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }} className="text-[clamp(2.5rem,7.5vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl hero-heading-shimmer">
               Your Home.<br />Our Legacy.
             </motion.h1>
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="text-white/75 sm:text-white/60 text-[15px] sm:text-lg max-w-xl mb-7 sm:mb-8 leading-relaxed">
-              Your home deserves a builder who&apos;s been here since 1968. Three generations of quality craftsmanship — one family, one standard.
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="font-serif italic text-white/85 text-lg sm:text-2xl max-w-2xl mb-3 leading-snug">
+              Three generations of quality craftsmanship.
             </motion.p>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.9 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.9 }} className="text-white/65 text-[15px] sm:text-base max-w-xl mb-8 sm:mb-10 leading-relaxed">
+              One family, one standard, one handshake — since 1968.
+            </motion.p>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 1 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-9 py-4 rounded-full font-black text-base tracking-wide hover:bg-sandstone transition-colors shadow-[0_4px_24px_rgba(255,255,255,0.12)]">
                 Get a Free Quote <ArrowRight aria-hidden="true" className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -111,45 +151,43 @@ export default function Home() {
             </motion.div>
           </div>
         </motion.div>
+
+        {/* Measured-rule scroll indicator — drafting reference, not the standard arrow-bounce */}
+        <div className="hidden sm:flex absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-sandstone/60">
+          <span className="text-[9px] tracking-[0.3em] uppercase font-medium">Scroll</span>
+          <span className="h-12 w-px bg-gradient-to-b from-sandstone/60 to-transparent" aria-hidden="true" />
+        </div>
       </section>
 
-      {/* ━━━ TRUST BAR — DARK ━━━ */}
-      <Section variant="dark" bg="bg-[#0A0A0A]" padding="none" containerClassName="container mx-auto px-6 max-w-6xl" className="border-b border-white/[0.06]">
-        <div className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-10 gap-y-3 py-4 sm:py-5">
-          {[
-            { icon: Star, text: "Free Consultations", highlight: true },
-            { icon: Shield, text: "Licensed & Insured" },
-            { icon: null, text: "3rd Generation Builder" },
-            { icon: null, text: "5% Price Beat Guarantee" },
-          ].map((item) => (
-            <div key={item.text} className="flex items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-white/60 font-medium">
-              {item.icon && <item.icon aria-hidden="true" className={`w-3.5 h-3.5 ${item.highlight ? "fill-white text-white" : "text-white/60"}`} />}
-              {!item.icon && <div className="w-1 h-1 rounded-full bg-white/25 shrink-0" />}
-              <span className={item.highlight ? "text-white/60" : ""}>{item.text}</span>
+      {/* ━━━ DOSSIER — DARK (replaces prior trust-bar + stats) ━━━ */}
+      <Section variant="dark" bg="bg-[#0A0A0A]" padding="md" containerClassName="container mx-auto px-6 max-w-5xl">
+        {/* Section header — a quiet masthead */}
+        <Reveal>
+          <div className="flex items-baseline justify-between pb-5 sm:pb-6 mb-2 border-b border-sandstone/20">
+            <div className="flex items-center gap-3">
+              <span className="font-serif italic text-base sm:text-lg leading-none text-sandstone">II</span>
+              <span className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/55 font-medium">The Dossier</span>
             </div>
-          ))}
-        </div>
-      </Section>
+            <span className="hidden sm:inline text-[10px] tracking-[0.25em] uppercase text-white/35 font-medium">Precision Construction &amp; Decora · Calgary, AB</span>
+          </div>
+        </Reveal>
 
-      {/* ━━━ STATS — DARK ━━━ */}
-      <Section variant="dark" bg="bg-[#0A0A0A]" padding="none" containerClassName="container mx-auto px-6 max-w-6xl" className="border-b border-white/[0.06]">
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/[0.06]">
-          {[
-            { val: "58+", label: "Years in Business" },
-            { val: "5,000+", label: "Projects Completed" },
-            { val: "3rd", label: "Generation Family" },
-            { val: "100%", label: "Satisfaction Promise" },
-          ].map((s, idx) => (
-            <Reveal key={s.label} delay={idx * 0.08}>
-              <div className="text-center py-8 sm:py-10">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white mb-1">
-                  <AnimatedCounter value={s.val} />
-                </div>
-                <div className="text-[10px] sm:text-[10px] tracking-[0.15em] uppercase text-white/55 font-medium">{s.label}</div>
+        {/* Spec-sheet rows — label left, value right, hairlines between */}
+        <dl className="divide-y divide-white/[0.06]">
+          {dossier.map((row, i) => (
+            <Reveal key={row.label} delay={i * 0.05}>
+              <div className="flex items-baseline justify-between gap-6 py-5 sm:py-6">
+                <dt className="flex items-baseline gap-3 sm:gap-4 text-[10px] sm:text-[11px] tracking-[0.25em] uppercase text-white/55 font-medium shrink-0">
+                  <span className="text-sandstone tabular-nums font-mono text-[10px]">{String(i + 1).padStart(2, "0")}</span>
+                  <span>{row.label}</span>
+                </dt>
+                <dd className="font-heading font-black text-right text-[18px] sm:text-2xl md:text-3xl text-white tracking-tight leading-none uppercase tabular-nums">
+                  {row.value}
+                </dd>
               </div>
             </Reveal>
           ))}
-        </div>
+        </dl>
       </Section>
 
       {/* ━━━ ABOUT LEGACY — CREAM ━━━ */}
@@ -168,10 +206,7 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={0.15} className="lg:col-span-3">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="h-px w-10 cream-rule" />
-              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">About Our Legacy</p>
-            </div>
+            <ChapterMark numeral="III" label="The Family" theme="cream" />
             <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-6 sm:mb-7">
               Three Generations<br />of Quality
             </h2>
@@ -184,7 +219,7 @@ export default function Home() {
             <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-10 pb-10 border-b border-bone-hairline">
               {[
                 { val: "24hr", label: "Response" },
-                { val: "$0", label: "Hidden Fees" },
+                { val: "$0",   label: "Hidden Fees" },
                 { val: "100%", label: "Satisfaction" },
               ].map((s, idx) => (
                 <BlurReveal key={s.label} delay={0.3 + idx * 0.2} direction="bottom">
@@ -207,8 +242,13 @@ export default function Home() {
         <Reveal>
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12 md:mb-16">
             <div>
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">What We Do</p>
-              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Our Services</h2>
+              <ChapterMark numeral="IV" label="Selected Capabilities" theme="dark" />
+              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">
+                The Atlas
+              </h2>
+              <p className="font-serif italic text-white/65 text-lg sm:text-xl mt-3 max-w-md">
+                A short index of the work we&apos;re known for.
+              </p>
             </div>
             <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white transition-colors group shrink-0">
               View All <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -224,6 +264,7 @@ export default function Home() {
                 title={service.title}
                 image={serviceImages[service.id] || "/service-millwork.webp"}
                 alt={`${service.title} - Calgary construction services by PCND`}
+                eyebrow={`No. ${String(idx + 1).padStart(2, "0")}`}
                 ctaLabel={getServiceCtaLabel(service.id)}
               />
             </Reveal>
@@ -231,18 +272,19 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* ━━━ BRAND PARTNERS MARQUEE — CREAM ━━━ */}
+      {/* ━━━ MATERIAL PARTNERS — CREAM ━━━ */}
       <Section variant="cream" padding="md" withContainer={false} className="overflow-hidden">
         <div className="flex items-center justify-center gap-3 mb-7 px-6">
-          <div className="h-px w-8 cream-rule" />
-          <p className="cream-eyebrow text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium">Trusted Brands We Work With</p>
-          <div className="h-px w-8 cream-rule-rtl" />
+          <span className="font-serif italic text-base text-sandstone-dark leading-none">V</span>
+          <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
+          <p className="cream-eyebrow text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium">Material Partners</p>
+          <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
         </div>
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-bone to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-bone to-transparent z-10" />
           <div className="flex marquee-track">
-            {/* Two copies — first set is "the lineup," second set provides the seamless wrap for the CSS keyframe animation. Four cycles read as padding. */}
+            {/* Two copies — first is the lineup, second provides the seamless CSS-keyframe wrap. */}
             {[...brands, ...brands].map((brand, i) => (
               <div key={`${brand.name}-${i}`} className="relative h-9 sm:h-11 w-32 sm:w-40 shrink-0 mx-6 sm:mx-8 opacity-70 hover:opacity-100 transition-opacity duration-500" style={{ filter: "saturate(0.7)" }}>
                 <Image src={`/${brand.file}`} alt={brand.name} fill className="object-contain" sizes="160px" quality={70} />
@@ -259,25 +301,37 @@ export default function Home() {
             <div className="relative h-[350px] sm:h-[400px] lg:h-full">
               <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" quality={80} />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
-              <div className="absolute top-4 left-4">
-                <span className="inline-block bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full border border-white/10">
-                  15% Off Basement Quotes
-                </span>
+
+              {/* Architect's price stamp — replaces the prior pill badge. Two-block tag
+                  that reads like something stamped on a project sheet. */}
+              <div className="absolute top-6 left-6 flex items-stretch shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)]">
+                <div className="bg-sandstone text-black font-heading font-black text-3xl sm:text-4xl tracking-tight px-4 sm:px-5 py-3 leading-none flex items-center">
+                  &minus;15%
+                </div>
+                <div className="ml-px bg-black/80 backdrop-blur-sm flex flex-col justify-center px-3 sm:px-4 py-3 border-l border-sandstone/20">
+                  <p className="text-[9px] tracking-[0.3em] uppercase text-sandstone/90 leading-none mb-1.5 font-medium">Client Rate</p>
+                  <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-white/85 leading-none font-semibold">Basement Work</p>
+                </div>
               </div>
             </div>
           </Reveal>
           <div className="flex items-center px-5 sm:px-12 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-20">
             <Reveal delay={0.15}>
               <div>
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Featured</p>
-                <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">Basement<br />Developments</h2>
+                <ChapterMark numeral="VI" label="On the Boards" theme="dark" />
+                <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
+                  Basement<br />Developments
+                </h2>
+                <p className="font-serif italic text-white/85 text-lg sm:text-xl leading-snug mb-3 max-w-md">
+                  A turnkey transformation — concrete to finished space.
+                </p>
                 <p className="text-white/60 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
-                  Turnkey development — framing, electrical, plumbing, drywall, flooring, and finishes. Permits handled. One team, start to finish.
+                  Framing, electrical, plumbing, drywall, flooring, finishes. Permits handled. One team, start to finish.
                 </p>
                 <ul className="space-y-3 mb-10">
                   {["Full turnkey development", "Permits & inspections handled", "Moisture control included"].map((item) => (
                     <li key={item} className="flex items-center gap-3 text-white/70 text-sm">
-                      <div className="w-1 h-1 rounded-full bg-white/40 shrink-0" />
+                      <div className="w-1 h-1 rounded-full bg-sandstone shrink-0" aria-hidden="true" />
                       {item}
                     </li>
                   ))}
@@ -301,15 +355,16 @@ export default function Home() {
         <Reveal>
           <div className="text-center mb-12 sm:mb-16 md:mb-20">
             <div className="flex items-center justify-center gap-3 mb-5">
-              <div className="h-px w-8 cream-rule" />
-              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Client Stories</p>
-              <div className="h-px w-8 cream-rule-rtl" />
+              <span className="font-serif italic text-base text-sandstone-dark leading-none">VII</span>
+              <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
+              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Testimony</p>
+              <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
             </div>
             <h2 className="text-[30px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5">
-              What Our Clients Say
+              In Their Own Words
             </h2>
             <p className="font-serif italic text-lg sm:text-xl text-ink-muted max-w-xl mx-auto">
-              Three generations of word-of-mouth, in their own words.
+              Three generations of word-of-mouth.
             </p>
           </div>
         </Reveal>
@@ -325,13 +380,36 @@ export default function Home() {
 
       {/* ━━━ FINAL CTA — DARK ━━━ */}
       <section className="py-16 sm:py-24 md:py-32 lg:py-40 bg-black relative overflow-hidden">
-        <LightRays raysOrigin="top-center" raysColor="#C4B5A0" raysSpeed={0.4} lightSpread={1.2} rayLength={2.5} fadeDistance={1.2} saturation={0.6} followMouse={true} mouseInfluence={0.08} className="opacity-20" />
+        {/* Blueprint-grid backdrop — quieter and more architectural than the
+            prior LightRays glow. Soft sandstone lines, masked to a centered
+            vignette so it reads as drafting paper, not pattern wallpaper. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(196,181,160,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(196,181,160,0.6) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+            maskImage:
+              "radial-gradient(ellipse 65% 55% at 50% 50%, black 25%, transparent 95%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 65% 55% at 50% 50%, black 25%, transparent 95%)",
+          }}
+        />
+
         <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
           <Reveal>
-            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-5">Free Consultation</p>
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <span className="font-serif italic text-base text-sandstone leading-none">VIII</span>
+              <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
+              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium">Start the Conversation</p>
+            </div>
             <h2 className="text-[32px] sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-5 sm:mb-6">Ready to Build?</h2>
-            <p className="text-white/55 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
-              No pressure, no obligation. Tell us about your project and we&apos;ll get back to you within 24 hours.
+            <p className="font-serif italic text-white/85 text-lg sm:text-2xl max-w-xl mx-auto mb-3">
+              No pressure. No obligation. Honest answers.
+            </p>
+            <p className="text-white/55 text-base leading-relaxed mb-10 max-w-md mx-auto">
+              Tell us about your project and we&apos;ll get back to you within 24 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
@@ -342,6 +420,14 @@ export default function Home() {
               </Link>
             </div>
           </Reveal>
+        </div>
+
+        {/* Registration-mark footer stamp — a quiet print-shop signature.
+            Architectural punctuation that closes the page. */}
+        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-4 text-[9px] sm:text-[10px] tracking-[0.35em] uppercase text-sandstone/50 font-medium">
+          <span className="h-px w-10 bg-sandstone/30" aria-hidden="true" />
+          <span>PCND · Calgary · Est. 1968</span>
+          <span className="h-px w-10 bg-sandstone/30" aria-hidden="true" />
         </div>
       </section>
     </div>
