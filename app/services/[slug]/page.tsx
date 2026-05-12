@@ -18,6 +18,7 @@ import { BRAND_CONFIG } from "@/lib/utils";
 import { CheckCircle, ChevronDown, ArrowRight, Phone, Star, Shield, Clock, Award, Sparkles, Quote } from "lucide-react";
 import { Section } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
+import { BookConsultationCTA } from "@/components/BookConsultationCTA";
 
 const serviceImageMap: Record<string, string> = {
   cabinets: "/cabinetsland.webp",
@@ -558,28 +559,12 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       {/* ━━━ INQUIRY FORM — CREAM ━━━ */}
       <InquiryForm serviceName={service.title} />
 
-      {/* ━━━ FINAL CTA — DARK ━━━ */}
-      <section className="py-16 sm:py-24 md:py-32 bg-black relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-10">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)" }} />
-        </div>
-        <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
-          <Reveal>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-6">Get Started Today</h2>
-            <p className="text-white/55 text-base leading-relaxed mb-10 max-w-md mx-auto">
-              Free consultation. No obligation. {yearsExp}+ years of experience behind every project.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-              <Link href={`/get-quote?service=${service.id}`} className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
-                Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 text-white/55 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/10 rounded-full hover:border-white/30">
-                <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact Us
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* ━━━ BOOK CONSULTATION — CREAM ━━━ */}
+      <BookConsultationCTA
+        serviceId={service.id}
+        eyebrow={`Considering ${service.title}?`}
+        headline="Let's Walk Your Space"
+      />
 
       {/* ━━━ STICKY MOBILE CTA ━━━ */}
       <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-black/90 backdrop-blur-md border-t border-sandstone/20 px-4 py-3 flex gap-2 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">

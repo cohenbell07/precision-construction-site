@@ -21,6 +21,7 @@ import { Section } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { BlurReveal } from "@/components/BlurReveal";
+import { BookConsultationCTA } from "@/components/BookConsultationCTA";
 import { getActivePromo } from "@/lib/promo";
 
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -451,58 +452,16 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* ━━━ FINAL CTA — DARK ━━━ */}
-      <section className="py-16 sm:py-24 md:py-32 lg:py-40 bg-black relative overflow-hidden">
-        {/* Blueprint-grid backdrop — quieter and more architectural than the
-            prior LightRays glow. Soft sandstone lines, masked to a centered
-            vignette so it reads as drafting paper, not pattern wallpaper. */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(196,181,160,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(196,181,160,0.6) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-            maskImage:
-              "radial-gradient(ellipse 65% 55% at 50% 50%, black 25%, transparent 95%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 65% 55% at 50% 50%, black 25%, transparent 95%)",
-          }}
-        />
-
-        <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
-          <Reveal>
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium">Start the Conversation</p>
-              <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
-            </div>
-            <h2 className="text-[32px] sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-5 sm:mb-6">Ready to Build?</h2>
-            <p className="font-serif italic text-white/85 text-lg sm:text-2xl max-w-xl mx-auto mb-3">
-              No pressure. No obligation. Honest answers.
-            </p>
-            <p className="text-white/55 text-base leading-relaxed mb-10 max-w-md mx-auto">
-              Tell us about your project and we&apos;ll get back to you within 24 hours.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
-              <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
-                Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-sandstone/50">
-                <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact Us
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Registration-mark footer stamp — a quiet print-shop signature.
-            Architectural punctuation that closes the page. */}
-        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-4 text-[9px] sm:text-[10px] tracking-[0.35em] uppercase text-sandstone/50 font-medium">
-          <span className="h-px w-10 bg-sandstone/30" aria-hidden="true" />
-          <span>PCND · Calgary · Est. 1968</span>
-          <span className="h-px w-10 bg-sandstone/30" aria-hidden="true" />
-        </div>
-      </section>
+      {/* ━━━ BOOK CONSULTATION — CREAM ━━━
+          Replaces the previous dark "Ready to Build / Get a Free Quote" block
+          that visually duplicated the footer's quote CTA. Shifts the page
+          ending toward a higher-intent path (in-home consultation) on a
+          cream canvas, so the page ↓ footer pair now ladders rather than
+          repeats. */}
+      <BookConsultationCTA
+        eyebrow="Prefer to Meet First?"
+        headline="Let's Walk Your Space"
+      />
     </div>
   );
 }

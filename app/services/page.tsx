@@ -16,6 +16,7 @@ import { ArrowRight, Phone, Shield } from "lucide-react";
 import { BlurReveal } from "@/components/BlurReveal";
 import { Section } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
+import { BookConsultationCTA } from "@/components/BookConsultationCTA";
 
 const serviceImageMap: Record<string, string> = {
   cabinets: "/service-millwork.webp",
@@ -182,29 +183,11 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      {/* ━━━ FINAL CTA — DARK ━━━ */}
-      <section className="py-16 sm:py-24 md:py-32 lg:py-40 bg-black relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full" style={{ background: "radial-gradient(circle, rgba(196, 181, 160, 0.06) 0%, transparent 70%)" }} />
-        </div>
-        <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
-          <Reveal>
-            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/40 font-medium mb-5">Ready to Start?</p>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-6">Let&apos;s Build Together</h2>
-            <p className="text-white/55 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
-              Free quote within 24 hours. 5% price beat guarantee on any competitor estimate.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
-              <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-bold text-sm tracking-wide transition-all duration-300 text-black bg-gradient-to-b from-[#F0F0F0] via-[#D8D8D8] to-[#B8B8B8] border border-white/40 shadow-[0_2px_10px_rgba(200,200,200,0.15),inset_0_1px_0_rgba(255,255,255,0.5)] hover:shadow-[0_4px_20px_rgba(200,200,200,0.25),inset_0_1px_0_rgba(255,255,255,0.6)] hover:translate-y-[-1px]">
-                Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-sandstone/20 rounded-full hover:border-sandstone/50 hover:text-sandstone">
-                <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact Us
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* ━━━ BOOK CONSULTATION — CREAM ━━━ */}
+      <BookConsultationCTA
+        eyebrow="Not Sure Which Service?"
+        headline="Let's Walk Your Space"
+      />
 
     </div>
   );

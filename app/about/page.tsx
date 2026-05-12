@@ -16,6 +16,7 @@ import { Star, ArrowRight, Phone, Mail, Shield, Award } from "lucide-react";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Section } from "@/components/Section";
 import { TestimonialCard } from "@/components/TestimonialCard";
+import { BookConsultationCTA } from "@/components/BookConsultationCTA";
 
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
@@ -334,29 +335,11 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* ━━━ CTA — DARK ━━━ */}
-      <section className="py-16 sm:py-24 md:py-32 lg:py-40 bg-black relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-10">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)" }} />
-        </div>
-        <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
-          <Reveal>
-            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-5">Let&apos;s Talk</p>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-6">Ready to Build?</h2>
-            <p className="text-white/55 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
-              Tell us about your project. We&apos;ll get back to you within 24 hours with a plan.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
-              <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
-                Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-sandstone/50">
-                <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Contact Us
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* ━━━ BOOK CONSULTATION — CREAM ━━━ */}
+      <BookConsultationCTA
+        eyebrow="Meet the Family"
+        headline="Want to Meet Us First?"
+      />
 
     </div>
   );
