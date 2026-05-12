@@ -27,9 +27,9 @@ export const SPRING_BUILD: Promo = {
   cta: { href: "/get-quote", label: "Claim 15% Off" },
   image: {
     src: "/spring-build-event.webp",
-    alt: "Spring Build event — 15% off all PCND services through June 30, 2026, set on a blueprint backdrop with stone samples, brass ruler, and cherry blossom branch",
-    width: 1122,
-    height: 1402,
+    alt: "Overhead view of a dark walnut workbench in soft spring window light, with a cherry blossom branch, architect's blueprint, finished kitchen photograph, brass cabinet hardware, stone material samples, and a brass tap arranged around a central empty surface",
+    width: 1659,
+    height: 948,
   },
 };
 
