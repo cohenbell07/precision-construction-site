@@ -230,7 +230,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               Every {service.title.toLowerCase()} project is handled by our own crews — not subcontracted.
             </p>
             <p className="text-ink-muted text-base sm:text-lg leading-relaxed max-w-2xl mb-10">
-              One point of contact, fully accountable from quote to final walkthrough. Same family, same standards, same handshake.
+              One point of contact, fully accountable from quote to final walkthrough. Same standards, same handshake, every project.
             </p>
 
             {service.stats && service.stats.length > 0 && (

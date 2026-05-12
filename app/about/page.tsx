@@ -64,7 +64,7 @@ export default function AboutPage() {
               Three Generations<br />of Excellence
             </h1>
             <p className="text-white/70 text-base sm:text-lg max-w-xl mb-8 leading-relaxed">
-              One family, one standard — {totalYears}+ years of building homes across Calgary the way we&apos;d build our own.
+              Family-owned, family-run — {totalYears}+ years of building homes across Calgary the way we&apos;d build our own.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 items-start mb-6">
               <Link href="/services" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">

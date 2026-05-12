@@ -209,7 +209,7 @@ export function Header() {
 
           <div className="container mx-auto px-6 py-10 flex flex-col min-h-full">
             <p className="font-serif italic text-sandstone-muted text-base mb-8 max-w-xs">
-              Three generations of quality, one family standard.
+              Three generations of quality. Family-owned since 1968.
             </p>
 
             <div className="space-y-1 flex-1">

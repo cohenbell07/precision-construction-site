@@ -102,7 +102,7 @@ export function Footer() {
               <LogoFooter className="h-12 md:h-14 w-auto" />
             </Link>
             <p className="font-serif italic text-white/65 text-base leading-snug max-w-xs">
-              Three generations of quality. One family, one standard.
+              Three generations of quality. Family-owned since 1968.
             </p>
             <div className="space-y-3 text-sm">
               <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="flex items-center gap-3 text-white/65 hover:text-sandstone transition-colors">

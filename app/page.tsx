@@ -85,15 +85,14 @@ export default function Home() {
     { name: "Priya S.", text: "We needed new flooring throughout our main floor and the quote came in well under the other companies we called. The LVP they sourced looks amazing and the install was super clean. No corners cut. Really happy with how it turned out.", project: "Main Floor LVP Installation", year: "2024" },
   ];
 
-  /* Dossier rows — the editorial spec-sheet that replaces the prior trust-pill
-     row + stats-tile grid. Reads like a project brief from an architect's studio. */
+  /* Five spec-sheet rows — the year (1968) lives as the section's typographic
+     anchor above, so it is not duplicated here. */
   const dossier = [
-    { label: "Working Since",   value: "1968" },
-    { label: "Projects Delivered", value: "5,000+" },
-    { label: "Generation",      value: "Third" },
-    { label: "Response Time",   value: "Within 24 Hours" },
-    { label: "Price Guarantee", value: "Beats Competitors by 5%" },
-    { label: "Service Area",    value: "Calgary · Airdrie · Cochrane · Okotoks" },
+    { label: "Projects Delivered", value: "5,000+",                                  italic: false },
+    { label: "Generation",         value: "Third",                                   italic: true },
+    { label: "Response Time",      value: "Within 24 Hours",                         italic: false },
+    { label: "Price Guarantee",    value: "Beats Competitors by 5%",                 italic: false },
+    { label: "Service Area",       value: "Calgary · Airdrie · Cochrane · Okotoks",  italic: false },
   ];
 
   return (
@@ -127,7 +126,7 @@ export default function Home() {
               Three generations of quality craftsmanship.
             </motion.p>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.9 }} className="text-white/65 text-[15px] sm:text-base max-w-xl mb-8 sm:mb-10 leading-relaxed">
-              One family, one standard, one handshake — since 1968.
+              Three generations, one standard, one handshake — since 1968.
             </motion.p>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 1 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-9 py-4 rounded-full font-black text-base tracking-wide hover:bg-sandstone transition-colors shadow-[0_4px_24px_rgba(255,255,255,0.12)]">
@@ -147,29 +146,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ━━━ BY THE NUMBERS — DARK (spec-sheet replaces prior trust-bar + stats) ━━━ */}
+      {/* ━━━ BY THE NUMBERS — DARK ━━━
+          Editorial spec-sheet: a typographic anchor (Est. 1968) at the top of
+          the section sets the heritage tone, followed by five hairline-divided
+          rows that read like a project brief. One value renders in DM Serif
+          italic ("Third") to give the rhythm a single typographic break. */}
       <Section variant="dark" bg="bg-[#0A0A0A]" padding="md" containerClassName="container mx-auto px-6 max-w-5xl">
-        {/* Section header — a quiet masthead */}
+        {/* Masthead — quiet eyebrow + place stamp */}
         <Reveal>
-          <div className="flex items-baseline justify-between pb-5 sm:pb-6 mb-2 border-b border-sandstone/20">
+          <div className="flex items-baseline justify-between pb-7 mb-8 sm:mb-10 border-b border-sandstone/20">
             <div className="flex items-center gap-3">
               <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
               <span className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/55 font-medium">By the Numbers</span>
             </div>
-            <span className="hidden sm:inline text-[10px] tracking-[0.25em] uppercase text-white/35 font-medium">Precision Construction &amp; Decora · Calgary, AB</span>
+            <span className="hidden sm:inline text-[10px] tracking-[0.3em] uppercase text-white/35 font-medium">Calgary · Alberta</span>
           </div>
         </Reveal>
 
-        {/* Spec-sheet rows — label left, value right, hairlines between */}
-        <dl className="divide-y divide-white/[0.06]">
+        {/* Typographic anchor — the year as a display moment, with editorial
+            italic line beneath. Replaces the equal-weight "Working Since 1968"
+            row so the heritage gets visual primacy. */}
+        <Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] items-end gap-6 md:gap-12 pb-10 sm:pb-12 mb-10 sm:mb-12 border-b border-sandstone/15">
+            <div className="flex items-end gap-3 sm:gap-5">
+              <span className="font-heading font-black text-sandstone/85 text-[10px] sm:text-[11px] tracking-[0.3em] uppercase pb-3 sm:pb-4">Est.</span>
+              <span className="font-hero text-white text-[88px] sm:text-[128px] md:text-[160px] leading-[0.8] tracking-tight tabular-nums">
+                1968
+              </span>
+            </div>
+            <p className="font-serif italic text-white/75 text-lg sm:text-xl md:text-[22px] leading-snug max-w-md md:pb-3 md:text-right md:ml-auto">
+              Six decades on the same Calgary streets — three generations of the same standard.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Spec rows — refined hairline ledger. Stack on mobile (label above
+            value), side-by-side from sm+ (label left, value left-aligned). */}
+        <dl>
           {dossier.map((row, i) => (
             <Reveal key={row.label} delay={i * 0.05}>
-              <div className="flex items-baseline justify-between gap-6 py-5 sm:py-6">
-                <dt className="flex items-baseline gap-3 sm:gap-4 text-[10px] sm:text-[11px] tracking-[0.25em] uppercase text-white/55 font-medium shrink-0">
-                  <span className="text-sandstone tabular-nums font-mono text-[10px]">{String(i + 1).padStart(2, "0")}</span>
+              <div className="flex flex-col sm:grid sm:grid-cols-[260px_1fr] sm:items-baseline gap-2 sm:gap-10 py-5 sm:py-6 border-b border-white/[0.06] last:border-b-0">
+                <dt className="flex items-baseline gap-3 sm:gap-4 text-[10px] sm:text-[11px] tracking-[0.25em] uppercase text-white/55 font-medium">
+                  <span className="text-sandstone/70 tabular-nums font-mono text-[10px]">/ {String(i + 1).padStart(2, "0")}</span>
                   <span>{row.label}</span>
                 </dt>
-                <dd className="font-heading font-black text-right text-[18px] sm:text-2xl md:text-3xl text-white tracking-tight leading-none uppercase tabular-nums">
+                <dd
+                  className={
+                    row.italic
+                      ? "font-serif italic text-white text-2xl sm:text-3xl md:text-4xl leading-none tracking-tight"
+                      : "font-heading font-black text-white text-[20px] sm:text-2xl md:text-3xl leading-tight tracking-tight uppercase tabular-nums"
+                  }
+                >
                   {row.value}
                 </dd>
               </div>
@@ -202,7 +229,7 @@ export default function Home() {
               Since 1968, the Olivito family has built a reputation on one simple promise.
             </p>
             <p className="text-ink-muted text-base sm:text-lg leading-relaxed mb-10 max-w-xl">
-              Treat every client like family and deliver only the best. Now in our third generation, that commitment hasn&apos;t wavered — same family, same standard, same handshake.
+              Treat every client like family and deliver only the best. Now in our third generation, that commitment hasn&apos;t wavered — same ownership, same standard, same handshake.
             </p>
             <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-10 pb-10 border-b border-bone-hairline">
               {[
