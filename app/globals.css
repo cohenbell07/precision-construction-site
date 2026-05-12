@@ -672,21 +672,12 @@
     font-weight: 500;
   }
 
-  /* Enhanced Input & Textarea Focus States */
-  input:focus-visible,
-  textarea:focus-visible {
-    box-shadow: 
-      0 0 0 3px rgba(232, 232, 232, 0.1),
-      0 0 20px rgba(232, 232, 232, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    background: rgba(0, 0, 0, 0.7);
-    border-color: #E8E8E8;
-  }
-
-  /* Enhanced Label Styling */
-  label {
-    text-shadow: 0 0 8px rgba(232, 232, 232, 0.15);
-  }
+  /* Legacy global dark-form focus + label glow removed — every form in the
+     app now lives on a cream canvas, and these rules were forcing inputs to
+     ~70% black on focus (drowning the user's typed text) and tinting labels
+     with a silver glow only appropriate against the showroom dark surface.
+     Per-input focus styling is now driven by Tailwind utilities on each
+     <Input>, e.g. `focus:border-sandstone-dark focus:ring-sandstone-dark/20`. */
 
   /* Premium Service Selection Button */
   .service-select-button {
