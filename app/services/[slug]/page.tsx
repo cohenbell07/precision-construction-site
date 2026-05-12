@@ -224,7 +224,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Overview</p>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-4 text-ink">
-              Quality You Can <span className="text-sandstone-dark">Measure.</span>
+              Built by Our Crews. <span className="text-sandstone-dark">Not Subcontracted.</span>
             </h2>
             <p className="font-serif italic text-ink text-[20px] sm:text-2xl leading-snug max-w-2xl mb-6">
               Every {service.title.toLowerCase()} project is handled by our own crews — not subcontracted.

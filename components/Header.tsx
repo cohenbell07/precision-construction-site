@@ -129,14 +129,15 @@ export function Header() {
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
                 className={`
-                  relative text-[11px] font-bold uppercase tracking-[0.2em] whitespace-nowrap
+                  relative inline-flex items-center text-[11px] font-bold uppercase tracking-[0.2em] whitespace-nowrap
+                  min-h-[44px] px-1
                   transition-colors duration-200
                   ${isActive ? "text-white" : "text-white/65 hover:text-white"}
                 `}
               >
                 {link.label}
                 {isActive && (
-                  <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 h-1 w-1 rounded-full bg-sandstone" aria-hidden="true" />
+                  <span className="absolute bottom-2 left-1/2 -translate-x-1/2 h-1 w-1 rounded-full bg-sandstone" aria-hidden="true" />
                 )}
               </Link>
             );

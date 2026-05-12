@@ -10,36 +10,55 @@ interface Props {
 interface State {
   hasError: boolean;
   error: Error | null;
+  retriesExhausted: boolean;
 }
 
 export class ChunkErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false, error: null, retriesExhausted: false };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): Partial<State> {
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: any) {
     // Log error for debugging
     console.error("Chunk loading error:", error, errorInfo);
-    
-    // Check if it's a chunk loading error
+
     if (
       error.name === "ChunkLoadError" ||
       error.message?.includes("Loading chunk") ||
       error.message?.includes("Failed to fetch dynamically imported module")
     ) {
-      // Clear the error state after a short delay and retry
-      setTimeout(() => {
-        this.setState({ hasError: false, error: null });
-        // Force a page reload to retry loading chunks
-        if (typeof window !== "undefined") {
-          window.location.reload();
+      // Bounded retry — only auto-reload up to MAX_RETRIES per session. After
+      // that we leave the user on the error UI so a broken chunk in production
+      // can't trap them in an infinite reload loop. (Audit follow-up.)
+      const MAX_RETRIES = 2;
+      let retries = 0;
+      if (typeof window !== "undefined") {
+        try {
+          retries = parseInt(sessionStorage.getItem("pcnd-chunk-retry") || "0", 10);
+        } catch {
+          /* sessionStorage unavailable (private mode, etc.) — fall through */
         }
-      }, 2000);
+      }
+
+      if (retries < MAX_RETRIES) {
+        try {
+          sessionStorage.setItem("pcnd-chunk-retry", String(retries + 1));
+        } catch {
+          /* ignore */
+        }
+        setTimeout(() => {
+          this.setState({ hasError: false, error: null });
+          if (typeof window !== "undefined") window.location.reload();
+        }, 2000);
+      } else {
+        /* Retries exhausted — surface the manual-refresh UI instead of looping. */
+        this.setState({ retriesExhausted: true });
+      }
     }
   }
 
@@ -51,8 +70,8 @@ export class ChunkErrorBoundary extends Component<Props, State> {
         this.state.error?.message?.includes("Loading chunk") ||
         this.state.error?.message?.includes("Failed to fetch dynamically imported module");
 
-      if (isChunkError) {
-        // Show a minimal loading state while retrying
+      if (isChunkError && !this.state.retriesExhausted) {
+        // Auto-retry in progress — show a brief loading state.
         return (
           <div className="min-h-screen bg-black flex items-center justify-center">
             <div className="text-center">

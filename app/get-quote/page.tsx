@@ -235,7 +235,7 @@ function GetQuoteForm() {
                                 <span className="text-[8px] font-black uppercase tracking-widest text-sandstone-muted bg-bone-soft border border-bone-hairline px-1.5 py-0.5 rounded-full">Popular</span>
                               )}
                             </div>
-                            <p className="text-[11px] text-ink-muted leading-tight mt-0.5 line-clamp-1">{service.description}</p>
+                            <p className="text-xs text-ink-muted leading-snug mt-1 line-clamp-2">{service.description}</p>
                           </div>
                         </button>
                       );
