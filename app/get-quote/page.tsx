@@ -24,6 +24,7 @@ import {
 import { Section } from "@/components/Section";
 import { validateLeadForm, type LeadFormErrors } from "@/lib/forms";
 import { getActivePromo } from "@/lib/promo";
+import { DealQuoteFlow, type DealType } from "@/components/DealQuoteFlow";
 
 const LightRays = dynamic(() => import("@/components/LightRays").then((m) => ({ default: m.LightRays })), { ssr: false });
 
@@ -521,6 +522,17 @@ function GetQuoteForm() {
   );
 }
 
+/* URL-param router — `?deal=basement|bundle|supplier` renders the
+   consolidated deal flow; otherwise the standard service-quote form. */
+function QuotePageContent() {
+  const params = useSearchParams();
+  const deal = params.get("deal");
+  if (deal === "basement" || deal === "bundle" || deal === "supplier") {
+    return <DealQuoteFlow deal={deal as DealType} />;
+  }
+  return <GetQuoteForm />;
+}
+
 export default function GetQuotePage() {
   return (
     <Suspense fallback={
@@ -528,7 +540,7 @@ export default function GetQuotePage() {
         <Loader2 aria-hidden="true" className="h-8 w-8 text-white/50 animate-spin" />
       </div>
     }>
-      <GetQuoteForm />
+      <QuotePageContent />
     </Suspense>
   );
 }

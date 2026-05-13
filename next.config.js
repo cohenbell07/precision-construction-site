@@ -6,6 +6,17 @@ const nextConfig = {
       skipDefaultConversion: true,
     },
   },
+  /* Old deal-quote routes are consolidated into /get-quote with ?deal=<type>.
+     Keep the legacy URLs alive with permanent redirects so any inbound links
+     (emails, ads, search index, sitemap references prior to refresh) still
+     land on the right form. */
+  async redirects() {
+    return [
+      { source: "/get-quote/basement",       destination: "/get-quote?deal=basement", permanent: true },
+      { source: "/get-quote/bundle",         destination: "/get-quote?deal=bundle",   permanent: true },
+      { source: "/get-quote/supplier-deals", destination: "/get-quote?deal=supplier", permanent: true },
+    ];
+  },
   images: {
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
     formats: ['image/avif', 'image/webp'],
