@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     if (supabase) {
       try {
         await supabase.from("leads").insert({
-          name: name || null,
+          name: name || email,
           email,
           phone: null,
           project_type: `Price Beat (${inquiryType === "service" ? "Service" : "Product"}): ${categoryLabel}`,

@@ -49,27 +49,39 @@ export async function POST(request: NextRequest) {
       ? photos.filter((u): u is string => typeof u === "string" && u.startsWith("http"))
       : [];
 
-    const projectDescription = `SERVICE QUOTE REQUEST
-Service: ${projectTitle}
-Name: ${name || "Not provided"}
-Email: ${email}
-Phone: ${phone || "Not provided"}
-Address: ${address || "Not provided"}
-Project Details: ${projectDetails}
-Timeline: ${timeline || "Not specified"}
-Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `$${budgetMax}` : "Not specified"}${photoUrls.length ? `\nPhotos: ${photoUrls.join(", ")}` : ""}`;
+    /* Budget range as a single human-readable string for the `budget`
+       column (the table stores it as text, not two numbers). */
+    const budgetRange =
+      budgetMin || budgetMax
+        ? `${budgetMin ? `$${budgetMin}` : "—"} to ${budgetMax ? `$${budgetMax}` : "—"}`
+        : null;
+
+    /* `message` holds only the leftovers that have no dedicated column —
+       photo URLs and the referral source. Everything else lands in its
+       own structured column so John's dashboard is filterable. */
+    const messageExtras = [
+      photoUrls.length ? `Photos:\n${photoUrls.join("\n")}` : null,
+      referralSource ? `How they found us: ${referralSource}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
 
     // Save to Supabase if configured
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
         await supabase.from("leads").insert({
-          name: name || null,
+          /* `name` is NOT NULL in the table; the form validates it
+             client-side via validateLeadForm, so it's always present. */
+          name: name || "Not provided",
           email,
           phone: phone || null,
           address: address || null,
           project_type: projectTitle,
-          message: projectDescription,
+          project_details: projectDetails || null,
+          timeline: timeline || null,
+          budget: budgetRange,
+          message: messageExtras || null,
           source: "quote_tool",
         });
       } catch (dbError) {

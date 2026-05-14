@@ -33,17 +33,12 @@ export async function POST(request: NextRequest) {
     }
 
     const projectTitle = serviceTitle || "General Consultation";
-    const messageBody = `IN-HOME CONSULTATION REQUEST
-Service interest: ${projectTitle}
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-Address: ${address || "Not provided"}
-Preferred time: ${preferredTime || "Flexible"}
-Project notes: ${projectDetails}`;
 
     /* Save to Supabase — same `leads` table, distinct source value so John can
-       filter consultations vs. quote-tool leads in the dashboard. */
+       filter consultations vs. quote-tool leads in the dashboard. Structured
+       columns rather than one message blob: the consultation's "preferred
+       time" maps to `timeline` (it's the when), the notes to
+       `project_details`. */
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
@@ -53,7 +48,9 @@ Project notes: ${projectDetails}`;
           phone,
           address: address || null,
           project_type: projectTitle,
-          message: messageBody,
+          project_details: projectDetails || null,
+          timeline: preferredTime || "Flexible",
+          message: "In-home consultation request",
           source: "consultation",
         });
       } catch (dbError) {

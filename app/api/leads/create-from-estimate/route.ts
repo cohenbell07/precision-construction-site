@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     if (supabase) {
       try {
         await supabase.from("leads").insert({
-          name: name || null,
+          name: name || email,
           email,
           phone: phone || null,
           project_type: projectType || null,
