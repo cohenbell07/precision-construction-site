@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/services`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.95 },
     { url: `${BASE_URL}/get-quote`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE_URL}/book-consultation`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/price-beat`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     /* Deal variants are now ?deal=… query params on /get-quote, not their
        own routes — no separate sitemap entries needed. */
   ];

@@ -21,6 +21,8 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const name = (formData.get("name") as string) || "";
     const email = (formData.get("email") as string) || "";
+    const phone = (formData.get("phone") as string) || "";
+    const note = (formData.get("note") as string) || "";
     const productType = (formData.get("productType") as string) || "";
     const rawInquiryType = ((formData.get("inquiryType") as string) || "product").toLowerCase();
     const inquiryType = rawInquiryType === "service" ? "service" : "product";
@@ -66,9 +68,10 @@ export async function POST(request: NextRequest) {
         await supabase.from("leads").insert({
           name: name || email,
           email,
-          phone: null,
+          phone: phone || null,
           project_type: `Price Beat (${inquiryType === "service" ? "Service" : "Product"}): ${categoryLabel}`,
-          message: `Type: ${inquiryType === "service" ? "Service" : "Product"}\nCategory: ${categoryLabel}\n\nCompetitor quote attached: ${hasAttachment ? "Yes" : "No"}`,
+          project_details: note || null,
+          message: `Type: ${inquiryType === "service" ? "Service" : "Product"}\nCategory: ${categoryLabel}\nCompetitor quote attached: ${hasAttachment ? "Yes" : "No"}${note ? `\n\nNote: ${note}` : ""}`,
           source: sourceSlug,
         });
       } catch (dbError) {
@@ -85,8 +88,13 @@ export async function POST(request: NextRequest) {
         <p><strong>Type:</strong> ${inquiryType === "service" ? "Service" : "Product"}</p>
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(phone) || "Not provided"}</p>
         <p><strong>Category:</strong> ${escapeHtml(categoryLabel)}</p>
+        ${note ? `<p><strong>Project Note:</strong></p><p>${escapeHtml(note)}</p>` : ""}
         <p><strong>Competitor Quote Attached:</strong> ${hasAttachment ? `Yes (${attachment!.filename})` : "No"}</p>
+        <p style="margin-top:14px;padding:10px 14px;background:#fef3c7;border:1px solid #fde68a;border-radius:8px;color:#92400e;font-size:14px;">
+          <strong>Action:</strong> Review the attached quote, confirm it meets the price-beat terms, and reply within 24 hours with a price at least 5% under it.
+        </p>
       `,
       attachments: attachment ? [attachment] : undefined,
     });

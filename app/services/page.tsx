@@ -17,6 +17,7 @@ import { BlurReveal } from "@/components/BlurReveal";
 import { Section } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
 import { BookConsultationCTA } from "@/components/BookConsultationCTA";
+import { PriceBeatBanner } from "@/components/PriceBeatBanner";
 
 const serviceImageMap: Record<string, string> = {
   cabinets: "/service-millwork.webp",
@@ -172,16 +173,30 @@ export default function ServicesPage() {
           {[
             { icon: Shield, text: "Licensed & Insured" },
             { text: "Free On-Site Estimates" },
-            { text: "5% Price Beat Guarantee" },
-          ].map((item) => (
-            <div key={item.text} className="flex items-center gap-2 text-ink">
-              {"icon" in item && item.icon && <item.icon aria-hidden="true" className="w-4 h-4 text-sandstone-dark" />}
-              {!("icon" in item) && <div className="w-1 h-1 rounded-full bg-sandstone-dark shrink-0" />}
-              <span className="text-xs uppercase tracking-[0.12em] font-medium">{item.text}</span>
-            </div>
-          ))}
+            { text: "5% Price Beat Guarantee", href: "/price-beat" },
+          ].map((item) => {
+            const inner = (
+              <>
+                {"icon" in item && item.icon && <item.icon aria-hidden="true" className="w-4 h-4 text-sandstone-dark" />}
+                {!("icon" in item) && <div className="w-1 h-1 rounded-full bg-sandstone-dark shrink-0" />}
+                <span className="text-xs uppercase tracking-[0.12em] font-medium">{item.text}</span>
+              </>
+            );
+            return "href" in item && item.href ? (
+              <Link key={item.text} href={item.href} className="flex items-center gap-2 text-ink hover:text-sandstone-dark transition-colors underline-offset-4 hover:underline">
+                {inner}
+              </Link>
+            ) : (
+              <div key={item.text} className="flex items-center gap-2 text-ink">
+                {inner}
+              </div>
+            );
+          })}
         </div>
       </Section>
+
+      {/* ━━━ PRICE BEAT — DARK (shopping-context interlude) ━━━ */}
+      <PriceBeatBanner />
 
       {/* ━━━ BOOK CONSULTATION — CREAM ━━━ */}
       <BookConsultationCTA

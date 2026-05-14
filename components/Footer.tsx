@@ -35,6 +35,7 @@ export function Footer() {
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
     { href: "/get-quote", label: "Get a Quote" },
+    { href: "/price-beat", label: "Price Beat Guarantee" },
   ];
 
   return (
@@ -59,7 +60,11 @@ export function Footer() {
                 Let&apos;s Talk About<br className="hidden sm:block" /> Your Project.
               </h3>
               <p className="font-serif italic text-white/55 text-base sm:text-lg max-w-md">
-                Free consultation. 5% price beat guarantee. We respond within 24 hours.
+                Free consultation.{" "}
+                <Link href="/price-beat" className="text-white/75 underline underline-offset-4 decoration-white/25 hover:text-sandstone hover:decoration-sandstone/60 transition-colors">
+                  5% price beat guarantee
+                </Link>
+                . We respond within 24 hours.
               </p>
             </div>
 
