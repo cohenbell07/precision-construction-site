@@ -67,7 +67,7 @@ export default function Home() {
   const serviceImages: Record<string, string> = {
     basements: "/basementland02.webp",
     cabinets: "/service-millwork.webp",
-    showers: "/service-steam-shower.webp",
+    showers: "/customshowerland.webp",
     countertops: "/countertopsservice3.webp",
     renovations: "/home-additions.webp",
     carpentry: "/interiorfinishingservice1.webp",

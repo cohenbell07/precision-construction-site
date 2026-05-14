@@ -20,7 +20,7 @@ import { BookConsultationCTA } from "@/components/BookConsultationCTA";
 
 const serviceImageMap: Record<string, string> = {
   cabinets: "/service-millwork.webp",
-  showers: "/service-steam-shower.webp",
+  showers: "/customshowerland.webp",
   countertops: "/countertopsservice3.webp",
   basements: "/basementland02.webp",
   carpentry: "/interiorfinishingservice1.webp",
