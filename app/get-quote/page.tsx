@@ -25,6 +25,12 @@ import { Section } from "@/components/Section";
 import { validateLeadForm, type LeadFormErrors } from "@/lib/forms";
 import { getActivePromo } from "@/lib/promo";
 import { DealQuoteFlow, type DealType } from "@/components/DealQuoteFlow";
+import { ServiceQuestions, type AnswersState } from "@/components/ServiceQuestions";
+import {
+  getQuestionSet,
+  formatAnswersForSubmit,
+  validateAnswers,
+} from "@/lib/quote-questions";
 
 const LightRays = dynamic(() => import("@/components/LightRays").then((m) => ({ default: m.LightRays })), { ssr: false });
 
@@ -52,6 +58,11 @@ function GetQuoteForm() {
     projectDetails: "", timeline: "", budgetMin: "", budgetMax: "",
     referralSource: "", referralOther: "",
   });
+  /* Service-specific structured answers (replaces the generic project-details
+     textarea). Flattened into projectDetails on submit so the API contract
+     doesn't change. */
+  const [answers, setAnswers] = useState<AnswersState>({});
+  const [answerErrors, setAnswerErrors] = useState<Record<string, string>>({});
   const [summary, setSummary] = useState("");
   const [errors, setErrors] = useState<LeadFormErrors>({});
   const [loading, setLoading] = useState(false);
@@ -70,6 +81,12 @@ function GetQuoteForm() {
   }, [searchParams]);
 
   const handleServiceSelect = (serviceId: string) => {
+    /* Reset structured answers if the service changed — the question set
+       below depends on this. */
+    if (serviceId !== selectedService) {
+      setAnswers({});
+      setAnswerErrors({});
+    }
     setSelectedService(serviceId);
     setStep("details");
   };
@@ -85,13 +102,34 @@ function GetQuoteForm() {
       document.getElementById("customServiceName")?.focus();
       return;
     }
-    const errs = validateLeadForm(formData);
+
+    /* Validate structured answers first — they replace the old generic
+       projectDetails textarea. The required fields per service live in
+       lib/quote-questions.ts. */
+    const questions = getQuestionSet(selectedService);
+    const aErrs = validateAnswers(questions, answers);
+    setAnswerErrors(aErrs);
+
+    /* Flatten the structured answers into the projectDetails string the
+       backend already expects — zero API changes needed. */
+    const formattedDetails = formatAnswersForSubmit(questions, answers);
+    const mergedFormData = { ...formData, projectDetails: formattedDetails };
+
+    const errs = validateLeadForm(mergedFormData);
     setErrors(errs);
+
+    if (Object.keys(aErrs).length) {
+      /* Scroll to the first unanswered question. */
+      const firstQ = Object.keys(aErrs)[0];
+      document.getElementById(`q-${firstQ}`)?.scrollIntoView({ block: "center", behavior: "smooth" });
+      return;
+    }
     if (Object.keys(errs).length) {
       const first = Object.keys(errs)[0];
       document.getElementById(first)?.focus();
       return;
     }
+
     setLoading(true);
     try {
       const service = selectedService === "other" ? null : getServiceById(selectedService);
@@ -103,7 +141,7 @@ function GetQuoteForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name, email: formData.email, phone: formData.phone, address: formData.address,
-          projectDetails: formData.projectDetails, timeline: formData.timeline,
+          projectDetails: formattedDetails, timeline: formData.timeline,
           budgetMin: formData.budgetMin, budgetMax: formData.budgetMax,
           serviceTitle, serviceId: selectedService,
           referralSource: formData.referralSource === "Other"
@@ -270,17 +308,6 @@ function GetQuoteForm() {
             {step === "details" && (
               <div className="paper-card rounded-md">
                 <div className="p-6 sm:p-8 md:p-10">
-                  <div className="mb-7 sm:mb-8">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="h-px w-8 cream-rule" />
-                      <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Step 02</p>
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl font-heading font-black text-ink uppercase tracking-tight">Project Details</h2>
-                    <p className="font-serif italic text-ink-muted mt-3 text-base">
-                      {selectedService === "other" ? "Tell us about your project" : `Tell us about your ${getServiceById(selectedService)?.title ?? "project"}`}
-                    </p>
-                  </div>
-
                   <form onSubmit={handleDetailsSubmit} className="space-y-5" noValidate>
                     {selectedService === "other" && (
                       <div>
@@ -290,6 +317,43 @@ function GetQuoteForm() {
                         <Input id="customServiceName" required value={customServiceName} onChange={(e) => setCustomServiceName(e.target.value)} placeholder="e.g., Basement Development, Deck Construction..." className={FIELD_CLASS} />
                       </div>
                     )}
+
+                    {/* Service-specific structured questions — replaces the
+                        old generic 'Project Details' textarea. Question set
+                        is pulled from lib/quote-questions.ts based on the
+                        service the user picked in Step 1. */}
+                    <ServiceQuestions
+                      eyebrow="Step 02"
+                      heading={`About Your ${selectedService === "other" ? "Project" : (getServiceById(selectedService)?.title ?? "Project")}`}
+                      questions={getQuestionSet(selectedService)}
+                      answers={answers}
+                      errors={answerErrors}
+                      onChange={(next) => {
+                        setAnswers(next);
+                        /* Clear any error for a question that's now answered. */
+                        if (Object.keys(answerErrors).length) {
+                          const cleared: Record<string, string> = {};
+                          for (const key of Object.keys(answerErrors)) {
+                            const v = next[key];
+                            const isAnswered = Array.isArray(v) ? v.length > 0 : (typeof v === "string" && v.trim().length > 0);
+                            if (!isAnswered) cleared[key] = answerErrors[key];
+                          }
+                          setAnswerErrors(cleared);
+                        }
+                      }}
+                    />
+
+                    {/* Divider + contact info subhead — visually separates
+                        'about the project' from 'how we reach you'. */}
+                    <div className="pt-7 sm:pt-8 mt-2 border-t border-bone-hairline">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="h-px w-8 cream-rule" />
+                        <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Your Contact</p>
+                      </div>
+                      <p className="font-serif italic text-ink-muted text-base mb-5">
+                        How we get back to you with the quote.
+                      </p>
+                    </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
@@ -317,14 +381,6 @@ function GetQuoteForm() {
                         <label htmlFor="address" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">Project Address</label>
                         <Input id="address" value={formData.address} onChange={(e) => handleInputChange("address", e.target.value)} placeholder="Calgary, AB (optional)" className={FIELD_CLASS} />
                       </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="projectDetails" className="block text-[10px] font-bold mb-2 text-sandstone-muted uppercase tracking-[0.2em]">
-                        Project Details <span aria-hidden="true" className="text-ink">*</span>
-                      </label>
-                      <Textarea id="projectDetails" required aria-required="true" aria-invalid={!!errors.projectDetails} aria-describedby={errors.projectDetails ? "projectDetails-error" : undefined} value={formData.projectDetails} onChange={(e) => { handleInputChange("projectDetails", e.target.value); clearError("projectDetails"); }} placeholder={selectedService === "other" ? "Describe your project in detail — what you need, scope, any special requirements..." : "Describe your project in detail — scope, size, materials you have in mind, etc..."} rows={5} className={TEXTAREA_CLASS} />
-                      {errors.projectDetails && <p id="projectDetails-error" role="alert" className="mt-1.5 text-xs text-red-700">{errors.projectDetails}</p>}
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
