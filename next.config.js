@@ -6,15 +6,17 @@ const nextConfig = {
       skipDefaultConversion: true,
     },
   },
-  /* Old deal-quote routes are consolidated into /get-quote with ?deal=<type>.
-     Keep the legacy URLs alive with permanent redirects so any inbound links
-     (emails, ads, search index, sitemap references prior to refresh) still
-     land on the right form. */
+  /* The old per-deal quote forms (basement / bundle / supplier-deals) are
+     retired — every service is 15% off site-wide via the Spring Build event,
+     so the one promo-aware /get-quote form covers everything. These permanent
+     redirects keep any historical inbound links (emails, ads, search index)
+     alive: the basement deal points at the basement *service* (closest intent
+     match), the rest land on the main form. */
   async redirects() {
     return [
-      { source: "/get-quote/basement",       destination: "/get-quote?deal=basement", permanent: true },
-      { source: "/get-quote/bundle",         destination: "/get-quote?deal=bundle",   permanent: true },
-      { source: "/get-quote/supplier-deals", destination: "/get-quote?deal=supplier", permanent: true },
+      { source: "/get-quote/basement",       destination: "/get-quote?service=basements", permanent: true },
+      { source: "/get-quote/bundle",         destination: "/get-quote",                   permanent: true },
+      { source: "/get-quote/supplier-deals", destination: "/get-quote",                   permanent: true },
     ];
   },
   images: {

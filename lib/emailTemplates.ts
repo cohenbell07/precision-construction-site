@@ -159,66 +159,12 @@ export function getFollowUpConsultationEmail(data: EmailTemplateData): { subject
   };
 }
 
-/**
- * Deal quote types for 15% bundle, 10% supplier, and 15% basement forms
- */
-export interface DealQuoteData {
-  dealType: "bundle" | "supplier" | "basement";
-  name?: string;
-  email: string;
-  phone?: string;
-  /** Selected options (e.g. "Flooring + install", "Full basement renovation") */
-  selectedOptions: string[];
-  /** Bundle/basement: project details. Supplier: quantity / how much needed */
-  projectDetails?: string;
-  timeline?: string;
-  budgetMin?: string;
-  budgetMax?: string;
-}
-
-export function getDealQuoteLabels(data: DealQuoteData): { discount: string; label: string; projectDetailsLabel: string } {
-  if (data.dealType === "bundle") return { discount: "15%", label: "15% Bundle Savings", projectDetailsLabel: "Project / service details:" };
-  if (data.dealType === "basement") return { discount: "15%", label: "15% Basement Renovation", projectDetailsLabel: "Project / service details:" };
-  return { discount: "10%", label: "10% Seasonal Special", projectDetailsLabel: "Project / service details:" };
-}
-
-export function getDealQuoteAdminEmail(data: DealQuoteData): { subject: string; html: string } {
-  const { discount, label, projectDetailsLabel } = getDealQuoteLabels(data);
-  return {
-    subject: `${label} Quote Request — ${data.name || "Unknown"}`,
-    html: `
-      <h2>${label} Quote Request</h2>
-      <p><strong>Discount:</strong> ${discount} off</p>
-      <p><strong>Name:</strong> ${data.name || "Not provided"}</p>
-      <p><strong>Email:</strong> ${data.email}</p>
-      <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
-      <p><strong>Selected options (${data.selectedOptions.length}):</strong></p>
-      <ul>${data.selectedOptions.map((o) => `<li>${escapeHtml(o)}</li>`).join("")}</ul>
-      ${data.projectDetails ? `<p><strong>${projectDetailsLabel}</strong></p><p>${escapeHtml(data.projectDetails)}</p>` : ""}
-      ${data.timeline ? `<p><strong>Timeline:</strong> ${data.timeline}</p>` : ""}
-      ${data.budgetMin || data.budgetMax ? `<p><strong>Budget range:</strong> ${data.budgetMin ? `$${data.budgetMin}` : "—"} to ${data.budgetMax ? `$${data.budgetMax}` : "—"}</p>` : ""}
-      <p><strong>Source:</strong> ${label} form</p>
-      <p>${BRAND_CONFIG.motto}</p>
-    `,
-  };
-}
-
-export function getDealQuoteConfirmationEmail(data: DealQuoteData): { subject: string; html: string } {
-  const { discount, label } = getDealQuoteLabels(data);
-  const shortLabel = data.dealType === "basement" ? "Basement Renovation" : label.replace(/^\d+% /, "");
-  return {
-    subject: `We received your ${shortLabel} quote request — ${BRAND_CONFIG.shortName}`,
-    html: `
-      <h2>Thank you for your ${discount} ${shortLabel} quote request</h2>
-      <p>Hi ${data.name || "there"},</p>
-      <p>We've received your request and will get back to you within 24 hours with a quote.</p>
-      <p><strong>Your selections:</strong> ${data.selectedOptions.join(", ")}</p>
-      <p><strong>${BRAND_CONFIG.motto}</strong></p>
-      <p>If you have any questions, call us at ${BRAND_CONFIG.contact.phoneFormatted}.</p>
-      <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
-    `,
-  };
-}
+/* The per-deal quote email templates (getDealQuoteAdminEmail /
+   getDealQuoteConfirmationEmail / getDealQuoteLabels / DealQuoteData) were
+   removed alongside the basement / bundle / supplier-deals forms — every
+   service is 15% off site-wide via the Spring Build event, so the single
+   promo-aware /get-quote form covers all of it and the deal-specific
+   templates have no caller. */
 
 /**
  * Service page "materials / questions" inquiry (owner notification)
