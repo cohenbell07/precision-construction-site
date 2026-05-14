@@ -30,7 +30,7 @@ const serviceImageMap: Record<string, string> = {
   painting: "/painting.webp",
   garages: "/garage-deck-fence.webp",
   renovations: "/home-additions.webp",
-  commercial: "/commercial-construction.webp",
+  commercial: "/commercialland.webp",
 };
 
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
