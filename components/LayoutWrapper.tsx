@@ -8,6 +8,7 @@ import { ChunkErrorBoundary } from "./ChunkErrorBoundary";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { PromoStrip } from "./PromoStrip";
+import { PromoModal } from "./PromoModal";
 import { Toaster } from "./ui/toaster";
 
 const FloatingChatbot = dynamic(() => import("./FloatingChatbot").then((m) => ({ default: m.FloatingChatbot })), {
@@ -51,6 +52,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         </main>
         <Footer />
         <FloatingChatbot />
+        <PromoModal />
         <Toaster />
       </MotionConfig>
     </ChunkErrorBoundary>
