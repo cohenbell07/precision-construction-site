@@ -8,7 +8,20 @@ import { getActiveDealsSummaryForEmail, getDealsForService } from "@/lib/deals";
 
 export async function POST(request: NextRequest) {
   try {
-    const data = await request.json();
+    const data = await request.json() as {
+      name?: string;
+      email?: string;
+      phone?: string;
+      serviceTitle?: string;
+      serviceId?: string;
+      address?: string;
+      projectDetails?: string;
+      timeline?: string;
+      budgetMin?: string | number;
+      budgetMax?: string | number;
+      referralSource?: string;
+      photos?: string[];
+    };
     const {
       name,
       email,
@@ -21,6 +34,7 @@ export async function POST(request: NextRequest) {
       budgetMin,
       budgetMax,
       referralSource,
+      photos,
     } = data;
 
     if (!email || !projectDetails) {
@@ -31,6 +45,10 @@ export async function POST(request: NextRequest) {
     }
 
     const projectTitle = serviceTitle || "Service";
+    const photoUrls: string[] = Array.isArray(photos)
+      ? photos.filter((u): u is string => typeof u === "string" && u.startsWith("http"))
+      : [];
+
     const projectDescription = `SERVICE QUOTE REQUEST
 Service: ${projectTitle}
 Name: ${name || "Not provided"}
@@ -39,7 +57,7 @@ Phone: ${phone || "Not provided"}
 Address: ${address || "Not provided"}
 Project Details: ${projectDetails}
 Timeline: ${timeline || "Not specified"}
-Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `$${budgetMax}` : "Not specified"}`;
+Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `$${budgetMax}` : "Not specified"}${photoUrls.length ? `\nPhotos: ${photoUrls.join(", ")}` : ""}`;
 
     // Save to Supabase if configured
     const supabase = getSupabaseClient();
@@ -100,6 +118,17 @@ Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `
         <p><strong>Timeline:</strong> ${safe(timeline) || "Not specified"}</p>
         <p><strong>Budget Range:</strong> ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `$${budgetMax}` : "Not specified"}</p>
         ${referralSource ? `<p><strong>How They Found Us:</strong> ${safe(referralSource)}</p>` : ""}
+        ${photoUrls.length ? `
+          <p><strong>Project Photos:</strong></p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+            ${photoUrls.map((url, i) => `
+              <a href="${url}" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
+                <img src="${url}" alt="Project photo ${i + 1}" width="160" style="display:block;border-radius:6px;border:1px solid #d9d0be;object-fit:cover;" />
+              </a>
+            `).join("")}
+          </div>
+          <p style="font-size:12px;color:#666;">Tap any photo to open at full size.</p>
+        ` : ""}
         ${getActiveDealsSummaryForEmail(serviceId || "")}
       `,
     });

@@ -26,6 +26,7 @@ import { validateLeadForm, type LeadFormErrors } from "@/lib/forms";
 import { getActivePromo } from "@/lib/promo";
 import { DealQuoteFlow, type DealType } from "@/components/DealQuoteFlow";
 import { ServiceQuestions, type AnswersState } from "@/components/ServiceQuestions";
+import { PhotoUpload } from "@/components/PhotoUpload";
 import {
   getQuestionSet,
   formatAnswersForSubmit,
@@ -63,6 +64,10 @@ function GetQuoteForm() {
      doesn't change. */
   const [answers, setAnswers] = useState<AnswersState>({});
   const [answerErrors, setAnswerErrors] = useState<Record<string, string>>({});
+  /* Optional project photos — uploaded as the user picks them via the
+     PhotoUpload component; the resulting public URLs are sent with the
+     submission and rendered in the admin email. */
+  const [photoUrls, setPhotoUrls] = useState<string[]>([]);
   const [summary, setSummary] = useState("");
   const [errors, setErrors] = useState<LeadFormErrors>({});
   const [loading, setLoading] = useState(false);
@@ -82,7 +87,7 @@ function GetQuoteForm() {
 
   const handleServiceSelect = (serviceId: string) => {
     /* Reset structured answers if the service changed — the question set
-       below depends on this. */
+       below depends on this. Keep photos: they apply across services. */
     if (serviceId !== selectedService) {
       setAnswers({});
       setAnswerErrors({});
@@ -147,6 +152,7 @@ function GetQuoteForm() {
           referralSource: formData.referralSource === "Other"
             ? (formData.referralOther || "Other")
             : (formData.referralSource || undefined),
+          photos: photoUrls.length > 0 ? photoUrls : undefined,
         }),
       });
       const data = await res.json();
@@ -343,6 +349,12 @@ function GetQuoteForm() {
                       }}
                     />
 
+                    {/* Optional photos — uploaded as files are picked. Fully
+                        optional, but boosts quote accuracy substantially. */}
+                    <div className="pt-2">
+                      <PhotoUpload urls={photoUrls} onChange={setPhotoUrls} max={3} />
+                    </div>
+
                     {/* Divider + contact info subhead — visually separates
                         'about the project' from 'how we reach you'. */}
                     <div className="pt-7 sm:pt-8 mt-2 border-t border-bone-hairline">
@@ -350,8 +362,11 @@ function GetQuoteForm() {
                         <div className="h-px w-8 cream-rule" />
                         <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Your Contact</p>
                       </div>
-                      <p className="font-serif italic text-ink-muted text-base mb-5">
+                      <p className="font-serif italic text-ink-muted text-base mb-2">
                         How we get back to you with the quote.
+                      </p>
+                      <p className="text-[11px] text-ink-muted mb-5">
+                        Only <span className="text-ink font-semibold">name</span> and <span className="text-ink font-semibold">email</span> are required — everything else just helps us tailor the quote.
                       </p>
                     </div>
 
@@ -461,26 +476,70 @@ function GetQuoteForm() {
                     <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Request Received</p>
                     <div className="h-px w-8 cream-rule-rtl" />
                   </div>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-ink uppercase tracking-tight mb-3">Thank You!</h2>
-                  <div className="max-w-lg mx-auto rounded-md border border-bone-hairline bg-bone-soft/40 p-5 sm:p-6 mb-8 text-left">
-                    <p className="text-ink-muted leading-relaxed text-sm sm:text-base">{summary}</p>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-ink uppercase tracking-tight mb-3">
+                    {formData.name ? `${formData.name.split(" ")[0]}, we've got it.` : "We've got it."}
+                  </h2>
+                  <p className="font-serif italic text-ink text-lg sm:text-xl leading-snug max-w-md mx-auto mb-6">
+                    A confirmation is on its way to {formData.email}.
+                  </p>
+
+                  {/* What happens next — concrete commitment, then an
+                      escape hatch to the higher-intent path. */}
+                  <div className="max-w-md mx-auto text-left mb-7 sm:mb-8 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-sandstone-dark text-bone shrink-0 text-[10px] font-bold">1</span>
+                      <p className="text-sm text-ink-muted leading-relaxed">
+                        <span className="text-ink font-semibold">{BRAND_CONFIG.owner} or someone on the team will be in touch within 24 hours</span> with your quote.
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-sandstone-dark text-bone shrink-0 text-[10px] font-bold">2</span>
+                      <p className="text-sm text-ink-muted leading-relaxed">
+                        <span className="text-ink font-semibold">Don&apos;t want to wait?</span> Book a 30-minute in-home consultation now and we&apos;ll walk through your project together.
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <Link href="/" className="btn-ink px-6 py-3 uppercase tracking-widest text-xs sm:text-sm">
+
+                  {summary && (
+                    <details className="max-w-md mx-auto mb-7 text-left">
+                      <summary className="cursor-pointer text-[11px] tracking-[0.25em] uppercase font-medium text-sandstone-muted hover:text-ink-muted transition-colors">
+                        What we sent you
+                      </summary>
+                      <div className="mt-3 rounded-md border border-bone-hairline bg-bone-soft/50 p-4 text-sm text-ink-muted leading-relaxed">
+                        {summary}
+                      </div>
+                    </details>
+                  )}
+
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
+                    <Link
+                      href={selectedService && selectedService !== "other" ? `/book-consultation?service=${selectedService}` : "/book-consultation"}
+                      className="btn-ink px-7 py-3.5 uppercase tracking-widest text-xs sm:text-sm inline-flex items-center justify-center gap-2"
+                    >
+                      Book a Consultation →
+                    </Link>
+                    <Link
+                      href="/"
+                      className="btn-ink-ghost uppercase tracking-widest text-xs sm:text-sm px-6 py-3.5 inline-flex items-center justify-center"
+                    >
                       Return Home
                     </Link>
-                    <button
-                      onClick={() => {
-                        setStep("selection");
-                        setSelectedService("");
-                        setCustomServiceName("");
-                        setFormData({ name: "", email: "", phone: "", address: "", projectDetails: "", timeline: "", budgetMin: "", budgetMax: "", referralSource: "", referralOther: "" });
-                      }}
-                      className="btn-ink-ghost uppercase tracking-widest text-xs sm:text-sm px-6 py-3"
-                    >
-                      Request Another Quote
-                    </button>
                   </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStep("selection");
+                      setSelectedService("");
+                      setCustomServiceName("");
+                      setAnswers({});
+                      setAnswerErrors({});
+                      setFormData({ name: "", email: "", phone: "", address: "", projectDetails: "", timeline: "", budgetMin: "", budgetMax: "", referralSource: "", referralOther: "" });
+                    }}
+                    className="mt-6 text-[11px] text-sandstone-muted hover:text-ink-muted tracking-[0.25em] uppercase underline-offset-4 hover:underline transition-colors"
+                  >
+                    Request another quote
+                  </button>
                 </div>
               </div>
             )}

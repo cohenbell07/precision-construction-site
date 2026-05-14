@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
-import { Loader2, Check, CheckCircle } from "lucide-react";
+import { Loader2, Check, CheckCircle, ArrowRight } from "lucide-react";
 import { Section } from "@/components/Section";
 import { validateLeadForm, type LeadFormErrors } from "@/lib/forms";
 
@@ -175,6 +175,7 @@ export function DealQuoteFlow({ deal }: { deal: DealType }) {
   };
 
   if (submitted) {
+    const firstName = formData.name.split(" ")[0];
     return (
       <Section
         variant="cream"
@@ -192,17 +193,41 @@ export function DealQuoteFlow({ deal }: { deal: DealType }) {
               <div className="h-px w-8 cream-rule-rtl" />
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-ink uppercase tracking-tight mb-3">
-              Thank You!
+              {firstName ? `${firstName}, we've got it.` : "We've got it."}
             </h2>
-            <p className="text-ink-muted text-sm sm:text-base leading-relaxed mb-8 max-w-md mx-auto">
-              {cfg.successMessage}
+            <p className="font-serif italic text-ink text-lg sm:text-xl leading-snug max-w-md mx-auto mb-6">
+              A confirmation is on its way to {formData.email}.
             </p>
-            <Link
-              href="/"
-              className="btn-ink px-6 py-3 uppercase tracking-widest text-xs sm:text-sm"
-            >
-              Return Home
-            </Link>
+
+            <div className="max-w-md mx-auto text-left mb-7 sm:mb-8 space-y-3">
+              <div className="flex items-start gap-3">
+                <span className="mt-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-sandstone-dark text-bone shrink-0 text-[10px] font-bold">1</span>
+                <p className="text-sm text-ink-muted leading-relaxed">
+                  <span className="text-ink font-semibold">{BRAND_CONFIG.owner} or someone on the team will be in touch within 24 hours</span> with your quote.
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="mt-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-sandstone-dark text-bone shrink-0 text-[10px] font-bold">2</span>
+                <p className="text-sm text-ink-muted leading-relaxed">
+                  <span className="text-ink font-semibold">Don&apos;t want to wait?</span> Book a 30-minute in-home consultation now and we&apos;ll walk through your project together.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
+              <Link
+                href="/book-consultation"
+                className="btn-ink px-7 py-3.5 uppercase tracking-widest text-xs sm:text-sm inline-flex items-center justify-center gap-2"
+              >
+                Book a Consultation <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
+              </Link>
+              <Link
+                href="/"
+                className="btn-ink-ghost uppercase tracking-widest text-xs sm:text-sm px-6 py-3.5 inline-flex items-center justify-center"
+              >
+                Return Home
+              </Link>
+            </div>
           </div>
         </div>
       </Section>
