@@ -10,6 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
 import { sendEmail } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
+import { getCustomerEmailSignature } from "@/lib/emailTemplates";
 
 export async function POST(request: NextRequest) {
   try {
@@ -101,7 +102,7 @@ export async function POST(request: NextRequest) {
         </ul>
         <p>If you'd rather not wait, feel free to call us directly at ${BRAND_CONFIG.contact.phoneFormatted}.</p>
         <p><strong>${BRAND_CONFIG.motto}</strong></p>
-        <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}<br>${BRAND_CONFIG.contact.phoneFormatted}</p>
+        ${getCustomerEmailSignature()}
       `,
     });
 

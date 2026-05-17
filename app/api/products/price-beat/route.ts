@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
 import { sendEmail } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
+import { getCustomerEmailSignature } from "@/lib/emailTemplates";
 
 function escapeHtml(str: string | undefined): string {
   if (str == null || typeof str !== "string") return "";
@@ -109,7 +110,7 @@ export async function POST(request: NextRequest) {
         <p>We've received your request and will review your competitor quote. Our team will get back to you within 24 hours with our best price—guaranteed to beat your quote by at least 5%.</p>
         <p><strong>${BRAND_CONFIG.motto}</strong></p>
         <p>We treat every client like family and deliver only the best.</p>
-        <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
+        ${getCustomerEmailSignature()}
       `,
     });
 

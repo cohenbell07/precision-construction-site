@@ -6,6 +6,21 @@ import { ProjectDetails, EstimateResult } from "./aiTools";
  * Reusable email templates for lead generation automation
  */
 
+/**
+ * Standardized customer-facing email signature. Always includes phone +
+ * email so the customer has both ways to reach John. Used at the end of
+ * every customer confirmation across the API routes.
+ */
+export function getCustomerEmailSignature(): string {
+  return `
+    <p style="margin-top:24px;">Best regards,<br>
+    <strong>${BRAND_CONFIG.owner}</strong><br>
+    ${BRAND_CONFIG.name}<br>
+    ${BRAND_CONFIG.contact.phoneFormatted}<br>
+    <a href="mailto:${BRAND_CONFIG.contact.email}">${BRAND_CONFIG.contact.email}</a></p>
+  `;
+}
+
 export interface EmailTemplateData {
   name?: string;
   email: string;

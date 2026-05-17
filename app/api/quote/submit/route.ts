@@ -4,7 +4,8 @@ import { sendEmail } from "@/lib/email";
 import { generateAIResponse } from "@/lib/ai";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { env } from "@/lib/env";
-import { getActiveDealsSummaryForEmail, getDealsForService } from "@/lib/deals";
+import { getActiveOffersEmailHtml, getOffersForService } from "@/lib/deals";
+import { getCustomerEmailSignature } from "@/lib/emailTemplates";
 
 export async function POST(request: NextRequest) {
   try {
@@ -141,15 +142,19 @@ export async function POST(request: NextRequest) {
           </div>
           <p style="font-size:12px;color:#666;">Tap any photo to open at full size.</p>
         ` : ""}
-        ${getActiveDealsSummaryForEmail(serviceId || "")}
+        ${getActiveOffersEmailHtml()}
       `,
     });
 
-    // Build deal info for customer confirmation
-    const customerDeals = serviceId ? getDealsForService(serviceId) : [];
-    const dealNote = customerDeals.length > 0
+    /* Customer-facing call-out for the limited-time promo. The Price Beat
+       Guarantee is mentioned in passing so the customer knows it exists
+       (it applies vs. a competitor quote, not on top of our discount —
+       phrased here so it doesn't read like a stacked "+5%" offer). */
+    const customerOffers = getOffersForService(serviceId);
+    const limitedTime = customerOffers.find((o) => o.limitedTime);
+    const dealNote = limitedTime
       ? `<p style="margin-top:12px;padding:10px 14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;color:#166534;font-size:14px;">
-          <strong>Good news!</strong> Your selected service qualifies for: ${customerDeals.map(d => `<strong>${d.discount} — ${d.name}</strong>`).join(", ")}. We'll apply the best available deal to your quote.
+          <strong>Good news!</strong> Your project is eligible for our <strong>${limitedTime.name}</strong>${limitedTime.endsAtDisplay ? ` — valid through <strong>${limitedTime.endsAtDisplay}</strong>` : ""}. We also stand by our 5% Price Beat Guarantee if you've got a comparable competitor quote in hand.
         </p>`
       : "";
 
@@ -165,7 +170,7 @@ export async function POST(request: NextRequest) {
         <p>We'll review your <strong>${safe(projectTitle)}</strong> project details and get back to you within 24 hours with a detailed quote.</p>
         <p><strong>${BRAND_CONFIG.motto}</strong></p>
         <p>We treat every client like family and deliver only the best.</p>
-        <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}<br>${BRAND_CONFIG.contact.phoneFormatted}</p>
+        ${getCustomerEmailSignature()}
       `,
     });
 

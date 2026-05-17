@@ -11,7 +11,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
 import { sendEmail } from "@/lib/email";
 import { BRAND_CONFIG, escapeHtml } from "@/lib/utils";
-import { getServiceMaterialsInquiryEmail } from "@/lib/emailTemplates";
+import { getServiceMaterialsInquiryEmail, getCustomerEmailSignature } from "@/lib/emailTemplates";
 
 export async function POST(request: NextRequest) {
   try {
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
           <p>We've received your question about <strong>${escapeHtml(cleanService)}</strong> and will get back to you within 24 hours.</p>
           <p>If it's time-sensitive, feel free to call us directly at ${BRAND_CONFIG.contact.phoneFormatted}.</p>
           <p><strong>${BRAND_CONFIG.motto}</strong></p>
-          <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
+          ${getCustomerEmailSignature()}
         `,
       });
     } catch (confirmError) {

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
 import { sendEmail } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
+import { getCustomerEmailSignature } from "@/lib/emailTemplates";
 
 export async function POST(request: NextRequest) {
   try {
@@ -72,8 +73,7 @@ export async function POST(request: NextRequest) {
           <p>We've received your inquiry${data.projectType ? ` about ${escapeHtml(data.projectType)}` : ""} and will get back to you within 24 hours.</p>
           <p><strong>${BRAND_CONFIG.motto}</strong></p>
           <p>We treat every client like family and deliver only the best in service, quality, and satisfaction.</p>
-          <p>If you have any immediate questions, feel free to call us at ${BRAND_CONFIG.contact.phoneFormatted}.</p>
-          <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
+          ${getCustomerEmailSignature()}
         `,
       });
     } catch (confirmError) {
