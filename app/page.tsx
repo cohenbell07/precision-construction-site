@@ -149,6 +149,140 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ━━━ FEATURE PROMO — DARK ━━━
+          Sits directly under the hero so the active site promo is the
+          first thing visitors see after the headline — and so it doesn't
+          collide with the scroll-triggered PromoModal which fires further
+          down the page (~60% scroll).
+          During an active promo, this slot is a full-bleed editorial
+          tableau: the marketing image fills the section as background,
+          with all typography centered on top of the workbench's empty
+          zone. When the promo expires the same slot reverts to the
+          basement-developments feature. */}
+      {activePromo ? (
+        <section className="relative isolate overflow-hidden">
+          {/* Image fills the entire section. Composition is top-and-bottom
+              loaded (cherry branch top, materials bottom) so object-cover
+              keeps the framing intact when cropped at narrow viewports. */}
+          <div aria-hidden="true" className="absolute inset-0">
+            <Image
+              src={activePromo.image.src}
+              alt=""
+              fill
+              className="object-cover object-center"
+              sizes="100vw"
+              quality={88}
+              priority={false}
+            />
+            {/* Soft radial vignette + horizontal dim — keeps the center calm
+                and dark enough for white typography while leaving the bright
+                perimeter elements (cherry blossom, materials, brass) visible. */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/45" />
+            <div className="absolute inset-0" style={{
+              background: "radial-gradient(ellipse 70% 55% at 50% 50%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 70%)",
+            }} />
+            {/* Sandstone hairline at the section edges for editorial closure. */}
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sandstone/35 to-transparent" />
+            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sandstone/35 to-transparent" />
+          </div>
+
+          {/* Centered editorial content — sits on the workbench's empty zone. */}
+          <div className="relative z-10 min-h-[600px] sm:min-h-[680px] lg:min-h-[760px] flex items-center justify-center">
+            <div className="container mx-auto px-6 max-w-3xl text-center py-20 sm:py-24 lg:py-28">
+              <Reveal>
+                <div className="flex items-center justify-center gap-3 mb-7 sm:mb-9">
+                  <span className="h-px w-8 sm:w-10 bg-sandstone/70" aria-hidden="true" />
+                  <p className="text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-sandstone/90 font-medium flex items-center gap-2">
+                    <span className="inline-block h-1 w-1 rounded-full bg-sandstone animate-pulse" aria-hidden="true" />
+                    {activePromo.label}
+                  </p>
+                  <span className="h-px w-8 sm:w-10 bg-sandstone/70" aria-hidden="true" />
+                </div>
+
+                <h2 className="font-hero uppercase text-white text-[64px] sm:text-[88px] md:text-[108px] lg:text-[124px] leading-[0.85] tracking-tight mb-1 sm:mb-2 [text-shadow:0_2px_30px_rgba(0,0,0,0.5)]">
+                  15% Off
+                </h2>
+                <h2 className="font-hero uppercase text-sandstone text-[40px] sm:text-[56px] md:text-[68px] lg:text-[80px] leading-[0.9] tracking-tight mb-7 sm:mb-9 [text-shadow:0_2px_30px_rgba(0,0,0,0.6)]">
+                  Every Service
+                </h2>
+
+                <div className="h-px w-20 sm:w-28 bg-gradient-to-r from-transparent via-sandstone/80 to-transparent mx-auto mb-7 sm:mb-8" />
+
+                <p className="font-serif italic text-white/95 text-xl sm:text-2xl md:text-[28px] leading-[1.25] max-w-2xl mx-auto mb-5 [text-shadow:0_2px_18px_rgba(0,0,0,0.55)]">
+                  Now through {activePromo.endsAtDisplay} — our spring rate applies to every quote we send.
+                </p>
+
+                <p className="text-white/75 text-[13px] sm:text-sm tracking-[0.15em] uppercase font-medium max-w-2xl mx-auto mb-10 sm:mb-12 [text-shadow:0_2px_14px_rgba(0,0,0,0.5)]">
+                  All services · No minimums · Stacks with our 5% price-beat guarantee
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center">
+                  <Link
+                    href={activePromo.cta.href}
+                    className="group inline-flex items-center justify-center gap-3 bg-sandstone text-black px-8 py-4 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone-light transition-colors shadow-[0_12px_36px_-8px_rgba(196,181,160,0.55)]"
+                  >
+                    {activePromo.cta.label}
+                    <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <Link
+                    href="/services"
+                    className="inline-flex items-center justify-center gap-2 text-white/85 hover:text-white px-6 py-3.5 text-sm font-semibold tracking-wide transition-colors border border-white/20 rounded-full hover:border-sandstone/60 backdrop-blur-sm bg-white/[0.03]"
+                  >
+                    Browse all services →
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+
+          {/* Registration-mark stamp — quiet editorial closure, matches the
+              architectural register established elsewhere on the page. */}
+          <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3 sm:gap-4 text-[9px] sm:text-[10px] tracking-[0.4em] uppercase text-white/55 font-medium [text-shadow:0_2px_10px_rgba(0,0,0,0.7)]">
+            <span className="h-px w-8 sm:w-10 bg-white/30" aria-hidden="true" />
+            <span>PCND · Calgary · Est. 1968</span>
+            <span className="h-px w-8 sm:w-10 bg-white/30" aria-hidden="true" />
+          </div>
+        </section>
+      ) : (
+        <Section variant="dark" padding="none" withContainer={false} className="overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[550px]">
+            <Reveal>
+              <div className="relative h-[350px] sm:h-[400px] lg:h-full">
+                <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" quality={80} />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
+              </div>
+            </Reveal>
+            <div className="flex items-center px-5 sm:px-12 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-20">
+              <Reveal delay={0.15}>
+                <div>
+                  <SectionLabel label="Featured Service" theme="dark" />
+                  <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
+                    Basement<br />Developments
+                  </h2>
+                  <p className="font-serif italic text-white/85 text-lg sm:text-xl leading-snug mb-3 max-w-md">
+                    A turnkey transformation — concrete to finished space.
+                  </p>
+                  <p className="text-white/60 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
+                    Framing, electrical, plumbing, drywall, flooring, finishes. Permits handled. One team, start to finish.
+                  </p>
+                  <ul className="space-y-3 mb-10">
+                    {["Full turnkey development", "Permits & inspections handled", "Moisture control included"].map((item) => (
+                      <li key={item} className="flex items-center gap-3 text-white/70 text-sm">
+                        <div className="w-1 h-1 rounded-full bg-sandstone shrink-0" aria-hidden="true" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/services/basements" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
+                    See Basement Services <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </Section>
+      )}
+
       {/* ━━━ BY THE NUMBERS — DARK ━━━
           Editorial spec-sheet, upgrade pass: keeps the EST. 1968 typographic
           anchor, then breaks the linear row list into a four-card stat grid
@@ -322,136 +456,6 @@ export default function Home() {
           </div>
         </div>
       </Section>
-
-      {/* ━━━ FEATURE PROMO — DARK ━━━
-          During an active site promo, this slot is a full-bleed editorial
-          tableau: the marketing image fills the section as background, with
-          all typography centered on top of the workbench's empty zone.
-          When the promo expires the same slot reverts to the
-          basement-developments feature. */}
-      {activePromo ? (
-        <section className="relative isolate overflow-hidden">
-          {/* Image fills the entire section. Composition is top-and-bottom
-              loaded (cherry branch top, materials bottom) so object-cover
-              keeps the framing intact when cropped at narrow viewports. */}
-          <div aria-hidden="true" className="absolute inset-0">
-            <Image
-              src={activePromo.image.src}
-              alt=""
-              fill
-              className="object-cover object-center"
-              sizes="100vw"
-              quality={88}
-              priority={false}
-            />
-            {/* Soft radial vignette + horizontal dim — keeps the center calm
-                and dark enough for white typography while leaving the bright
-                perimeter elements (cherry blossom, materials, brass) visible. */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/45" />
-            <div className="absolute inset-0" style={{
-              background: "radial-gradient(ellipse 70% 55% at 50% 50%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 70%)",
-            }} />
-            {/* Sandstone hairline at the section edges for editorial closure. */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sandstone/35 to-transparent" />
-            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sandstone/35 to-transparent" />
-          </div>
-
-          {/* Centered editorial content — sits on the workbench's empty zone. */}
-          <div className="relative z-10 min-h-[600px] sm:min-h-[680px] lg:min-h-[760px] flex items-center justify-center">
-            <div className="container mx-auto px-6 max-w-3xl text-center py-20 sm:py-24 lg:py-28">
-              <Reveal>
-                <div className="flex items-center justify-center gap-3 mb-7 sm:mb-9">
-                  <span className="h-px w-8 sm:w-10 bg-sandstone/70" aria-hidden="true" />
-                  <p className="text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-sandstone/90 font-medium flex items-center gap-2">
-                    <span className="inline-block h-1 w-1 rounded-full bg-sandstone animate-pulse" aria-hidden="true" />
-                    {activePromo.label}
-                  </p>
-                  <span className="h-px w-8 sm:w-10 bg-sandstone/70" aria-hidden="true" />
-                </div>
-
-                <h2 className="font-hero uppercase text-white text-[64px] sm:text-[88px] md:text-[108px] lg:text-[124px] leading-[0.85] tracking-tight mb-1 sm:mb-2 [text-shadow:0_2px_30px_rgba(0,0,0,0.5)]">
-                  15% Off
-                </h2>
-                <h2 className="font-hero uppercase text-sandstone text-[40px] sm:text-[56px] md:text-[68px] lg:text-[80px] leading-[0.9] tracking-tight mb-7 sm:mb-9 [text-shadow:0_2px_30px_rgba(0,0,0,0.6)]">
-                  Every Service
-                </h2>
-
-                <div className="h-px w-20 sm:w-28 bg-gradient-to-r from-transparent via-sandstone/80 to-transparent mx-auto mb-7 sm:mb-8" />
-
-                <p className="font-serif italic text-white/95 text-xl sm:text-2xl md:text-[28px] leading-[1.25] max-w-2xl mx-auto mb-5 [text-shadow:0_2px_18px_rgba(0,0,0,0.55)]">
-                  Now through {activePromo.endsAtDisplay} — our spring rate applies to every quote we send.
-                </p>
-
-                <p className="text-white/75 text-[13px] sm:text-sm tracking-[0.15em] uppercase font-medium max-w-2xl mx-auto mb-10 sm:mb-12 [text-shadow:0_2px_14px_rgba(0,0,0,0.5)]">
-                  All services · No minimums · Stacks with our 5% price-beat guarantee
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center">
-                  <Link
-                    href={activePromo.cta.href}
-                    className="group inline-flex items-center justify-center gap-3 bg-sandstone text-black px-8 py-4 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone-light transition-colors shadow-[0_12px_36px_-8px_rgba(196,181,160,0.55)]"
-                  >
-                    {activePromo.cta.label}
-                    <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                  <Link
-                    href="/services"
-                    className="inline-flex items-center justify-center gap-2 text-white/85 hover:text-white px-6 py-3.5 text-sm font-semibold tracking-wide transition-colors border border-white/20 rounded-full hover:border-sandstone/60 backdrop-blur-sm bg-white/[0.03]"
-                  >
-                    Browse all services →
-                  </Link>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-
-          {/* Registration-mark stamp — quiet editorial closure, matches the
-              architectural register established elsewhere on the page. */}
-          <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3 sm:gap-4 text-[9px] sm:text-[10px] tracking-[0.4em] uppercase text-white/55 font-medium [text-shadow:0_2px_10px_rgba(0,0,0,0.7)]">
-            <span className="h-px w-8 sm:w-10 bg-white/30" aria-hidden="true" />
-            <span>PCND · Calgary · Est. 1968</span>
-            <span className="h-px w-8 sm:w-10 bg-white/30" aria-hidden="true" />
-          </div>
-        </section>
-      ) : (
-        <Section variant="dark" padding="none" withContainer={false} className="overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[550px]">
-            <Reveal>
-              <div className="relative h-[350px] sm:h-[400px] lg:h-full">
-                <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" quality={80} />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
-              </div>
-            </Reveal>
-            <div className="flex items-center px-5 sm:px-12 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-20">
-              <Reveal delay={0.15}>
-                <div>
-                  <SectionLabel label="Featured Service" theme="dark" />
-                  <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
-                    Basement<br />Developments
-                  </h2>
-                  <p className="font-serif italic text-white/85 text-lg sm:text-xl leading-snug mb-3 max-w-md">
-                    A turnkey transformation — concrete to finished space.
-                  </p>
-                  <p className="text-white/60 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
-                    Framing, electrical, plumbing, drywall, flooring, finishes. Permits handled. One team, start to finish.
-                  </p>
-                  <ul className="space-y-3 mb-10">
-                    {["Full turnkey development", "Permits & inspections handled", "Moisture control included"].map((item) => (
-                      <li key={item} className="flex items-center gap-3 text-white/70 text-sm">
-                        <div className="w-1 h-1 rounded-full bg-sandstone shrink-0" aria-hidden="true" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href="/services/basements" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
-                    See Basement Services <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </Section>
-      )}
 
       {/* ━━━ TESTIMONIALS — CREAM ━━━ */}
       <Section variant="cream">
