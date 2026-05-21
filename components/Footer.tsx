@@ -98,7 +98,7 @@ export function Footer() {
       </div>
 
       {/* ━━━ MAIN COLUMNS ━━━ */}
-      <div className="container mx-auto px-4 sm:px-6 py-14 sm:py-16 md:py-20 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 py-10 sm:py-16 md:py-20 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14 lg:gap-20">
 
           {/* Brand + Contact */}
@@ -145,7 +145,21 @@ export function Footer() {
               <h4 className="font-heading font-bold text-white uppercase tracking-[0.2em] text-xs">Services</h4>
               <div className="h-px w-10 bg-sandstone/40 mt-3" />
             </div>
-            <ul className="space-y-2">
+            <details className="md:hidden rounded-md border border-white/[0.08] bg-white/[0.02] px-4 py-3">
+              <summary className="cursor-pointer list-none text-sm font-semibold text-white/75">
+                View service links
+              </summary>
+              <ul className="mt-4 space-y-3">
+                {serviceLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-white/62 hover:text-white transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </details>
+            <ul className="hidden md:block space-y-2">
               {serviceLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="group inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-150">
@@ -163,7 +177,21 @@ export function Footer() {
               <h4 className="font-heading font-bold text-white uppercase tracking-[0.2em] text-xs">Company</h4>
               <div className="h-px w-10 bg-sandstone/40 mt-3" />
             </div>
-            <ul className="space-y-2">
+            <details className="md:hidden rounded-md border border-white/[0.08] bg-white/[0.02] px-4 py-3">
+              <summary className="cursor-pointer list-none text-sm font-semibold text-white/75">
+                View company links
+              </summary>
+              <ul className="mt-4 space-y-3">
+                {companyLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-white/62 hover:text-white transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </details>
+            <ul className="hidden md:block space-y-2">
               {companyLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="group inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-150">
@@ -180,7 +208,7 @@ export function Footer() {
       {/* ━━━ SUB-FOOTER ━━━ */}
       <div className="bg-black/60 border-t border-white/[0.04]">
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-          <div className="py-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-4 text-xs sm:text-[13px] text-white/50">
+          <div className="py-6 pb-48 md:pb-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-4 text-xs sm:text-[13px] text-white/50">
             <p>&copy; {new Date().getFullYear()} {BRAND_CONFIG.name}</p>
             <p>Serving Calgary, Airdrie, Cochrane &amp; Okotoks</p>
             <p>Licensed &amp; Insured &middot; Family Owned Since 1968</p>

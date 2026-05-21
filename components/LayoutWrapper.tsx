@@ -10,6 +10,7 @@ import { Footer } from "./Footer";
 import { PromoStrip } from "./PromoStrip";
 import { PromoModal } from "./PromoModal";
 import { Toaster } from "./ui/toaster";
+import { MobileLeadDock } from "./MobileLeadDock";
 
 const FloatingChatbot = dynamic(() => import("./FloatingChatbot").then((m) => ({ default: m.FloatingChatbot })), {
   ssr: false,
@@ -50,6 +51,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
             </motion.div>
           </AnimatePresence>
         </main>
+        <MobileLeadDock />
         <Footer />
         <FloatingChatbot />
         <PromoModal />
@@ -58,4 +60,3 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
     </ChunkErrorBoundary>
   );
 }
-

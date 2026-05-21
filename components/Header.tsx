@@ -25,7 +25,9 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [menuTop, setMenuTop] = useState<number | null>(null);
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuTitleId = useId();
@@ -56,9 +58,28 @@ export function Header() {
     };
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const updateMenuTop = () => {
+      const bottom = headerRef.current?.getBoundingClientRect().bottom ?? 0;
+      setMenuTop(Math.max(0, Math.round(bottom)));
+    };
+
+    updateMenuTop();
+    window.addEventListener("resize", updateMenuTop);
+    window.addEventListener("orientationchange", updateMenuTop);
+    return () => {
+      window.removeEventListener("resize", updateMenuTop);
+      window.removeEventListener("orientationchange", updateMenuTop);
+    };
+  }, [mobileMenuOpen]);
+
   /* Escape to close + focus restore + Tab focus trap. */
   useEffect(() => {
     if (!mobileMenuOpen) return;
+
+    const opener = menuButtonRef.current;
 
     /* Move focus into the menu after open. */
     const firstLink = menuRef.current?.querySelector<HTMLElement>("a, button");
@@ -88,7 +109,7 @@ export function Header() {
     return () => {
       window.removeEventListener("keydown", onKey);
       /* Restore focus to the toggle button on close. */
-      menuButtonRef.current?.focus();
+      opener?.focus();
     };
   }, [mobileMenuOpen]);
 
@@ -102,6 +123,7 @@ export function Header() {
 
   return (
     <header
+      ref={headerRef}
       className={`
         sticky top-0 z-50 w-full overflow-visible backdrop-blur-md
         transition-[background-color,border-color] duration-200 ease-out
@@ -200,15 +222,16 @@ export function Header() {
           role="dialog"
           aria-modal="true"
           aria-labelledby={menuTitleId}
-          className="md:hidden fixed inset-0 top-16 sm:top-[4.5rem] bg-black z-[100] overflow-y-auto"
+          className="md:hidden fixed inset-x-0 bottom-0 bg-black z-[100] overflow-y-auto"
+          style={{ top: menuTop == null ? undefined : `${menuTop}px` }}
         >
           {/* Sandstone hairline at top */}
           <div className="h-px bg-gradient-to-r from-transparent via-sandstone/40 to-transparent" aria-hidden="true" />
 
           <h2 id={menuTitleId} className="sr-only">Site menu</h2>
 
-          <div className="container mx-auto px-6 py-10 flex flex-col min-h-full">
-            <p className="font-serif italic text-sandstone-muted text-base mb-8 max-w-xs">
+          <div className="container mx-auto px-5 py-7 flex flex-col min-h-full">
+            <p className="font-serif italic text-sandstone-muted text-[15px] mb-6 max-w-xs">
               Three generations of quality. Family-owned since 1968.
             </p>
 
@@ -221,7 +244,7 @@ export function Header() {
                     href={link.href}
                     aria-current={isActive ? "page" : undefined}
                     className={`
-                      flex items-center justify-between text-3xl font-hero uppercase tracking-wide py-4
+                      flex items-center justify-between text-[28px] font-hero uppercase tracking-wide py-3.5
                       border-b border-white/[0.06] transition-colors duration-150
                       ${isActive ? "text-sandstone" : "text-white hover:text-sandstone"}
                     `}
@@ -237,18 +260,18 @@ export function Header() {
                 );
               })}
 
-              <div className="pt-8">
+              <div className="pt-7">
                 <Link
                   href="/get-quote"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex items-center justify-center gap-2 w-full px-7 py-4 rounded-full text-sm font-bold uppercase tracking-[0.18em] bg-sandstone text-black hover:bg-sandstone-light transition-colors"
+                  className="inline-flex items-center justify-center gap-2 w-full px-7 py-4 rounded-full text-sm font-black uppercase tracking-[0.18em] bg-sandstone text-black hover:bg-sandstone-light transition-colors"
                 >
                   Get a Free Quote <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </Link>
               </div>
             </div>
 
-            <div className="pb-8 pt-8 mt-4 border-t border-white/[0.08] space-y-4">
+            <div className="pb-6 pt-6 mt-4 border-t border-white/[0.08] space-y-4">
               <a
                 href={`tel:${BRAND_CONFIG.contact.phone}`}
                 className="flex items-center gap-2 text-base font-semibold text-white/80 hover:text-sandstone transition-colors"

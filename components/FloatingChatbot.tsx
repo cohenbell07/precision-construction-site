@@ -16,6 +16,12 @@ export function FloatingChatbot() {
   const [contactInfo, setContactInfo] = useState({ name: "", email: "", phone: "" });
   const [projectDetails, setProjectDetails] = useState<any>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const hideChat =
+    pathname?.startsWith("/get-quote") ||
+    pathname?.startsWith("/book-consultation") ||
+    (pathname?.startsWith("/services/") && pathname !== "/services") ||
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/feedback");
 
   useEffect(() => {
     if (isOpen && conversation.length === 0) {
@@ -160,11 +166,13 @@ export function FloatingChatbot() {
     }
   };
 
+  if (hideChat) return null;
+
   return (
     <>
       {/* Floating Button */}
       <button
-        className={`fixed right-4 sm:right-6 sm:bottom-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white text-black shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-200 ${pathname?.startsWith("/services/") && pathname !== "/services" ? "bottom-24" : "bottom-5"}`}
+        className={`fixed right-4 sm:right-6 sm:bottom-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white text-black shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-200 ${pathname?.startsWith("/services/") && pathname !== "/services" ? "bottom-32 sm:bottom-24" : "bottom-24 sm:bottom-6"}`}
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? "Close chat" : "Open chat"}
         aria-expanded={isOpen}
@@ -184,7 +192,7 @@ export function FloatingChatbot() {
           role="dialog"
           aria-modal="false"
           aria-labelledby="pcnd-chat-heading"
-          className={`fixed right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] ${pathname?.startsWith("/services/") && pathname !== "/services" ? "bottom-44 sm:bottom-24" : "bottom-24"}`}
+          className={`fixed right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] ${pathname?.startsWith("/services/") && pathname !== "/services" ? "bottom-48 sm:bottom-24" : "bottom-40 sm:bottom-24"}`}
           style={{ overscrollBehavior: "contain" }}
         >
           <div className="rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0A0A0A] shadow-[0_8px_40px_rgba(0,0,0,0.7)] h-[480px] sm:h-[540px] max-h-[calc(100vh-7rem)] flex flex-col">

@@ -102,6 +102,29 @@ export default function Home() {
     { Icon: BadgePercent, label: "Price Guarantee",    value: "Beats by 5%" },
   ];
 
+  const quotePaths = [
+    {
+      title: "Basement Development",
+      desc: "Bare concrete to finished living space, including permits and inspections.",
+      href: "/get-quote?service=basements",
+    },
+    {
+      title: "Kitchen or Bathroom",
+      desc: "Cabinets, counters, showers, tile, flooring, and full room renovations.",
+      href: "/get-quote?service=kitchens",
+    },
+    {
+      title: "Flooring & Finishes",
+      desc: "Fast quotes for flooring, millwork, drywall, paint, countertops, and trim.",
+      href: "/get-quote?service=flooring",
+    },
+    {
+      title: "Not Sure Yet",
+      desc: "Send the rough idea. We'll help you shape the scope before we quote it.",
+      href: "/get-quote",
+    },
+  ];
+
   return (
     <div className="flex flex-col">
 
@@ -133,7 +156,7 @@ export default function Home() {
               Three generations of quality craftsmanship.
             </motion.p>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.9 }} className="text-white/65 text-[15px] sm:text-base max-w-xl mb-8 sm:mb-10 leading-relaxed">
-              Three generations, one standard, one handshake — since 1968.
+              Calgary renovations, basements, kitchens, bathrooms, flooring, cabinets, and custom finishes — all handled by one accountable team.
             </motion.p>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 1 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-9 py-4 rounded-full font-black text-base tracking-wide hover:bg-sandstone transition-colors shadow-[0_4px_24px_rgba(255,255,255,0.12)]">
@@ -354,6 +377,44 @@ export default function Home() {
             <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/55 font-medium">
               Serving Calgary · Airdrie · Cochrane · Okotoks
             </p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.36}>
+          <div className="mt-10 sm:mt-12 pt-10 sm:pt-12 border-t border-white/[0.06] grid grid-cols-1 lg:grid-cols-[0.9fr_1.35fr] gap-8 lg:gap-12 items-start">
+            <div>
+              <SectionLabel label="Fast Quote Paths" theme="dark" />
+              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-4">
+                Start With the<br className="hidden sm:block" /> Right Quote.
+              </h2>
+              <p className="font-serif italic text-white/72 text-lg sm:text-xl leading-snug max-w-md mb-6">
+                Pick the closest project type and we&apos;ll route the details to the right estimate.
+              </p>
+              <a
+                href={`tel:${BRAND_CONFIG.contact.phone}`}
+                className="inline-flex items-center gap-2 text-sm font-bold text-white/75 hover:text-sandstone transition-colors"
+              >
+                <Phone aria-hidden="true" className="h-4 w-4" />
+                Prefer to talk? {BRAND_CONFIG.contact.phoneFormatted}
+              </a>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              {quotePaths.map((path) => (
+                <Link
+                  key={path.title}
+                  href={path.href}
+                  className="group rounded-sm border border-white/[0.08] bg-white/[0.025] p-5 transition-colors hover:border-sandstone/45 hover:bg-white/[0.045]"
+                >
+                  <div className="mb-4 flex items-center justify-between gap-4">
+                    <h3 className="font-heading text-base font-black uppercase tracking-tight text-white">
+                      {path.title}
+                    </h3>
+                    <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0 text-sandstone/70 transition-transform group-hover:translate-x-1" />
+                  </div>
+                  <p className="text-sm leading-relaxed text-white/58">{path.desc}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </Reveal>
       </Section>
