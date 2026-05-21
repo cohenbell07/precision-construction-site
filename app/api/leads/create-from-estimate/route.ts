@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, LEAD_INBOX_EMAIL } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
 import {
   getAdminEstimateLeadEmail,
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     });
 
     const adminResult = await sendEmail({
-      to: BRAND_CONFIG.contact.email,
+      to: LEAD_INBOX_EMAIL,
       subject: adminEmail.subject,
       html: adminEmail.html,
     });

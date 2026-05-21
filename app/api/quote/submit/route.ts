@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, LEAD_INBOX_EMAIL } from "@/lib/email";
 import { generateAIResponse } from "@/lib/ai";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { env } from "@/lib/env";
@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
 
     // Send email to admin
     const adminResult = await sendEmail({
-      to: BRAND_CONFIG.contact.email,
+      to: LEAD_INBOX_EMAIL,
       subject: `New Quote Request - ${projectTitle}`,
       html: `
         <h2>New Quote Request</h2>

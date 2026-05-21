@@ -7,9 +7,10 @@
  * to the user that you actually understand their project before they hit
  * submit. This file is the registry.
  *
- * Top-six services (basements, renovations, flooring, cabinets, showers,
- * countertops) get bespoke sets. Everything else falls through to a generic
- * set with a single "tell us about your project" textarea.
+ * Top-eight services (kitchens, bathrooms, basements, renovations, flooring,
+ * cabinets, showers, countertops) get bespoke sets. Everything else falls
+ * through to a generic set with a single "tell us about your project"
+ * textarea.
  *
  * The answers state lives in the form as `{ [questionId]: string | string[] }`.
  * On submit, `formatAnswersForSubmit` flattens them into the `projectDetails`
@@ -41,7 +42,7 @@ export interface QuestionSet {
   questions: Question[];
 }
 
-/* ─── Top-six service question sets ──────────────────────────────────── */
+/* ─── Top-eight service question sets ────────────────────────────────── */
 
 const basementsQuestions: Question[] = [
   {
@@ -276,6 +277,111 @@ const showersQuestions: Question[] = [
   },
 ];
 
+const kitchensQuestions: Question[] = [
+  {
+    id: "scope",
+    label: "What's the scope?",
+    type: "select",
+    required: true,
+    options: [
+      "Full gut-and-rebuild",
+      "Mid-level (cabinets, counters, backsplash, flooring)",
+      "Cosmetic refresh (paint, hardware, fixtures)",
+      "Layout change / wall removal",
+      "Not sure — want to talk it through",
+    ],
+  },
+  {
+    id: "size",
+    label: "Rough size?",
+    type: "select",
+    required: true,
+    options: [
+      "Small (under 120 sq ft)",
+      "Medium (120 – 200 sq ft)",
+      "Large (200 – 350 sq ft)",
+      "Open-concept (350+ sq ft)",
+      "Not sure",
+    ],
+  },
+  {
+    id: "scope_items",
+    label: "What's included?",
+    type: "multi",
+    helper: "Pick anything that applies — we'll quote each.",
+    options: [
+      "Cabinetry",
+      "Countertops",
+      "Backsplash",
+      "Flooring",
+      "Lighting",
+      "Plumbing relocation",
+      "Wall removal / structural",
+      "Appliances (we install yours or source new)",
+      "Island add",
+    ],
+  },
+  {
+    id: "notes",
+    label: "Anything else we should know?",
+    type: "textarea",
+    placeholder: "Style direction (modern, traditional, transitional), must-have features, layout ideas, etc.",
+  },
+];
+
+const bathroomsQuestions: Question[] = [
+  {
+    id: "type",
+    label: "Which bathroom?",
+    type: "select",
+    required: true,
+    options: [
+      "Primary ensuite",
+      "Main / family bathroom",
+      "Powder room (half bath)",
+      "Basement bathroom",
+      "Adding a new bathroom where none exists",
+      "Multiple bathrooms",
+    ],
+  },
+  {
+    id: "scope",
+    label: "What's the scope?",
+    type: "select",
+    required: true,
+    options: [
+      "Full gut-and-rebuild",
+      "Mid-level (vanity, tile, fixtures, paint)",
+      "Cosmetic refresh (paint, hardware, fixtures)",
+      "Tub-to-shower conversion",
+      "Not sure — want to talk it through",
+    ],
+  },
+  {
+    id: "scope_items",
+    label: "What's included?",
+    type: "multi",
+    helper: "Pick anything that applies — we'll quote each.",
+    options: [
+      "Custom tile shower",
+      "Frameless glass enclosure",
+      "Soaker tub / freestanding tub",
+      "Vanity + countertop",
+      "Heated tile floor",
+      "Steam shower system",
+      "Accessibility / grab bars / curbless",
+      "Plumbing relocation",
+      "Lighting and mirrors",
+    ],
+  },
+  {
+    id: "notes",
+    label: "Anything else we should know?",
+    type: "textarea",
+    placeholder: "Style direction, tile preferences, layout ideas, waterproofing concerns, etc.",
+  },
+];
+
 const countertopsQuestions: Question[] = [
   {
     id: "material",
@@ -333,6 +439,8 @@ const fallbackQuestions: Question[] = [
 /* ─── Registry + helpers ─────────────────────────────────────────────── */
 
 export const questionSets: Record<string, QuestionSet> = {
+  kitchens:    { service: "kitchens",    questions: kitchensQuestions },
+  bathrooms:   { service: "bathrooms",   questions: bathroomsQuestions },
   basements:   { service: "basements",   questions: basementsQuestions },
   renovations: { service: "renovations", questions: renovationsQuestions },
   flooring:    { service: "flooring",    questions: flooringQuestions },

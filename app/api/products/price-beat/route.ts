@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, LEAD_INBOX_EMAIL } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { getCustomerEmailSignature } from "@/lib/emailTemplates";
 
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
 
     // Send email to admin with attachment if present
     const adminResult = await sendEmail({
-      to: BRAND_CONFIG.contact.email,
+      to: LEAD_INBOX_EMAIL,
       subject: `Price Beat Request (${inquiryType === "service" ? "Service" : "Product"}) - ${categoryLabel}`,
       html: `
         <h2>New Price Beat Request</h2>

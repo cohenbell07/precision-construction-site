@@ -14,6 +14,7 @@ export const metadata = {
     "full home renovation Calgary",
     "basement finishing Calgary",
     "kitchen renovation Calgary",
+    "bathroom renovation Calgary",
     "Calgary general contractor",
     "construction company near me",
     "flooring installation Calgary",

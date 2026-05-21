@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, LEAD_INBOX_EMAIL } from "@/lib/email";
 import { getNegativeFeedbackAlertEmail } from "@/lib/emailTemplates";
 import { BRAND_CONFIG } from "@/lib/utils";
 
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
     });
 
     await sendEmail({
-      to: BRAND_CONFIG.contact.email,
+      to: LEAD_INBOX_EMAIL,
       subject: alertEmail.subject,
       html: alertEmail.html,
     });

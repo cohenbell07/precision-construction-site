@@ -8,7 +8,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, LEAD_INBOX_EMAIL } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { getCustomerEmailSignature } from "@/lib/emailTemplates";
 
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
         .replace(/'/g, "&#039;");
 
     const adminResult = await sendEmail({
-      to: BRAND_CONFIG.contact.email,
+      to: LEAD_INBOX_EMAIL,
       subject: `New Consultation Request — ${projectTitle}`,
       html: `
         <h2>New In-Home Consultation Request</h2>

@@ -28,8 +28,7 @@ export interface ServiceCardProps {
   eyebrow?: string;
   /** Show a small "15% Off" sandstone badge in the top-right corner. */
   featuredBadge?: string;
-  /** Per-service CTA label. Defaults to "View Service" — pass a sharper verb
-   *  phrase via lib/services#getServiceCtaLabel for better conversion. */
+  /** CTA label shown at the bottom of the card. Defaults to "View Service". */
   ctaLabel?: string;
 }
 

@@ -9,7 +9,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, LEAD_INBOX_EMAIL } from "@/lib/email";
 import { BRAND_CONFIG, escapeHtml } from "@/lib/utils";
 import { getServiceMaterialsInquiryEmail, getCustomerEmailSignature } from "@/lib/emailTemplates";
 
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     });
 
     const adminResult = await sendEmail({
-      to: BRAND_CONFIG.contact.email,
+      to: LEAD_INBOX_EMAIL,
       subject: adminEmail.subject,
       html: adminEmail.html,
     });

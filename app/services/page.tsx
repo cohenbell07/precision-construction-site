@@ -9,7 +9,8 @@
 
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { services, getServiceCtaLabel } from "@/lib/services";
+import { services } from "@/lib/services";
+import { getActivePromo } from "@/lib/promo";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Phone, Shield } from "lucide-react";
@@ -20,17 +21,19 @@ import { BookConsultationCTA } from "@/components/BookConsultationCTA";
 import { PriceBeatBanner } from "@/components/PriceBeatBanner";
 
 const serviceImageMap: Record<string, string> = {
+  kitchens: "/kitchenshero.webp",
+  bathrooms: "/bathroomshero.webp",
+  basements: "/basementland02.webp",
+  renovations: "/home-additions.webp",
   cabinets: "/service-millwork.webp",
   showers: "/customshowerland.webp",
   countertops: "/countertopsservice3.webp",
-  basements: "/basementland02.webp",
   carpentry: "/interiorfinishingservice1.webp",
   flooring: "/flooringinstalllandscape.webp",
   framing: "/framingservice4.webp",
   drywall: "/drywall-texture.webp",
   painting: "/painting.webp",
   garages: "/garage-deck-fence.webp",
-  renovations: "/home-additions.webp",
   commercial: "/commercialland.webp",
 };
 
@@ -44,32 +47,59 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
   );
 }
 
-const categories = [
+type Tier = "primary" | "secondary" | "specialty";
+
+interface Category {
+  id: string;
+  label: string;
+  heading: string;
+  desc: string;
+  eyebrow: string;
+  serviceIds: string[];
+  tier: Tier;
+  /** Per-card layout. Tier 1 reno cards stay large (2-col); tier 2/3 compress to 3-col. */
+  gridCols: string;
+}
+
+/* Renovation-first hierarchy: full renovations are tier 1 (the headline offering),
+   component services are tier 2 (sit inside every renovation, or hire standalone),
+   exterior + framing + commercial are tier 3 (specialty trade work). */
+const categories: Category[] = [
   {
-    id: "custom-interiors",
-    label: "Custom Interiors",
-    heading: "Custom Interiors & Cabinetry",
-    desc: "Countertops, cabinetry, flooring, and custom showers — premium surfaces and built-ins for every room in the home. Supply and install available.",
-    serviceIds: ["countertops", "cabinets", "showers", "flooring"],
+    id: "renovations",
+    label: "Renovations",
+    heading: "Renovations",
+    desc: "Our headline offering — kitchen, bathroom, basement, and whole-home transformations. One crew handles design, demo, trades, finishes, and the final walkthrough.",
+    eyebrow: "Most Requested",
+    serviceIds: ["kitchens", "bathrooms", "basements", "renovations"],
+    tier: "primary",
+    gridCols: "sm:grid-cols-2 lg:grid-cols-2",
   },
   {
-    id: "builds-renovations",
-    label: "Full Builds & Renovations",
-    heading: "Full Builds & Renovations",
-    desc: "From basement developments to home additions and commercial builds — full-scope construction by one team.",
-    serviceIds: ["basements", "renovations", "framing", "commercial"],
+    id: "components",
+    label: "Components & Finishes",
+    heading: "Components & Finishes",
+    desc: "Cabinetry, countertops, tile, flooring, trim, drywall, and paint — included inside every renovation, or hire us for any one of them standalone.",
+    eyebrow: "Part of Any Reno — Or Hire Standalone",
+    serviceIds: ["cabinets", "countertops", "showers", "flooring", "carpentry", "drywall", "painting"],
+    tier: "secondary",
+    gridCols: "sm:grid-cols-2 lg:grid-cols-3",
   },
   {
-    id: "finishing-exterior",
-    label: "Finishing & Exterior",
-    heading: "Finishing & Exterior",
-    desc: "Interior carpentry, drywall, painting, garages, decks, and fences. The details that make a house a home.",
-    serviceIds: ["carpentry", "drywall", "painting", "garages"],
+    id: "specialty",
+    label: "Specialty & Trade Work",
+    heading: "Exterior, Framing & Commercial",
+    desc: "Garages, decks, fences, structural framing, and commercial tenant improvements. Same crew, same standards — different scope.",
+    eyebrow: "Specialty & Trade Work",
+    serviceIds: ["garages", "framing", "commercial"],
+    tier: "specialty",
+    gridCols: "sm:grid-cols-2 lg:grid-cols-3",
   },
 ];
 
 export default function ServicesPage() {
   const getService = (id: string) => services.find((s) => s.id === id);
+  const activePromo = getActivePromo();
 
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -105,46 +135,65 @@ export default function ServicesPage() {
         </motion.div>
       </section>
 
-      {/* ━━━ SERVICE CATEGORIES — DARK (photo cards need dark backdrop) ━━━ */}
-      {categories.map((cat, catIdx) => (
-        <section key={cat.id} id={cat.id} className={`py-14 sm:py-20 md:py-28 ${catIdx % 2 === 0 ? "bg-[#0A0A0A]" : "bg-black"}`}>
-          <div className="container mx-auto px-6 max-w-7xl">
-            <Reveal>
-              <div className="mb-8 sm:mb-12 md:mb-16">
-                <div className="flex items-center gap-3 mb-4 sm:mb-5">
-                  <span className="h-px w-8 bg-sandstone/40" />
-                  <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/70 font-medium">
-                    {catIdx === 0 ? "Most Requested" : catIdx === 1 ? "Full-Scope Build" : "Detail Work"}
+      {/* ━━━ SERVICE CATEGORIES — DARK (photo cards need dark backdrop) ━━━
+          Three-tier hierarchy: renovations lead the page (large 2-col cards),
+          components sit second (compact 3-col, lighter eyebrow framing),
+          specialty/exterior closes (compact 3-col). */}
+      {categories.map((cat, catIdx) => {
+        const isPrimary = cat.tier === "primary";
+        return (
+          <section
+            key={cat.id}
+            id={cat.id}
+            className={`${isPrimary ? "py-16 sm:py-24 md:py-32" : "py-12 sm:py-16 md:py-20"} ${catIdx % 2 === 0 ? "bg-[#0A0A0A]" : "bg-black"}`}
+          >
+            <div className="container mx-auto px-6 max-w-7xl">
+              <Reveal>
+                <div className={`${isPrimary ? "mb-10 sm:mb-14 md:mb-16" : "mb-7 sm:mb-9 md:mb-11"}`}>
+                  <div className="flex items-center gap-3 mb-4 sm:mb-5">
+                    <span className="h-px w-8 bg-sandstone/40" />
+                    <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/70 font-medium">
+                      {cat.eyebrow}
+                    </p>
+                  </div>
+                  <h2
+                    className={`${
+                      isPrimary
+                        ? "text-[32px] sm:text-5xl md:text-6xl lg:text-7xl"
+                        : "text-[24px] sm:text-3xl md:text-4xl lg:text-[44px]"
+                    } font-heading font-black uppercase tracking-tight leading-[0.95] sm:leading-[0.92] mb-3 sm:mb-4`}
+                  >
+                    {cat.heading}
+                  </h2>
+                  <div className="h-[1.5px] w-16 bg-gradient-to-r from-sandstone to-transparent mb-5" />
+                  <p className={`${isPrimary ? "text-white/75" : "text-white/60"} text-base sm:text-lg max-w-xl leading-relaxed`}>
+                    {cat.desc}
                   </p>
                 </div>
-                <h2 className="text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black uppercase tracking-tight leading-[0.95] sm:leading-[0.92] mb-3 sm:mb-4">{cat.heading}</h2>
-                <div className="h-[1.5px] w-16 bg-gradient-to-r from-sandstone to-transparent mb-5" />
-                <p className="text-white/70 text-base sm:text-lg max-w-xl leading-relaxed">{cat.desc}</p>
-              </div>
-            </Reveal>
+              </Reveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
-              {cat.serviceIds.map((id, idx) => {
-                const s = getService(id);
-                if (!s) return null;
-                return (
-                  <BlurReveal key={id} delay={0.1 + idx * 0.12} direction="bottom">
-                    <ServiceCard
-                      href={`/services/${s.id}`}
-                      title={s.title}
-                      image={serviceImageMap[s.id] || "/service-millwork.webp"}
-                      alt={`${s.title} services in Calgary by PCND`}
-                      eyebrow={cat.label}
-                      featuredBadge={id === "basements" ? "15% Off" : undefined}
-                      ctaLabel={getServiceCtaLabel(s.id)}
-                    />
-                  </BlurReveal>
-                );
-              })}
+              <div className={`grid grid-cols-1 ${cat.gridCols} gap-5 sm:gap-6 ${isPrimary ? "md:gap-8" : "md:gap-6"} ${isPrimary ? "max-w-6xl" : "max-w-7xl"} mx-auto`}>
+                {cat.serviceIds.map((id, idx) => {
+                  const s = getService(id);
+                  if (!s) return null;
+                  return (
+                    <BlurReveal key={id} delay={0.1 + idx * 0.08} direction="bottom">
+                      <ServiceCard
+                        href={`/services/${s.id}`}
+                        title={s.title}
+                        image={serviceImageMap[s.id] || "/service-millwork.webp"}
+                        alt={`${s.title} services in Calgary by PCND`}
+                        eyebrow={cat.label}
+                        featuredBadge={activePromo ? "15% Off" : undefined}
+                      />
+                    </BlurReveal>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </section>
-      ))}
+          </section>
+        );
+      })}
 
       {/* ━━━ MID-PAGE CTA — CREAM (studio interlude) ━━━ */}
       <Section variant="cream" padding="md" containerClassName="container mx-auto px-5 sm:px-6 max-w-4xl">

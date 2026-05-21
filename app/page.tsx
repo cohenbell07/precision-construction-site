@@ -13,7 +13,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { services, getServiceCtaLabel } from "@/lib/services";
+import { services } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { VideoHero } from "@/components/VideoHero";
 import { ArrowRight, Phone, Hammer, Users, Clock, BadgePercent, MapPin } from "lucide-react";
@@ -60,17 +60,21 @@ export default function Home() {
   const heroTextY = useTransform(scrollYProgress, [0, 0.85], [0, 40]);
   const activePromo = getActivePromo();
 
-  const featuredServices = services.filter((s) =>
-    ["basements", "cabinets", "showers", "countertops", "renovations", "carpentry"].includes(s.id)
-  );
+  /* Renovation-first lead: top four are renos (kitchen, bathroom, basement,
+     whole-home), then two top component services for visual variety. Order
+     matters — defines the visible left-to-right reading order of the grid. */
+  const FEATURED_ORDER = ["kitchens", "bathrooms", "basements", "renovations", "countertops", "cabinets"];
+  const featuredServices = FEATURED_ORDER
+    .map((id) => services.find((s) => s.id === id))
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
 
   const serviceImages: Record<string, string> = {
+    kitchens: "/kitchenshero.webp",
+    bathrooms: "/bathroomshero.webp",
     basements: "/basementland02.webp",
-    cabinets: "/service-millwork.webp",
-    showers: "/customshowerland.webp",
-    countertops: "/countertopsservice3.webp",
     renovations: "/home-additions.webp",
-    carpentry: "/interiorfinishingservice1.webp",
+    countertops: "/countertopsservice3.webp",
+    cabinets: "/service-millwork.webp",
   };
 
   const brands = [
@@ -428,8 +432,7 @@ export default function Home() {
                 title={service.title}
                 image={serviceImages[service.id] || "/service-millwork.webp"}
                 alt={`${service.title} - Calgary construction services by PCND`}
-                eyebrow={`No. ${String(idx + 1).padStart(2, "0")}`}
-                ctaLabel={getServiceCtaLabel(service.id)}
+                featuredBadge={activePromo ? "15% Off" : undefined}
               />
             </Reveal>
           ))}

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, LEAD_INBOX_EMAIL } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { getCustomerEmailSignature } from "@/lib/emailTemplates";
 
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 
     const { escapeHtml } = await import("@/lib/utils");
     const emailResult = await sendEmail({
-      to: BRAND_CONFIG.contact.email,
+      to: LEAD_INBOX_EMAIL,
       subject: `New Lead: ${escapeHtml(data.projectType) || "General Inquiry"}`,
       html: `
         <h2>New Lead Submission</h2>

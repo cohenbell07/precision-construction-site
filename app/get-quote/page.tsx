@@ -19,7 +19,7 @@ import dynamic from "next/dynamic";
 import {
   Loader2, CheckCircle, Star, Shield, Phone, Home, LayoutGrid, Droplets,
   DoorOpen, SquareStack, Building2, Square, Paintbrush2, Ruler,
-  ArrowDownSquare, Trees, HomeIcon, Frame,
+  ArrowDownSquare, Trees, HomeIcon, Frame, ChefHat, Bath,
 } from "lucide-react";
 import { Section } from "@/components/Section";
 import { validateLeadForm, type LeadFormErrors } from "@/lib/forms";
@@ -34,9 +34,10 @@ import {
 
 const LightRays = dynamic(() => import("@/components/LightRays").then((m) => ({ default: m.LightRays })), { ssr: false });
 
-const POPULAR_SERVICES = new Set(["basements", "renovations", "flooring", "showers"]);
+const POPULAR_SERVICES = new Set(["kitchens", "bathrooms", "basements", "renovations"]);
 
 const serviceIcons: { [key: string]: any } = {
+  kitchens: ChefHat, bathrooms: Bath,
   flooring: LayoutGrid, showers: Droplets, cabinets: DoorOpen, countertops: SquareStack,
   carpentry: Ruler, framing: Frame, drywall: Square, painting: Paintbrush2,
   basements: ArrowDownSquare, garages: Trees, renovations: HomeIcon, commercial: Building2,
