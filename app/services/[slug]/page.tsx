@@ -119,7 +119,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
         <div className="absolute inset-0 flex flex-col justify-end pb-9 sm:pb-12 md:pb-14 z-10">
           <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
-            <div className="mb-7 sm:mb-8 flex flex-col items-start gap-3.5 sm:flex-row sm:items-center sm:gap-6">
+            <div className="mb-6 sm:mb-8 flex flex-row flex-wrap items-center gap-x-4 gap-y-2 sm:gap-6">
               <Link href="/services" className="inline-flex shrink-0 items-center gap-2 text-[11px] sm:text-sm tracking-[0.15em] uppercase text-white/65 hover:text-sandstone transition-colors font-medium">
                 <ArrowRight aria-hidden="true" className="w-3.5 h-3.5 rotate-180" /> All Services
               </Link>
@@ -127,10 +127,13 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               {activePromo && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-                  className="inline-flex max-w-full items-center gap-2.5 bg-sandstone/15 border border-sandstone/40 backdrop-blur-sm px-3.5 py-1.5 rounded-full"
+                  className="inline-flex max-w-full shrink-0 items-center gap-2 text-sandstone sm:gap-2.5 sm:bg-sandstone/15 sm:border sm:border-sandstone/40 sm:backdrop-blur-sm sm:px-3.5 sm:py-1.5 sm:rounded-full"
                 >
                   <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-sandstone animate-pulse" aria-hidden="true" />
-                  <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] leading-relaxed text-sandstone">
+                  <span className="sm:hidden text-[10px] font-semibold uppercase tracking-[0.14em] leading-none whitespace-nowrap">
+                    15% Off · Ends {activePromo.endsAtDisplay}
+                  </span>
+                  <span className="hidden sm:inline text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] leading-relaxed text-sandstone">
                     {activePromo.label} · 15% Off through {activePromo.endsAtDisplay}
                   </span>
                 </motion.div>
