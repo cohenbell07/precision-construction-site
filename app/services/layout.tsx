@@ -3,7 +3,7 @@ import { BRAND_CONFIG } from "@/lib/utils";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pcnd.ca";
 
 export const metadata = {
-  title: `Basement Development & Home Renovations Calgary | Construction Services | ${BRAND_CONFIG.shortName}`,
+  title: "Basement Development & Home Renovations Calgary | Construction Services",
   description: `Calgary's trusted construction company: basement developments, home renovations, additions & commercial builds. Cabinets, flooring, showers & more. Since 1968.`,
   keywords: [
     "basement development Calgary",
@@ -14,6 +14,7 @@ export const metadata = {
     "full home renovation Calgary",
     "basement finishing Calgary",
     "kitchen renovation Calgary",
+    "bathroom renovation Calgary",
     "Calgary general contractor",
     "construction company near me",
     "flooring installation Calgary",

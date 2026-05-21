@@ -1,92 +1,113 @@
 /**
- * Central config for all deals and promotions.
- * Used by the AI chat, email templates, and site pages.
+ * Central config for all currently-active offers and promotions.
+ *
+ * Two surfaces consume this: the AI chat system prompt and the quote-tool
+ * email (owner notification + customer confirmation). The Spring Build
+ * promo UI (strip, scroll modal, homepage feature) reads from
+ * `lib/promo.ts` directly and is unrelated to this file.
+ *
+ * The previous basement / bundle / supplier-deals entries were retired
+ * alongside the per-deal quote forms — every service is 15% off site-wide
+ * via the Spring Build event, and the Price Beat Guarantee is the only
+ * other live offer.
  */
 
-export interface Deal {
-  id: string;
+import { getActivePromo } from "./promo";
+
+export interface ActiveOffer {
+  /** Display name. Already contains any leading discount text, so renderers
+   *  should not prepend the percentage again. */
   name: string;
-  discount: string;
+  /** One-sentence blurb suitable for both emails and chat. */
   description: string;
-  ctaText: string;
-  url: string;
-  category: "service";
-  /** Short keyword for AI to match (e.g. "basement", "bundle") */
-  keywords: string[];
+  /** True for limited-time offers; false for always-on guarantees. */
+  limitedTime: boolean;
+  /** Human-friendly end date for limited-time offers ("June 30"). */
+  endsAtDisplay?: string;
 }
 
-export const deals: Deal[] = [
-  {
-    id: "basement",
-    name: "15% Off Basement Renovation",
-    discount: "15%",
-    description: "15% off full basement renovations — limited time. Turn your basement into livable space with turnkey development: framing, electrical, plumbing rough-ins, drywall, flooring, and finishes. Permits handled.",
-    ctaText: "Get 15% Off — Request Quote",
-    url: "/get-quote/basement",
-    category: "service",
-    keywords: ["basement", "basement renovation", "basement development"],
-  },
-  {
-    id: "bundle",
-    name: "15% Off Bundle (Supply + Install)",
-    discount: "15%",
-    description: "15% off when you bundle supply + install. Combine materials and installation for package pricing. Examples: Flooring + install, Cabinets + countertops + install, Full bathroom renovation.",
-    ctaText: "Get 15% Off — Request Quote",
-    url: "/get-quote/bundle",
-    category: "service",
-    keywords: ["bundle", "supply and install", "supply + install", "package"],
-  },
-  {
-    id: "supplier",
-    name: "10% Supplier Discount",
-    discount: "10%",
-    description: "10% off select materials when bundled with our services. Special pricing on quartz & porcelain, LVP & laminate, hardware & fixtures while inventory lasts.",
-    ctaText: "Get 10% Off — Request Quote",
-    url: "/get-quote/supplier-deals",
-    category: "service",
-    keywords: ["supplier", "10%", "materials discount", "select materials"],
-  },
-];
-
-export const serviceDeals = deals;
-
-/** Which service IDs each deal applies to. Empty = applies to all (bundle). */
-const dealServiceMap: Record<string, string[]> = {
-  basement: ["basements"],
-  bundle: [], // any 2+ services
-  supplier: ["painting", "flooring", "carpentry", "showers", "drywall", "countertops"],
+/** Always-on guarantee — independent of any sale. */
+export const PRICE_BEAT_OFFER: ActiveOffer = {
+  name: "5% Price Beat Guarantee",
+  description:
+    "Send us any comparable competitor quote and we'll beat it by at least 5%.",
+  limitedTime: false,
 };
 
-export const PRICE_BEAT_GUARANTEE =
-  "5% Price Beat Guarantee — send us any competitor quote and we'll beat it by at least 5%.";
+/** Backwards-compat string export — a few callers still reference this name. */
+export const PRICE_BEAT_GUARANTEE = PRICE_BEAT_OFFER.description;
 
-/** Get deals that apply to a specific service ID. */
-export function getDealsForService(serviceId: string): Deal[] {
-  return deals.filter((deal) => {
-    const ids = dealServiceMap[deal.id] || [];
-    return ids.length === 0 || ids.includes(serviceId);
-  });
+/** All currently active offers: limited-time first, then always-on. */
+export function getActiveOffers(): ActiveOffer[] {
+  const offers: ActiveOffer[] = [];
+  const promo = getActivePromo();
+  if (promo) {
+    offers.push({
+      name: `${promo.label} — ${promo.shortHeadline}`,
+      description: promo.italicLine,
+      limitedTime: true,
+      endsAtDisplay: promo.endsAtDisplay,
+    });
+  }
+  offers.push(PRICE_BEAT_OFFER);
+  return offers;
 }
 
-/** Generate HTML summary of active deals for admin emails. */
-export function getActiveDealsSummaryForEmail(serviceId: string): string {
-  const applicable = getDealsForService(serviceId);
-  const dealLines = applicable
-    .map((d) => `<li><strong>${d.discount} — ${d.name}</strong>: ${d.description.split(".")[0]}.</li>`)
+/**
+ * Offers that apply to the given service. The Spring Build event applies
+ * to every service site-wide, and Price Beat is always available, so both
+ * are returned regardless. The serviceId parameter is preserved for future
+ * per-service offers.
+ */
+export function getOffersForService(_serviceId?: string): ActiveOffer[] {
+  return getActiveOffers();
+}
+
+/** HTML block for owner notification emails — lists every active offer. */
+export function getActiveOffersEmailHtml(): string {
+  const offers = getActiveOffers();
+  if (offers.length === 0) return "";
+  const items = offers
+    .map((o) => {
+      const endNote =
+        o.limitedTime && o.endsAtDisplay ? ` <em>(through ${o.endsAtDisplay})</em>` : "";
+      return `<li><strong>${o.name}</strong>${endNote}: ${o.description}</li>`;
+    })
     .join("");
-  const pricebeat = `<li>${PRICE_BEAT_GUARANTEE}</li>`;
-  return `<div style="margin-top:16px;padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;">
-    <p style="margin:0 0 4px;font-weight:bold;color:#166534;">${applicable.length > 0 ? "Active Deals for This Service" : "Active Promotions"}</p>
-    <ul style="margin:0;padding-left:18px;color:#15803d;">${dealLines}${pricebeat}</ul>
-  </div>`;
+  return `
+    <div style="margin-top:16px;padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;">
+      <p style="margin:0 0 6px;font-weight:bold;color:#166534;">Active Offers</p>
+      <ul style="margin:0;padding-left:18px;color:#15803d;">${items}</ul>
+    </div>
+  `;
 }
 
-/** Format deals for the AI chat system prompt. */
-export function getDealsForChatPrompt(): string {
-  return deals
-    .map(
-      (d) =>
-        `- **${d.name}**: ${d.description} → Direct users to ${d.url} (${d.ctaText})`
-    )
+/** Plain-text bullets for the AI chat system prompt. */
+export function getActiveOffersForChatPrompt(): string {
+  return getActiveOffers()
+    .map((o) => {
+      const endNote =
+        o.limitedTime && o.endsAtDisplay ? ` (through ${o.endsAtDisplay})` : "";
+      return `- **${o.name}**${endNote}: ${o.description}`;
+    })
     .join("\n");
+}
+
+// ─── Backwards-compat shims ────────────────────────────────────────────────
+// Existing callers in app/api/quote/submit/route.ts and lib/chatPrompt.ts
+// import these older names; the new helpers above are preferred for new code.
+
+/** @deprecated use getActiveOffersEmailHtml. */
+export function getActiveDealsSummaryForEmail(_serviceId?: string): string {
+  return getActiveOffersEmailHtml();
+}
+
+/** @deprecated use getOffersForService. */
+export function getDealsForService(_serviceId?: string): ActiveOffer[] {
+  return getActiveOffers();
+}
+
+/** @deprecated use getActiveOffersForChatPrompt. */
+export function getDealsForChatPrompt(): string {
+  return getActiveOffersForChatPrompt();
 }

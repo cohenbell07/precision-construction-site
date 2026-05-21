@@ -3,6 +3,10 @@ export interface Service {
   title: string;
   description: string;
   icon: string;
+  /** Per-service CTA label shown on service cards (homepage grid, services index, related-services).
+   *  Defaults to "View Service" if not set — but specifying it sharpens conversion vs. 12 identical
+   *  "View Service →" chips. Keep these as short verb phrases under ~30 chars. */
+  ctaLabel?: string;
   details?: string[];
   benefits?: string[];
   process?: { step: number; title: string; description: string }[];
@@ -90,7 +94,7 @@ export const services: Service[] = [
       { label: "Materials Available", value: "15+" },
       { label: "Satisfaction Rate", value: "98%" },
     ],
-    relatedServices: ["carpentry", "basements", "renovations"],
+    relatedServices: ["kitchens", "bathrooms", "basements"],
   },
   {
     id: "showers",
@@ -167,7 +171,7 @@ export const services: Service[] = [
       { label: "Steam Showers", value: "85+" },
       { label: "Satisfaction Rate", value: "98%" },
     ],
-    relatedServices: ["countertops", "cabinets", "renovations"],
+    relatedServices: ["bathrooms", "countertops", "renovations"],
   },
   {
     id: "countertops",
@@ -247,7 +251,7 @@ export const services: Service[] = [
       { label: "Material Options", value: "50+" },
       { label: "Satisfaction Rate", value: "99%" },
     ],
-    relatedServices: ["cabinets", "showers", "renovations"],
+    relatedServices: ["kitchens", "bathrooms", "cabinets"],
   },
   {
     id: "cabinets",
@@ -325,7 +329,7 @@ export const services: Service[] = [
       { label: "Custom Closets", value: "340+" },
       { label: "Design Options", value: "Unlimited" },
     ],
-    relatedServices: ["countertops", "carpentry", "renovations"],
+    relatedServices: ["kitchens", "bathrooms", "countertops"],
   },
   {
     id: "carpentry",
@@ -403,7 +407,7 @@ export const services: Service[] = [
       { label: "Trim Styles Available", value: "100+" },
       { label: "Satisfaction Rate", value: "98%" },
     ],
-    relatedServices: ["cabinets", "renovations", "flooring"],
+    relatedServices: ["renovations", "kitchens", "cabinets"],
   },
   {
     id: "framing",
@@ -555,7 +559,7 @@ export const services: Service[] = [
       { label: "Texture Styles", value: "8+" },
       { label: "Satisfaction Rate", value: "97%" },
     ],
-    relatedServices: ["framing", "painting", "renovations"],
+    relatedServices: ["renovations", "basements", "painting"],
   },
   {
     id: "painting",
@@ -707,7 +711,7 @@ export const services: Service[] = [
       { label: "Square Feet Finished", value: "150,000+" },
       { label: "Value Added", value: "$15M+" },
     ],
-    relatedServices: ["framing", "drywall", "flooring", "carpentry"],
+    relatedServices: ["bathrooms", "renovations", "flooring"],
   },
   {
     id: "garages",
@@ -786,16 +790,175 @@ export const services: Service[] = [
     relatedServices: ["framing", "renovations"],
   },
   {
+    id: "kitchens",
+    title: "Kitchen Renovations",
+    description: "Full kitchen renovations from layout to final reveal — cabinetry, countertops, backsplash, flooring, lighting, and appliances coordinated under one crew. Custom design and supply-and-install for any style.",
+    icon: "kitchen",
+    details: [
+      "Full kitchen gut-and-rebuild",
+      "Custom cabinetry and islands",
+      "Quartz, granite, porcelain countertops",
+      "Tile and stone backsplash",
+      "Flooring (LVP, tile, hardwood)",
+      "Under-cabinet and pendant lighting",
+      "Plumbing and electrical coordination",
+      "Appliance and fixture install",
+      "Additional scope available — tell us what you need",
+    ],
+    benefits: [
+      "One crew, one point of contact — no subcontracted hand-offs",
+      "Custom cabinetry built in-house, not bought off a shelf",
+      "Direct supplier relationships on countertops and tile",
+      "Permit handling and licensed trade coordination",
+      "Designed to maximize storage, workflow, and resale value",
+    ],
+    process: [
+      {
+        step: 1,
+        title: "Design Consultation",
+        description: "We walk your kitchen, discuss layout, style, and budget, and put together a complete scope with material selections.",
+      },
+      {
+        step: 2,
+        title: "Selections & Permits",
+        description: "Finalize cabinetry, countertops, tile, flooring, fixtures, and appliances. We pull permits and schedule licensed trades.",
+      },
+      {
+        step: 3,
+        title: "Demolition & Build",
+        description: "Tear-out, framing changes if needed, electrical and plumbing rough-ins, drywall, flooring, cabinet install, countertop templating and install.",
+      },
+      {
+        step: 4,
+        title: "Finish & Walkthrough",
+        description: "Backsplash, lighting, appliance hookup, final paint, hardware. Full walkthrough and punch-list before sign-off.",
+      },
+    ],
+    materials: [
+      "Custom Cabinetry (any style or finish)",
+      "Quartz, Granite, Porcelain, Marble Countertops",
+      "Tile and Stone Backsplash",
+      "LVP, Tile, and Hardwood Flooring",
+      "Premium Faucets and Hardware",
+      "Under-Cabinet and Pendant Lighting",
+      "Any Custom Material or Finish",
+    ],
+    faqs: [
+      {
+        question: "How long does a kitchen renovation take?",
+        answer: "Most full kitchen renovations run 6-10 weeks from demo to final walkthrough. Custom cabinetry lead time is the usual long pole — we finalize selections early so fabrication starts while we're doing demo and rough-ins.",
+      },
+      {
+        question: "Can I live in my home during a kitchen reno?",
+        answer: "Yes — most clients do. We can rig a temporary kitchenette (fridge, microwave, sink) in another room and keep the rest of the house clean. We dust-seal the work area and clean daily.",
+      },
+      {
+        question: "Do you handle layout changes and load-bearing walls?",
+        answer: "Yes. If you want to open up a wall, move plumbing, or relocate the kitchen entirely, we handle the structural engineering, permits, and trades. We're general contractors, not just installers.",
+      },
+      {
+        question: "Can I supply my own appliances or materials?",
+        answer: "Absolutely. Many clients buy their own appliances directly. We coordinate delivery and install at no extra charge. Same with countertops or tile if you've already sourced something specific.",
+      },
+    ],
+    stats: [
+      { label: "Kitchens Renovated", value: "180+" },
+      { label: "Avg. Project Time", value: "6-10 wks" },
+      { label: "Satisfaction Rate", value: "99%" },
+    ],
+    relatedServices: ["cabinets", "countertops", "flooring", "renovations"],
+  },
+  {
+    id: "bathrooms",
+    title: "Bathroom Renovations",
+    description: "Full bathroom renovations — vanities, custom showers, tile, plumbing, lighting, and finishes coordinated under one crew. Ensuite, main bath, powder room, or full overhaul.",
+    icon: "bathroom",
+    details: [
+      "Full bathroom gut-and-rebuild",
+      "Custom vanities and storage",
+      "Custom tile showers and tub surrounds",
+      "Quartz, marble, and stone countertops",
+      "Heated tile flooring",
+      "Plumbing and electrical updates",
+      "Lighting, mirrors, and fixtures",
+      "Steam shower and accessibility options",
+      "Additional scope available — tell us what you need",
+    ],
+    benefits: [
+      "Full waterproofing system — leak-free for the long haul",
+      "Custom vanities and storage built to your space, not stock sizes",
+      "Direct supplier pricing on tile, stone, and fixtures",
+      "Plumbing and electrical trades coordinated under our permits",
+      "Spa-quality finish at residential pricing",
+    ],
+    process: [
+      {
+        step: 1,
+        title: "Design Consultation",
+        description: "We assess your bathroom, discuss layout, style, and accessibility needs, and put together a complete scope with selections.",
+      },
+      {
+        step: 2,
+        title: "Selections & Permits",
+        description: "Finalize vanity, countertop, tile, fixtures, and lighting. We pull permits and schedule licensed trades.",
+      },
+      {
+        step: 3,
+        title: "Demo & Build",
+        description: "Tear-out, plumbing and electrical rough-ins, waterproofing, tile work, drywall, vanity and fixture install.",
+      },
+      {
+        step: 4,
+        title: "Finish & Walkthrough",
+        description: "Grout, paint, mirrors, hardware, glass enclosures. Full walkthrough and punch-list before sign-off.",
+      },
+    ],
+    materials: [
+      "Custom Vanities (any style or finish)",
+      "Quartz, Marble, Porcelain Countertops",
+      "Premium Tile and Natural Stone",
+      "Heated Tile Flooring",
+      "Frameless Glass Shower Enclosures",
+      "Premium Fixtures and Hardware",
+      "Steam Shower Systems",
+      "Any Custom Material or Finish",
+    ],
+    faqs: [
+      {
+        question: "How long does a bathroom renovation take?",
+        answer: "Most full bathroom renovations run 3-5 weeks from demo to final walkthrough. Custom showers with steam systems or layout changes can push to 6-7 weeks. We give exact timelines after walking the space.",
+      },
+      {
+        question: "Can you convert a tub to a walk-in shower?",
+        answer: "Yes — this is one of our most-requested projects. We handle the plumbing relocation, waterproofing, tile, and glass. Usually 2-3 weeks for a standalone tub-to-shower conversion.",
+      },
+      {
+        question: "Do you handle waterproofing properly?",
+        answer: "Full membrane waterproofing system (Schluter or equivalent), proper slope to drain, sealed penetrations, and a flood test before tile goes in. Done right, your shower stays leak-free for decades.",
+      },
+      {
+        question: "Can you add a bathroom where one doesn't exist?",
+        answer: "Yes — basement bathrooms, upstairs ensuites, powder rooms. We handle the framing, plumbing, electrical, permits, and finishes start to finish.",
+      },
+    ],
+    stats: [
+      { label: "Bathrooms Renovated", value: "240+" },
+      { label: "Avg. Project Time", value: "3-5 wks" },
+      { label: "Satisfaction Rate", value: "98%" },
+    ],
+    relatedServices: ["showers", "countertops", "cabinets", "renovations"],
+  },
+  {
     id: "renovations",
     title: "Home Additions & Full Home Renovations",
-    description: "Complete home renovations and additions — single rooms to full home transformations. We coordinate all trades and handle every detail start to finish.",
+    description: "Whole-home renovations and additions — multi-room transformations, second-storey additions, and full-property overhauls. We coordinate all trades and handle every detail start to finish.",
     icon: "renovation",
     details: [
       "Home additions",
+      "Second-storey additions",
       "Full home renovations",
-      "Kitchen renovations",
-      "Bathroom renovations",
       "Multi-room renovations",
+      "Layout reconfiguration",
       "Project management",
       "Additional scope available — tell us what you need",
     ],
@@ -838,7 +1001,7 @@ export const services: Service[] = [
     faqs: [
       {
         question: "How long does a full home renovation take?",
-        answer: "Renovation timelines vary significantly based on scope. A kitchen might take 6-8 weeks, while a full home renovation could take 3-6 months. We provide detailed timelines.",
+        answer: "Renovation timelines vary significantly based on scope. A multi-room renovation might take 8-12 weeks, while a full home renovation or second-storey addition could take 4-6 months. We provide detailed timelines after walking your home.",
       },
       {
         question: "Do you handle all trades?",
@@ -858,7 +1021,7 @@ export const services: Service[] = [
       { label: "Home Additions", value: "85+" },
       { label: "Satisfaction Rate", value: "98%" },
     ],
-    relatedServices: ["cabinets", "countertops", "flooring", "showers"],
+    relatedServices: ["kitchens", "bathrooms", "basements", "cabinets"],
   },
   {
     id: "commercial",
@@ -944,3 +1107,4 @@ export function getServiceById(id: string): Service | undefined {
 export function getRelatedServices(serviceIds: string[]): Service[] {
   return services.filter((s) => serviceIds.includes(s.id));
 }
+

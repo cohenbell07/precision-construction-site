@@ -3,6 +3,20 @@ import { env } from "./env";
 
 const resend = env.resend.enabled ? new Resend(env.resend.apiKey!) : null;
 
+/**
+ * Server-only routing target for every lead notification email (the `to:`
+ * field on Resend sends). Honors a `CONTACT_EMAIL` override in `.env.local`
+ * so John can route test submissions to his own inbox during local QA;
+ * production env sets this to johnpcnd@gmail.com.
+ *
+ * IMPORTANT: only import this from API routes (`app/api/*`). It must never
+ * appear in a client-rendered component — the override would create a
+ * server/client hydration mismatch. The publicly-displayed email lives at
+ * `BRAND_CONFIG.contact.email` and is a pure constant for that reason.
+ */
+export const LEAD_INBOX_EMAIL: string =
+  process.env.CONTACT_EMAIL || "johnpcnd@gmail.com";
+
 export interface EmailAttachment {
   filename: string;
   content: Buffer;

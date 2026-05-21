@@ -71,6 +71,17 @@ const config: Config = {
           muted: "#8A7D6B",
           glow: "rgba(196, 181, 160, 0.3)",
         },
+        // Cream "Studio" canvas — see project_showroom_studio_design memory
+        bone: {
+          DEFAULT: "#F5EFE4", // section background — warm off-white
+          soft: "#EDE5D5",    // section break / nested surface (~2% darker)
+          paper: "#FBF7EE",   // elevated card surface
+          hairline: "#D9D0BE",// 1px borders on cream
+        },
+        ink: {
+          DEFAULT: "#1A1A1A", // body text on cream
+          muted: "#5C5750",   // secondary text on cream
+        },
         text: {
           primary: "#FFFFFF",
           secondary: "#F5F5F5", // Off-white

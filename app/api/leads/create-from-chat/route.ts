@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, LEAD_INBOX_EMAIL } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
 import {
   getAdminChatLeadEmail,
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     if (supabase) {
       try {
         await supabase.from("leads").insert({
-          name: name || null,
+          name: name || email,
           email,
           phone: phone || null,
           project_type: projectDetails?.projectType || null,
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     });
 
     const adminResult = await sendEmail({
-      to: BRAND_CONFIG.contact.email,
+      to: LEAD_INBOX_EMAIL,
       subject: adminEmail.subject,
       html: adminEmail.html,
     });

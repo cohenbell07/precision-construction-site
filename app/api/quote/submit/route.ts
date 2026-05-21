@@ -1,14 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, LEAD_INBOX_EMAIL } from "@/lib/email";
 import { generateAIResponse } from "@/lib/ai";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { env } from "@/lib/env";
-import { getActiveDealsSummaryForEmail, getDealsForService } from "@/lib/deals";
+import { getActiveOffersEmailHtml, getOffersForService } from "@/lib/deals";
+import { getCustomerEmailSignature } from "@/lib/emailTemplates";
 
 export async function POST(request: NextRequest) {
   try {
-    const data = await request.json();
+    const data = await request.json() as {
+      name?: string;
+      email?: string;
+      phone?: string;
+      serviceTitle?: string;
+      serviceId?: string;
+      address?: string;
+      projectDetails?: string;
+      timeline?: string;
+      budgetMin?: string | number;
+      budgetMax?: string | number;
+      referralSource?: string;
+      photos?: string[];
+    };
     const {
       name,
       email,
@@ -21,6 +35,7 @@ export async function POST(request: NextRequest) {
       budgetMin,
       budgetMax,
       referralSource,
+      photos,
     } = data;
 
     if (!email || !projectDetails) {
@@ -31,27 +46,43 @@ export async function POST(request: NextRequest) {
     }
 
     const projectTitle = serviceTitle || "Service";
-    const projectDescription = `SERVICE QUOTE REQUEST
-Service: ${projectTitle}
-Name: ${name || "Not provided"}
-Email: ${email}
-Phone: ${phone || "Not provided"}
-Address: ${address || "Not provided"}
-Project Details: ${projectDetails}
-Timeline: ${timeline || "Not specified"}
-Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `$${budgetMax}` : "Not specified"}`;
+    const photoUrls: string[] = Array.isArray(photos)
+      ? photos.filter((u): u is string => typeof u === "string" && u.startsWith("http"))
+      : [];
+
+    /* Budget range as a single human-readable string for the `budget`
+       column (the table stores it as text, not two numbers). */
+    const budgetRange =
+      budgetMin || budgetMax
+        ? `${budgetMin ? `$${budgetMin}` : "—"} to ${budgetMax ? `$${budgetMax}` : "—"}`
+        : null;
+
+    /* `message` holds only the leftovers that have no dedicated column —
+       photo URLs and the referral source. Everything else lands in its
+       own structured column so John's dashboard is filterable. */
+    const messageExtras = [
+      photoUrls.length ? `Photos:\n${photoUrls.join("\n")}` : null,
+      referralSource ? `How they found us: ${referralSource}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
 
     // Save to Supabase if configured
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
         await supabase.from("leads").insert({
-          name: name || null,
+          /* `name` is NOT NULL in the table; the form validates it
+             client-side via validateLeadForm, so it's always present. */
+          name: name || "Not provided",
           email,
           phone: phone || null,
           address: address || null,
           project_type: projectTitle,
-          message: projectDescription,
+          project_details: projectDetails || null,
+          timeline: timeline || null,
+          budget: budgetRange,
+          message: messageExtras || null,
           source: "quote_tool",
         });
       } catch (dbError) {
@@ -85,7 +116,7 @@ Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `
 
     // Send email to admin
     const adminResult = await sendEmail({
-      to: BRAND_CONFIG.contact.email,
+      to: LEAD_INBOX_EMAIL,
       subject: `New Quote Request - ${projectTitle}`,
       html: `
         <h2>New Quote Request</h2>
@@ -100,15 +131,30 @@ Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `
         <p><strong>Timeline:</strong> ${safe(timeline) || "Not specified"}</p>
         <p><strong>Budget Range:</strong> ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `$${budgetMax}` : "Not specified"}</p>
         ${referralSource ? `<p><strong>How They Found Us:</strong> ${safe(referralSource)}</p>` : ""}
-        ${getActiveDealsSummaryForEmail(serviceId || "")}
+        ${photoUrls.length ? `
+          <p><strong>Project Photos:</strong></p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+            ${photoUrls.map((url, i) => `
+              <a href="${url}" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
+                <img src="${url}" alt="Project photo ${i + 1}" width="160" style="display:block;border-radius:6px;border:1px solid #d9d0be;object-fit:cover;" />
+              </a>
+            `).join("")}
+          </div>
+          <p style="font-size:12px;color:#666;">Tap any photo to open at full size.</p>
+        ` : ""}
+        ${getActiveOffersEmailHtml()}
       `,
     });
 
-    // Build deal info for customer confirmation
-    const customerDeals = serviceId ? getDealsForService(serviceId) : [];
-    const dealNote = customerDeals.length > 0
+    /* Customer-facing call-out for the limited-time promo. The Price Beat
+       Guarantee is mentioned in passing so the customer knows it exists
+       (it applies vs. a competitor quote, not on top of our discount —
+       phrased here so it doesn't read like a stacked "+5%" offer). */
+    const customerOffers = getOffersForService(serviceId);
+    const limitedTime = customerOffers.find((o) => o.limitedTime);
+    const dealNote = limitedTime
       ? `<p style="margin-top:12px;padding:10px 14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;color:#166534;font-size:14px;">
-          <strong>Good news!</strong> Your selected service qualifies for: ${customerDeals.map(d => `<strong>${d.discount} — ${d.name}</strong>`).join(", ")}. We'll apply the best available deal to your quote.
+          <strong>Good news!</strong> Your project is eligible for our <strong>${limitedTime.name}</strong>${limitedTime.endsAtDisplay ? ` — valid through <strong>${limitedTime.endsAtDisplay}</strong>` : ""}. We also stand by our 5% Price Beat Guarantee if you've got a comparable competitor quote in hand.
         </p>`
       : "";
 
@@ -124,7 +170,7 @@ Budget Range: ${budgetMin ? `$${budgetMin}` : "Not specified"} - ${budgetMax ? `
         <p>We'll review your <strong>${safe(projectTitle)}</strong> project details and get back to you within 24 hours with a detailed quote.</p>
         <p><strong>${BRAND_CONFIG.motto}</strong></p>
         <p>We treat every client like family and deliver only the best.</p>
-        <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}<br>${BRAND_CONFIG.contact.phoneFormatted}</p>
+        ${getCustomerEmailSignature()}
       `,
     });
 

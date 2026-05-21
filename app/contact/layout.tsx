@@ -3,7 +3,7 @@ import { BRAND_CONFIG } from "@/lib/utils";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pcnd.ca";
 
 export const metadata = {
-  title: `Contact Us | Calgary Construction | ${BRAND_CONFIG.shortName}`,
+  title: "Contact Us | Calgary Construction",
   description: `Contact PCND for Calgary construction quotes. Call ${BRAND_CONFIG.contact.phoneFormatted} or request a free quote online. Family-owned contractors since 1968.`,
   keywords: [
     "contact PCND",

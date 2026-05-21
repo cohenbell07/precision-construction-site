@@ -1,7 +1,22 @@
+/**
+ * Site footer — Showroom canvas (always dark, architectural framing).
+ *
+ * Refresh:
+ * - Replaces the old 4-stat social-proof strip with a confident CTA banner —
+ *   one clear "let's talk" moment at the top instead of redundant numbers
+ *   already shown elsewhere on the site.
+ * - Drops the cluttered 4th "Get Started" card from the column grid; goes to
+ *   a cleaner 3-column layout (Brand + Services + Company).
+ * - Removes the circle-wrapper icons in the contact list; inline icons
+ *   read cleaner against the dark canvas.
+ * - Sub-footer typography goes from 10px tracking-out caps to readable
+ *   regular small text.
+ */
+
 import Link from "next/link";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { LogoFooter } from "@/components/LogoFooter";
-import { Mail, MapPin, Phone, Facebook, Instagram, ArrowRight, Star } from "lucide-react";
+import { Mail, MapPin, Phone, Facebook, Instagram, ArrowRight } from "lucide-react";
 
 export function Footer() {
   const serviceLinks = [
@@ -17,82 +32,107 @@ export function Footer() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
+    { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
     { href: "/get-quote", label: "Get a Quote" },
-    { href: "/about#meet-john-olivito", label: "Meet the Owner" },
+    { href: "/price-beat", label: "Price Beat Guarantee" },
   ];
 
   return (
     <footer className="bg-[#0A0A0A] text-white">
-      {/* Sandstone accent line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-sandstone/25 to-transparent" />
+      {/* Top sandstone hairline — architectural transition from the page above. */}
+      <div className="h-px bg-gradient-to-r from-transparent via-sandstone/30 to-transparent" />
 
-      {/* Social proof strip */}
-      <div className="border-b border-white/[0.04]">
-        <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-12 gap-y-3 py-6 sm:py-8">
-            <div className="flex items-center gap-2">
-              <Star className="w-3.5 h-3.5 fill-sandstone/50 text-sandstone/50" />
-              <span className="text-xs text-sandstone/50 font-medium uppercase tracking-[0.1em]">Free Consultations</span>
+      {/* ━━━ CTA BANNER ━━━ */}
+      <div className="border-b border-white/[0.04] relative overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none opacity-50"
+          style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(196,181,160,0.08) 0%, rgba(0,0,0,0) 65%)" }}
+        />
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative">
+          <div className="py-10 sm:py-14 md:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-8">
+            <div className="max-w-xl">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="h-px w-8 bg-sandstone/60" />
+                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/80 font-medium">Ready to Build?</p>
+              </div>
+              <h3 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight leading-[0.95] text-white mb-3">
+                Let&apos;s Talk About<br className="hidden sm:block" /> Your Project.
+              </h3>
+              <p className="font-serif italic text-white/55 text-base sm:text-lg max-w-md">
+                Free consultation.{" "}
+                <Link href="/price-beat" className="text-white/75 underline underline-offset-4 decoration-white/25 hover:text-sandstone hover:decoration-sandstone/60 transition-colors">
+                  5% price beat guarantee
+                </Link>
+                . We respond within 24 hours.
+              </p>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-heading font-black text-white/80">5,000+</span>
-              <span className="text-[10px] uppercase tracking-[0.12em] text-white/55 font-medium">Projects</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-heading font-black text-white/80">58+</span>
-              <span className="text-[10px] uppercase tracking-[0.12em] text-white/55 font-medium">Years</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-heading font-black text-white/80">3rd</span>
-              <span className="text-[10px] uppercase tracking-[0.12em] text-white/55 font-medium">Generation</span>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 shrink-0">
+              <Link
+                href="/get-quote"
+                className="
+                  group inline-flex items-center justify-center gap-3 px-7 py-4 rounded-full
+                  text-sm font-bold uppercase tracking-[0.18em]
+                  bg-sandstone text-black
+                  shadow-[0_4px_16px_-4px_rgba(196,181,160,0.4)]
+                  transition-[transform,box-shadow,background-color] duration-200 ease-out
+                  hover:bg-sandstone-light hover:-translate-y-[1px] hover:shadow-[0_8px_24px_-4px_rgba(196,181,160,0.55)]
+                "
+              >
+                Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Link>
+              <div className="flex items-center gap-3 text-white/70">
+                <span className="hidden sm:inline text-xs uppercase tracking-[0.2em] text-white/40">or call</span>
+                <a
+                  href={`tel:${BRAND_CONFIG.contact.phone}`}
+                  className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-white hover:text-sandstone transition-colors"
+                >
+                  <Phone aria-hidden="true" className="h-4 w-4 text-sandstone" />
+                  {BRAND_CONFIG.contact.phoneFormatted}
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main footer content */}
-      <div className="container mx-auto px-4 sm:px-6 py-14 sm:py-18 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12">
+      {/* ━━━ MAIN COLUMNS ━━━ */}
+      <div className="container mx-auto px-4 sm:px-6 py-14 sm:py-16 md:py-20 max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14 lg:gap-20">
 
-          {/* Company Info */}
-          <div className="space-y-5">
-            <Link href="/" className="inline-block group">
-              <LogoFooter className="h-12 md:h-14 w-auto group-hover:opacity-80 transition-opacity" />
+          {/* Brand + Contact */}
+          <div className="space-y-6 md:col-span-1">
+            <Link href="/" className="inline-block transition-opacity duration-200 hover:opacity-85">
+              <LogoFooter className="h-12 md:h-14 w-auto" />
             </Link>
-            <p className="text-white/55 text-sm leading-relaxed max-w-xs">
-              Three generations of quality craftsmanship. We treat every client like family and deliver only the best.
+            <p className="font-serif italic text-white/65 text-base leading-snug max-w-xs">
+              Three generations of quality. Family-owned since 1968.
             </p>
             <div className="space-y-3 text-sm">
-              <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="flex items-center gap-3 text-white/50 hover:text-sandstone/70 transition-colors group">
-                <div className="w-8 h-8 rounded-full bg-white/[0.03] border border-white/[0.06] group-hover:border-sandstone/20 flex items-center justify-center shrink-0 transition-colors">
-                  <Phone className="h-3.5 w-3.5" />
-                </div>
+              <a href={`tel:${BRAND_CONFIG.contact.phone}`} className="flex items-center gap-3 text-white/65 hover:text-sandstone transition-colors">
+                <Phone aria-hidden="true" className="h-4 w-4 text-sandstone/70" />
                 <span className="font-semibold">{BRAND_CONFIG.contact.phoneFormatted}</span>
               </a>
-              <a href={`mailto:${BRAND_CONFIG.contact.email}`} className="flex items-center gap-3 text-white/60 hover:text-sandstone/70 transition-colors group">
-                <div className="w-8 h-8 rounded-full bg-white/[0.03] border border-white/[0.06] group-hover:border-sandstone/20 flex items-center justify-center shrink-0 transition-colors">
-                  <Mail className="h-3.5 w-3.5" />
-                </div>
-                <span className="text-xs sm:text-sm break-all">{BRAND_CONFIG.contact.email}</span>
+              <a href={`mailto:${BRAND_CONFIG.contact.email}`} className="flex items-center gap-3 text-white/65 hover:text-sandstone transition-colors">
+                <Mail aria-hidden="true" className="h-4 w-4 text-sandstone/70 shrink-0" />
+                <span className="break-all">{BRAND_CONFIG.contact.email}</span>
               </a>
-              <div className="flex items-center gap-3 text-white/55">
-                <div className="w-8 h-8 rounded-full bg-white/[0.03] border border-white/[0.06] flex items-center justify-center shrink-0">
-                  <MapPin className="h-3.5 w-3.5" />
-                </div>
-                <span className="text-sm">{BRAND_CONFIG.contact.address}</span>
+              <div className="flex items-center gap-3 text-white/65">
+                <MapPin aria-hidden="true" className="h-4 w-4 text-sandstone/70 shrink-0" />
+                <span>{BRAND_CONFIG.contact.address}</span>
               </div>
             </div>
             {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
               <div className="flex items-center gap-2 pt-1">
                 {BRAND_CONFIG.social.facebook && (
-                  <a href={BRAND_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-11 h-11 rounded-full border border-white/[0.06] hover:border-sandstone/25 flex items-center justify-center text-white/55 hover:text-sandstone/60 transition-all duration-300">
-                    <Facebook className="h-4 w-4" />
+                  <a href={BRAND_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-11 h-11 rounded-full border border-white/10 hover:border-sandstone/40 flex items-center justify-center text-white/55 hover:text-sandstone transition-colors duration-200">
+                    <Facebook aria-hidden="true" className="h-4 w-4" />
                   </a>
                 )}
                 {BRAND_CONFIG.social.instagram && (
-                  <a href={BRAND_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-11 h-11 rounded-full border border-white/[0.06] hover:border-sandstone/25 flex items-center justify-center text-white/55 hover:text-sandstone/60 transition-all duration-300">
-                    <Instagram className="h-4 w-4" />
+                  <a href={BRAND_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-11 h-11 rounded-full border border-white/10 hover:border-sandstone/40 flex items-center justify-center text-white/55 hover:text-sandstone transition-colors duration-200">
+                    <Instagram aria-hidden="true" className="h-4 w-4" />
                   </a>
                 )}
               </div>
@@ -102,14 +142,14 @@ export function Footer() {
           {/* Services */}
           <div className="space-y-5">
             <div>
-              <h4 className="font-heading font-bold text-white/80 uppercase tracking-[0.15em] text-xs">Services</h4>
-              <div className="h-px w-8 bg-sandstone/20 mt-3" />
+              <h4 className="font-heading font-bold text-white uppercase tracking-[0.2em] text-xs">Services</h4>
+              <div className="h-px w-10 bg-sandstone/40 mt-3" />
             </div>
-            <ul className="space-y-0.5">
+            <ul className="space-y-2">
               {serviceLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="group flex items-center gap-2 text-sm text-white/55 hover:text-white/70 transition-colors py-1.5">
-                    <ArrowRight className="h-3 w-3 text-transparent group-hover:text-sandstone/40 -translate-x-1 group-hover:translate-x-0 transition-all duration-200 shrink-0" />
+                  <Link href={link.href} className="group inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-150">
+                    <ArrowRight aria-hidden="true" className="h-3 w-3 text-sandstone/0 group-hover:text-sandstone/70 -translate-x-2 group-hover:translate-x-0 transition-[transform,color] duration-200 shrink-0" />
                     {link.label}
                   </Link>
                 </li>
@@ -120,60 +160,30 @@ export function Footer() {
           {/* Company */}
           <div className="space-y-5">
             <div>
-              <h4 className="font-heading font-bold text-white/80 uppercase tracking-[0.15em] text-xs">Company</h4>
-              <div className="h-px w-8 bg-sandstone/20 mt-3" />
+              <h4 className="font-heading font-bold text-white uppercase tracking-[0.2em] text-xs">Company</h4>
+              <div className="h-px w-10 bg-sandstone/40 mt-3" />
             </div>
-            <ul className="space-y-0.5">
+            <ul className="space-y-2">
               {companyLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="group flex items-center gap-2 text-sm text-white/55 hover:text-white/70 transition-colors py-1.5">
-                    <ArrowRight className="h-3 w-3 text-transparent group-hover:text-sandstone/40 -translate-x-1 group-hover:translate-x-0 transition-all duration-200 shrink-0" />
+                  <Link href={link.href} className="group inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-150">
+                    <ArrowRight aria-hidden="true" className="h-3 w-3 text-sandstone/0 group-hover:text-sandstone/70 -translate-x-2 group-hover:translate-x-0 transition-[transform,color] duration-200 shrink-0" />
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-
-          {/* Get Started */}
-          <div className="space-y-5">
-            <div>
-              <h4 className="font-heading font-bold text-white/80 uppercase tracking-[0.15em] text-xs">Get Started</h4>
-              <div className="h-px w-8 bg-sandstone/20 mt-3" />
-            </div>
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5 space-y-4">
-              <p className="text-sm text-white/60 leading-relaxed">
-                Free quote — no obligation. We beat competitor quotes by 5% guaranteed.
-              </p>
-              <ul className="space-y-2">
-                {["5% Price Beat Guarantee", "Free consultation", "24-hour response"].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-xs text-white/55">
-                    <span className="w-1 h-1 rounded-full bg-sandstone/30 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/get-quote"
-                className="inline-flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold uppercase tracking-[0.15em] text-xs border border-sandstone/25 text-sandstone/70 hover:border-sandstone/50 hover:text-sandstone hover:bg-sandstone/[0.04] transition-all duration-300"
-              >
-                Request a Quote <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Sub-footer */}
-      <div className="bg-black/60">
-        <div className="h-px bg-gradient-to-r from-transparent via-white/[0.04] to-transparent" />
+      {/* ━━━ SUB-FOOTER ━━━ */}
+      <div className="bg-black/60 border-t border-white/[0.04]">
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-          <div className="py-6 sm:py-5 flex flex-col items-center gap-2.5 sm:flex-row sm:justify-between sm:gap-3 text-center sm:text-left text-[11px] sm:text-[10px] text-white/60 sm:text-white/55 uppercase tracking-[0.12em] sm:tracking-[0.1em] leading-relaxed">
+          <div className="py-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-4 text-xs sm:text-[13px] text-white/50">
             <p>&copy; {new Date().getFullYear()} {BRAND_CONFIG.name}</p>
-            <p className="max-w-xs sm:max-w-none">
-              Serving Calgary, Airdrie, Cochrane &amp; Okotoks
-            </p>
-            <p>Licensed &amp; Insured &middot; Since 1968</p>
+            <p>Serving Calgary, Airdrie, Cochrane &amp; Okotoks</p>
+            <p>Licensed &amp; Insured &middot; Family Owned Since 1968</p>
           </div>
         </div>
       </div>

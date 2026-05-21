@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = params;
   const service = getServiceById(slug);
   if (!service) {
-    return { title: `Service | ${BRAND_CONFIG.shortName}` };
+    return { title: "Service" };
   }
   const serviceImageMap: Record<string, string> = {
     cabinets: "/cabinetsland.webp",
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
   const ogImage = serviceImageMap[slug] || "/servicehero.webp";
   return {
-    title: `${service.title} | Calgary | ${BRAND_CONFIG.shortName}`,
+    title: `${service.title} | Calgary`,
     description: `Professional ${service.title.toLowerCase()} services in Calgary and surrounding areas. ${BRAND_CONFIG.shortName} — family-owned since 1968. Free estimates, 5% price beat guarantee.`,
     keywords: [
       `${service.title} Calgary`,

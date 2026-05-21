@@ -6,6 +6,19 @@ const nextConfig = {
       skipDefaultConversion: true,
     },
   },
+  /* The old per-deal quote forms (basement / bundle / supplier-deals) are
+     retired — every service is 15% off site-wide via the Spring Build event,
+     so the one promo-aware /get-quote form covers everything. These permanent
+     redirects keep any historical inbound links (emails, ads, search index)
+     alive: the basement deal points at the basement *service* (closest intent
+     match), the rest land on the main form. */
+  async redirects() {
+    return [
+      { source: "/get-quote/basement",       destination: "/get-quote?service=basements", permanent: true },
+      { source: "/get-quote/bundle",         destination: "/get-quote",                   permanent: true },
+      { source: "/get-quote/supplier-deals", destination: "/get-quote",                   permanent: true },
+    ];
+  },
   images: {
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
     formats: ['image/avif', 'image/webp'],

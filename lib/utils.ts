@@ -32,7 +32,15 @@ export const BRAND_CONFIG = {
   established: 1968,
   servingSince: 1997,
   contact: {
-    email: process.env.CONTACT_EMAIL || "johnpcnd@gmail.com",
+    /* Public-facing display email — must be a pure constant so that server
+       and client render the exact same string. Do NOT read process.env here:
+       client bundles don't have CONTACT_EMAIL (it's not NEXT_PUBLIC_*), so
+       any env read would resolve to the dev override on the server and to
+       the fallback on the client → React hydration mismatch.
+       The dev/prod-overridable lead-inbox routing email lives in
+       `lib/email.ts` as `LEAD_INBOX_EMAIL` and is only imported by API
+       routes (never by client components). */
+    email: "johnpcnd@gmail.com",
     phone: "403-818-7767",
     phoneFormatted: "(403) 818-7767",
     address: "Calgary, AB and Surrounding Areas",

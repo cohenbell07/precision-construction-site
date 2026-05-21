@@ -1,6 +1,7 @@
 import { BRAND_CONFIG } from "./utils";
 import { services, getServiceById } from "./services";
-import { deals, PRICE_BEAT_GUARANTEE } from "./deals";
+import { getActiveOffersForChatPrompt } from "./deals";
+import { getActivePromo } from "./promo";
 
 /**
  * Build page-specific context for the chat based on currentPage (pathname).
@@ -27,9 +28,10 @@ function buildPageContext(currentPage: string): string {
       if (service.faqs?.length) {
         sections.push(`- Key FAQs to reference: ${service.faqs.map((f) => f.question).slice(0, 3).join(" | ")}`);
       }
-      if (slug === "basements") {
+      const promo = getActivePromo();
+      if (promo) {
         sections.push(
-          `- SPECIAL DEAL: 15% off full basement renovations! Direct them to /get-quote/basement to request a quote with 15% off.`
+          `- ACTIVE PROMO: ${promo.label} — ${promo.shortHeadline} (through ${promo.endsAtDisplay}). Mention naturally when discussing pricing.`
         );
       }
       sections.push(
@@ -70,9 +72,7 @@ export function getChatSystemPrompt(context?: { currentPage?: string }): string 
     .map((s) => `- ${s.title} (${s.id}): ${s.description}`)
     .join("\n");
 
-  const dealsList = deals
-    .map((d) => `- **${d.name}** (${d.discount} off) — ${d.description.split(".")[0]}. → ${d.url}`)
-    .join("\n");
+  const offersList = getActiveOffersForChatPrompt();
 
   const pageContext = context?.currentPage
     ? buildPageContext(context.currentPage)
@@ -111,19 +111,16 @@ ${servicesList}
 
 We use premium materials from trusted brands: Caesarstone, Shaw Flooring, Benjamin Moore, Olympia Tile, Silestone, James Hardie.
 
-## CURRENT DEALS (mention these proactively when relevant!)
+## CURRENT OFFERS (mention proactively when relevant)
 
-${dealsList}
+${offersList}
 
-Plus: ${PRICE_BEAT_GUARANTEE}
+**Proactively mention the Spring Build Event** when discussing pricing, scope, or timing — every service is 15% off through June 30, so it always applies. Mention the **5% Price Beat Guarantee** whenever someone says they're shopping around, comparing quotes, or worried about cost — frame it as separate from the Spring Build sale (it kicks in vs. a competitor quote, not on top of our discount).
 
-**Proactively mention deals when they match** — e.g. if someone mentions a basement project, bring up the 15% off deal naturally. If they're doing multiple things, mention the bundle savings. Don't wait to be asked.
-
-**When to direct where:**
-- Basement → /get-quote/basement (15% off)
-- Multiple services (supply + install combo) → /get-quote/bundle (15% off)
-- Select materials (painting, flooring, carpentry, showers, drywall, countertops) → /get-quote/supplier-deals (10% off)
-- Anything else → /get-quote
+**Where to direct quote requests:**
+- Any service → /get-quote (the canonical multi-step form; the old per-deal forms are retired)
+- Customer already has a competitor quote → /price-beat (file upload form)
+- High-intent / wants someone on-site → /book-consultation
 
 ## HOW TO CHAT
 

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, LEAD_INBOX_EMAIL } from "@/lib/email";
 import { BRAND_CONFIG } from "@/lib/utils";
+import { getCustomerEmailSignature } from "@/lib/emailTemplates";
 
 function escapeHtml(str: string | undefined): string {
   if (str == null || typeof str !== "string") return "";
@@ -21,6 +22,8 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const name = (formData.get("name") as string) || "";
     const email = (formData.get("email") as string) || "";
+    const phone = (formData.get("phone") as string) || "";
+    const note = (formData.get("note") as string) || "";
     const productType = (formData.get("productType") as string) || "";
     const rawInquiryType = ((formData.get("inquiryType") as string) || "product").toLowerCase();
     const inquiryType = rawInquiryType === "service" ? "service" : "product";
@@ -64,11 +67,12 @@ export async function POST(request: NextRequest) {
     if (supabase) {
       try {
         await supabase.from("leads").insert({
-          name: name || null,
+          name: name || email,
           email,
-          phone: null,
+          phone: phone || null,
           project_type: `Price Beat (${inquiryType === "service" ? "Service" : "Product"}): ${categoryLabel}`,
-          message: `Type: ${inquiryType === "service" ? "Service" : "Product"}\nCategory: ${categoryLabel}\n\nCompetitor quote attached: ${hasAttachment ? "Yes" : "No"}`,
+          project_details: note || null,
+          message: `Type: ${inquiryType === "service" ? "Service" : "Product"}\nCategory: ${categoryLabel}\nCompetitor quote attached: ${hasAttachment ? "Yes" : "No"}${note ? `\n\nNote: ${note}` : ""}`,
           source: sourceSlug,
         });
       } catch (dbError) {
@@ -78,15 +82,20 @@ export async function POST(request: NextRequest) {
 
     // Send email to admin with attachment if present
     const adminResult = await sendEmail({
-      to: BRAND_CONFIG.contact.email,
+      to: LEAD_INBOX_EMAIL,
       subject: `Price Beat Request (${inquiryType === "service" ? "Service" : "Product"}) - ${categoryLabel}`,
       html: `
         <h2>New Price Beat Request</h2>
         <p><strong>Type:</strong> ${inquiryType === "service" ? "Service" : "Product"}</p>
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(phone) || "Not provided"}</p>
         <p><strong>Category:</strong> ${escapeHtml(categoryLabel)}</p>
+        ${note ? `<p><strong>Project Note:</strong></p><p>${escapeHtml(note)}</p>` : ""}
         <p><strong>Competitor Quote Attached:</strong> ${hasAttachment ? `Yes (${attachment!.filename})` : "No"}</p>
+        <p style="margin-top:14px;padding:10px 14px;background:#fef3c7;border:1px solid #fde68a;border-radius:8px;color:#92400e;font-size:14px;">
+          <strong>Action:</strong> Review the attached quote, confirm it meets the price-beat terms, and reply within 24 hours with a price at least 5% under it.
+        </p>
       `,
       attachments: attachment ? [attachment] : undefined,
     });
@@ -101,7 +110,7 @@ export async function POST(request: NextRequest) {
         <p>We've received your request and will review your competitor quote. Our team will get back to you within 24 hours with our best price—guaranteed to beat your quote by at least 5%.</p>
         <p><strong>${BRAND_CONFIG.motto}</strong></p>
         <p>We treat every client like family and deliver only the best.</p>
-        <p>Best regards,<br>${BRAND_CONFIG.owner}<br>${BRAND_CONFIG.name}</p>
+        ${getCustomerEmailSignature()}
       `,
     });
 

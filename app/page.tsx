@@ -1,5 +1,14 @@
 "use client";
 
+/**
+ * Homepage — "Showroom + Studio" two-canvas direction.
+ *
+ * Dark canvases carry the showroom drama (hero, spec sheet, services,
+ * basement promo, final CTA). Cream canvases carry the studio voice (about,
+ * material partners, testimonials). See memory
+ * `project_showroom_studio_design.md`.
+ */
+
 import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
@@ -7,15 +16,14 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { services } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { VideoHero } from "@/components/VideoHero";
-import { ArrowRight, Star, Phone, Shield, CheckCircle2 } from "lucide-react";
-import { AnimatedCounter } from "@/components/AnimatedCounter";
-import { SpotlightCard } from "@/components/SpotlightCard";
-import dynamic from "next/dynamic";
-
-const LightRays = dynamic(() => import("@/components/LightRays").then((m) => ({ default: m.LightRays })), { ssr: false });
+import { ArrowRight, Phone, Hammer, Users, Clock, BadgePercent, MapPin } from "lucide-react";
+import { Section } from "@/components/Section";
+import { ServiceCard } from "@/components/ServiceCard";
+import { TestimonialCard } from "@/components/TestimonialCard";
 import { BlurReveal } from "@/components/BlurReveal";
+import { BookConsultationCTA } from "@/components/BookConsultationCTA";
+import { getActivePromo } from "@/lib/promo";
 
-/* ─── Scroll reveal — opacity-only to avoid gating content on JS (H18) ─── */
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -32,37 +40,41 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
   );
 }
 
-/* ─── Initials avatar ─── */
-function InitialsAvatar({ name }: { name: string }) {
-  const initials = name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
-  const colors = ["bg-white/[0.12]", "bg-white/[0.10]", "bg-white/[0.08]"];
-  const colorIdx = name.length % colors.length;
+/* Small reusable section label — sandstone hairline + uppercase tracking. */
+function SectionLabel({ label, theme = "dark" }: { label: string; theme?: "dark" | "cream" }) {
+  const isDark = theme === "dark";
   return (
-    <div className={`w-10 h-10 rounded-full ${colors[colorIdx]} border border-white/[0.12] flex items-center justify-center shrink-0`}>
-      <span className="text-xs font-bold text-white/70 tracking-wider">{initials}</span>
+    <div className="flex items-center gap-3 mb-4 sm:mb-5">
+      <span className={`h-px w-6 ${isDark ? "bg-sandstone/60" : "bg-sandstone-dark/50"}`} aria-hidden="true" />
+      <span className={`text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium ${isDark ? "text-white/55" : ""} ${!isDark ? "cream-eyebrow" : ""}`}>
+        {label}
+      </span>
     </div>
   );
 }
-
-/* ═══════════════════════════════════════════ */
 
 export default function Home() {
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
   const heroTextY = useTransform(scrollYProgress, [0, 0.85], [0, 40]);
+  const activePromo = getActivePromo();
 
-  const featuredServices = services.filter((s) =>
-    ["basements", "cabinets", "showers", "countertops", "renovations", "carpentry"].includes(s.id)
-  );
+  /* Renovation-first lead: top four are renos (kitchen, bathroom, basement,
+     whole-home), then two top component services for visual variety. Order
+     matters — defines the visible left-to-right reading order of the grid. */
+  const FEATURED_ORDER = ["kitchens", "bathrooms", "basements", "renovations", "countertops", "cabinets"];
+  const featuredServices = FEATURED_ORDER
+    .map((id) => services.find((s) => s.id === id))
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
 
   const serviceImages: Record<string, string> = {
+    kitchens: "/kitchenshero.webp",
+    bathrooms: "/bathroomshero.webp",
     basements: "/basementland02.webp",
-    cabinets: "/service-millwork.webp",
-    showers: "/service-steam-shower.webp",
-    countertops: "/countertopsservice3.webp",
     renovations: "/home-additions.webp",
-    carpentry: "/interiorfinishingservice1.webp",
+    countertops: "/countertopsservice3.webp",
+    cabinets: "/service-millwork.webp",
   };
 
   const brands = [
@@ -80,66 +92,52 @@ export default function Home() {
     { name: "Priya S.", text: "We needed new flooring throughout our main floor and the quote came in well under the other companies we called. The LVP they sourced looks amazing and the install was super clean. No corners cut. Really happy with how it turned out.", project: "Main Floor LVP Installation", year: "2024" },
   ];
 
+  /* Spec stats — paired with refined lucide icons + a sandstone leader prefix.
+     Service area lives as a footer line below the grid so the four cards stay
+     visually balanced. */
+  const stats = [
+    { Icon: Hammer,       label: "Projects Delivered", value: "5,000+" },
+    { Icon: Users,        label: "Generation",         value: "Third" },
+    { Icon: Clock,        label: "Response Time",      value: "24 Hours" },
+    { Icon: BadgePercent, label: "Price Guarantee",    value: "Beats by 5%" },
+  ];
+
   return (
     <div className="flex flex-col">
 
-      {/* ━━━ HERO ━━━ */}
+      {/* ━━━ HERO — DARK ━━━ */}
       <section ref={heroRef} className="relative w-full h-[85vh] sm:h-screen min-h-[560px] max-h-[1100px] overflow-hidden bg-black">
         <div className="absolute inset-0">
           <VideoHero videoId="9f32426787cbe2b26a14642463b7b817" className="w-full h-full object-cover" />
-          {/* Readability overlays — layered for stronger legibility on mobile */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/90 sm:from-black/50 sm:via-black/25 sm:to-black/85" />
-          <div
-            className="absolute inset-0 sm:hidden"
-            style={{ background: "radial-gradient(ellipse at 30% 65%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 60%)" }}
-          />
+          <div className="absolute inset-0 sm:hidden" style={{ background: "radial-gradient(ellipse at 30% 65%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 60%)" }} />
+        </div>
+
+        {/* Architect's stamp — top-right, restrained, gives the hero a printed-page feel. */}
+        <div className="hidden sm:flex absolute top-6 right-6 z-10 items-center gap-3 text-[10px] tracking-[0.3em] uppercase text-white/55 font-medium">
+          <span>Est. 1968</span>
+          <span className="h-px w-5 bg-sandstone/50" aria-hidden="true" />
+          <span>Calgary · Alberta</span>
         </div>
 
         <motion.div style={{ opacity: heroOpacity, y: heroTextY }} className="absolute inset-0 flex items-center z-10">
           <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-5 whitespace-nowrap"
-            >
-              {["3rd Generation", "Family Owned", "Since 1968"].map((word, i) => (
-                <motion.span
-                  key={word}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 + i * 0.15 }}
-                  className="flex items-center gap-2 sm:gap-3 text-[9px] sm:text-xs tracking-[0.18em] sm:tracking-[0.3em] uppercase text-white/85 font-medium"
-                >
-                  {word}
-                  {i < 2 && <span className="text-sandstone/60">&middot;</span>}
-                </motion.span>
-              ))}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.3 }} className="flex items-center gap-3 mb-5 sm:mb-6">
+              <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
+              <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/75 font-medium">A Family of Builders</span>
             </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-[clamp(2.8rem,9vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl hero-heading-shimmer"
-            >
+            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }} className="text-[clamp(2.5rem,7.5vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl hero-heading-shimmer">
               Your Home.<br />Our Legacy.
             </motion.h1>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-white/75 sm:text-white/60 text-[15px] sm:text-lg max-w-xl mb-7 sm:mb-8 leading-relaxed"
-            >
-              Your home deserves a builder who&apos;s been here since 1968. Three generations of quality craftsmanship — one family, one standard.
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="font-serif italic text-white/85 text-lg sm:text-2xl max-w-2xl mb-3 leading-snug">
+              Three generations of quality craftsmanship.
             </motion.p>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start"
-            >
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.9 }} className="text-white/65 text-[15px] sm:text-base max-w-xl mb-8 sm:mb-10 leading-relaxed">
+              Three generations, one standard, one handshake — since 1968.
+            </motion.p>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 1 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-9 py-4 rounded-full font-black text-base tracking-wide hover:bg-sandstone transition-colors shadow-[0_4px_24px_rgba(255,255,255,0.12)]">
-                Get a Free Quote <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Get a Free Quote <ArrowRight aria-hidden="true" className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link href="/services" className="inline-flex items-center justify-center gap-2 text-white/80 hover:text-white px-6 py-3.5 text-sm font-semibold tracking-wide transition-colors">
                 Our Services →
@@ -148,291 +146,357 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Scroll indicator — hidden on mobile (collides with CTAs in short hero) */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="hidden sm:block absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
-          <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 2, repeat: Infinity }} className="flex flex-col items-center gap-2">
-            <span className="text-[9px] uppercase tracking-[0.3em] text-white/55 font-medium">Scroll</span>
-            <div className="w-px h-6 bg-gradient-to-b from-white/30 to-transparent" />
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* ━━━ TRUST BAR ━━━ */}
-      <section className="bg-[#0A0A0A] border-b border-white/[0.06]">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-10 gap-y-3 py-4 sm:py-5">
-            {[
-              { icon: Star, text: "Free Consultations", highlight: true },
-              { icon: Shield, text: "Licensed & Insured" },
-              { icon: null, text: "3rd Generation Builder" },
-              { icon: null, text: "5% Price Beat Guarantee" },
-            ].map((item) => (
-              <div key={item.text} className="flex items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-white/60 font-medium">
-                {item.icon && <item.icon className={`w-3.5 h-3.5 ${item.highlight ? "fill-white text-white" : "text-white/60"}`} />}
-                {!item.icon && <div className="w-1 h-1 rounded-full bg-white/25 shrink-0" />}
-                <span className={item.highlight ? "text-white/60" : ""}>{item.text}</span>
-              </div>
-            ))}
-          </div>
+        {/* Measured-rule scroll indicator — drafting reference, not the standard arrow-bounce */}
+        <div className="hidden sm:flex absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-sandstone/60">
+          <span className="text-[9px] tracking-[0.3em] uppercase font-medium">Scroll</span>
+          <span className="h-12 w-px bg-gradient-to-b from-sandstone/60 to-transparent" aria-hidden="true" />
         </div>
       </section>
 
-      {/* ━━━ STATS ━━━ */}
-      <section className="bg-[#0A0A0A] border-b border-white/[0.06]">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/[0.06]">
-            {[
-              { val: "58+", label: "Years in Business" },
-              { val: "5,000+", label: "Projects Completed" },
-              { val: "3rd", label: "Generation Family" },
-              { val: "100%", label: "Satisfaction Promise" },
-            ].map((s, idx) => (
-              <Reveal key={s.label} delay={idx * 0.08}>
-                <div className="text-center py-8 sm:py-10">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white mb-1"><AnimatedCounter value={s.val} /></div>
-                  <div className="text-[10px] sm:text-[10px] tracking-[0.15em] uppercase text-white/55 font-medium">{s.label}</div>
+      {/* ━━━ FEATURE PROMO — DARK ━━━
+          Sits directly under the hero so the active site promo is the
+          first thing visitors see after the headline — and so it doesn't
+          collide with the scroll-triggered PromoModal which fires further
+          down the page (~60% scroll).
+          During an active promo, this slot is a full-bleed editorial
+          tableau: the marketing image fills the section as background,
+          with all typography centered on top of the workbench's empty
+          zone. When the promo expires the same slot reverts to the
+          basement-developments feature. */}
+      {activePromo ? (
+        <section className="relative isolate overflow-hidden">
+          {/* Image fills the entire section. Composition is top-and-bottom
+              loaded (cherry branch top, materials bottom) so object-cover
+              keeps the framing intact when cropped at narrow viewports. */}
+          <div aria-hidden="true" className="absolute inset-0">
+            <Image
+              src={activePromo.image.src}
+              alt=""
+              fill
+              className="object-cover object-center"
+              sizes="100vw"
+              quality={88}
+              priority={false}
+            />
+            {/* Soft radial vignette + horizontal dim — keeps the center calm
+                and dark enough for white typography while leaving the bright
+                perimeter elements (cherry blossom, materials, brass) visible. */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/45" />
+            <div className="absolute inset-0" style={{
+              background: "radial-gradient(ellipse 70% 55% at 50% 50%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 70%)",
+            }} />
+            {/* Sandstone hairline at the section edges for editorial closure. */}
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sandstone/35 to-transparent" />
+            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sandstone/35 to-transparent" />
+          </div>
+
+          {/* Centered editorial content — sits on the workbench's empty zone. */}
+          <div className="relative z-10 min-h-[600px] sm:min-h-[680px] lg:min-h-[760px] flex items-center justify-center">
+            <div className="container mx-auto px-6 max-w-3xl text-center py-20 sm:py-24 lg:py-28">
+              <Reveal>
+                <div className="flex items-center justify-center gap-3 mb-7 sm:mb-9">
+                  <span className="h-px w-8 sm:w-10 bg-sandstone/70" aria-hidden="true" />
+                  <p className="text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-sandstone/90 font-medium flex items-center gap-2">
+                    <span className="inline-block h-1 w-1 rounded-full bg-sandstone animate-pulse" aria-hidden="true" />
+                    {activePromo.label}
+                  </p>
+                  <span className="h-px w-8 sm:w-10 bg-sandstone/70" aria-hidden="true" />
+                </div>
+
+                <h2 className="font-hero uppercase text-white text-[64px] sm:text-[88px] md:text-[108px] lg:text-[124px] leading-[0.85] tracking-tight mb-1 sm:mb-2 [text-shadow:0_2px_30px_rgba(0,0,0,0.5)]">
+                  15% Off
+                </h2>
+                <h2 className="font-hero uppercase text-sandstone text-[40px] sm:text-[56px] md:text-[68px] lg:text-[80px] leading-[0.9] tracking-tight mb-7 sm:mb-9 [text-shadow:0_2px_30px_rgba(0,0,0,0.6)]">
+                  Every Service
+                </h2>
+
+                <div className="h-px w-20 sm:w-28 bg-gradient-to-r from-transparent via-sandstone/80 to-transparent mx-auto mb-7 sm:mb-8" />
+
+                <p className="font-serif italic text-white/95 text-xl sm:text-2xl md:text-[28px] leading-[1.25] max-w-2xl mx-auto mb-5 [text-shadow:0_2px_18px_rgba(0,0,0,0.55)]">
+                  Now through {activePromo.endsAtDisplay} — our spring rate applies to every quote we send.
+                </p>
+
+                <p className="text-white/75 text-[13px] sm:text-sm tracking-[0.15em] uppercase font-medium max-w-2xl mx-auto mb-10 sm:mb-12 [text-shadow:0_2px_14px_rgba(0,0,0,0.5)]">
+                  All services · No minimums · Stacks with our 5% price-beat guarantee
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center">
+                  <Link
+                    href={activePromo.cta.href}
+                    className="group inline-flex items-center justify-center gap-3 bg-sandstone text-black px-8 py-4 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone-light transition-colors shadow-[0_12px_36px_-8px_rgba(196,181,160,0.55)]"
+                  >
+                    {activePromo.cta.label}
+                    <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <Link
+                    href="/services"
+                    className="inline-flex items-center justify-center gap-2 text-white/85 hover:text-white px-6 py-3.5 text-sm font-semibold tracking-wide transition-colors border border-white/20 rounded-full hover:border-sandstone/60 backdrop-blur-sm bg-white/[0.03]"
+                  >
+                    Browse all services →
+                  </Link>
                 </div>
               </Reveal>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* ━━━ ABOUT LEGACY ━━━ */}
-      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-black">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-20 items-center">
-            <Reveal className="lg:col-span-2">
-              <div className="relative aspect-[3/4] rounded-xl overflow-hidden">
-                <Image src="/hpimage0302.webp" alt="John Olivito reviewing blueprints with his crew on a Calgary construction site" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" quality={85} />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5">
-                  <div className="relative pl-5 border-l-2 border-sandstone/40">
-                    <p className="text-white/90 text-lg sm:text-xl font-serif italic leading-snug">&ldquo;Expect Only The Best&rdquo;</p>
-                    <p className="text-[11px] text-sandstone/50 uppercase tracking-wider mt-1">— {BRAND_CONFIG.owner}, Owner &amp; 3rd Generation Builder</p>
-                  </div>
+          {/* Registration-mark stamp — quiet editorial closure, matches the
+              architectural register established elsewhere on the page. */}
+          <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3 sm:gap-4 text-[9px] sm:text-[10px] tracking-[0.4em] uppercase text-white/55 font-medium [text-shadow:0_2px_10px_rgba(0,0,0,0.7)]">
+            <span className="h-px w-8 sm:w-10 bg-white/30" aria-hidden="true" />
+            <span>PCND · Calgary · Est. 1968</span>
+            <span className="h-px w-8 sm:w-10 bg-white/30" aria-hidden="true" />
+          </div>
+        </section>
+      ) : (
+        <Section variant="dark" padding="none" withContainer={false} className="overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[550px]">
+            <Reveal>
+              <div className="relative h-[350px] sm:h-[400px] lg:h-full">
+                <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" quality={80} />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
+              </div>
+            </Reveal>
+            <div className="flex items-center px-5 sm:px-12 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-20">
+              <Reveal delay={0.15}>
+                <div>
+                  <SectionLabel label="Featured Service" theme="dark" />
+                  <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
+                    Basement<br />Developments
+                  </h2>
+                  <p className="font-serif italic text-white/85 text-lg sm:text-xl leading-snug mb-3 max-w-md">
+                    A turnkey transformation — concrete to finished space.
+                  </p>
+                  <p className="text-white/60 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
+                    Framing, electrical, plumbing, drywall, flooring, finishes. Permits handled. One team, start to finish.
+                  </p>
+                  <ul className="space-y-3 mb-10">
+                    {["Full turnkey development", "Permits & inspections handled", "Moisture control included"].map((item) => (
+                      <li key={item} className="flex items-center gap-3 text-white/70 text-sm">
+                        <div className="w-1 h-1 rounded-full bg-sandstone shrink-0" aria-hidden="true" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/services/basements" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
+                    See Basement Services <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.15} className="lg:col-span-3">
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">About Our Legacy</p>
-              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
-                Three Generations<br />of Quality
-              </h2>
-              <p className="text-white/50 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
-                Since 1968, the Olivito family has built a reputation on one simple promise: treat every client like family and deliver only the best. Now in our third generation, that commitment hasn&apos;t wavered.
-              </p>
-              <div className="flex flex-wrap gap-x-6 sm:gap-x-10 gap-y-4 mb-8 sm:mb-10">
-                {[
-                  { val: "24hr", label: "Response" },
-                  { val: "$0", label: "Hidden Fees" },
-                  { val: "100%", label: "Satisfaction" },
-                ].map((s, idx) => (
-                  <BlurReveal key={s.label} delay={0.3 + idx * 0.25} direction="bottom">
-                    <div>
-                      <span className="text-2xl sm:text-3xl font-heading font-black text-white">{s.val}</span>
-                      <span className="text-xs text-white/55 uppercase tracking-wider ml-2">{s.label}</span>
-                    </div>
-                  </BlurReveal>
-                ))}
-              </div>
-              <Link href="/about" className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-white/60 hover:text-white transition-colors group">
-                Our Story <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Reveal>
+              </Reveal>
+            </div>
           </div>
-        </div>
-      </section>
+        </Section>
+      )}
 
-      {/* ━━━ SERVICES ━━━ */}
-      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-[#0A0A0A]">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <Reveal>
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12 md:mb-16">
-              <div>
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">What We Do</p>
-                <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Our Services</h2>
+      {/* ━━━ BY THE NUMBERS — DARK ━━━
+          Editorial spec-sheet, upgrade pass: keeps the EST. 1968 typographic
+          anchor, then breaks the linear row list into a four-card stat grid
+          with lucide icons and a sandstone hover-rise — each card reads as a
+          standalone spec tile while the row beneath ties the service area
+          back to the brand's geography. */}
+      <Section variant="dark" bg="bg-[#0A0A0A]" padding="md" containerClassName="container mx-auto px-6 max-w-6xl">
+        {/* Masthead — quiet eyebrow + place stamp */}
+        <Reveal>
+          <div className="flex items-baseline justify-between pb-7 mb-8 sm:mb-10 border-b border-sandstone/20">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
+              <span className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/55 font-medium">By the Numbers</span>
+            </div>
+            <span className="hidden sm:inline text-[10px] tracking-[0.3em] uppercase text-white/35 font-medium">Calgary · Alberta</span>
+          </div>
+        </Reveal>
+
+        {/* Heritage anchor — Est. 1968 + editorial italic line. */}
+        <Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] items-end gap-6 md:gap-12 pb-10 sm:pb-12 mb-10 sm:mb-12 border-b border-sandstone/15">
+            <div className="flex items-end gap-3 sm:gap-5">
+              <span className="font-heading font-black text-sandstone/85 text-[10px] sm:text-[11px] tracking-[0.3em] uppercase pb-3 sm:pb-4">Est.</span>
+              <span className="font-hero text-white text-[88px] sm:text-[128px] md:text-[160px] leading-[0.8] tracking-tight tabular-nums">
+                1968
+              </span>
+            </div>
+            <p className="font-serif italic text-white/75 text-lg sm:text-xl md:text-[22px] leading-snug max-w-md md:pb-3 md:text-right md:ml-auto">
+              Six decades on the same Calgary streets — three generations of the same standard.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Stat-card grid — 2x2 on mobile, four-across on desktop. Each card
+            carries an icon, a tabular leader number, the value (heading
+            display) and the label (tracked small caps). Hover lifts the
+            sandstone hairline + brightens the icon. */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+          {stats.map((stat, i) => (
+            <Reveal key={stat.label} delay={i * 0.06}>
+              <div className="group relative h-full bg-white/[0.02] border border-white/[0.08] hover:border-sandstone/45 transition-colors duration-300 rounded-sm p-5 sm:p-6 md:p-7 flex flex-col">
+                <div className="mb-5 sm:mb-6">
+                  <stat.Icon aria-hidden="true" className="w-7 h-7 sm:w-8 sm:h-8 text-sandstone/80 group-hover:text-sandstone transition-colors" strokeWidth={1.5} />
+                </div>
+                <div className="flex-1 flex flex-col justify-end">
+                  <p className="font-heading font-black text-white text-2xl sm:text-3xl md:text-[34px] leading-none tracking-tight uppercase tabular-nums mb-2.5">
+                    {stat.value}
+                  </p>
+                  <p className="text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-white/55 font-medium leading-snug">
+                    {stat.label}
+                  </p>
+                </div>
+                {/* Sandstone hairline accent that grows on hover — a quiet kinetic flourish */}
+                <span aria-hidden="true" className="absolute left-5 sm:left-6 md:left-7 bottom-5 sm:bottom-6 md:bottom-7 h-px w-6 bg-sandstone/40 group-hover:w-10 group-hover:bg-sandstone/80 transition-all duration-300" style={{ marginBottom: -2 }} />
               </div>
-              <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white transition-colors group shrink-0">
-                View All <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Service area — ties the four stats back to the brand's geography.
+            Renders as a quiet hairline-flanked tagline below the grid. */}
+        <Reveal delay={0.3}>
+          <div className="mt-10 sm:mt-12 pt-7 sm:pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center">
+            <MapPin aria-hidden="true" className="w-3.5 h-3.5 text-sandstone/70" />
+            <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/55 font-medium">
+              Serving Calgary · Airdrie · Cochrane · Okotoks
+            </p>
+          </div>
+        </Reveal>
+      </Section>
+
+      {/* ━━━ ABOUT LEGACY — CREAM ━━━ */}
+      <Section variant="cream">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-20 items-center">
+          <Reveal className="lg:col-span-2">
+            <div className="relative aspect-[3/4] rounded-sm overflow-hidden ring-1 ring-bone-hairline">
+              <Image src="/hpimage0302.webp" alt="John Olivito reviewing blueprints with his crew on a Calgary construction site" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" quality={85} />
+            </div>
+            <div className="mt-6 pl-5 border-l-2 border-sandstone-dark">
+              <p className="font-serif italic text-[22px] sm:text-[26px] leading-tight text-ink">&ldquo;Expect Only The Best.&rdquo;</p>
+              <p className="mt-2 text-[10px] tracking-[0.25em] uppercase font-medium text-sandstone-muted">
+                — {BRAND_CONFIG.owner}, Owner &amp; 3rd Generation Builder
+              </p>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            {featuredServices.map((service, idx) => (
-              <Reveal key={service.id} delay={idx * 0.07}>
-                <Link
-                  href={`/services/${service.id}`}
-                  className="group block relative aspect-[5/4] rounded-xl overflow-hidden bg-[#0C0C0C] ring-1 ring-white/[0.06] hover:ring-sandstone/30 hover:shadow-[0_20px_50px_-20px_rgba(196,181,160,0.25)] transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-sandstone focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                >
-                  <Image
-                    src={serviceImages[service.id] || "/service-millwork.webp"}
-                    alt={`${service.title} - Calgary construction services by PCND`}
-                    fill
-                    className="object-cover group-active:scale-[1.02] transition-transform duration-300 ease-out"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/10 group-hover:from-black group-hover:via-black/40 transition-all duration-700" />
-                  <div
-                    className="absolute inset-0 mix-blend-soft-light opacity-40 pointer-events-none"
-                    style={{ background: "linear-gradient(180deg, rgba(196,181,160,0.15) 0%, rgba(0,0,0,0) 50%, rgba(196,181,160,0.08) 100%)" }}
-                  />
-
-                  <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
-                    <div className="h-[1.5px] w-8 bg-sandstone/60 mb-4 group-hover:w-16 transition-all duration-500" />
-                    <h3 className="text-lg sm:text-xl font-heading font-bold uppercase tracking-tight text-white leading-[1.05] mb-2">{service.title}</h3>
-                    <p className="text-white/50 group-hover:text-white/75 text-[13px] leading-relaxed line-clamp-2 transition-colors duration-500 mb-4">{service.description}</p>
-                    <div className="flex items-center justify-between pt-3 border-t border-white/[0.08] group-hover:border-sandstone/30 transition-colors duration-500">
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/60 group-hover:text-sandstone transition-colors duration-300">View Service</span>
-                      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-white/20 group-hover:border-sandstone group-hover:bg-sandstone transition-all duration-300">
-                        <ArrowRight className="w-3 h-3 text-white group-hover:text-black transition-colors duration-300" />
-                      </span>
-                    </div>
+          <Reveal delay={0.15} className="lg:col-span-3">
+            <SectionLabel label="The Family" theme="cream" />
+            <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-6 sm:mb-7">
+              Three Generations<br />of Quality
+            </h2>
+            <p className="font-serif italic text-[20px] sm:text-2xl leading-snug text-ink mb-6 max-w-2xl">
+              Since 1968, the Olivito family has built a reputation on one simple promise.
+            </p>
+            <p className="text-ink-muted text-base sm:text-lg leading-relaxed mb-10 max-w-xl">
+              Treat every client like family and deliver only the best. Now in our third generation, that commitment hasn&apos;t wavered — same ownership, same standard, same handshake.
+            </p>
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-10 pb-10 border-b border-bone-hairline">
+              {[
+                { val: "24hr", label: "Response" },
+                { val: "$0",   label: "Hidden Fees" },
+                { val: "100%", label: "Satisfaction" },
+              ].map((s, idx) => (
+                <BlurReveal key={s.label} delay={0.3 + idx * 0.2} direction="bottom">
+                  <div>
+                    <div className="text-3xl sm:text-4xl font-heading font-black text-ink leading-none">{s.val}</div>
+                    <div className="mt-2 text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-medium text-sandstone-muted">{s.label}</div>
                   </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
+                </BlurReveal>
+              ))}
+            </div>
+            <Link href="/about" className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-ink hover:text-sandstone-dark transition-colors group">
+              Our Story <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Reveal>
         </div>
-      </section>
+      </Section>
 
-      {/* ━━━ BRAND PARTNERS (MARQUEE) ━━━ */}
-      <section className="py-10 sm:py-12 bg-[#0A0A0A] border-y border-white/[0.04] overflow-hidden">
-        <p className="text-center text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-white/60 font-medium mb-6">Trusted Brands We Work With</p>
+      {/* ━━━ SERVICES — DARK ━━━ */}
+      <Section variant="dark" bg="bg-[#0A0A0A]">
+        <Reveal>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12 md:mb-16">
+            <div>
+              <SectionLabel label="Selected Capabilities" theme="dark" />
+              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">
+                What We Build
+              </h2>
+              <p className="font-serif italic text-white/65 text-lg sm:text-xl mt-3 max-w-md">
+                A short index of the work we&apos;re known for.
+              </p>
+            </div>
+            <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white transition-colors group shrink-0">
+              View All <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </Reveal>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {featuredServices.map((service, idx) => (
+            <Reveal key={service.id} delay={idx * 0.07}>
+              <ServiceCard
+                href={`/services/${service.id}`}
+                title={service.title}
+                image={serviceImages[service.id] || "/service-millwork.webp"}
+                alt={`${service.title} - Calgary construction services by PCND`}
+                featuredBadge={activePromo ? "15% Off" : undefined}
+              />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* ━━━ MATERIAL PARTNERS — CREAM ━━━ */}
+      <Section variant="cream" padding="md" withContainer={false} className="overflow-hidden">
+        <div className="flex items-center justify-center gap-3 mb-7 px-6">
+          <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
+          <p className="cream-eyebrow text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium">Material Partners</p>
+          <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
+        </div>
         <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0A0A0A] to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0A0A0A] to-transparent z-10" />
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-bone to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-bone to-transparent z-10" />
           <div className="flex marquee-track">
-            {[...brands, ...brands, ...brands, ...brands].map((brand, i) => (
-              <div key={`${brand.name}-${i}`} className="relative h-8 sm:h-10 w-32 sm:w-40 shrink-0 mx-6 sm:mx-8 invert grayscale opacity-50 hover:opacity-80 hover:grayscale-0 transition-all duration-500">
+            {/* Two copies — first is the lineup, second provides the seamless CSS-keyframe wrap. */}
+            {[...brands, ...brands].map((brand, i) => (
+              <div key={`${brand.name}-${i}`} className="relative h-9 sm:h-11 w-32 sm:w-40 shrink-0 mx-6 sm:mx-8 opacity-70 hover:opacity-100 transition-opacity duration-500" style={{ filter: "saturate(0.7)" }}>
                 <Image src={`/${brand.file}`} alt={brand.name} fill className="object-contain" sizes="160px" quality={70} />
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* ━━━ BASEMENT PROMO ━━━ */}
-      <section className="bg-black overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[550px]">
-          <Reveal>
-            <div className="relative h-[350px] sm:h-[400px] lg:h-full">
-              <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" quality={80} />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
-              <div className="absolute top-4 left-4">
-                <span className="inline-block bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full border border-white/10">
-                  15% Off — Limited Time
-                </span>
-              </div>
+      {/* ━━━ TESTIMONIALS — CREAM ━━━ */}
+      <Section variant="cream">
+        <Reveal>
+          <div className="text-center mb-12 sm:mb-16 md:mb-20">
+            <div className="flex items-center justify-center gap-3 mb-5">
+              <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
+              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Testimonials</p>
+              <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
             </div>
-          </Reveal>
-          <div className="flex items-center px-5 sm:px-12 lg:px-16 xl:px-24 py-10 sm:py-14 lg:py-20">
-            <Reveal delay={0.15}>
-              <div>
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Featured</p>
-                <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">Basement<br />Developments</h2>
-                <p className="text-white/60 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
-                  Turnkey development — framing, electrical, plumbing, drywall, flooring, and finishes. Permits handled. One team, start to finish.
-                </p>
-                <ul className="space-y-3 mb-10">
-                  {["Full turnkey development", "Permits & inspections handled", "Moisture control included"].map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-white/70 text-sm">
-                      <div className="w-1 h-1 rounded-full bg-white/40 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5">
-                  <Link href="/services/basements" className="group inline-flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
-                    See Basement Services <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                  <Link href="/get-quote/basement" className="text-sm font-semibold text-white/75 hover:text-white underline underline-offset-4 decoration-white/30 hover:decoration-sandstone transition-colors">
-                    Or claim 15% off →
-                  </Link>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ━━━ TESTIMONIALS ━━━ */}
-      <section className="py-14 sm:py-20 md:py-28 lg:py-36 bg-[#0A0A0A]">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <Reveal>
-            <div className="text-center mb-8 sm:mb-12 md:mb-16">
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Client Stories</p>
-              <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">What Our Clients Say</h2>
-            </div>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-            {testimonials.map((t, idx) => (
-              <Reveal key={t.name} delay={idx * 0.1}>
-                <SpotlightCard className="rounded-xl h-full" spotlightColor="rgba(196, 181, 160, 0.15)">
-                  <div className="p-6 sm:p-8 h-full flex flex-col">
-                    <div className="flex items-center justify-between mb-5">
-                      <div className="flex gap-0.5">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-3.5 h-3.5 fill-white text-white" />
-                        ))}
-                      </div>
-                      <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] text-white/60 bg-white/[0.05] px-2 py-0.5 rounded-full border border-white/[0.08]">
-                        <CheckCircle2 className="w-2.5 h-2.5" /> Verified
-                      </span>
-                    </div>
-                    <p className="text-white/50 text-[15px] leading-relaxed flex-1 mb-6">&ldquo;{t.text}&rdquo;</p>
-                    <div className="border-t border-white/[0.06] pt-5 flex items-center gap-3">
-                      <InitialsAvatar name={t.name} />
-                      <div>
-                        <p className="font-semibold text-white text-sm">{t.name}</p>
-                        <p className="text-[11px] text-white/55 mt-0.5">{t.project} &middot; {t.year}</p>
-                      </div>
-                    </div>
-                  </div>
-                </SpotlightCard>
-              </Reveal>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ━━━ FINAL CTA ━━━ */}
-      <section className="py-16 sm:py-24 md:py-32 lg:py-40 bg-black relative overflow-hidden">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#C4B5A0"
-          raysSpeed={0.4}
-          lightSpread={1.2}
-          rayLength={2.5}
-          fadeDistance={1.2}
-          saturation={0.6}
-          followMouse={true}
-          mouseInfluence={0.08}
-          className="opacity-20"
-        />
-        <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
-          <Reveal>
-            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-5">Free Consultation</p>
-            <h2 className="text-[32px] sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-5 sm:mb-6">Ready to Build?</h2>
-            <p className="text-white/55 text-base sm:text-lg leading-relaxed mb-10 max-w-md mx-auto">
-              No pressure, no obligation. Tell us about your project and we&apos;ll get back to you within 24 hours.
+            <h2 className="text-[30px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5">
+              In Their Own Words
+            </h2>
+            <p className="font-serif italic text-lg sm:text-xl text-ink-muted max-w-xl mx-auto">
+              Three generations of word-of-mouth.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
-              <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone transition-colors">
-                Get a Free Quote <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 text-white/60 hover:text-white px-5 py-3.5 text-sm tracking-wide transition-colors border border-white/15 rounded-full hover:border-sandstone/50">
-                <Phone className="w-3.5 h-3.5" /> Contact Us
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </Reveal>
 
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7">
+          {testimonials.map((t, idx) => (
+            <Reveal key={t.name} delay={idx * 0.1}>
+              <TestimonialCard {...t} />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* ━━━ BOOK CONSULTATION — CREAM ━━━
+          Replaces the previous dark "Ready to Build / Get a Free Quote" block
+          that visually duplicated the footer's quote CTA. Shifts the page
+          ending toward a higher-intent path (in-home consultation) on a
+          cream canvas, so the page ↓ footer pair now ladders rather than
+          repeats. */}
+      <BookConsultationCTA
+        eyebrow="Prefer to Meet First?"
+        headline="Let's Walk Your Space"
+      />
     </div>
   );
 }
