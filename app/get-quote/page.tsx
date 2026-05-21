@@ -19,7 +19,7 @@ import dynamic from "next/dynamic";
 import {
   Loader2, CheckCircle, Star, Shield, Phone, Home, LayoutGrid, Droplets,
   DoorOpen, SquareStack, Building2, Square, Paintbrush2, Ruler,
-  ArrowDownSquare, Trees, HomeIcon, Frame, ChefHat, Bath,
+  ArrowDownSquare, Trees, HomeIcon, Frame, ChefHat, Bath, ArrowRight,
 } from "lucide-react";
 import { Section } from "@/components/Section";
 import { validateLeadForm, type LeadFormErrors } from "@/lib/forms";
@@ -181,6 +181,11 @@ function GetQuoteForm() {
     setTestimonialIdx(Math.floor(Math.random() * testimonials.length));
   }, [testimonials.length]);
   const testimonial = testimonials[testimonialIdx];
+  const serviceChoices = [...services].sort((a, b) => {
+    const aPopular = POPULAR_SERVICES.has(a.id) ? 0 : 1;
+    const bPopular = POPULAR_SERVICES.has(b.id) ? 0 : 1;
+    return aPopular - bPopular || a.title.localeCompare(b.title);
+  });
 
   return (
     <div className="flex flex-col">
@@ -212,6 +217,22 @@ function GetQuoteForm() {
               ? <>Tell us what you have in mind — your 15% spring rate is applied to every quote we send back within 24 hours.</>
               : <>Tell us what you have in mind — we&apos;ll get back to you with a free, detailed quote within 24 hours.</>}
           </p>
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a
+              href={`tel:${BRAND_CONFIG.contact.phone}`}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 py-3 text-sm font-bold text-white/82 transition-colors hover:border-sandstone/50 hover:text-sandstone"
+            >
+              <Phone aria-hidden="true" className="h-4 w-4" />
+              Call {BRAND_CONFIG.contact.phoneFormatted}
+            </a>
+            <Link
+              href="/price-beat"
+              className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white/65 transition-colors hover:text-white"
+            >
+              5% Price Beat Guarantee
+              <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -277,7 +298,7 @@ function GetQuoteForm() {
                     <p className="font-serif italic text-ink-muted mt-3 text-base">Which service are you interested in?</p>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {services.map((service) => {
+                    {serviceChoices.map((service) => {
                       const IconComponent = serviceIcons[service.id] || serviceIcons.default;
                       return (
                         <button key={service.id} type="button" onClick={() => handleServiceSelect(service.id)} className="group text-left p-4 sm:p-5 rounded-md border border-bone-hairline bg-bone-paper hover:bg-bone-soft hover:border-sandstone-dark transition-all duration-200 flex items-center gap-3 sm:gap-4">
@@ -366,7 +387,7 @@ function GetQuoteForm() {
                         How we get back to you with the quote.
                       </p>
                       <p className="text-[11px] text-ink-muted mb-5">
-                        Only <span className="text-ink font-semibold">name</span> and <span className="text-ink font-semibold">email</span> are required — everything else just helps us tailor the quote.
+                        Name and email are required. A phone number is optional, but it helps us move faster if we need one quick detail.
                       </p>
                     </div>
 
