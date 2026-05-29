@@ -21,6 +21,7 @@ import { motion, useInView } from "framer-motion";
 import { getServiceById, services as allServices } from "@/lib/services";
 import { getActivePromo } from "@/lib/promo";
 import { getServiceTestimonial } from "@/lib/serviceTestimonials";
+import { getBlogPost } from "@/lib/blog";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { CheckCircle, ChevronDown, ArrowRight, Phone, Star, Shield, Clock, Award, Sparkles, Layers } from "lucide-react";
 import { Section } from "@/components/Section";
@@ -96,14 +97,25 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
         : []),
       {
         "@type": "Service",
-        "name": service.title,
+        "name": `${service.title} in Calgary`,
         "description": service.description,
-        "provider": { "@type": "LocalBusiness", "name": BRAND_CONFIG.shortName },
-        "areaServed": { "@type": "City", "name": "Calgary", "containedInPlace": { "@type": "AdministrativeArea", "name": "Alberta" } },
+        "url": `https://www.pcnd.ca/services/${service.id}`,
+        "image": `https://www.pcnd.ca${image}`,
+        "provider": { "@id": "https://www.pcnd.ca/#organization" },
+        "areaServed": BRAND_CONFIG.areasServed.map((city) => ({
+          "@type": "City",
+          "name": city,
+          "containedInPlace": { "@type": "AdministrativeArea", "name": "Alberta" },
+        })),
         "serviceType": service.title,
       },
     ],
   };
+
+  const relatedPostData = (service.relatedPosts || [])
+    .map((slug) => getBlogPost(slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p))
+    .slice(0, 4);
 
   return (
     <div className="flex flex-col">
@@ -237,7 +249,13 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                 </p>
               )}
 
-              <div className="space-y-3 mb-6">
+              <div className={`space-y-3 ${service.typicalRange ? "mb-3" : "mb-6"}`}>
+                {service.typicalRange && (
+                  <div className="flex justify-between items-center border-b border-bone-hairline pb-2.5">
+                    <span className="text-ink-muted text-[13px]">Typical Investment</span>
+                    <span className="text-ink font-semibold text-sm">{service.typicalRange}</span>
+                  </div>
+                )}
                 {[
                   { label: "Experience", value: `${yearsExp}+ years` },
                   { label: "Service Area", value: "Calgary & Area" },
@@ -248,11 +266,16 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     <span className="text-ink font-semibold text-sm">{row.value}</span>
                   </div>
                 ))}
-                <div className="flex justify-between items-center">
-                  <span className="text-ink-muted text-[13px]">Price Match</span>
+                <Link href="/price-beat" className="group flex justify-between items-center hover:opacity-80 transition-opacity">
+                  <span className="text-ink-muted text-[13px] group-hover:text-ink underline-offset-2 group-hover:underline">Price Match · How it works</span>
                   <span className="text-sandstone-dark font-semibold text-sm">5% Beat Guarantee</span>
-                </div>
+                </Link>
               </div>
+              {service.typicalRange && (
+                <p className="text-ink-muted/80 text-[11px] leading-snug italic mb-5">
+                  {service.priceNote || "Typical Calgary range — your exact quote is free and based on your scope."}
+                </p>
+              )}
 
               <Link href={`/get-quote?service=${service.id}`} className="btn-ink w-full mb-2.5">
                 {activePromo ? "Claim 15% Off" : "Get Free Quote"} <ArrowRight aria-hidden="true" className="w-4 h-4" />
@@ -446,6 +469,38 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     </div>
                   </div>
                 </div>
+              </Reveal>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* ━━━ HELPFUL GUIDES — CREAM (hub→spoke internal links) ━━━ */}
+      {relatedPostData.length > 0 && (
+        <Section variant="cream" topRule={false} containerClassName="container mx-auto px-6 max-w-5xl">
+          <Reveal>
+            <CreamEyebrow label="Helpful Guides" />
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-2 text-ink">
+              {service.title} — Read Before You Start
+            </h2>
+            <p className="text-ink-muted text-sm sm:text-base mb-8 max-w-xl">
+              Honest, contractor-written guides on cost, planning, and what to expect in Calgary.
+            </p>
+          </Reveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {relatedPostData.map((post, idx) => (
+              <Reveal key={post.slug} delay={idx * 0.06}>
+                <Link href={`/blog/${post.slug}`} className="group block paper-card rounded-md p-5 h-full hover:border-sandstone-dark transition-all duration-300">
+                  <span className="inline-block text-[9px] font-bold uppercase tracking-[0.18em] px-2.5 py-1 rounded-full mb-3 bg-bone-soft text-sandstone-muted border border-bone-hairline">
+                    {post.category}
+                  </span>
+                  <p className="font-heading font-black text-base uppercase tracking-tight text-ink group-hover:text-sandstone-dark transition-colors leading-snug mb-2">
+                    {post.title}
+                  </p>
+                  <span className="text-sandstone-muted group-hover:text-sandstone-dark text-xs font-bold flex items-center gap-1 transition-colors uppercase tracking-wider">
+                    Read <ArrowRight aria-hidden="true" className="w-3 h-3" />
+                  </span>
+                </Link>
               </Reveal>
             ))}
           </div>

@@ -52,5 +52,7 @@ export function AnimatedCounter({ value, className }: { value: string; className
     requestAnimationFrame(tick);
   }, [inView]);
 
-  return <span ref={ref} className={className}>{display}</span>;
+  // tabular-nums keeps digit width fixed so the value doesn't reflow/jitter
+  // as it counts up.
+  return <span ref={ref} className={`tabular-nums ${className ?? ""}`}>{display}</span>;
 }

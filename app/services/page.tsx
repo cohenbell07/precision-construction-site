@@ -120,8 +120,8 @@ export default function ServicesPage() {
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-white/75 font-medium mb-3 sm:mb-4">
               Residential &amp; Commercial
             </motion.p>
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-hero uppercase tracking-wide leading-[0.95] mb-5 sm:mb-6 max-w-4xl hero-heading-shimmer">
-              Our Services
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-hero uppercase tracking-wide leading-[0.95] mb-5 sm:mb-6 max-w-5xl hero-heading-shimmer">
+              Calgary Construction<br />&amp; Renovation Services
             </motion.h1>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-9 py-4 rounded-full font-black text-base tracking-wide hover:bg-sandstone transition-colors shadow-[0_4px_24px_rgba(255,255,255,0.12)]">

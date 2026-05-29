@@ -3,6 +3,7 @@ import { Inter, DM_Serif_Display, Bebas_Neue, Montserrat } from "next/font/googl
 import "./globals.css";
 import { LayoutWrapper } from "@/components/LayoutWrapper";
 import { BRAND_CONFIG } from "@/lib/utils";
+import { services } from "@/lib/services";
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
@@ -115,7 +116,9 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    // Contractor-specific types make us eligible for the home-services
+    // knowledge panel; GeneralContractor is a subtype of HomeAndConstructionBusiness → LocalBusiness.
+    "@type": ["GeneralContractor", "HomeAndConstructionBusiness"],
     "@id": `${SITE_URL}/#organization`,
     name: BRAND_CONFIG.name,
     alternateName: ["PCND", "Precision Construction and Decora"],
@@ -123,41 +126,59 @@ export default function RootLayout({
     url: SITE_URL,
     telephone: BRAND_CONFIG.contact.phoneFormatted,
     email: BRAND_CONFIG.contact.email,
+    logo: `${SITE_URL}/android-chrome-512x512.png`,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Calgary",
-      addressRegion: "AB",
-      addressCountry: "CA",
+      addressLocality: BRAND_CONFIG.address.locality,
+      addressRegion: BRAND_CONFIG.address.region,
+      addressCountry: BRAND_CONFIG.address.country,
     },
-    areaServed: [
-      { "@type": "City", name: "Calgary", containedInPlace: { "@type": "AdministrativeArea", name: "Alberta" } },
-      { "@type": "AdministrativeArea", name: "Calgary and surrounding areas" },
-    ],
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: BRAND_CONFIG.geo.latitude,
+      longitude: BRAND_CONFIG.geo.longitude,
+    },
+    // Explicit City nodes for every served area — matches the on-page
+    // claims and the /areas-we-serve location pages.
+    areaServed: BRAND_CONFIG.areasServed.map((city) => ({
+      "@type": "City",
+      name: city,
+      containedInPlace: { "@type": "AdministrativeArea", name: "Alberta" },
+    })),
     foundingDate: BRAND_CONFIG.established.toString(),
     slogan: BRAND_CONFIG.motto,
     priceRange: "$$",
     image: `${SITE_URL}/servicehero.webp`,
+    // Full service catalogue, mapped from the canonical services list so it
+    // can never drift from what the site actually offers.
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Construction Services",
-      itemListElement: [
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Basement Developments" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Home Additions & Full Home Renovations" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Commercial & Multi-Unit Construction" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Flooring Installation" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Custom Showers & Steam Showers" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Cabinets & Millwork" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Countertops" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Interior Finishing & Carpentry" } },
-      ],
+      name: "Construction & Renovation Services",
+      itemListElement: services.map((s) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: s.title },
+      })),
     },
     openingHoursSpecification: [
       { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:00", closes: "18:00" },
       { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "08:00", closes: "16:00" },
+      { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "00:00", closes: "00:00", description: "Closed" },
     ],
-    sameAs: [
-      "https://www.facebook.com/profile.php?id=61588370031463",
-    ],
+    // aggregateRating is emitted ONLY when the owner has supplied a real
+    // Google review count (BRAND_CONFIG.reviews.reviewCount). We never invent
+    // a rating count — an unverified one risks a manual action from Google.
+    ...(BRAND_CONFIG.reviews.reviewCount && BRAND_CONFIG.reviews.reviewCount > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: BRAND_CONFIG.reviews.ratingValue,
+            reviewCount: BRAND_CONFIG.reviews.reviewCount,
+            bestRating: "5",
+            worstRating: "1",
+          },
+        }
+      : {}),
+    sameAs: [BRAND_CONFIG.social.facebook, BRAND_CONFIG.social.instagram],
   };
 
   return (

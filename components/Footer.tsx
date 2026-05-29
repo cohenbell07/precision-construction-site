@@ -15,28 +15,27 @@
 
 import Link from "next/link";
 import { BRAND_CONFIG } from "@/lib/utils";
+import { services } from "@/lib/services";
 import { LogoFooter } from "@/components/LogoFooter";
 import { Mail, MapPin, Phone, Facebook, Instagram, ArrowRight } from "lucide-react";
 
 export function Footer() {
-  const serviceLinks = [
-    { href: "/services/cabinets", label: "Cabinets & Millwork" },
-    { href: "/services/showers", label: "Custom Showers" },
-    { href: "/services/countertops", label: "Countertops" },
-    { href: "/services/flooring", label: "Flooring" },
-    { href: "/services/carpentry", label: "Interior Carpentry" },
-    { href: "/services/basements", label: "Basement Development" },
-  ];
+  // Map every service so none are footer orphans — gives all 14 service pages
+  // a sitewide internal link with keyword-rich anchor text.
+  const serviceLinks = services.map((s) => ({ href: `/services/${s.id}`, label: s.title }));
 
   const companyLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
+    { href: "/areas-we-serve", label: "Areas We Serve" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
     { href: "/get-quote", label: "Get a Quote" },
     { href: "/price-beat", label: "Price Beat Guarantee" },
   ];
+
+  const servingLine = `Serving ${BRAND_CONFIG.areasServed.slice(0, -1).join(", ")} & ${BRAND_CONFIG.areasServed.slice(-1)}`;
 
   return (
     <footer className="bg-[#0A0A0A] text-white">
@@ -210,7 +209,7 @@ export function Footer() {
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
           <div className="py-6 pb-48 md:pb-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-4 text-xs sm:text-[13px] text-white/50">
             <p>&copy; {new Date().getFullYear()} {BRAND_CONFIG.name}</p>
-            <p>Serving Calgary, Airdrie, Cochrane &amp; Okotoks</p>
+            <p>{servingLine}</p>
             <p>Licensed &amp; Insured &middot; Family Owned Since 1968</p>
           </div>
         </div>

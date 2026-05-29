@@ -14,6 +14,14 @@ export interface Service {
   faqs?: { question: string; answer: string }[];
   stats?: { label: string; value: string }[];
   relatedServices?: string[];
+  /** Typical Calgary market range, shown as budget guidance in the quote rail.
+   *  Always paired with priceNote so it reads as a range, never a fixed quote.
+   *  Mirrors the ranges published in our own cost-guide blog posts. */
+  typicalRange?: string;
+  /** Optional override for the range microcopy. */
+  priceNote?: string;
+  /** Slugs of related blog posts (hub-and-spoke internal linking). */
+  relatedPosts?: string[];
 }
 
 export const services: Service[] = [
@@ -95,6 +103,8 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "98%" },
     ],
     relatedServices: ["kitchens", "bathrooms", "basements"],
+    typicalRange: "$5 – $22 / sq ft installed",
+    relatedPosts: ["best-flooring-options-calgary-homes"],
   },
   {
     id: "showers",
@@ -172,6 +182,8 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "98%" },
     ],
     relatedServices: ["bathrooms", "countertops", "renovations"],
+    typicalRange: "$6,000 – $18,000",
+    relatedPosts: ["tub-to-shower-conversion-calgary-cost", "bathroom-renovation-cost-calgary-2026"],
   },
   {
     id: "countertops",
@@ -252,6 +264,8 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "99%" },
     ],
     relatedServices: ["kitchens", "bathrooms", "cabinets"],
+    typicalRange: "$60 – $120 / sq ft installed",
+    relatedPosts: ["quartz-vs-granite-countertops-calgary", "kitchen-renovation-cost-calgary-2026"],
   },
   {
     id: "cabinets",
@@ -712,6 +726,8 @@ export const services: Service[] = [
       { label: "Value Added", value: "$15M+" },
     ],
     relatedServices: ["bathrooms", "renovations", "flooring"],
+    typicalRange: "$40,000 – $120,000+",
+    relatedPosts: ["basement-renovation-cost-calgary-2026", "basement-renovation-roi-resale-calgary", "basement-permit-calgary-guide", "basement-leaking-flooding-calgary-what-to-do"],
   },
   {
     id: "garages",
@@ -788,6 +804,7 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "97%" },
     ],
     relatedServices: ["framing", "renovations"],
+    relatedPosts: ["detached-garage-cost-calgary-2026"],
   },
   {
     id: "kitchens",
@@ -867,6 +884,8 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "99%" },
     ],
     relatedServices: ["cabinets", "countertops", "flooring", "renovations"],
+    typicalRange: "$20,000 – $120,000+",
+    relatedPosts: ["kitchen-renovation-cost-calgary-2026", "how-to-choose-kitchen-renovation-contractor-calgary", "quartz-vs-granite-countertops-calgary"],
   },
   {
     id: "bathrooms",
@@ -947,6 +966,8 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "98%" },
     ],
     relatedServices: ["showers", "countertops", "cabinets", "renovations"],
+    typicalRange: "$10,000 – $40,000+",
+    relatedPosts: ["bathroom-renovation-cost-calgary-2026", "tub-to-shower-conversion-calgary-cost"],
   },
   {
     id: "renovations",
@@ -1022,6 +1043,8 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "98%" },
     ],
     relatedServices: ["kitchens", "bathrooms", "basements", "cabinets"],
+    typicalRange: "$50,000 – $300,000+",
+    relatedPosts: ["home-renovations-best-roi-calgary", "home-addition-cost-calgary-2026", "best-time-to-renovate-calgary-seasonal-guide"],
   },
   {
     id: "commercial",
