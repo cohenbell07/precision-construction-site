@@ -103,7 +103,6 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "98%" },
     ],
     relatedServices: ["kitchens", "bathrooms", "basements"],
-    typicalRange: "$5 – $22 / sq ft installed",
     relatedPosts: ["best-flooring-options-calgary-homes"],
   },
   {
@@ -182,7 +181,6 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "98%" },
     ],
     relatedServices: ["bathrooms", "countertops", "renovations"],
-    typicalRange: "$6,000 – $18,000",
     relatedPosts: ["tub-to-shower-conversion-calgary-cost", "bathroom-renovation-cost-calgary-2026"],
   },
   {
@@ -264,7 +262,6 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "99%" },
     ],
     relatedServices: ["kitchens", "bathrooms", "cabinets"],
-    typicalRange: "$60 – $120 / sq ft installed",
     relatedPosts: ["quartz-vs-granite-countertops-calgary", "kitchen-renovation-cost-calgary-2026"],
   },
   {
@@ -726,7 +723,6 @@ export const services: Service[] = [
       { label: "Value Added", value: "$15M+" },
     ],
     relatedServices: ["bathrooms", "renovations", "flooring"],
-    typicalRange: "$40,000 – $120,000+",
     relatedPosts: ["basement-renovation-cost-calgary-2026", "basement-renovation-roi-resale-calgary", "basement-permit-calgary-guide", "basement-leaking-flooding-calgary-what-to-do"],
   },
   {
@@ -884,7 +880,6 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "99%" },
     ],
     relatedServices: ["cabinets", "countertops", "flooring", "renovations"],
-    typicalRange: "$20,000 – $120,000+",
     relatedPosts: ["kitchen-renovation-cost-calgary-2026", "how-to-choose-kitchen-renovation-contractor-calgary", "quartz-vs-granite-countertops-calgary"],
   },
   {
@@ -966,7 +961,6 @@ export const services: Service[] = [
       { label: "Satisfaction Rate", value: "98%" },
     ],
     relatedServices: ["showers", "countertops", "cabinets", "renovations"],
-    typicalRange: "$10,000 – $40,000+",
     relatedPosts: ["bathroom-renovation-cost-calgary-2026", "tub-to-shower-conversion-calgary-cost"],
   },
   {

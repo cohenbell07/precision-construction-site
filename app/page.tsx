@@ -150,7 +150,7 @@ export default function Home() {
               <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/75 font-medium">A Family of Builders</span>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }} className="text-[clamp(2.5rem,7.5vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl hero-heading-shimmer">
-              Your Home.<br />Our Legacy.
+              Your Calgary Home,<br />Built to Last.
             </motion.h1>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="font-serif italic text-white/85 text-lg sm:text-2xl max-w-2xl mb-3 leading-snug">
               Three generations of quality craftsmanship.
@@ -171,7 +171,7 @@ export default function Home() {
             </motion.div>
 
             {/* Above-the-fold trust micro-row — mirrors the service-hero pattern. */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 1.15 }} className="mt-7 flex flex-wrap items-center gap-x-5 sm:gap-x-7 gap-y-2 text-[11px] sm:text-xs uppercase tracking-[0.14em] text-white/65 font-medium">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 1.15 }} className="mt-7 flex flex-wrap items-center gap-x-4 sm:gap-x-7 gap-y-2 text-[10px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.14em] text-white/65 font-medium">
               <span className="flex items-center gap-1.5">
                 <span className="flex gap-0.5">{[...Array(5)].map((_, i) => (<Star key={i} aria-hidden="true" className="w-3 h-3 fill-sandstone text-sandstone" />))}</span>
                 5.0 Rated
