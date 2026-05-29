@@ -11,7 +11,10 @@ export function MobileLeadDock() {
     pathname?.startsWith("/get-quote") ||
     pathname?.startsWith("/book-consultation") ||
     pathname?.startsWith("/admin") ||
-    pathname?.startsWith("/feedback");
+    pathname?.startsWith("/feedback") ||
+    // Service-detail pages render their own promo-aware sticky bar — don't
+    // stack two bottom bars. (Note: "/services/" excludes the "/services" index.)
+    pathname?.startsWith("/services/");
 
   if (hidden) return null;
 

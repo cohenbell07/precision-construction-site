@@ -42,9 +42,52 @@ export const BRAND_CONFIG = {
        routes (never by client components). */
     email: "johnpcnd@gmail.com",
     phone: "403-818-7767",
+    /** E.164 form for tel: links. */
+    phoneHref: "+14038187767",
     phoneFormatted: "(403) 818-7767",
     address: "Calgary, AB and Surrounding Areas",
     cta: "Call or Email to Book a Consultation",
+  },
+  /* Structured NAP — single source of truth for both on-page display and
+     JSON-LD so they can never diverge. Service-area business (no public
+     storefront), so no street address is published. */
+  address: {
+    locality: "Calgary",
+    region: "AB",
+    regionName: "Alberta",
+    country: "CA",
+    display: "Calgary, AB",
+  },
+  /* Calgary service-area centroid (city centre) for LocalBusiness geo. */
+  geo: { latitude: 51.0447, longitude: -114.0719 },
+  /* Cities explicitly served — drives schema areaServed + matches on-page
+     claims + the /areas-we-serve location pages. */
+  areasServed: ["Calgary", "Airdrie", "Cochrane", "Okotoks", "Chestermere"],
+  /* Business hours — one source for the contact page + OpeningHoursSpecification. */
+  hours: [
+    { label: "Mon – Fri", days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:00", closes: "18:00" },
+    { label: "Saturday", days: ["Saturday"], opens: "08:00", closes: "16:00" },
+    { label: "Sunday", days: ["Sunday"], closed: true },
+  ] as { label: string; days: string[]; opens?: string; closes?: string; closed?: boolean }[],
+  /* Review proof — GATED. ratingValue matches the on-page "5.0 Rated" claim,
+     but aggregateRating JSON-LD and the "read on Google" links are ONLY
+     emitted once the owner supplies a real reviewCount + review URL. We never
+     invent a count. To activate: set reviewCount below to the real Google
+     count and add NEXT_PUBLIC_GOOGLE_REVIEW_URL in Vercel. */
+  reviews: {
+    ratingValue: "5.0",
+    reviewCount: null as number | null, // ← owner: set to real Google review count to enable star rich-results
+    googleReviewUrl: process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL || "", // NEXT_PUBLIC_* is safe to read (inlined identically on server + client)
+  },
+  /* Credentials — only render specifics that are true. "Licensed & Insured"
+     is an existing site claim; the licence number / WCB account / BBB are
+     left blank for the owner to fill with verifiable values (never invented). */
+  credentials: {
+    licensed: true,
+    insured: true,
+    wcbCovered: false, // ← owner: set true once WCB coverage is confirmed
+    licenceNumber: "", // ← owner: City of Calgary business licence #
+    bbbAccredited: false, // ← owner: set true if BBB-accredited
   },
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61588370031463",

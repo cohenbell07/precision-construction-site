@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
-import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Loader2, Clock, Star } from "lucide-react";
 import Image from "next/image";
 import { Section } from "@/components/Section";
 
@@ -263,10 +263,39 @@ export default function ContactPage() {
                       </a>
                     </div>
                   </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-11 h-11 rounded-md bg-bone-soft border border-bone-hairline flex items-center justify-center shrink-0">
+                      <Clock aria-hidden="true" className="h-5 w-5 text-sandstone-dark" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-sandstone-muted uppercase tracking-[0.2em] mb-1">Hours</p>
+                      <ul className="space-y-0.5">
+                        {BRAND_CONFIG.hours.map((h) => (
+                          <li key={h.label} className="flex justify-between gap-6 text-sm">
+                            <span className="text-ink-muted">{h.label}</span>
+                            <span className="text-ink font-medium">{h.closed ? "Closed" : `${h.opens}–${h.closes}`}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                   <div className="pt-4 border-t border-bone-hairline">
                     <p className="text-xs text-ink-muted leading-relaxed">
                       <span className="text-ink font-bold">Owner:</span> {BRAND_CONFIG.owner} · {BRAND_CONFIG.contact.cta}
                     </p>
+                    {/* Public review link — appears once a real Google review URL is
+                        configured (NEXT_PUBLIC_GOOGLE_REVIEW_URL), letting organic
+                        visitors leave reviews and lifting review velocity. */}
+                    {BRAND_CONFIG.reviews.googleReviewUrl && (
+                      <a
+                        href={BRAND_CONFIG.reviews.googleReviewUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-sandstone-dark hover:text-ink transition-colors"
+                      >
+                        <Star aria-hidden="true" className="w-3.5 h-3.5 fill-sandstone-dark" /> Leave us a Google review
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

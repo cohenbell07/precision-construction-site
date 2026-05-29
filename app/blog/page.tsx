@@ -4,14 +4,26 @@ import { ArrowRight, Clock, Calendar } from "lucide-react";
 import { blogPosts } from "@/lib/blog";
 import { Section } from "@/components/Section";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pcnd.ca";
+
 export const metadata: Metadata = {
   title: "Calgary Renovation Blog | Tips & Guides | PCND",
   description:
     "Expert Calgary renovation tips, contractor advice & product guides. Trusted insights from a 3rd-generation family-owned Calgary construction company since 1968.",
+  alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
+    type: "website",
+    url: `${SITE_URL}/blog`,
     title: "Calgary Renovation Blog | Tips & Guides | PCND",
     description:
       "Expert Calgary renovation tips, contractor advice, and product guides for homeowners.",
+    images: [{ url: `${SITE_URL}/servicehero.webp`, width: 1536, height: 838, alt: "PCND Calgary renovation blog" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Calgary Renovation Blog | Tips & Guides | PCND",
+    description: "Expert Calgary renovation tips, contractor advice, and product guides.",
+    images: [`${SITE_URL}/servicehero.webp`],
   },
 };
 

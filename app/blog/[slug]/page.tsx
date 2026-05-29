@@ -50,6 +50,9 @@ export default async function BlogPostPage({ params }: Props) {
 
   const otherPosts = blogPosts.filter((p) => p.slug !== post.slug);
 
+  // Prefer the ISO date for schema; fall back to the display string.
+  const publishDate = post.isoDate || post.date;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -65,8 +68,8 @@ export default async function BlogPostPage({ params }: Props) {
         "@type": "BlogPosting",
         headline: post.title,
         description: post.excerpt,
-        datePublished: post.date,
-        dateModified: post.date,
+        datePublished: publishDate,
+        dateModified: publishDate,
         image: [DEFAULT_OG_IMAGE],
         articleSection: post.category,
         author: { "@type": "Organization", name: "Precision Construction & Decora", url: "https://www.pcnd.ca" },
@@ -78,6 +81,17 @@ export default async function BlogPostPage({ params }: Props) {
         },
         mainEntityOfPage: { "@type": "WebPage", "@id": `https://www.pcnd.ca/blog/${slug}` },
       },
+      // FAQPage schema for posts with a Q&A block → eligible for FAQ rich results.
+      ...(post.faqs && post.faqs.length > 0
+        ? [{
+            "@type": "FAQPage",
+            mainEntity: post.faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: { "@type": "Answer", text: faq.answer },
+            })),
+          }]
+        : []),
     ],
   };
 
@@ -123,6 +137,27 @@ export default async function BlogPostPage({ params }: Props) {
       <Section variant="cream" padding="md" containerClassName="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="blog-prose" dangerouslySetInnerHTML={{ __html: post.content }} />
       </Section>
+
+      {/* ━━━ FAQ — CREAM (also emitted as FAQPage schema above) ━━━ */}
+      {post.faqs && post.faqs.length > 0 && (
+        <Section variant="cream" padding="md" topRule={false} containerClassName="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px w-10 cream-rule" />
+            <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Frequently Asked</p>
+          </div>
+          <div className="space-y-3">
+            {post.faqs.map((faq) => (
+              <details key={faq.question} className="group paper-card rounded-md px-5 py-4">
+                <summary className="cursor-pointer list-none flex items-center justify-between gap-4 text-ink text-sm font-semibold">
+                  {faq.question}
+                  <span aria-hidden="true" className="text-sandstone-dark text-lg leading-none transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p className="mt-3 text-ink-muted text-sm leading-relaxed">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* ━━━ CTA — CREAM ━━━ */}
       <Section variant="cream" padding="md" topRule={false} containerClassName="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

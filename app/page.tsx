@@ -16,7 +16,7 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { services } from "@/lib/services";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { VideoHero } from "@/components/VideoHero";
-import { ArrowRight, Phone, Hammer, Users, Clock, BadgePercent, MapPin } from "lucide-react";
+import { ArrowRight, Phone, Hammer, Users, Clock, BadgePercent, MapPin, Star, Shield } from "lucide-react";
 import { Section } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
@@ -150,7 +150,7 @@ export default function Home() {
               <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/75 font-medium">A Family of Builders</span>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }} className="text-[clamp(2.5rem,7.5vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl hero-heading-shimmer">
-              Your Home.<br />Our Legacy.
+              Your Calgary Home,<br />Built to Last.
             </motion.h1>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="font-serif italic text-white/85 text-lg sm:text-2xl max-w-2xl mb-3 leading-snug">
               Three generations of quality craftsmanship.
@@ -158,13 +158,30 @@ export default function Home() {
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.9 }} className="text-white/65 text-[15px] sm:text-base max-w-xl mb-8 sm:mb-10 leading-relaxed">
               Calgary renovations, basements, kitchens, bathrooms, flooring, cabinets, and custom finishes — all handled by one accountable team.
             </motion.p>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 1 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 1 }} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
               <Link href="/get-quote" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-9 py-4 rounded-full font-black text-base tracking-wide hover:bg-sandstone transition-colors shadow-[0_4px_24px_rgba(255,255,255,0.12)]">
                 Get a Free Quote <ArrowRight aria-hidden="true" className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/services" className="inline-flex items-center justify-center gap-2 text-white/80 hover:text-white px-6 py-3.5 text-sm font-semibold tracking-wide transition-colors">
-                Our Services →
+              <a href={`tel:${BRAND_CONFIG.contact.phoneHref}`} className="inline-flex items-center justify-center gap-2 text-white/90 hover:text-white px-6 py-3.5 text-sm font-semibold tracking-wide transition-colors border border-white/25 rounded-full hover:border-sandstone/60">
+                <Phone aria-hidden="true" className="w-4 h-4" /> {BRAND_CONFIG.contact.phoneFormatted}
+              </a>
+              <Link href="/services" className="inline-flex items-center justify-center gap-1.5 text-white/65 hover:text-white px-2 py-3.5 text-sm font-medium tracking-wide transition-colors">
+                Our Services <ArrowRight aria-hidden="true" className="w-4 h-4" />
               </Link>
+            </motion.div>
+
+            {/* Above-the-fold trust micro-row — mirrors the service-hero pattern. */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 1.15 }} className="mt-7 flex flex-wrap items-center gap-x-4 sm:gap-x-7 gap-y-2 text-[10px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.14em] text-white/65 font-medium">
+              <span className="flex items-center gap-1.5">
+                <span className="flex gap-0.5">{[...Array(5)].map((_, i) => (<Star key={i} aria-hidden="true" className="w-3 h-3 fill-sandstone text-sandstone" />))}</span>
+                5.0 Rated
+              </span>
+              <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
+              <span className="flex items-center gap-1.5"><Shield aria-hidden="true" className="w-3.5 h-3.5 text-sandstone" /> Licensed &amp; Insured</span>
+              <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
+              <span className="flex items-center gap-1.5"><Clock aria-hidden="true" className="w-3.5 h-3.5 text-sandstone" /> 24-Hr Response</span>
+              <span className="hidden sm:inline w-1 h-1 rounded-full bg-white/25" />
+              <Link href="/price-beat" className="flex items-center gap-1.5 hover:text-white transition-colors"><BadgePercent aria-hidden="true" className="w-3.5 h-3.5 text-sandstone" /> 5% Price Beat</Link>
             </motion.div>
           </div>
         </motion.div>

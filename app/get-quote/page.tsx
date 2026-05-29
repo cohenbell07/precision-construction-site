@@ -539,12 +539,12 @@ function GetQuoteForm() {
                     >
                       Book a Consultation →
                     </Link>
-                    <Link
-                      href="/"
-                      className="btn-ink-ghost uppercase tracking-widest text-xs sm:text-sm px-6 py-3.5 inline-flex items-center justify-center"
+                    <a
+                      href={`tel:${BRAND_CONFIG.contact.phoneHref}`}
+                      className="btn-ink-ghost uppercase tracking-widest text-xs sm:text-sm px-6 py-3.5 inline-flex items-center justify-center gap-2"
                     >
-                      Return Home
-                    </Link>
+                      <Phone aria-hidden="true" className="w-3.5 h-3.5" /> Call Us Now
+                    </a>
                   </div>
 
                   <button
@@ -610,20 +610,34 @@ function GetQuoteForm() {
                   <p className="text-xs font-semibold text-ink">{testimonial.name}</p>
                   <p className="text-[10px] text-sandstone-muted">{testimonial.project}</p>
                 </div>
+                {/* Verifiable review proof — only shown once a real Google review
+                    URL is configured (NEXT_PUBLIC_GOOGLE_REVIEW_URL). Count is
+                    appended only when a real reviewCount is set. Never fabricated. */}
+                {BRAND_CONFIG.reviews.googleReviewUrl && (
+                  <a
+                    href={BRAND_CONFIG.reviews.googleReviewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold text-sandstone-dark hover:text-ink transition-colors"
+                  >
+                    Rated {BRAND_CONFIG.reviews.ratingValue}
+                    {BRAND_CONFIG.reviews.reviewCount ? ` from ${BRAND_CONFIG.reviews.reviewCount}+ Calgary reviews` : ""} — read them on Google →
+                  </a>
+                )}
               </div>
             </div>
 
             <div className="paper-card rounded-md">
               <div className="p-5 sm:p-6 space-y-4">
-                <div className="flex items-center gap-3">
+                <Link href="/price-beat" className="group flex items-center gap-3 -m-1 p-1 rounded-md hover:bg-bone-soft/60 transition-colors">
                   <div className="w-9 h-9 rounded-full bg-bone-soft border border-bone-hairline flex items-center justify-center shrink-0">
                     <Shield aria-hidden="true" className="w-4 h-4 text-sandstone-dark" />
                   </div>
                   <div>
                     <p className="text-xs font-bold text-ink">5% Price Beat Guarantee</p>
-                    <p className="text-[10px] text-ink-muted">We beat any legitimate quote</p>
+                    <p className="text-[10px] text-ink-muted group-hover:text-sandstone-dark transition-colors">We beat any legitimate quote — how it works →</p>
                   </div>
-                </div>
+                </Link>
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-bone-soft border border-bone-hairline flex items-center justify-center shrink-0">
                     <Home aria-hidden="true" className="w-4 h-4 text-sandstone-dark" />
