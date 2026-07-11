@@ -46,7 +46,7 @@ function SectionLabel({ label, theme = "dark" }: { label: string; theme?: "dark"
   return (
     <div className="flex items-center gap-3 mb-4 sm:mb-5">
       <span className={`h-px w-6 ${isDark ? "bg-sandstone/60" : "bg-sandstone-dark/50"}`} aria-hidden="true" />
-      <span className={`text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium ${isDark ? "text-white/55" : ""} ${!isDark ? "cream-eyebrow" : ""}`}>
+      <span className={`text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase font-medium ${isDark ? "text-white/55" : ""} ${!isDark ? "cream-eyebrow" : ""}`}>
         {label}
       </span>
     </div>
@@ -137,7 +137,7 @@ export default function Home() {
         </div>
 
         {/* Architect's stamp — top-right, restrained, gives the hero a printed-page feel. */}
-        <div className="hidden sm:flex absolute top-6 right-6 z-10 items-center gap-3 text-[10px] tracking-[0.3em] uppercase text-white/55 font-medium">
+        <div className="hidden sm:flex absolute top-6 right-6 z-10 items-center gap-3 text-[10px] font-mono tracking-[0.22em] uppercase text-white/55 font-medium">
           <span>Est. 1968</span>
           <span className="h-px w-5 bg-sandstone/50" aria-hidden="true" />
           <span>Calgary · Alberta</span>
@@ -147,13 +147,27 @@ export default function Home() {
           <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.3 }} className="flex items-center gap-3 mb-5 sm:mb-6">
               <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
-              <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/75 font-medium">A Family of Builders</span>
+              <span className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-white/75 font-medium">A Family of Builders</span>
             </motion.div>
-            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }} className="text-[clamp(2.5rem,7.5vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl hero-heading-shimmer">
-              Your Calgary Home,<br />Built to Last.
-            </motion.h1>
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="font-serif italic text-white/85 text-lg sm:text-2xl max-w-2xl mb-3 leading-snug">
-              Three generations of quality craftsmanship.
+            {/* Masked line-rise — each line lifts out of its own clip, 140ms apart.
+                The gradient class lives on the inner span so the metallic clip
+                renders per line while the outer span acts as the mask. */}
+            <h1 className="text-[clamp(2.5rem,7.5vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl">
+              {["Your Calgary Home,", "Built to Last."].map((line, i) => (
+                <span key={line} className="block overflow-hidden pb-[0.08em] -mb-[0.08em]">
+                  <motion.span
+                    className="block hero-heading-shimmer"
+                    initial={{ y: "110%" }}
+                    animate={{ y: "0%" }}
+                    transition={{ duration: 0.9, delay: 0.4 + i * 0.14, ease: [0.23, 1, 0.32, 1] }}
+                  >
+                    {line}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="font-mono italic text-sandstone/95 text-[13px] sm:text-[15px] max-w-2xl mb-3 tracking-tight">
+              — Three generations of quality craftsmanship.
             </motion.p>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.9 }} className="text-white/65 text-[15px] sm:text-base max-w-xl mb-8 sm:mb-10 leading-relaxed">
               Calgary renovations, basements, kitchens, bathrooms, flooring, cabinets, and custom finishes — all handled by one accountable team.
@@ -188,9 +202,21 @@ export default function Home() {
 
         {/* Measured-rule scroll indicator — drafting reference, not the standard arrow-bounce */}
         <div className="hidden sm:flex absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-sandstone/60">
-          <span className="text-[9px] tracking-[0.3em] uppercase font-medium">Scroll</span>
+          <span className="text-[9px] font-mono tracking-[0.22em] uppercase font-medium">Scroll</span>
           <span className="h-12 w-px bg-gradient-to-b from-sandstone/60 to-transparent" aria-hidden="true" />
         </div>
+
+        {/* Signature — the architect's drafting rule along the hero baseline.
+            "Precision" rendered literally: a measure taken across the page. */}
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 1.3 }}
+          className="absolute bottom-0 inset-x-0 z-10"
+        >
+          <div className="drafting-rule opacity-70" />
+        </motion.div>
       </section>
 
       {/* ━━━ FEATURE PROMO — DARK ━━━
@@ -236,7 +262,7 @@ export default function Home() {
               <Reveal>
                 <div className="flex items-center justify-center gap-3 mb-7 sm:mb-9">
                   <span className="h-px w-8 sm:w-10 bg-sandstone/70" aria-hidden="true" />
-                  <p className="text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-sandstone/90 font-medium flex items-center gap-2">
+                  <p className="text-[10px] sm:text-[11px] font-mono font-mono tracking-[0.2em] uppercase text-sandstone/90 font-medium flex items-center gap-2">
                     <span className="inline-block h-1 w-1 rounded-full bg-sandstone animate-pulse" aria-hidden="true" />
                     {activePromo.label}
                   </p>
@@ -263,7 +289,7 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center">
                   <Link
                     href={activePromo.cta.href}
-                    className="group inline-flex items-center justify-center gap-3 bg-sandstone text-black px-8 py-4 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone-light transition-colors shadow-[0_12px_36px_-8px_rgba(196,181,160,0.55)]"
+                    className="group inline-flex items-center justify-center gap-3 bg-sandstone text-black px-8 py-4 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone-light transition-colors shadow-[0_12px_36px_-8px_rgba(169,178,191,0.55)]"
                   >
                     {activePromo.cta.label}
                     <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -281,7 +307,7 @@ export default function Home() {
 
           {/* Registration-mark stamp — quiet editorial closure, matches the
               architectural register established elsewhere on the page. */}
-          <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3 sm:gap-4 text-[9px] sm:text-[10px] tracking-[0.4em] uppercase text-white/55 font-medium [text-shadow:0_2px_10px_rgba(0,0,0,0.7)]">
+          <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-mono font-mono tracking-[0.22em] uppercase text-white/55 font-medium [text-shadow:0_2px_10px_rgba(0,0,0,0.7)]">
             <span className="h-px w-8 sm:w-10 bg-white/30" aria-hidden="true" />
             <span>PCND · Calgary · Est. 1968</span>
             <span className="h-px w-8 sm:w-10 bg-white/30" aria-hidden="true" />
@@ -339,9 +365,9 @@ export default function Home() {
           <div className="flex items-baseline justify-between pb-7 mb-8 sm:mb-10 border-b border-sandstone/20">
             <div className="flex items-center gap-3">
               <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
-              <span className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/55 font-medium">By the Numbers</span>
+              <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/55 font-medium">By the Numbers</span>
             </div>
-            <span className="hidden sm:inline text-[10px] tracking-[0.3em] uppercase text-white/35 font-medium">Calgary · Alberta</span>
+            <span className="hidden sm:inline text-[10px] font-mono tracking-[0.22em] uppercase text-white/35 font-medium">Calgary · Alberta</span>
           </div>
         </Reveal>
 
@@ -349,7 +375,7 @@ export default function Home() {
         <Reveal>
           <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] items-end gap-6 md:gap-12 pb-10 sm:pb-12 mb-10 sm:mb-12 border-b border-sandstone/15">
             <div className="flex items-end gap-3 sm:gap-5">
-              <span className="font-heading font-black text-sandstone/85 text-[10px] sm:text-[11px] tracking-[0.3em] uppercase pb-3 sm:pb-4">Est.</span>
+              <span className="font-heading font-black text-sandstone/85 text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase pb-3 sm:pb-4">Est.</span>
               <span className="font-hero text-white text-[88px] sm:text-[128px] md:text-[160px] leading-[0.8] tracking-tight tabular-nums">
                 1968
               </span>
@@ -391,7 +417,7 @@ export default function Home() {
         <Reveal delay={0.3}>
           <div className="mt-10 sm:mt-12 pt-7 sm:pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center">
             <MapPin aria-hidden="true" className="w-3.5 h-3.5 text-sandstone/70" />
-            <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/55 font-medium">
+            <p className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/55 font-medium">
               Serving Calgary · Airdrie · Cochrane · Okotoks
             </p>
           </div>
@@ -445,7 +471,7 @@ export default function Home() {
             </div>
             <div className="mt-6 pl-5 border-l-2 border-sandstone-dark">
               <p className="font-serif italic text-[22px] sm:text-[26px] leading-tight text-ink">&ldquo;Expect Only The Best.&rdquo;</p>
-              <p className="mt-2 text-[10px] tracking-[0.25em] uppercase font-medium text-sandstone-muted">
+              <p className="mt-2 text-[10px] font-mono tracking-[0.2em] uppercase font-medium text-sandstone-muted">
                 — {BRAND_CONFIG.owner}, Owner &amp; 3rd Generation Builder
               </p>
             </div>
@@ -486,7 +512,7 @@ export default function Home() {
       {/* ━━━ SERVICES — DARK ━━━ */}
       <Section variant="dark" bg="bg-[#0A0A0A]">
         <Reveal>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12 md:mb-16">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 sm:mb-8">
             <div>
               <SectionLabel label="Selected Capabilities" theme="dark" />
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">
@@ -502,6 +528,11 @@ export default function Home() {
           </div>
         </Reveal>
 
+        {/* Drafting-rule echo — ties the index back to the hero's signature measure. */}
+        <Reveal>
+          <div className="drafting-rule opacity-50 mb-8 sm:mb-10" aria-hidden="true" />
+        </Reveal>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {featuredServices.map((service, idx) => (
             <Reveal key={service.id} delay={idx * 0.07}>
@@ -510,6 +541,7 @@ export default function Home() {
                 title={service.title}
                 image={serviceImages[service.id] || "/service-millwork.webp"}
                 alt={`${service.title} - Calgary construction services by PCND`}
+                eyebrow={String(idx + 1).padStart(2, "0")}
                 featuredBadge={activePromo ? "15% Off" : undefined}
               />
             </Reveal>
@@ -521,7 +553,7 @@ export default function Home() {
       <Section variant="cream" padding="md" withContainer={false} className="overflow-hidden">
         <div className="flex items-center justify-center gap-3 mb-7 px-6">
           <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
-          <p className="cream-eyebrow text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium">Material Partners</p>
+          <p className="cream-eyebrow text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase font-medium">Material Partners</p>
           <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
         </div>
         <div className="relative">
@@ -544,7 +576,7 @@ export default function Home() {
           <div className="text-center mb-12 sm:mb-16 md:mb-20">
             <div className="flex items-center justify-center gap-3 mb-5">
               <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
-              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Testimonials</p>
+              <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">Testimonials</p>
               <span className="h-px w-6 bg-sandstone-dark/50" aria-hidden="true" />
             </div>
             <h2 className="text-[30px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5">

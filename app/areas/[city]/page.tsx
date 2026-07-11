@@ -107,7 +107,7 @@ export default async function AreaPage({ params }: Props) {
 
         {loc.neighbourhoods.length > 0 && (
           <div className="mt-10">
-            <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium mb-4">Communities We Serve in {loc.name}</p>
+            <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium mb-4">Communities We Serve in {loc.name}</p>
             <div className="flex flex-wrap gap-2">
               {loc.neighbourhoods.map((n) => (
                 <span key={n} className="inline-flex items-center gap-1.5 text-sm text-ink bg-bone-soft border border-bone-hairline rounded-full px-3.5 py-1.5">
@@ -123,7 +123,7 @@ export default async function AreaPage({ params }: Props) {
       <Section variant="cream" padding="md" topRule={false} containerClassName="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3 mb-6">
           <div className="h-px w-10 cream-rule" />
-          <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Our Services in {loc.name}</p>
+          <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">Our Services in {loc.name}</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {services.map((s) => (

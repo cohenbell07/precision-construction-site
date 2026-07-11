@@ -143,7 +143,7 @@ export default async function BlogPostPage({ params }: Props) {
         <Section variant="cream" padding="md" topRule={false} containerClassName="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="h-px w-10 cream-rule" />
-            <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Frequently Asked</p>
+            <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">Frequently Asked</p>
           </div>
           <div className="space-y-3">
             {post.faqs.map((faq) => (
@@ -164,7 +164,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="paper-card rounded-md px-8 sm:px-12 py-10 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px w-8 cream-rule" />
-            <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Ready to Act on This?</p>
+            <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">Ready to Act on This?</p>
             <div className="h-px w-8 cream-rule-rtl" />
           </div>
           <h2 className="font-heading font-black text-2xl sm:text-3xl uppercase tracking-tight mb-3 text-ink">
@@ -184,7 +184,7 @@ export default async function BlogPostPage({ params }: Props) {
         <Section variant="cream" padding="md" topRule={false} containerClassName="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="h-px w-10 cream-rule" />
-            <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">More from the Blog</p>
+            <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">More from the Blog</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {otherPosts.map((other) => (

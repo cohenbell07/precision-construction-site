@@ -1,38 +1,29 @@
 import type { Metadata } from "next";
-import { Inter, DM_Serif_Display, Bebas_Neue, Montserrat } from "next/font/google";
+import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { LayoutWrapper } from "@/components/LayoutWrapper";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { services } from "@/lib/services";
 import { Analytics } from "@vercel/analytics/react";
 
-const inter = Inter({
+/* "Drawn in steel" type system — ONE variable family carries the whole site.
+   Archivo's width axis gives us three voices from a single file: condensed
+   heavy caps for display (Druk-adjacent), slightly-condensed headings, and
+   normal-width body. IBM Plex Mono is the drafting-annotation voice
+   (eyebrows, numerals, measurements, editorial asides). */
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-archivo",
   display: "swap",
   preload: true,
+  axes: ["wdth"],
 });
 
-const dmSerif = DM_Serif_Display({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-dm-serif",
-  display: "swap",
-  preload: false,
-});
-
-const bebasNeue = Bebas_Neue({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-bebas",
-  display: "swap",
-  preload: true,
-});
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "900"],
-  variable: "--font-montserrat",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-mono",
   display: "swap",
   preload: true,
 });
@@ -239,7 +230,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${dmSerif.variable} ${bebasNeue.variable} ${montserrat.variable} font-sans antialiased bg-black`}>
+      <body className={`${archivo.variable} ${plexMono.variable} font-sans antialiased bg-black`}>
         <LayoutWrapper>{children}</LayoutWrapper>
         <Analytics />
       </body>

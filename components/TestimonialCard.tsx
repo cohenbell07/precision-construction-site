@@ -2,13 +2,13 @@
  * Cream-canvas testimonial card. Anatomy:
  *  - paper card surface with warm hairline + soft warm shadow
  *  - 5 sandstone stars + decorative quote glyph
- *  - DM Serif Display italic body
+ *  - IBM Plex Mono italic body (drafting-annotation voice)
  *  - hairline divider, initials avatar, verified badge
  *
  * Lives inside a <Section variant="cream"> — assumes cream context.
  */
 
-import { CheckCircle2, Quote, Star } from "lucide-react";
+import { CheckCircle2, Star } from "lucide-react";
 
 export interface TestimonialCardProps {
   name: string;
@@ -35,18 +35,27 @@ function InitialsAvatar({ name }: { name: string }) {
 
 export function TestimonialCard({ name, text, project, year, rating = 5 }: TestimonialCardProps) {
   return (
-    <div className="paper-card rounded-md p-7 sm:p-8 h-full flex flex-col relative">
-      <Quote
-        className="absolute top-5 right-5 w-8 h-8 text-sandstone/40"
-        strokeWidth={1.5}
-        aria-hidden
-      />
-      <div className="flex items-center gap-1 mb-5">
+    <div
+      className="
+        paper-card rounded-md p-7 sm:p-8 h-full flex flex-col relative overflow-hidden
+        transition-[transform,box-shadow] duration-300 ease-out
+        hover:-translate-y-[3px]
+        hover:shadow-[0_1px_2px_rgba(110,90,60,0.05),0_20px_44px_-18px_rgba(110,90,60,0.22)]
+      "
+    >
+      {/* Oversized serif quote glyph — ghosted behind the opening line. */}
+      <span
+        aria-hidden="true"
+        className="absolute -top-5 left-4 font-serif text-[110px] leading-none text-sandstone-dark/[0.16] select-none pointer-events-none"
+      >
+        &ldquo;
+      </span>
+      <div className="relative flex items-center gap-1 mb-5">
         {Array.from({ length: rating }).map((_, i) => (
           <Star key={i} aria-hidden="true" className="w-3.5 h-3.5 fill-sandstone-dark text-sandstone-dark" />
         ))}
       </div>
-      <p className="font-serif italic text-[17px] sm:text-[18px] leading-snug text-ink flex-1 mb-7">
+      <p className="relative font-serif italic text-[17px] sm:text-[18px] leading-snug text-ink flex-1 mb-7">
         &ldquo;{text}&rdquo;
       </p>
       <div className="border-t border-bone-hairline pt-5 flex items-center justify-between gap-3">

@@ -61,7 +61,7 @@ function CreamEyebrow({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-3 mb-4">
       <div className="h-px w-10 cream-rule" />
-      <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">{label}</p>
+      <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">{label}</p>
     </div>
   );
 }
@@ -125,7 +125,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       <section className="relative w-full min-h-[640px] sm:min-h-[580px] md:min-h-[640px] md:h-[74vh] lg:h-[78vh] max-h-[820px] overflow-hidden bg-black">
         <Image src={image} alt={`${service.title} - professional Calgary construction services by PCND`} fill className="object-cover object-center" sizes="100vw" priority quality={85} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/95" />
-        <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: "radial-gradient(ellipse at 25% 85%, rgba(196,181,160,0.20) 0%, rgba(0,0,0,0) 55%)" }} />
+        <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: "radial-gradient(ellipse at 25% 85%, rgba(169,178,191,0.20) 0%, rgba(0,0,0,0) 55%)" }} />
         {/* sandstone hairline top + bottom for editorial closure */}
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sandstone/30 to-transparent" />
 
@@ -338,12 +338,12 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       {/* ━━━ PROCESS — DARK (rhythm break: connected timeline) ━━━ */}
       {service.process && service.process.length > 0 && (
         <section className="py-16 sm:py-20 md:py-28 bg-[#0A0A0A] relative overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none opacity-40" style={{ background: "radial-gradient(ellipse at 70% 0%, rgba(196,181,160,0.10) 0%, rgba(0,0,0,0) 55%)" }} />
+          <div className="absolute inset-0 pointer-events-none opacity-40" style={{ background: "radial-gradient(ellipse at 70% 0%, rgba(169,178,191,0.10) 0%, rgba(0,0,0,0) 55%)" }} />
           <div className="container mx-auto px-6 max-w-7xl relative">
             <Reveal>
               <div className="flex items-center gap-3 mb-4">
                 <span className="h-px w-10 bg-sandstone/50" />
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/80 font-medium">How It Works</p>
+                <p className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-sandstone/80 font-medium">How It Works</p>
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-10 sm:mb-14 text-white">From Quote to Walkthrough</h2>
             </Reveal>
@@ -398,7 +398,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
           <div className="text-center mb-9">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-8 cream-rule" />
-              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Client Feedback</p>
+              <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">Client Feedback</p>
               <div className="h-px w-8 cream-rule-rtl" />
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] text-ink">What Our Clients Say</h2>
@@ -411,7 +411,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* ━━━ MID-PAGE CTA — DARK ━━━ */}
       <section className="py-14 sm:py-20 bg-black border-y border-sandstone/15 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-40" style={{ background: "radial-gradient(ellipse at center, rgba(196,181,160,0.12) 0%, rgba(0,0,0,0) 60%)" }} />
+        <div className="absolute inset-0 pointer-events-none opacity-40" style={{ background: "radial-gradient(ellipse at center, rgba(169,178,191,0.12) 0%, rgba(0,0,0,0) 60%)" }} />
         <div className="container mx-auto px-6 max-w-5xl relative">
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -445,7 +445,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             <div className="text-center mb-10">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="h-px w-8 cream-rule" />
-                <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">FAQ</p>
+                <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">FAQ</p>
                 <div className="h-px w-8 cream-rule-rtl" />
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95] text-ink">Common Questions</h2>
@@ -514,7 +514,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             <Reveal>
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
                 <div>
-                  <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Explore More</p>
+                  <p className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-white/55 font-medium mb-4">Explore More</p>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-[0.95]">Related Services</h2>
                 </div>
                 <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white transition-colors group shrink-0">

@@ -192,7 +192,7 @@ function GetQuoteForm() {
 
       {/* ━━━ HERO — DARK ━━━ */}
       <div className="relative border-b border-white/[0.08] bg-[#030303] py-12 sm:py-16 md:py-20 overflow-hidden">
-        <LightRays raysOrigin="top-center" raysColor="#C4B5A0" raysSpeed={0.3} lightSpread={1.5} rayLength={2} fadeDistance={1.0} saturation={0.5} followMouse={true} mouseInfluence={0.06} className="opacity-15" />
+        <LightRays raysOrigin="top-center" raysColor="#A9B2BF" raysSpeed={0.3} lightSpread={1.5} rayLength={2} fadeDistance={1.0} saturation={0.5} followMouse={true} mouseInfluence={0.06} className="opacity-15" />
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center relative z-10">
           <div className="flex justify-center mb-4">
@@ -249,7 +249,7 @@ function GetQuoteForm() {
             aria-valuenow={step === "selection" ? 1 : 2}
             aria-valuetext={step === "selection" ? "Step 1 of 2: Service" : "Step 2 of 2: Details"}
           >
-            <p className="text-center text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-medium text-sandstone-muted mb-4">
+            <p className="text-center text-[10px] sm:text-[11px] font-mono tracking-[0.2em] uppercase font-medium text-sandstone-muted mb-4">
               Step {step === "selection" ? "1" : "2"} of 2 — {step === "selection" ? "Choose your service" : "Tell us about your project"}
             </p>
             <div className="flex items-center justify-center gap-0">
@@ -292,7 +292,7 @@ function GetQuoteForm() {
                   <div className="mb-7 sm:mb-8">
                     <div className="flex items-center gap-3 mb-3">
                       <div className="h-px w-8 cream-rule" />
-                      <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Step 01</p>
+                      <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Step 01</p>
                     </div>
                     <h2 className="text-2xl sm:text-3xl font-heading font-black text-ink uppercase tracking-tight">Select a Service</h2>
                     <p className="font-serif italic text-ink-muted mt-3 text-base">Which service are you interested in?</p>
@@ -381,7 +381,7 @@ function GetQuoteForm() {
                     <div className="pt-7 sm:pt-8 mt-2 border-t border-bone-hairline">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="h-px w-8 cream-rule" />
-                        <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Your Contact</p>
+                        <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Your Contact</p>
                       </div>
                       <p className="font-serif italic text-ink-muted text-base mb-2">
                         How we get back to you with the quote.
@@ -494,7 +494,7 @@ function GetQuoteForm() {
                   </div>
                   <div className="flex items-center justify-center gap-3 mb-3">
                     <div className="h-px w-8 cream-rule" />
-                    <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Request Received</p>
+                    <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Request Received</p>
                     <div className="h-px w-8 cream-rule-rtl" />
                   </div>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-ink uppercase tracking-tight mb-3">
@@ -523,7 +523,7 @@ function GetQuoteForm() {
 
                   {summary && (
                     <details className="max-w-md mx-auto mb-7 text-left">
-                      <summary className="cursor-pointer text-[11px] tracking-[0.25em] uppercase font-medium text-sandstone-muted hover:text-ink-muted transition-colors">
+                      <summary className="cursor-pointer text-[11px] font-mono tracking-[0.2em] uppercase font-medium text-sandstone-muted hover:text-ink-muted transition-colors">
                         What we sent you
                       </summary>
                       <div className="mt-3 rounded-md border border-bone-hairline bg-bone-soft/50 p-4 text-sm text-ink-muted leading-relaxed">
@@ -557,7 +557,7 @@ function GetQuoteForm() {
                       setAnswerErrors({});
                       setFormData({ name: "", email: "", phone: "", address: "", projectDetails: "", timeline: "", budgetMin: "", budgetMax: "", referralSource: "", referralOther: "" });
                     }}
-                    className="mt-6 text-[11px] text-sandstone-muted hover:text-ink-muted tracking-[0.25em] uppercase underline-offset-4 hover:underline transition-colors"
+                    className="mt-6 text-[11px] text-sandstone-muted hover:text-ink-muted font-mono tracking-[0.2em] uppercase underline-offset-4 hover:underline transition-colors"
                   >
                     Request another quote
                   </button>
@@ -574,7 +574,7 @@ function GetQuoteForm() {
                 <div className="mb-5">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="h-px w-8 cream-rule" />
-                    <p className="cream-eyebrow text-[10px] tracking-[0.25em] uppercase font-medium">Why Request a Quote?</p>
+                    <p className="cream-eyebrow text-[10px] font-mono tracking-[0.2em] uppercase font-medium">Why Request a Quote?</p>
                   </div>
                   <h3 className="text-lg font-heading font-black text-ink uppercase tracking-tight">It&apos;s Simple</h3>
                 </div>

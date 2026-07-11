@@ -117,7 +117,7 @@ export default function ServicesPage() {
         </motion.div>
         <motion.div style={{ opacity: heroOpacity }} className="absolute inset-0 flex items-end pb-10 sm:pb-14 md:pb-16 z-10">
           <div className="container mx-auto px-5 sm:px-6 max-w-7xl">
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-white/75 font-medium mb-3 sm:mb-4">
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-white/75 font-medium mb-3 sm:mb-4">
               Residential &amp; Commercial
             </motion.p>
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-hero uppercase tracking-wide leading-[0.95] mb-5 sm:mb-6 max-w-5xl hero-heading-shimmer">
@@ -132,6 +132,17 @@ export default function ServicesPage() {
               </Link>
             </motion.div>
           </div>
+        </motion.div>
+
+        {/* Signature — drafting rule along the hero baseline, mirroring the homepage. */}
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.9 }}
+          className="absolute bottom-0 inset-x-0 z-10"
+        >
+          <div className="drafting-rule opacity-70" />
         </motion.div>
       </section>
 
@@ -152,7 +163,7 @@ export default function ServicesPage() {
                 <div className={`${isPrimary ? "mb-10 sm:mb-14 md:mb-16" : "mb-7 sm:mb-9 md:mb-11"}`}>
                   <div className="flex items-center gap-3 mb-4 sm:mb-5">
                     <span className="h-px w-8 bg-sandstone/40" />
-                    <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/70 font-medium">
+                    <p className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-sandstone/70 font-medium">
                       {cat.eyebrow}
                     </p>
                   </div>
@@ -202,7 +213,7 @@ export default function ServicesPage() {
             <div>
               <div className="flex items-center gap-3 mb-3 justify-center md:justify-start">
                 <div className="h-px w-8 cream-rule" />
-                <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Not Sure Where to Start?</p>
+                <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Not Sure Where to Start?</p>
               </div>
               <h3 className="text-xl sm:text-2xl font-heading font-black text-ink uppercase tracking-tight mb-3">Let&apos;s Talk it Through</h3>
               <p className="font-serif italic text-ink-muted text-base sm:text-lg max-w-md mx-auto md:mx-0">

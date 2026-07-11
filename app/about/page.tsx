@@ -53,13 +53,13 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <VideoHero videoId="cfd853ff56a468be1c91e78ce77db01f" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/95" />
-          <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: "radial-gradient(ellipse at 25% 80%, rgba(196,181,160,0.18) 0%, rgba(0,0,0,0) 55%)" }} />
+          <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: "radial-gradient(ellipse at 25% 80%, rgba(169,178,191,0.18) 0%, rgba(0,0,0,0) 55%)" }} />
         </div>
         <div className="absolute inset-0 flex items-end pb-12 sm:pb-16 z-10">
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="flex items-center gap-3 mb-5">
               <span className="h-px w-8 bg-sandstone/60" />
-              <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/80 font-medium">About PCND</p>
+              <p className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-sandstone/80 font-medium">About PCND</p>
             </div>
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-hero uppercase tracking-wide leading-[0.9] mb-6 max-w-4xl">
               Three Generations<br />of Excellence
@@ -109,7 +109,7 @@ export default function AboutPage() {
           <div className="text-center mb-10 sm:mb-14">
             <div className="flex items-center justify-center gap-3 mb-5">
               <div className="h-px w-8 cream-rule" />
-              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Our Story</p>
+              <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">Our Story</p>
               <div className="h-px w-8 cream-rule-rtl" />
             </div>
             <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-6 sm:mb-7">
@@ -151,7 +151,7 @@ export default function AboutPage() {
             <p className="font-serif italic text-[22px] sm:text-[26px] leading-tight text-ink">
               &ldquo;{BRAND_CONFIG.motto}&rdquo;
             </p>
-            <p className="mt-3 text-[10px] tracking-[0.25em] uppercase font-medium text-sandstone-muted">
+            <p className="mt-3 text-[10px] font-mono tracking-[0.2em] uppercase font-medium text-sandstone-muted">
               — {BRAND_CONFIG.owner}, Owner
             </p>
           </div>
@@ -164,7 +164,7 @@ export default function AboutPage() {
           <div className="text-center mb-10 sm:mb-14 md:mb-20">
             <div className="flex items-center justify-center gap-3 mb-5">
               <div className="h-px w-8 cream-rule" />
-              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">The Owner</p>
+              <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">The Owner</p>
               <div className="h-px w-8 cream-rule-rtl" />
             </div>
             <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">
@@ -175,7 +175,7 @@ export default function AboutPage() {
 
         <Reveal delay={0.1}>
           <div className="max-w-2xl mx-auto text-center">
-            <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium mb-2">Owner &amp; 3rd Generation Builder</p>
+            <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium mb-2">Owner &amp; 3rd Generation Builder</p>
             <h3 className="text-2xl sm:text-3xl font-heading font-black uppercase tracking-tight text-ink mb-5">{BRAND_CONFIG.owner}</h3>
             <div className="space-y-4 text-ink-muted text-base leading-relaxed max-w-lg mx-auto mb-8">
               <p>
@@ -215,7 +215,7 @@ export default function AboutPage() {
       <Section variant="dark" containerClassName="container mx-auto px-6 max-w-4xl">
         <Reveal>
           <div className="text-center mb-10 sm:mb-14 md:mb-20">
-            <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-4">Our Journey</p>
+            <p className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-white/55 font-medium mb-4">Our Journey</p>
             <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">Milestones</h2>
           </div>
         </Reveal>
@@ -246,7 +246,7 @@ export default function AboutPage() {
           <div className="mb-10 sm:mb-14 md:mb-20">
             <div className="flex items-center gap-3 mb-5">
               <div className="h-px w-10 cream-rule" />
-              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Our Process</p>
+              <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">Our Process</p>
             </div>
             <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">How We Work</h2>
           </div>
@@ -277,7 +277,7 @@ export default function AboutPage() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="h-px w-10 cream-rule" />
-                <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Our Mission</p>
+                <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">Our Mission</p>
               </div>
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5 sm:mb-6">
                 What We Stand For
@@ -314,7 +314,7 @@ export default function AboutPage() {
           <div className="text-center mb-12 sm:mb-16">
             <div className="flex items-center justify-center gap-3 mb-5">
               <div className="h-px w-8 cream-rule" />
-              <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Client Stories</p>
+              <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">Client Stories</p>
               <div className="h-px w-8 cream-rule-rtl" />
             </div>
             <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-5">

@@ -11,7 +11,7 @@ export function AuroraBackground({ className = "" }: AuroraBackgroundProps) {
       <div
         className="absolute rounded-full blur-[100px]"
         style={{
-          background: "radial-gradient(circle, rgba(196, 181, 160, 0.25), transparent 60%)",
+          background: "radial-gradient(circle, rgba(169, 178, 191, 0.25), transparent 60%)",
           width: "60%",
           height: "70%",
           top: "-10%",
@@ -47,7 +47,7 @@ export function AuroraBackground({ className = "" }: AuroraBackgroundProps) {
       <div
         className="absolute rounded-full blur-[80px]"
         style={{
-          background: "radial-gradient(circle, rgba(196, 181, 160, 0.20), transparent 55%)",
+          background: "radial-gradient(circle, rgba(169, 178, 191, 0.20), transparent 55%)",
           width: "40%",
           height: "50%",
           top: "25%",

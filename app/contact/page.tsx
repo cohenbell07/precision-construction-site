@@ -102,7 +102,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 z-0">
           <Image src="/6d86ce69-0210-48e9-ab64-8f0745d631d4.webp" alt="Contact Precision Construction & Decora" fill priority className="object-cover" quality={85} sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/95" />
-          <div className="absolute inset-0 pointer-events-none opacity-55" style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(196,181,160,0.15) 0%, rgba(0,0,0,0) 55%)" }} />
+          <div className="absolute inset-0 pointer-events-none opacity-55" style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(169,178,191,0.15) 0%, rgba(0,0,0,0) 55%)" }} />
           <span className="pointer-events-none absolute top-6 left-6 w-5 h-5 border-t border-l border-sandstone/50" />
           <span className="pointer-events-none absolute top-6 right-6 w-5 h-5 border-t border-r border-sandstone/50" />
           <span className="pointer-events-none absolute bottom-6 left-6 w-5 h-5 border-b border-l border-sandstone/50" />
@@ -147,7 +147,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center justify-center gap-3 mb-3">
                     <div className="h-px w-8 cream-rule" />
-                    <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Message Received</p>
+                    <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Message Received</p>
                     <div className="h-px w-8 cream-rule-rtl" />
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-heading font-black text-ink uppercase tracking-tight mb-3">Thanks — we&apos;re on it.</h2>
@@ -167,7 +167,7 @@ export default function ContactPage() {
                   <div className="mb-7 sm:mb-8">
                     <div className="flex items-center gap-3 mb-3">
                       <div className="h-px w-8 cream-rule" />
-                      <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">Get in Touch</p>
+                      <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">Get in Touch</p>
                     </div>
                     <h2 className="text-2xl sm:text-3xl font-heading font-black text-ink uppercase tracking-tight">Send a Message</h2>
                     <p className="font-serif italic text-ink-muted text-base sm:text-lg mt-3 leading-snug">
@@ -227,7 +227,7 @@ export default function ContactPage() {
                 <div className="mb-6">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="h-px w-8 cream-rule" />
-                    <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Reach Us</p>
+                    <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Reach Us</p>
                   </div>
                   <h2 className="text-xl sm:text-2xl font-heading font-black text-ink uppercase tracking-tight">Contact Information</h2>
                 </div>
@@ -306,7 +306,7 @@ export default function ContactPage() {
                 <div className="mb-5">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="h-px w-8 cream-rule" />
-                    <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Where We Work</p>
+                    <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Where We Work</p>
                   </div>
                   <h2 className="text-xl sm:text-2xl font-heading font-black text-ink uppercase tracking-tight">Service Areas</h2>
                 </div>

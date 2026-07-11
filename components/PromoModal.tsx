@@ -172,7 +172,7 @@ export function PromoModal() {
             <div className="relative -mt-7 px-6 sm:px-8 pb-7 sm:pb-8">
               <div className="flex items-center gap-3 mb-4">
                 <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
-                <span className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-sandstone/90 font-medium">
+                <span className="inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.22em] uppercase text-sandstone/90 font-medium">
                   <span className="inline-block h-1 w-1 rounded-full bg-sandstone animate-pulse" aria-hidden="true" />
                   {promo.label}
                 </span>
@@ -194,7 +194,7 @@ export function PromoModal() {
                 <Link
                   href={promo.cta.href}
                   onClick={() => setOpen(false)}
-                  className="group inline-flex items-center justify-center gap-2 bg-sandstone text-black px-6 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone-light transition-colors shadow-[0_8px_28px_-8px_rgba(196,181,160,0.5)]"
+                  className="group inline-flex items-center justify-center gap-2 bg-sandstone text-black px-6 py-3.5 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone-light transition-colors shadow-[0_8px_28px_-8px_rgba(169,178,191,0.5)]"
                 >
                   {promo.cta.label}
                   <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />

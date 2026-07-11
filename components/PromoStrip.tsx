@@ -61,7 +61,7 @@ export function PromoStrip() {
           className="group inline-flex items-center gap-2 sm:gap-3 text-[11px] sm:text-xs leading-snug whitespace-nowrap"
         >
           {/* Eyebrow with pulsing dot — full label on sm+, just the dot on mobile. */}
-          <span className="inline-flex items-center gap-2 text-sandstone/85 font-medium uppercase tracking-[0.25em] text-[10px]">
+          <span className="inline-flex items-center gap-2 text-sandstone/85 font-mono font-medium uppercase tracking-[0.2em] text-[10px]">
             <span className="inline-block h-1 w-1 rounded-full bg-sandstone animate-pulse" aria-hidden="true" />
             <span className="hidden sm:inline">{promo.label}</span>
           </span>

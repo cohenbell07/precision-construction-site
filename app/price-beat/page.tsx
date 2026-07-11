@@ -75,7 +75,7 @@ export default function PriceBeatPage() {
         <div className="max-w-3xl mx-auto text-center mb-14 sm:mb-18">
           <div className="flex items-center justify-center gap-3 mb-5">
             <span className="h-px w-8 bg-sandstone-dark/40" aria-hidden="true" />
-            <p className="cream-eyebrow text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium">Why This Exists</p>
+            <p className="cream-eyebrow text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase font-medium">Why This Exists</p>
             <span className="h-px w-8 bg-sandstone-dark/40" aria-hidden="true" />
           </div>
           <h2 className="text-[30px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] text-ink mb-6">
@@ -93,7 +93,7 @@ export default function PriceBeatPage() {
         <div className="mb-14 sm:mb-18">
           <div className="flex items-center justify-center gap-3 mb-8 sm:mb-10">
             <span className="h-px w-8 bg-sandstone-dark/40" aria-hidden="true" />
-            <p className="cream-eyebrow text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium">How It Works</p>
+            <p className="cream-eyebrow text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase font-medium">How It Works</p>
             <span className="h-px w-8 bg-sandstone-dark/40" aria-hidden="true" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
@@ -127,7 +127,7 @@ export default function PriceBeatPage() {
             <div className="paper-card rounded-md p-6 sm:p-7">
               <div className="flex items-center gap-3 mb-4">
                 <ShieldCheck aria-hidden="true" className="w-4 h-4 text-sandstone-dark" />
-                <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">The Terms</p>
+                <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">The Terms</p>
               </div>
               <p className="text-sm text-ink-muted leading-relaxed mb-4">
                 Straightforward — so the guarantee means something. To qualify, the quote needs to be:
@@ -147,7 +147,7 @@ export default function PriceBeatPage() {
               <p className="font-serif italic text-[17px] sm:text-lg leading-snug text-ink mb-3">
                 &ldquo;Expect Only The Best.&rdquo;
               </p>
-              <p className="text-[10px] tracking-[0.25em] uppercase font-medium text-sandstone-muted">
+              <p className="text-[10px] font-mono tracking-[0.2em] uppercase font-medium text-sandstone-muted">
                 — {BRAND_CONFIG.owner}, Owner &amp; 3rd Generation Builder
               </p>
             </div>

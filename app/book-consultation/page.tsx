@@ -162,7 +162,7 @@ function BookConsultationForm() {
                 </div>
                 <div className="flex items-center justify-center gap-3 mb-3">
                   <span className="h-px w-8 bg-sandstone-dark/40" aria-hidden="true" />
-                  <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Request received</p>
+                  <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Request received</p>
                   <span className="h-px w-8 bg-sandstone-dark/40" aria-hidden="true" />
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-heading font-black uppercase tracking-tight text-ink mb-4 leading-tight">
@@ -195,7 +195,7 @@ function BookConsultationForm() {
                   <div className="mb-7 sm:mb-8">
                     <div className="flex items-center gap-3 mb-3">
                       <div className="h-px w-8 cream-rule" />
-                      <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">The Visit</p>
+                      <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">The Visit</p>
                     </div>
                     <h2 className="text-2xl sm:text-3xl font-heading font-black text-ink uppercase tracking-tight">
                       Tell us about your project
@@ -386,7 +386,7 @@ function BookConsultationForm() {
             <div className="paper-card rounded-md p-6 sm:p-7">
               <div className="flex items-center gap-3 mb-4">
                 <div className="h-px w-6 cream-rule" />
-                <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">What to expect</p>
+                <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">What to expect</p>
               </div>
               <ul className="space-y-4 text-sm text-ink-muted">
                 <li className="flex items-start gap-3">
@@ -417,7 +417,7 @@ function BookConsultationForm() {
               <p className="font-serif italic text-[17px] sm:text-lg leading-snug text-ink mb-3">
                 &ldquo;Expect Only The Best.&rdquo;
               </p>
-              <p className="text-[10px] tracking-[0.25em] uppercase font-medium text-sandstone-muted">
+              <p className="text-[10px] font-mono tracking-[0.2em] uppercase font-medium text-sandstone-muted">
                 — {BRAND_CONFIG.owner}, Owner &amp; 3rd Generation Builder
               </p>
             </div>

@@ -64,23 +64,28 @@ const config: Config = {
           light: "#6A6A6A",
           dark: "#2A2A2A",
         },
+        /* "Drawn in steel" redesign (2026-07): `sandstone` is a LEGACY NAME —
+           it now maps to the cool steel-silver accent so all 360+ existing
+           class usages re-skin without touching every file. Do not add warm
+           values back here. */
         sandstone: {
-          DEFAULT: "#C4B5A0",
-          light: "#D6CABB",
-          dark: "#A89880",
-          muted: "#8A7D6B",
-          glow: "rgba(196, 181, 160, 0.3)",
+          DEFAULT: "#A9B2BF", // steel silver — the one accent
+          light: "#C9D0DA",
+          dark: "#8A94A4",
+          muted: "#6A7382",
+          glow: "rgba(169, 178, 191, 0.3)",
         },
-        // Cream "Studio" canvas — see project_showroom_studio_design memory
+        /* `bone` (legacy name) = the light "gallery" pole — polished concrete,
+           cool greys. Replaces the warm cream canvas. */
         bone: {
-          DEFAULT: "#F5EFE4", // section background — warm off-white
-          soft: "#EDE5D5",    // section break / nested surface (~2% darker)
-          paper: "#FBF7EE",   // elevated card surface
-          hairline: "#D9D0BE",// 1px borders on cream
+          DEFAULT: "#EEF0F2", // section background — gallery grey
+          soft: "#E4E7EA",    // section break / nested surface
+          paper: "#F8F9FA",   // elevated card surface
+          hairline: "#D4D8DD",// 1px borders on gallery
         },
         ink: {
-          DEFAULT: "#1A1A1A", // body text on cream
-          muted: "#5C5750",   // secondary text on cream
+          DEFAULT: "#14161A", // body text on gallery
+          muted: "#565C66",   // secondary text on gallery
         },
         text: {
           primary: "#FFFFFF",
@@ -94,10 +99,17 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Inter", "IBM Plex Sans", "system-ui", "sans-serif"],
-        heading: ["var(--font-montserrat)", "Montserrat", "system-ui", "sans-serif"],
-        hero: ["var(--font-bebas)", "Bebas Neue", "system-ui", "sans-serif"],
-        serif: ["DM Serif Display", "Georgia", "serif"],
+        /* "Drawn in steel" system — Archivo variable (width axis) everywhere,
+           IBM Plex Mono as the drafting-annotation voice. Width per role is set
+           via font-stretch rules in globals.css (.font-hero/.font-heading).
+           NOTE: `serif` deliberately maps to the mono — the 50+ legacy
+           `font-serif italic` editorial lines across the site now read as
+           technical annotations, which is the redesign's voice. */
+        sans: ["var(--font-archivo)", "system-ui", "sans-serif"],
+        heading: ["var(--font-archivo)", "system-ui", "sans-serif"],
+        hero: ["var(--font-archivo)", "system-ui", "sans-serif"],
+        serif: ["var(--font-mono)", "ui-monospace", "monospace"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       spacing: {
         "18": "4.5rem",
