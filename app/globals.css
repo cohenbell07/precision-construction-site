@@ -1090,7 +1090,9 @@
 }
 
 .marquee-track {
-  animation: marquee-scroll 30s ease-in-out infinite;
+  /* Constant motion must be linear — an eased marquee visibly speeds up and
+     slows down every loop, which reads as a glitch rather than a ticker. */
+  animation: marquee-scroll 32s linear infinite;
   will-change: transform;
 }
 

@@ -144,20 +144,17 @@ export function Footer() {
               <h4 className="font-heading font-bold text-white uppercase tracking-[0.2em] text-xs">Services</h4>
               <div className="h-px w-10 bg-sandstone/40 mt-3" />
             </div>
-            <details className="md:hidden rounded-md border border-white/[0.08] bg-white/[0.02] px-4 py-3">
-              <summary className="cursor-pointer list-none text-sm font-semibold text-white/75">
-                View service links
-              </summary>
-              <ul className="mt-4 space-y-3">
-                {serviceLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="text-sm text-white/62 hover:text-white transition-colors">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
+            {/* Mobile: full link grid, two columns — no tap-to-reveal chrome.
+                (The old <details> pills read as broken form inputs.) */}
+            <ul className="md:hidden grid grid-cols-2 gap-x-6 gap-y-2.5">
+              {serviceLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="inline-block py-1 text-[13px] leading-snug text-white/60 active:text-sandstone transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <ul className="hidden md:block space-y-2">
               {serviceLinks.map((link) => (
                 <li key={link.href}>
@@ -176,20 +173,15 @@ export function Footer() {
               <h4 className="font-heading font-bold text-white uppercase tracking-[0.2em] text-xs">Company</h4>
               <div className="h-px w-10 bg-sandstone/40 mt-3" />
             </div>
-            <details className="md:hidden rounded-md border border-white/[0.08] bg-white/[0.02] px-4 py-3">
-              <summary className="cursor-pointer list-none text-sm font-semibold text-white/75">
-                View company links
-              </summary>
-              <ul className="mt-4 space-y-3">
-                {companyLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="text-sm text-white/62 hover:text-white transition-colors">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
+            <ul className="md:hidden grid grid-cols-2 gap-x-6 gap-y-2.5">
+              {companyLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="inline-block py-1 text-[13px] leading-snug text-white/60 active:text-sandstone transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <ul className="hidden md:block space-y-2">
               {companyLinks.map((link) => (
                 <li key={link.href}>
@@ -215,7 +207,8 @@ export function Footer() {
       {/* ━━━ SUB-FOOTER ━━━ */}
       <div className="bg-black/60 border-t border-white/[0.05] relative">
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-          <div className="py-6 pb-48 md:pb-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-4 font-mono text-[11px] sm:text-xs text-white/45">
+          {/* pb clears the floating MobileLeadDock (~78px incl. inset) on phones. */}
+          <div className="py-6 pb-28 md:pb-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-4 font-mono text-[11px] sm:text-xs text-white/45">
             <p>&copy; {new Date().getFullYear()} {BRAND_CONFIG.name}</p>
             <p>{servingLine}</p>
             <p>Licensed &amp; Insured &middot; Est. 1968</p>

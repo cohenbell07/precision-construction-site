@@ -15,9 +15,9 @@ import React from "react";
  * inherits the app's loaded fonts via CSS variables.
  */
 
-const RULE_START = 132;
-const RULE_END = 468;
-const MINOR_STEP = 24;
+const RULE_START = 116;
+const RULE_END = 484;
+const MINOR_STEP = 23;
 
 export function Logo({ className }: { className?: string }) {
   const ticks: React.ReactNode[] = [];
@@ -70,16 +70,18 @@ export function Logo({ className }: { className?: string }) {
       <line x1={RULE_START} y1="66" x2={RULE_END} y2="66" stroke="#A9B2BF" strokeOpacity="0.55" strokeWidth="1" />
       {ticks}
 
-      {/* CONSTRUCTION & DECORA — mono annotation voice */}
+      {/* CONSTRUCTION & DECORA — mono annotation voice. Weighted up so the
+          subline holds its own against the chrome PRECISION instead of
+          reading as a footnote: larger cut, semibold, brighter steel fill. */}
       <text
         x="302"
-        y="94"
+        y="95"
         textAnchor="middle"
-        fill="#9BA3AE"
-        fontSize="15"
-        fontWeight="500"
+        fill="#C6CBD2"
+        fontSize="19"
+        fontWeight="600"
         fontFamily="var(--font-mono), ui-monospace, monospace"
-        letterSpacing="0.4em"
+        letterSpacing="0.3em"
       >
         CONSTRUCTION &amp; DECORA
       </text>

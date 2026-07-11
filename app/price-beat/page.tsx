@@ -97,15 +97,13 @@ export default function PriceBeatPage() {
             <span className="h-px w-8 bg-sandstone-dark/40" aria-hidden="true" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
-            {STEPS.map((step, i) => (
+            {STEPS.map((step) => (
               <div key={step.title} className="paper-card rounded-md p-6 sm:p-7 flex flex-col">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-sandstone-dark/30 bg-bone-soft text-sandstone-dark shrink-0">
                     <step.Icon aria-hidden="true" className="w-4 h-4" />
                   </span>
-                  <span className="font-heading font-black text-sandstone-dark/50 text-2xl tabular-nums leading-none">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  <span className="h-px flex-1 cream-rule" aria-hidden="true" />
                 </div>
                 <h3 className="font-heading font-black text-ink text-lg uppercase tracking-tight mb-2 leading-tight">
                   {step.title}

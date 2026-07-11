@@ -14,6 +14,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { BRAND_CONFIG } from "@/lib/utils";
 import { Mail, Phone, MapPin, Send, Loader2, Clock, Star } from "lucide-react";
 import Image from "next/image";
+import { DARK_BLUR } from "@/lib/blur";
 import { Section } from "@/components/Section";
 
 const FIELD_CLASS = "bg-bone-paper border-bone-hairline focus:border-sandstone-dark focus:ring-1 focus:ring-sandstone-dark/20 text-ink placeholder:text-ink-muted/60 rounded-md h-11 transition-colors";
@@ -100,7 +101,7 @@ export default function ContactPage() {
       {/* ━━━ HERO — DARK ━━━ */}
       <section className="relative h-[50vh] sm:h-[55vh] md:h-[60vh] min-h-[420px] max-h-[680px] flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
-          <Image src="/6d86ce69-0210-48e9-ab64-8f0745d631d4.webp" alt="Contact Precision Construction & Decora" fill priority className="object-cover" quality={85} sizes="100vw" />
+          <Image src="/6d86ce69-0210-48e9-ab64-8f0745d631d4.webp" alt="Contact Precision Construction & Decora" fill priority placeholder="blur" blurDataURL={DARK_BLUR} className="object-cover" quality={85} sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/95" />
           <div className="absolute inset-0 pointer-events-none opacity-55" style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(169,178,191,0.15) 0%, rgba(0,0,0,0) 55%)" }} />
           <span className="pointer-events-none absolute top-6 left-6 w-5 h-5 border-t border-l border-sandstone/50" />

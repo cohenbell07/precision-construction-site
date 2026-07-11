@@ -11,6 +11,7 @@ import { motion, useInView } from "framer-motion";
 import { BRAND_CONFIG } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+import { CREAM_BLUR } from "@/lib/blur";
 import { VideoHero } from "@/components/VideoHero";
 import { Star, ArrowRight, Phone, Mail, Shield, Award } from "lucide-react";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
@@ -88,14 +89,16 @@ export default function AboutPage() {
 
       {/* ━━━ STATS — DARK ━━━ */}
       <Section variant="dark" bg="bg-[#0A0A0A]" padding="none" containerClassName="container mx-auto px-6 max-w-6xl" className="border-b border-white/[0.06]">
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/[0.06]">
+        {/* Hairline grid via gap-px — `divide-x` mis-draws on a wrapping 2×2
+            (row-2 col-1 gets a stray left border at the container edge). */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.06]">
           {[
             { val: `${totalYears}+`, label: "Years in Business" },
             { val: `${yearsInCalgary}+`, label: "Years in Calgary" },
             { val: "5,000+", label: "Projects Completed" },
             { val: "3rd", label: "Generation" },
           ].map((s) => (
-            <div key={s.label} className="text-center py-8 sm:py-10">
+            <div key={s.label} className="text-center py-8 sm:py-10 bg-[#0A0A0A]">
               <div className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-white mb-1"><AnimatedCounter value={s.val} /></div>
               <div className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-white/55 font-medium">{s.label}</div>
             </div>
@@ -138,6 +141,8 @@ export default function AboutPage() {
               src="/img060802.webp"
               alt="The Olivito crew installing cabinetry, marble, and finish flooring on a high-end Calgary kitchen renovation"
               fill
+              placeholder="blur"
+              blurDataURL={CREAM_BLUR}
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 1024px"
               quality={85}
@@ -254,14 +259,19 @@ export default function AboutPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {[
-            { step: "01", title: "Consultation", desc: "We visit your space, listen to your vision, take measurements, and discuss your budget and timeline." },
-            { step: "02", title: "Planning", desc: "Detailed project plan with material selections, scheduling, permits, and a transparent quote — no hidden costs." },
-            { step: "03", title: "Construction", desc: "Our team executes with precision, keeping your space clean and communicating progress throughout." },
-            { step: "04", title: "Completion", desc: "Final walkthrough with you. We don't leave until everything meets our standard — and yours." },
+            { title: "Consultation", desc: "We visit your space, listen to your vision, take measurements, and discuss your budget and timeline." },
+            { title: "Planning", desc: "Detailed project plan with material selections, scheduling, permits, and a transparent quote — no hidden costs." },
+            { title: "Construction", desc: "Our team executes with precision, keeping your space clean and communicating progress throughout." },
+            { title: "Completion", desc: "Final walkthrough with you. We don't leave until everything meets our standard — and yours." },
           ].map((s, idx) => (
-            <Reveal key={s.step} delay={idx * 0.1}>
+            <Reveal key={s.title} delay={idx * 0.1}>
               <div className="paper-card rounded-md p-6 sm:p-7 h-full">
-                <span className="font-serif text-5xl text-sandstone-dark block mb-3 sm:mb-4 leading-none">{s.step}</span>
+                {/* Survey tick in place of the old numeral — sequence reads
+                    left-to-right off the grid itself. */}
+                <span className="flex items-end gap-0 h-6 mb-4" aria-hidden="true">
+                  <span className="w-px h-full bg-sandstone-dark/80" />
+                  <span className="h-px w-10 bg-sandstone-dark/50 self-end" />
+                </span>
                 <h3 className="text-lg font-heading font-bold uppercase tracking-tight text-ink mb-2 sm:mb-3">{s.title}</h3>
                 <p className="text-ink-muted text-sm leading-relaxed">{s.desc}</p>
               </div>

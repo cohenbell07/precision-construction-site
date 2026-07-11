@@ -11,6 +11,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { DARK_BLUR, CREAM_BLUR } from "@/lib/blur";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { services } from "@/lib/services";
@@ -262,7 +263,7 @@ export default function Home() {
               <Reveal>
                 <div className="flex items-center justify-center gap-3 mb-7 sm:mb-9">
                   <span className="h-px w-8 sm:w-10 bg-sandstone/70" aria-hidden="true" />
-                  <p className="text-[10px] sm:text-[11px] font-mono font-mono tracking-[0.2em] uppercase text-sandstone/90 font-medium flex items-center gap-2">
+                  <p className="text-[10px] sm:text-[11px] font-mono tracking-[0.2em] uppercase text-sandstone/90 font-medium flex items-center gap-2">
                     <span className="inline-block h-1 w-1 rounded-full bg-sandstone animate-pulse" aria-hidden="true" />
                     {activePromo.label}
                   </p>
@@ -307,7 +308,7 @@ export default function Home() {
 
           {/* Registration-mark stamp — quiet editorial closure, matches the
               architectural register established elsewhere on the page. */}
-          <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-mono font-mono tracking-[0.22em] uppercase text-white/55 font-medium [text-shadow:0_2px_10px_rgba(0,0,0,0.7)]">
+          <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-mono tracking-[0.22em] uppercase text-white/55 font-medium [text-shadow:0_2px_10px_rgba(0,0,0,0.7)]">
             <span className="h-px w-8 sm:w-10 bg-white/30" aria-hidden="true" />
             <span>PCND · Calgary · Est. 1968</span>
             <span className="h-px w-8 sm:w-10 bg-white/30" aria-hidden="true" />
@@ -318,7 +319,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[550px]">
             <Reveal>
               <div className="relative h-[350px] sm:h-[400px] lg:h-full">
-                <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" quality={80} />
+                <Image src="/basementland02.webp" alt="Finished basement development in Calgary with wet bar and living area by PCND" fill placeholder="blur" blurDataURL={DARK_BLUR} className="object-cover object-center" sizes="(max-width: 1024px) 100vw, 50vw" quality={80} />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 lg:block hidden" />
               </div>
             </Reveal>
@@ -406,7 +407,7 @@ export default function Home() {
                   </p>
                 </div>
                 {/* Sandstone hairline accent that grows on hover — a quiet kinetic flourish */}
-                <span aria-hidden="true" className="absolute left-5 sm:left-6 md:left-7 bottom-5 sm:bottom-6 md:bottom-7 h-px w-6 bg-sandstone/40 group-hover:w-10 group-hover:bg-sandstone/80 transition-all duration-300" style={{ marginBottom: -2 }} />
+                <span aria-hidden="true" className="absolute left-5 sm:left-6 md:left-7 bottom-5 sm:bottom-6 md:bottom-7 h-px w-6 bg-sandstone/40 group-hover:w-10 group-hover:bg-sandstone/80 transition-[width,background-color] duration-300" style={{ marginBottom: -2 }} />
               </div>
             </Reveal>
           ))}
@@ -467,7 +468,7 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-20 items-center">
           <Reveal className="lg:col-span-2">
             <div className="relative aspect-[3/4] rounded-sm overflow-hidden ring-1 ring-bone-hairline">
-              <Image src="/hpimage0302.webp" alt="John Olivito reviewing blueprints with his crew on a Calgary construction site" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" quality={85} />
+              <Image src="/hpimage0302.webp" alt="John Olivito reviewing blueprints with his crew on a Calgary construction site" fill placeholder="blur" blurDataURL={CREAM_BLUR} className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" quality={85} />
             </div>
             <div className="mt-6 pl-5 border-l-2 border-sandstone-dark">
               <p className="font-serif italic text-[22px] sm:text-[26px] leading-tight text-ink">&ldquo;Expect Only The Best.&rdquo;</p>
@@ -541,7 +542,6 @@ export default function Home() {
                 title={service.title}
                 image={serviceImages[service.id] || "/service-millwork.webp"}
                 alt={`${service.title} - Calgary construction services by PCND`}
-                eyebrow={String(idx + 1).padStart(2, "0")}
                 featuredBadge={activePromo ? "15% Off" : undefined}
               />
             </Reveal>
@@ -561,8 +561,12 @@ export default function Home() {
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-bone to-transparent z-10" />
           <div className="flex marquee-track">
             {/* Two copies — first is the lineup, second provides the seamless CSS-keyframe wrap. */}
+            {/* Ink-silhouette treatment: brightness(0) flattens every logo —
+                colored, grey, or white-on-transparent — to a uniform dark mark
+                that actually reads on the bone canvas (several of these logos
+                were near-invisible with the old saturate filter). */}
             {[...brands, ...brands].map((brand, i) => (
-              <div key={`${brand.name}-${i}`} className="relative h-9 sm:h-11 w-32 sm:w-40 shrink-0 mx-6 sm:mx-8 opacity-70 hover:opacity-100 transition-opacity duration-500" style={{ filter: "saturate(0.7)" }}>
+              <div key={`${brand.name}-${i}`} className="relative h-9 sm:h-11 w-32 sm:w-40 shrink-0 mx-6 sm:mx-8 opacity-55 hover:opacity-80 transition-opacity duration-500" style={{ filter: "brightness(0)" }}>
                 <Image src={`/${brand.file}`} alt={brand.name} fill className="object-contain" sizes="160px" quality={70} />
               </div>
             ))}
