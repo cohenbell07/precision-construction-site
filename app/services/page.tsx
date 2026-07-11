@@ -133,6 +133,17 @@ export default function ServicesPage() {
             </motion.div>
           </div>
         </motion.div>
+
+        {/* Signature — drafting rule along the hero baseline, mirroring the homepage. */}
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.9 }}
+          className="absolute bottom-0 inset-x-0 z-10"
+        >
+          <div className="drafting-rule opacity-70" />
+        </motion.div>
       </section>
 
       {/* ━━━ SERVICE CATEGORIES — DARK (photo cards need dark backdrop) ━━━

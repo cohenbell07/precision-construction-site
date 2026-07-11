@@ -149,9 +149,23 @@ export default function Home() {
               <span className="h-px w-6 bg-sandstone/60" aria-hidden="true" />
               <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/75 font-medium">A Family of Builders</span>
             </motion.div>
-            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }} className="text-[clamp(2.5rem,7.5vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl hero-heading-shimmer">
-              Your Calgary Home,<br />Built to Last.
-            </motion.h1>
+            {/* Masked line-rise — each line lifts out of its own clip, 140ms apart.
+                The gradient class lives on the inner span so the metallic clip
+                renders per line while the outer span acts as the mask. */}
+            <h1 className="text-[clamp(2.5rem,7.5vw,8rem)] font-hero uppercase tracking-wide leading-[0.95] mb-4 max-w-5xl">
+              {["Your Calgary Home,", "Built to Last."].map((line, i) => (
+                <span key={line} className="block overflow-hidden pb-[0.08em] -mb-[0.08em]">
+                  <motion.span
+                    className="block hero-heading-shimmer"
+                    initial={{ y: "110%" }}
+                    animate={{ y: "0%" }}
+                    transition={{ duration: 0.9, delay: 0.4 + i * 0.14, ease: [0.23, 1, 0.32, 1] }}
+                  >
+                    {line}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="font-serif italic text-white/85 text-lg sm:text-2xl max-w-2xl mb-3 leading-snug">
               Three generations of quality craftsmanship.
             </motion.p>
@@ -191,6 +205,18 @@ export default function Home() {
           <span className="text-[9px] tracking-[0.3em] uppercase font-medium">Scroll</span>
           <span className="h-12 w-px bg-gradient-to-b from-sandstone/60 to-transparent" aria-hidden="true" />
         </div>
+
+        {/* Signature — the architect's drafting rule along the hero baseline.
+            "Precision" rendered literally: a measure taken across the page. */}
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 1.3 }}
+          className="absolute bottom-0 inset-x-0 z-10"
+        >
+          <div className="drafting-rule opacity-70" />
+        </motion.div>
       </section>
 
       {/* ━━━ FEATURE PROMO — DARK ━━━
@@ -486,7 +512,7 @@ export default function Home() {
       {/* ━━━ SERVICES — DARK ━━━ */}
       <Section variant="dark" bg="bg-[#0A0A0A]">
         <Reveal>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12 md:mb-16">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 sm:mb-8">
             <div>
               <SectionLabel label="Selected Capabilities" theme="dark" />
               <h2 className="text-[28px] sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95]">
@@ -502,6 +528,11 @@ export default function Home() {
           </div>
         </Reveal>
 
+        {/* Drafting-rule echo — ties the index back to the hero's signature measure. */}
+        <Reveal>
+          <div className="drafting-rule opacity-50 mb-8 sm:mb-10" aria-hidden="true" />
+        </Reveal>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {featuredServices.map((service, idx) => (
             <Reveal key={service.id} delay={idx * 0.07}>
@@ -510,6 +541,7 @@ export default function Home() {
                 title={service.title}
                 image={serviceImages[service.id] || "/service-millwork.webp"}
                 alt={`${service.title} - Calgary construction services by PCND`}
+                eyebrow={String(idx + 1).padStart(2, "0")}
                 featuredBadge={activePromo ? "15% Off" : undefined}
               />
             </Reveal>

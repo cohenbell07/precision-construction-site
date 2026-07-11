@@ -154,7 +154,7 @@ export function Header() {
                   relative inline-flex items-center text-[11px] font-bold uppercase tracking-[0.2em] whitespace-nowrap
                   min-h-[44px] px-1
                   transition-colors duration-200
-                  ${isActive ? "text-white" : "text-white/65 hover:text-white"}
+                  ${isActive ? "text-white" : "text-white/65 hover:text-white nav-underline"}
                 `}
               >
                 {link.label}
@@ -244,7 +244,7 @@ export function Header() {
                     href={link.href}
                     aria-current={isActive ? "page" : undefined}
                     className={`
-                      flex items-center justify-between text-[28px] font-hero uppercase tracking-wide py-3.5
+                      menu-item-stagger flex items-center justify-between text-[28px] font-hero uppercase tracking-wide py-3.5
                       border-b border-white/[0.06] transition-colors duration-150
                       ${isActive ? "text-sandstone" : "text-white hover:text-sandstone"}
                     `}
@@ -260,7 +260,7 @@ export function Header() {
                 );
               })}
 
-              <div className="pt-7">
+              <div className="pt-7 menu-item-stagger">
                 <Link
                   href="/get-quote"
                   onClick={() => setMobileMenuOpen(false)}

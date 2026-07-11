@@ -42,6 +42,12 @@
     /* Unified metallic silver gradient (H4) — single source of truth for heading/text gradients */
     --silver-gradient-primary: linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 25%, #D8D8D8 55%, #B8B8B8 85%, #A0A0A0 100%);
     --silver-gradient-display: linear-gradient(105deg, #D8D8D8 0%, #F5F5F5 50%, #D8D8D8 100%);
+
+    /* Motion tokens — strong custom curves; built-in CSS easings are too weak
+       for UI that should feel deliberate. Enter/exit → ease-out-strong;
+       on-screen movement → ease-in-out-strong. */
+    --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
   }
 
   .dark {
@@ -1206,6 +1212,86 @@
   0% { --border-angle: 0deg; }
   100% { --border-angle: 360deg; }
 }
+
+/* ============================================
+   PRECISION DETAIL SYSTEM — elevation pass
+   Press feedback, drafting-rule motif, nav underline.
+   ============================================ */
+
+/* Every pill CTA on the site is a rounded-full <a>/<button>. Pressing must
+   feel like the interface heard you: subtle scale-down, instant. Specificity
+   (0,2,1) deliberately beats Tailwind hover transforms (0,2,0) while held. */
+a[class*="rounded-full"]:active,
+button[class*="rounded-full"]:active,
+.btn-ink:active,
+.btn-ink-ghost:active,
+.btn-steel:active,
+.btn-outline-silver:active {
+  transform: scale(0.97);
+}
+
+/* Signature motif — the architect's drafting rule. Minor ticks every 24px
+   (7px tall), major ticks every 120px (full height), baseline underneath.
+   Edges fade via mask so the rule reads as an excerpt of something longer —
+   a measure taken, not a border drawn. Dark-canvas tone by default. */
+.drafting-rule {
+  height: 14px;
+  border-bottom: 1px solid rgba(196, 181, 160, 0.45);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(196, 181, 160, 0.30) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, rgba(196, 181, 160, 0.65) 0 1px, transparent 1px 120px);
+  background-size: 100% 7px, 100% 14px;
+  background-position: bottom left, bottom left;
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+/* Cream-canvas variant — deeper sandstone so the ticks hold on bone. */
+.cream-canvas .drafting-rule {
+  border-bottom-color: rgba(168, 152, 128, 0.55);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(168, 152, 128, 0.40) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, rgba(138, 125, 107, 0.70) 0 1px, transparent 1px 120px);
+}
+
+/* Desktop nav underline — hairline grows from the left on hover, sandstone.
+   Kept off the active link (it carries the dot marker instead). */
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: 9px;
+  height: 1px;
+  background: rgba(196, 181, 160, 0.9);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 220ms var(--ease-out-strong);
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-underline:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Mobile menu — links cascade in, 40ms apart, strong ease-out. Fast enough
+   that the menu never feels gated (menu opens tens of times/day → keep it
+   under 300ms total). */
+@keyframes menu-item-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.menu-item-stagger {
+  opacity: 0;
+  animation: menu-item-rise 260ms var(--ease-out-strong) forwards;
+}
+.menu-item-stagger:nth-child(1) { animation-delay: 0ms; }
+.menu-item-stagger:nth-child(2) { animation-delay: 40ms; }
+.menu-item-stagger:nth-child(3) { animation-delay: 80ms; }
+.menu-item-stagger:nth-child(4) { animation-delay: 120ms; }
+.menu-item-stagger:nth-child(5) { animation-delay: 160ms; }
+.menu-item-stagger:nth-child(6) { animation-delay: 200ms; }
 
 @property --border-angle {
   syntax: "<angle>";
