@@ -25,7 +25,7 @@ export function PriceBeatBanner() {
         className="absolute inset-0 opacity-[0.06]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(196,181,160,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(196,181,160,0.6) 1px, transparent 1px)",
+            "linear-gradient(rgba(169,178,191,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(169,178,191,0.6) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
           maskImage: "radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 90%)",
           WebkitMaskImage: "radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 90%)",
@@ -40,7 +40,7 @@ export function PriceBeatBanner() {
         >
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="h-px w-8 bg-sandstone/60" aria-hidden="true" />
-            <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-sandstone/90 font-medium">
+            <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-sandstone/90 font-medium">
               <BadgePercent aria-hidden="true" className="w-3.5 h-3.5" />
               5% Price Beat Guarantee
             </span>
@@ -59,7 +59,7 @@ export function PriceBeatBanner() {
 
           <Link
             href="/price-beat"
-            className="group inline-flex items-center justify-center gap-3 bg-sandstone text-black px-8 py-4 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone-light transition-colors shadow-[0_8px_30px_-8px_rgba(196,181,160,0.5)]"
+            className="group inline-flex items-center justify-center gap-3 bg-sandstone text-black px-8 py-4 rounded-full font-bold text-sm tracking-wide hover:bg-sandstone-light transition-colors shadow-[0_8px_30px_-8px_rgba(169,178,191,0.5)]"
           >
             See How the Price Beat Works
             <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

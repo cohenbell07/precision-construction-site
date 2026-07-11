@@ -102,7 +102,7 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
         <div className="text-center">
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="h-px w-8 cream-rule" />
-            <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">Your Project</p>
+            <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Your Project</p>
             <div className="h-px w-8 cream-rule-rtl" />
           </div>
           <h2 className="text-xl sm:text-2xl font-heading font-black text-ink uppercase tracking-tight mb-2">How Was Your Experience?</h2>
@@ -111,7 +111,7 @@ export default function FeedbackPage({ params }: { params: { token: string } }) 
           <div className="flex justify-center gap-2 sm:gap-3 mb-8">
             {[1, 2, 3, 4, 5].map((star) => (
               <button key={star} type="button" onClick={() => setRating(star)} onMouseEnter={() => setHoveredStar(star)} onMouseLeave={() => setHoveredStar(0)} className="transition-transform hover:scale-110 active:scale-95 focus:outline-none">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill={star <= (hoveredStar || rating) ? "#A89880" : "none"} stroke={star <= (hoveredStar || rating) ? "#A89880" : "#D9D0BE"} strokeWidth="1.5" className="sm:w-14 sm:h-14">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill={star <= (hoveredStar || rating) ? "#8A94A4" : "none"} stroke={star <= (hoveredStar || rating) ? "#8A94A4" : "#D4D8DD"} strokeWidth="1.5" className="sm:w-14 sm:h-14">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
               </button>

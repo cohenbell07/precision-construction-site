@@ -42,7 +42,7 @@ export function ServiceCard({ href, title, image, alt, eyebrow, featuredBadge, c
         shadow-[0_4px_16px_-8px_rgba(0,0,0,0.5)]
         transition-[transform,box-shadow] duration-300 ease-out
         hover:-translate-y-[3px]
-        hover:shadow-[0_20px_40px_-16px_rgba(196,181,160,0.20),0_8px_20px_-10px_rgba(0,0,0,0.6)]
+        hover:shadow-[0_20px_40px_-16px_rgba(169,178,191,0.20),0_8px_20px_-10px_rgba(0,0,0,0.6)]
         active:scale-[0.985] active:translate-y-0
         focus:outline-none focus-visible:ring-2 focus-visible:ring-sandstone focus-visible:ring-offset-2 focus-visible:ring-offset-black
       "
@@ -68,7 +68,7 @@ export function ServiceCard({ href, title, image, alt, eyebrow, featuredBadge, c
 
       {featuredBadge && (
         <div className="absolute top-4 right-4 z-10">
-          <span className="inline-flex items-center gap-1.5 bg-sandstone text-black text-[9px] font-bold uppercase tracking-[0.22em] px-2.5 py-1 rounded-full shadow-[0_2px_8px_rgba(196,181,160,0.4)]">
+          <span className="inline-flex items-center gap-1.5 bg-sandstone text-black text-[9px] font-bold uppercase tracking-[0.22em] px-2.5 py-1 rounded-full shadow-[0_2px_8px_rgba(169,178,191,0.4)]">
             {featuredBadge}
           </span>
         </div>
@@ -77,7 +77,7 @@ export function ServiceCard({ href, title, image, alt, eyebrow, featuredBadge, c
       {eyebrow && (
         <div className="absolute top-5 left-5 z-10 flex items-center gap-2.5">
           <span className="h-px w-5 bg-sandstone/70 transition-[width] duration-300 ease-out group-hover:w-8" />
-          <span className="text-[9px] uppercase tracking-[0.25em] font-medium text-sandstone/90 tabular-nums">{eyebrow}</span>
+          <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-medium text-sandstone/90 tabular-nums">{eyebrow}</span>
         </div>
       )}
 
@@ -87,7 +87,7 @@ export function ServiceCard({ href, title, image, alt, eyebrow, featuredBadge, c
         <h3 className="text-xl sm:text-2xl font-heading font-bold uppercase tracking-tight text-white leading-[1.05] mb-3">
           {title}
         </h3>
-        <span className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/70 group-hover:text-sandstone transition-colors duration-200">
+        <span className="inline-flex items-center gap-2 font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-white/70 group-hover:text-sandstone transition-colors duration-200">
           {ctaLabel}
           <ArrowRight aria-hidden="true" className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1" />
         </span>

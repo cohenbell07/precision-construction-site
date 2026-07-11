@@ -151,10 +151,10 @@ export function Header() {
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
                 className={`
-                  relative inline-flex items-center text-[11px] font-bold uppercase tracking-[0.2em] whitespace-nowrap
+                  relative inline-flex items-center font-mono text-[11px] font-medium uppercase tracking-[0.24em] whitespace-nowrap
                   min-h-[44px] px-1
                   transition-colors duration-200
-                  ${isActive ? "text-white" : "text-white/65 hover:text-white nav-underline"}
+                  ${isActive ? "text-white" : "text-white/60 hover:text-white nav-underline"}
                 `}
               >
                 {link.label}
@@ -175,8 +175,8 @@ export function Header() {
             aria-label={`Call ${BRAND_CONFIG.contact.phoneFormatted}`}
             className="
               hidden md:inline-flex items-center gap-2 px-3 py-2.5
-              text-[11px] font-bold uppercase tracking-[0.2em]
-              text-white/70 hover:text-sandstone transition-colors
+              font-mono text-[11px] font-medium uppercase tracking-[0.18em]
+              text-white/65 hover:text-sandstone transition-colors
             "
           >
             <Phone className="w-3.5 h-3.5" aria-hidden="true" />
@@ -187,12 +187,12 @@ export function Header() {
             <Link
               href="/get-quote"
               className="
-                group inline-flex items-center gap-2 px-5 py-2.5 rounded-full
-                text-[11px] font-bold uppercase tracking-[0.2em]
-                bg-sandstone text-black
-                shadow-[0_2px_10px_-2px_rgba(196,181,160,0.4)]
-                transition-[background-color,transform,box-shadow] duration-200 ease-out
-                hover:bg-sandstone-light hover:-translate-y-[1px] hover:shadow-[0_6px_18px_-4px_rgba(196,181,160,0.55)]
+                group cta-shine-button inline-flex items-center gap-2 px-5 py-2.5 rounded-full
+                font-mono text-[11px] font-semibold uppercase tracking-[0.2em]
+                bg-gradient-to-b from-[#EDEFF2] via-[#C3C8CF] to-[#9BA3AE] text-black
+                shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_2px_12px_-2px_rgba(169,178,191,0.45)]
+                transition-[transform,box-shadow,filter] duration-200 ease-out
+                hover:-translate-y-[1px] hover:brightness-105 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_6px_20px_-4px_rgba(169,178,191,0.6)]
               "
             >
               Free Quote
@@ -222,21 +222,23 @@ export function Header() {
           role="dialog"
           aria-modal="true"
           aria-labelledby={menuTitleId}
-          className="md:hidden fixed inset-x-0 bottom-0 bg-black z-[100] overflow-y-auto"
+          className="md:hidden fixed inset-x-0 bottom-0 bg-[#0B0C0E] z-[100] overflow-y-auto"
           style={{ top: menuTop == null ? undefined : `${menuTop}px` }}
         >
-          {/* Sandstone hairline at top */}
-          <div className="h-px bg-gradient-to-r from-transparent via-sandstone/40 to-transparent" aria-hidden="true" />
+          {/* Blueprint grid atmosphere behind the menu */}
+          <div className="absolute inset-0 hero-grid-pattern pointer-events-none" aria-hidden="true" />
+          {/* Signature drafting rule at the top of the sheet */}
+          <div className="drafting-rule opacity-60" aria-hidden="true" />
 
           <h2 id={menuTitleId} className="sr-only">Site menu</h2>
 
-          <div className="container mx-auto px-5 py-7 flex flex-col min-h-full">
-            <p className="font-serif italic text-sandstone-muted text-[15px] mb-6 max-w-xs">
-              Three generations of quality. Family-owned since 1968.
+          <div className="container mx-auto px-5 py-7 flex flex-col min-h-full relative">
+            <p className="font-mono italic text-sandstone-muted text-[13px] tracking-tight mb-6 max-w-xs">
+              Three generations of quality — est. 1968.
             </p>
 
-            <div className="space-y-1 flex-1">
-              {navLinks.map((link) => {
+            <div className="flex-1">
+              {navLinks.map((link, idx) => {
                 const isActive = pathname === link.href || (link.href !== "/" && pathname?.startsWith(link.href));
                 return (
                   <Link
@@ -244,17 +246,22 @@ export function Header() {
                     href={link.href}
                     aria-current={isActive ? "page" : undefined}
                     className={`
-                      menu-item-stagger flex items-center justify-between text-[28px] font-hero uppercase tracking-wide py-3.5
-                      border-b border-white/[0.06] transition-colors duration-150
+                      menu-item-stagger group flex items-center justify-between py-4
+                      border-b border-white/[0.07] transition-colors duration-150
                       ${isActive ? "text-sandstone" : "text-white hover:text-sandstone"}
                     `}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <span>{link.label}</span>
+                    <span className="flex items-baseline gap-4">
+                      <span className="font-mono text-[11px] tabular-nums text-sandstone/60" aria-hidden="true">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-[36px] font-hero font-extrabold uppercase leading-none">{link.label}</span>
+                    </span>
                     {isActive ? (
                       <span className="h-1.5 w-1.5 rounded-full bg-sandstone" aria-hidden="true" />
                     ) : (
-                      <ArrowRight className="w-5 h-5 text-white/30" aria-hidden="true" />
+                      <ArrowRight className="w-5 h-5 text-white/25 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
                     )}
                   </Link>
                 );
@@ -264,7 +271,13 @@ export function Header() {
                 <Link
                   href="/get-quote"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex items-center justify-center gap-2 w-full px-7 py-4 rounded-full text-sm font-black uppercase tracking-[0.18em] bg-sandstone text-black hover:bg-sandstone-light transition-colors"
+                  className="
+                    inline-flex items-center justify-center gap-2 w-full px-7 py-4 rounded-full
+                    font-mono text-sm font-semibold uppercase tracking-[0.18em]
+                    bg-gradient-to-b from-[#EDEFF2] via-[#C3C8CF] to-[#9BA3AE] text-black
+                    shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_4px_18px_-4px_rgba(169,178,191,0.5)]
+                    transition-[filter] duration-200 hover:brightness-105
+                  "
                 >
                   Get a Free Quote <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </Link>
@@ -274,12 +287,15 @@ export function Header() {
             <div className="pb-6 pt-6 mt-4 border-t border-white/[0.08] space-y-4">
               <a
                 href={`tel:${BRAND_CONFIG.contact.phone}`}
-                className="flex items-center gap-2 text-base font-semibold text-white/80 hover:text-sandstone transition-colors"
+                className="flex items-center gap-2 font-mono text-base font-medium text-white/80 hover:text-sandstone transition-colors"
                 aria-label={`Call ${BRAND_CONFIG.contact.phoneFormatted}`}
               >
                 <Phone className="h-4 w-4 text-sandstone" aria-hidden="true" />
                 {BRAND_CONFIG.contact.phoneFormatted}
               </a>
+              <p className="font-mono text-[10px] font-mono tracking-[0.22em] uppercase text-white/35">
+                Calgary · Alberta — Est. 1968
+              </p>
               {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
                 <div className="flex items-center gap-3">
                   {BRAND_CONFIG.social.facebook && (

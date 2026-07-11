@@ -46,19 +46,19 @@ export function Footer() {
       <div className="border-b border-white/[0.04] relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none opacity-50"
-          style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(196,181,160,0.08) 0%, rgba(0,0,0,0) 65%)" }}
+          style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(169,178,191,0.08) 0%, rgba(0,0,0,0) 65%)" }}
         />
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative">
           <div className="py-10 sm:py-14 md:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-8">
             <div className="max-w-xl">
               <div className="flex items-center gap-3 mb-3">
                 <span className="h-px w-8 bg-sandstone/60" />
-                <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-sandstone/80 font-medium">Ready to Build?</p>
+                <p className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-sandstone/80 font-medium">Ready to Build?</p>
               </div>
               <h3 className="font-heading font-black text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight leading-[0.95] text-white mb-3">
                 Let&apos;s Talk About<br className="hidden sm:block" /> Your Project.
               </h3>
-              <p className="font-serif italic text-white/55 text-base sm:text-lg max-w-md">
+              <p className="font-mono text-white/55 text-[13px] sm:text-sm leading-relaxed max-w-md">
                 Free consultation.{" "}
                 <Link href="/price-beat" className="text-white/75 underline underline-offset-4 decoration-white/25 hover:text-sandstone hover:decoration-sandstone/60 transition-colors">
                   5% price beat guarantee
@@ -74,9 +74,9 @@ export function Footer() {
                   group inline-flex items-center justify-center gap-3 px-7 py-4 rounded-full
                   text-sm font-bold uppercase tracking-[0.18em]
                   bg-sandstone text-black
-                  shadow-[0_4px_16px_-4px_rgba(196,181,160,0.4)]
+                  shadow-[0_4px_16px_-4px_rgba(169,178,191,0.4)]
                   transition-[transform,box-shadow,background-color] duration-200 ease-out
-                  hover:bg-sandstone-light hover:-translate-y-[1px] hover:shadow-[0_8px_24px_-4px_rgba(196,181,160,0.55)]
+                  hover:bg-sandstone-light hover:-translate-y-[1px] hover:shadow-[0_8px_24px_-4px_rgba(169,178,191,0.55)]
                 "
               >
                 Get a Free Quote <ArrowRight aria-hidden="true" className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -105,7 +105,7 @@ export function Footer() {
             <Link href="/" className="inline-block transition-opacity duration-200 hover:opacity-85">
               <LogoFooter className="h-12 md:h-14 w-auto" />
             </Link>
-            <p className="font-serif italic text-white/65 text-base leading-snug max-w-xs">
+            <p className="font-mono text-white/50 text-[13px] leading-relaxed max-w-xs">
               Three generations of quality. Family-owned since 1968.
             </p>
             <div className="space-y-3 text-sm">
@@ -204,13 +204,21 @@ export function Footer() {
         </div>
       </div>
 
+      {/* ━━━ GIANT WORDMARK — the site's closing signature ━━━ */}
+      <div className="relative overflow-hidden select-none pointer-events-none" aria-hidden="true">
+        <div className="drafting-rule opacity-40" />
+        <p className="font-hero font-extrabold uppercase text-center leading-[0.78] tracking-tight text-white/[0.05] text-[20vw] -mb-[0.1em] whitespace-nowrap">
+          Precision
+        </p>
+      </div>
+
       {/* ━━━ SUB-FOOTER ━━━ */}
-      <div className="bg-black/60 border-t border-white/[0.04]">
+      <div className="bg-black/60 border-t border-white/[0.05] relative">
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-          <div className="py-6 pb-48 md:pb-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-4 text-xs sm:text-[13px] text-white/50">
+          <div className="py-6 pb-48 md:pb-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-between sm:gap-4 font-mono text-[11px] sm:text-xs text-white/45">
             <p>&copy; {new Date().getFullYear()} {BRAND_CONFIG.name}</p>
             <p>{servingLine}</p>
-            <p>Licensed &amp; Insured &middot; Family Owned Since 1968</p>
+            <p>Licensed &amp; Insured &middot; Est. 1968</p>
           </div>
         </div>
       </div>

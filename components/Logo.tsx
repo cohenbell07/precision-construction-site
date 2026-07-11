@@ -1,71 +1,88 @@
 import React from "react";
 
-export function Logo({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 600 110"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        {/* Polished platinum gradient with subtle "horizon" dip around 55-60% —
-            mimics the natural shadow band on brushed metal without going trophy/chrome. */}
-        <linearGradient id="silverGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-          <stop offset="18%" stopColor="#EEEEEE" stopOpacity="1" />
-          <stop offset="42%" stopColor="#C8C8C8" stopOpacity="1" />
-          <stop offset="56%" stopColor="#929292" stopOpacity="1" />
-          <stop offset="72%" stopColor="#B0B0B0" stopOpacity="1" />
-          <stop offset="100%" stopColor="#7A7A7A" stopOpacity="1" />
-        </linearGradient>
+/**
+ * PCND wordmark — "drawn in steel" identity (2026-07 redesign).
+ *
+ * Anatomy:
+ *  - PRECISION: Archivo (variable) pushed to 118% width, weight 900 — machined,
+ *    architectural. Chrome fill via a cooled steel gradient with a horizon dip.
+ *  - Drafting rule: the brand's signature motif — a measured baseline with
+ *    minor/major ticks, sitting between wordmark and subline like a title-block
+ *    rule on a technical drawing.
+ *  - CONSTRUCTION & DECORA: IBM Plex Mono, wide-tracked — the annotation voice.
+ *
+ * Rendered as inline SVG so it scales crisply at every header/footer size and
+ * inherits the app's loaded fonts via CSS variables.
+ */
 
-        {/* Real SVG drop shadow — replaces the CSS textShadow that was silently failing
-            on SVG text elements. Adds quiet depth on the dark header background. */}
-        <filter id="logoShadow" x="-5%" y="-15%" width="110%" height="135%">
-          <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" floodColor="#000" floodOpacity="0.6" />
-        </filter>
+const RULE_START = 132;
+const RULE_END = 468;
+const MINOR_STEP = 24;
+
+export function Logo({ className }: { className?: string }) {
+  const ticks: React.ReactNode[] = [];
+  for (let x = RULE_START, i = 0; x <= RULE_END; x += MINOR_STEP, i++) {
+    const isMajor = i % 5 === 0;
+    ticks.push(
+      <line
+        key={x}
+        x1={x}
+        y1={isMajor ? 57 : 61}
+        x2={x}
+        y2={66}
+        stroke="#A9B2BF"
+        strokeOpacity={isMajor ? 0.85 : 0.45}
+        strokeWidth={isMajor ? 1.1 : 0.8}
+      />
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 600 112" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="false" role="img" aria-label="Precision Construction & Decora">
+      <defs>
+        {/* Cooled steel chrome — bright crown, horizon dip, burnished base. */}
+        <linearGradient id="steelChrome" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="30%" stopColor="#E9EBEE" />
+          <stop offset="50%" stopColor="#C3C8CF" />
+          <stop offset="62%" stopColor="#9BA3AE" />
+          <stop offset="78%" stopColor="#C9CED5" />
+          <stop offset="100%" stopColor="#8E96A2" />
+        </linearGradient>
       </defs>
 
-      <g filter="url(#logoShadow)">
-        {/* PRECISION — tighter letter-spacing (0.04em) for a more architectural, refined feel */}
-        <text
-          x="300"
-          y="48"
-          textAnchor="middle"
-          fill="url(#silverGradient)"
-          fontSize="48"
-          fontWeight="700"
-          fontFamily="'Montserrat', 'Helvetica Neue', Arial, sans-serif"
-          letterSpacing="0.04em"
-          strokeWidth="0.4"
-          stroke="rgba(255,255,255,0.12)"
-        >
-          PRECISION
-        </text>
+      {/* PRECISION — expanded Archivo, machined chrome */}
+      <text
+        x="300"
+        y="46"
+        textAnchor="middle"
+        fill="url(#steelChrome)"
+        fontSize="50"
+        fontWeight="900"
+        fontFamily="var(--font-archivo), system-ui, sans-serif"
+        letterSpacing="0.06em"
+        style={{ fontStretch: "118%" }}
+      >
+        PRECISION
+      </text>
 
-        {/* Architectural accent — two short sandstone hairlines flanking a small diamond pip.
-            Replaces the long faded gradient rule with something that reads as an intentional
-            drafting reference mark. */}
-        <line x1="232" y1="60" x2="285" y2="60" stroke="#C4B5A0" strokeOpacity="0.7" strokeWidth="0.8" />
-        <rect x="298" y="58" width="4" height="4" transform="rotate(45 300 60)" fill="#C4B5A0" fillOpacity="0.85" />
-        <line x1="315" y1="60" x2="368" y2="60" stroke="#C4B5A0" strokeOpacity="0.7" strokeWidth="0.8" />
+      {/* Drafting rule — measured baseline with ticks */}
+      <line x1={RULE_START} y1="66" x2={RULE_END} y2="66" stroke="#A9B2BF" strokeOpacity="0.55" strokeWidth="1" />
+      {ticks}
 
-        {/* CONSTRUCTION & DECORA — wider tracking (0.30em) for premium breathing room */}
-        <text
-          x="300"
-          y="84"
-          textAnchor="middle"
-          fill="url(#silverGradient)"
-          fontSize="20"
-          fontWeight="700"
-          fontFamily="'Montserrat', 'Helvetica Neue', Arial, sans-serif"
-          letterSpacing="0.30em"
-          strokeWidth="0.3"
-          stroke="rgba(255,255,255,0.10)"
-        >
-          CONSTRUCTION &amp; DECORA
-        </text>
-      </g>
+      {/* CONSTRUCTION & DECORA — mono annotation voice */}
+      <text
+        x="302"
+        y="94"
+        textAnchor="middle"
+        fill="#9BA3AE"
+        fontSize="15"
+        fontWeight="500"
+        fontFamily="var(--font-mono), ui-monospace, monospace"
+        letterSpacing="0.4em"
+      >
+        CONSTRUCTION &amp; DECORA
+      </text>
     </svg>
   );
 }

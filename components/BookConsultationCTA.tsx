@@ -58,7 +58,7 @@ export function BookConsultationCTA({
         <Reveal>
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="h-px w-8 bg-sandstone-dark/40" aria-hidden="true" />
-            <p className="cream-eyebrow text-[10px] sm:text-[11px] tracking-[0.3em] uppercase font-medium">{eyebrow}</p>
+            <p className="cream-eyebrow text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase font-medium">{eyebrow}</p>
             <span className="h-px w-8 bg-sandstone-dark/40" aria-hidden="true" />
           </div>
           <h2 className="text-[32px] sm:text-5xl md:text-6xl font-heading font-black uppercase tracking-tight leading-[0.92] text-ink mb-5">

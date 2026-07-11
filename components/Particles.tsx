@@ -28,7 +28,7 @@ export function Particles({
   particleCount = 150,
   particleSpread = 10,
   speed = 0.1,
-  particleColors = ["#C4B5A0", "#D8D8D8", "#A89880"],
+  particleColors = ["#A9B2BF", "#D8D8D8", "#8A94A4"],
   moveParticlesOnHover = true,
   particleHoverFactor = 1,
   alphaParticles = true,

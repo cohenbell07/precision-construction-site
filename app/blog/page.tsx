@@ -43,7 +43,7 @@ export default function BlogPage() {
       {/* ━━━ HERO — DARK ━━━ */}
       <section className="pt-32 pb-16 bg-black relative">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-5">
+          <p className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-white/55 font-medium mb-5">
             Precision Construction &amp; Decora Blog
           </p>
           <h1 className="font-hero uppercase tracking-wide text-5xl sm:text-6xl lg:text-7xl leading-[0.95] mb-5 hero-heading-shimmer">
@@ -130,10 +130,10 @@ export default function BlogPage() {
       {/* ━━━ BOTTOM CTA — DARK ━━━ */}
       <section className="py-24 sm:py-32 bg-black relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full" style={{ background: "radial-gradient(circle, rgba(196, 181, 160, 0.05) 0%, transparent 70%)" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full" style={{ background: "radial-gradient(circle, rgba(169, 178, 191, 0.05) 0%, transparent 70%)" }} />
         </div>
         <div className="max-w-2xl mx-auto px-4 text-center relative z-10">
-          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-5">Ready to Build?</p>
+          <p className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-white/55 font-medium mb-5">Ready to Build?</p>
           <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight leading-[0.9] mb-4">
             Stop Reading.<br />Start Building.
           </h2>

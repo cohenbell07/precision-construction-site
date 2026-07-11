@@ -2,7 +2,7 @@
  * Cream-canvas testimonial card. Anatomy:
  *  - paper card surface with warm hairline + soft warm shadow
  *  - 5 sandstone stars + decorative quote glyph
- *  - DM Serif Display italic body
+ *  - IBM Plex Mono italic body (drafting-annotation voice)
  *  - hairline divider, initials avatar, verified badge
  *
  * Lives inside a <Section variant="cream"> — assumes cream context.

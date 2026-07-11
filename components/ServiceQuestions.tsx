@@ -55,7 +55,7 @@ export function ServiceQuestions({
           {eyebrow && (
             <div className="flex items-center gap-3 mb-3">
               <div className="h-px w-8 cream-rule" />
-              <p className="cream-eyebrow text-[10px] tracking-[0.3em] uppercase font-medium">
+              <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">
                 {eyebrow}
               </p>
             </div>

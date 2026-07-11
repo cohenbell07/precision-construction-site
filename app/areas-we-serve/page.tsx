@@ -70,7 +70,7 @@ export default function AreasWeServePage() {
       {/* ━━━ HERO — DARK ━━━ */}
       <section className="pt-32 pb-16 bg-black relative">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/55 font-medium mb-5">
+          <p className="text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase text-white/55 font-medium mb-5">
             Calgary &amp; Surrounding Area
           </p>
           <h1 className="font-hero uppercase tracking-wide text-5xl sm:text-6xl lg:text-7xl leading-[0.95] mb-5 hero-heading-shimmer">
@@ -93,7 +93,7 @@ export default function AreasWeServePage() {
               <div key={group.region}>
                 <div className="flex items-center gap-3 mb-2">
                   <div className="h-px w-10 cream-rule" />
-                  <p className="cream-eyebrow text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">{group.label}</p>
+                  <p className="cream-eyebrow text-[10px] sm:text-xs font-mono tracking-[0.22em] uppercase font-medium">{group.label}</p>
                 </div>
                 <p className="text-ink-muted text-sm mb-6 max-w-xl">{group.blurb}</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

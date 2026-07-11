@@ -39,9 +39,11 @@
     --ring: 0 0% 91%;
     --radius: 0.75rem;
 
-    /* Unified metallic silver gradient (H4) — single source of truth for heading/text gradients */
-    --silver-gradient-primary: linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 25%, #D8D8D8 55%, #B8B8B8 85%, #A0A0A0 100%);
-    --silver-gradient-display: linear-gradient(105deg, #D8D8D8 0%, #F5F5F5 50%, #D8D8D8 100%);
+    /* Unified metallic silver gradient — cooled toward steel for the
+       "drawn in steel" world. Reserved for deliberate metallic text moments
+       (hero, logo), not heading wallpaper. */
+    --silver-gradient-primary: linear-gradient(180deg, #FFFFFF 0%, #EDEFF2 25%, #D5D9DE 55%, #B4BAC2 85%, #9BA2AC 100%);
+    --silver-gradient-display: linear-gradient(105deg, #D5D9DE 0%, #F4F5F7 50%, #C9CED5 100%);
 
     /* Motion tokens — strong custom curves; built-in CSS easings are too weak
        for UI that should feel deliberate. Enter/exit → ease-out-strong;
@@ -93,7 +95,7 @@
      dark and cream canvases. `:focus-visible` only triggers for keyboard nav, not mouse
      clicks, so it doesn't intrude on touch/click users. */
   *:focus-visible {
-    outline: 2px solid #C4B5A0;
+    outline: 2px solid #A9B2BF;
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -116,25 +118,30 @@
     max-width: 100%;
     height: auto;
   }
-  /* All headings use Montserrat + unified metallic silver gradient (H4) */
+  /* "Drawn in steel" heading system — solid cool-white Archivo, no gradient
+     wallpaper. The metallic treatment is reserved for deliberate hero moments
+     via .hero-heading-shimmer / .heading-chrome, which keeps it special. */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-montserrat), "Montserrat", system-ui, sans-serif;
-    background: var(--silver-gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+    font-family: var(--font-archivo), system-ui, sans-serif;
+    color: #F2F3F5;
     text-wrap: balance; /* M4 — prevents orphan words on hero/section headings */
   }
-  /* Cream "Studio" canvas — headings revert to ink (no silver gradient).
+  /* Gallery canvas (light pole) — headings drop to ink.
      Specificity (0,1,1) cleanly beats the (0,0,1) global rule above. */
   .cream-canvas :is(h1, h2, h3, h4, h5, h6) {
-    background: none;
-    -webkit-background-clip: initial;
-    background-clip: initial;
-    -webkit-text-fill-color: initial;
-    color: #1A1A1A;
-    filter: none;
+    color: #14161A;
+  }
+
+  /* Display widths — Archivo's variable width axis carries three voices.
+     These augment the Tailwind font-family utilities of the same name. */
+  .font-hero {
+    font-stretch: 64%;      /* condensed heavy caps — the poster voice */
+    font-weight: 800;       /* Bebas was single-cut bold; Archivo must opt in.
+                               Base layer, so font-* utilities still override. */
+    letter-spacing: 0.01em;
+  }
+  .font-heading {
+    font-stretch: 84%;      /* slightly condensed — section headings */
   }
   p {
     text-wrap: pretty; /* M4 — body copy avoids awkward last-line breaks */
@@ -209,13 +216,13 @@
      <Section variant="cream"> component).
      ============================================ */
   .cream-canvas {
-    background-color: #F5EFE4; /* bone */
+    background-color: #EEF0F2; /* bone */
     background-image:
-      radial-gradient(ellipse at 50% 0%, rgba(196, 181, 160, 0.10), transparent 60%),
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55  0 0 0 0 0.50  0 0 0 0 0.42  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      radial-gradient(ellipse at 50% 0%, rgba(169, 178, 191, 0.10), transparent 60%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.44  0 0 0 0 0.47  0 0 0 0 0.53  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
   .cream-canvas .cream-eyebrow {
-    color: #6E5F45; /* darker sandstone tone, 5.3:1 contrast on bone — passes WCAG AA at small size */
+    color: #57606E; /* darker sandstone tone, 5.3:1 contrast on bone — passes WCAG AA at small size */
   }
   /* WCAG AA fix — sandstone text tokens on cream fail 4.5:1 (sandstone-dark = 2.46:1,
      sandstone-muted = 3.51:1 on bone). Scoped override only affects TEXT uses inside cream
@@ -225,29 +232,29 @@
   .cream-canvas .text-sandstone-muted,
   .cream-canvas .text-sandstone\/70,
   .cream-canvas .text-sandstone\/80 {
-    color: #6E5F45;
+    color: #57606E;
   }
   .cream-canvas .hover\:text-sandstone-dark:hover,
   .cream-canvas .group:hover .group-hover\:text-sandstone-dark {
-    color: #4F4530;
+    color: #3E4552;
   }
   .cream-canvas .cream-rule {
-    background: linear-gradient(90deg, #A89880 0%, transparent 100%);
+    background: linear-gradient(90deg, #8A94A4 0%, transparent 100%);
   }
   .cream-canvas .cream-rule-rtl {
-    background: linear-gradient(270deg, #A89880 0%, transparent 100%);
+    background: linear-gradient(270deg, #8A94A4 0%, transparent 100%);
   }
   .cream-canvas .paper-card {
-    background: #FBF7EE;
-    border: 1px solid #E4DCC9;
+    background: #F8F9FA;
+    border: 1px solid #DDE0E4;
     box-shadow:
-      0 1px 2px rgba(110, 90, 60, 0.04),
-      0 12px 32px -16px rgba(110, 90, 60, 0.10);
+      0 1px 2px rgba(70, 78, 92, 0.04),
+      0 12px 32px -16px rgba(70, 78, 92, 0.10);
   }
   /* Architectural hairline drawn at the top of every cream section. */
   .cream-divider-top {
     height: 1px;
-    background: linear-gradient(90deg, transparent, #A89880 50%, transparent);
+    background: linear-gradient(90deg, transparent, #8A94A4 50%, transparent);
     opacity: 0.5;
   }
   /* Primary CTA on cream — ink button with sandstone-deep hover. */
@@ -255,16 +262,16 @@
     @apply inline-flex items-center justify-center gap-3 bg-ink text-bone px-7 py-3.5 rounded-full font-bold text-sm tracking-wide transition-colors;
   }
   .btn-ink:hover {
-    background-color: #A89880; /* sandstone-dark */
-    color: #1A1A1A;
+    background-color: #8A94A4; /* sandstone-dark */
+    color: #14161A;
   }
   /* Secondary CTA on cream — ghost with warm hairline. */
   .btn-ink-ghost {
     @apply inline-flex items-center justify-center gap-2 text-ink px-5 py-3.5 text-sm tracking-wide font-semibold rounded-full transition-colors;
-    border: 1px solid #D9D0BE; /* bone-hairline */
+    border: 1px solid #D4D8DD; /* bone-hairline */
   }
   .btn-ink-ghost:hover {
-    background-color: #EDE5D5; /* bone-soft */
+    background-color: #E4E7EA; /* bone-soft */
   }
 
   /* ============================================
@@ -768,7 +775,7 @@
     -webkit-text-fill-color: transparent;
     font-weight: 900;
     line-height: 1;
-    font-family: var(--font-montserrat), "Montserrat", system-ui, sans-serif;
+    font-family: var(--font-archivo), system-ui, sans-serif;
   }
 
   /* Decorative quote mark */
@@ -854,7 +861,7 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 900;
-    font-family: var(--font-montserrat), "Montserrat", system-ui, sans-serif;
+    font-family: var(--font-archivo), system-ui, sans-serif;
     line-height: 1;
   }
 
@@ -899,7 +906,7 @@
   /* Blog h2/h3 inherit the global silver gradient — which looks great.
      We just add spacing and font stack here. */
   .blog-prose h2 {
-    font-family: var(--font-montserrat), "Montserrat", system-ui, sans-serif;
+    font-family: var(--font-archivo), system-ui, sans-serif;
     font-size: 1.4rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -909,7 +916,7 @@
   }
 
   .blog-prose h3 {
-    font-family: var(--font-montserrat), "Montserrat", system-ui, sans-serif;
+    font-family: var(--font-archivo), system-ui, sans-serif;
     font-size: 1.15rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -998,7 +1005,7 @@
   }
   .blog-prose thead th {
     text-align: left;
-    font-family: var(--font-montserrat), "Montserrat", system-ui, sans-serif;
+    font-family: var(--font-archivo), system-ui, sans-serif;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.02em;
@@ -1015,24 +1022,24 @@
   .blog-prose tbody tr:last-child td { border-bottom: none; }
 
   /* Cream variant of blog-prose — used in cream-canvas article sections. */
-  .cream-canvas .blog-prose { color: #5C5750; }
-  .cream-canvas .blog-prose thead th { color: #1A1A1A; border-bottom-color: rgba(168, 152, 128, 0.55); }
-  .cream-canvas .blog-prose tbody td { border-bottom-color: rgba(168, 152, 128, 0.22); }
-  .cream-canvas .blog-prose tbody tr:nth-child(even) td { background: rgba(196, 181, 160, 0.06); }
+  .cream-canvas .blog-prose { color: #565C66; }
+  .cream-canvas .blog-prose thead th { color: #14161A; border-bottom-color: rgba(138, 148, 164, 0.55); }
+  .cream-canvas .blog-prose tbody td { border-bottom-color: rgba(138, 148, 164, 0.22); }
+  .cream-canvas .blog-prose tbody tr:nth-child(even) td { background: rgba(169, 178, 191, 0.06); }
   .cream-canvas .blog-prose ul li::before {
-    background: #A89880; /* sandstone-dark */
+    background: #8A94A4; /* sandstone-dark */
     box-shadow: none;
   }
-  .cream-canvas .blog-prose ol li { color: #5C5750; }
-  .cream-canvas .blog-prose strong { color: #1A1A1A; }
-  .cream-canvas .blog-prose em { color: #5C5750; }
-  .cream-canvas .blog-prose a { color: #A89880; }
-  .cream-canvas .blog-prose a:hover { color: #1A1A1A; }
+  .cream-canvas .blog-prose ol li { color: #565C66; }
+  .cream-canvas .blog-prose strong { color: #14161A; }
+  .cream-canvas .blog-prose em { color: #565C66; }
+  .cream-canvas .blog-prose a { color: #8A94A4; }
+  .cream-canvas .blog-prose a:hover { color: #14161A; }
   .cream-canvas .blog-prose blockquote {
-    border-left-color: #A89880;
-    color: #1A1A1A;
-    background: rgba(196, 181, 160, 0.10);
-    font-family: var(--font-dm-serif), "DM Serif Display", Georgia, serif;
+    border-left-color: #8A94A4;
+    color: #14161A;
+    background: rgba(169, 178, 191, 0.10);
+    font-family: var(--font-mono), ui-monospace, monospace;
   }
 }
 
@@ -1114,7 +1121,7 @@
   left: -100%;
   width: 60%;
   height: 100%;
-  background: linear-gradient(105deg, transparent 30%, rgba(196, 181, 160, 0.15) 45%, rgba(255, 255, 255, 0.20) 50%, rgba(196, 181, 160, 0.15) 55%, transparent 70%);
+  background: linear-gradient(105deg, transparent 30%, rgba(169, 178, 191, 0.15) 45%, rgba(255, 255, 255, 0.20) 50%, rgba(169, 178, 191, 0.15) 55%, transparent 70%);
   animation: cta-shine-sweep 5s ease-in-out infinite;
   pointer-events: none;
 }
@@ -1135,7 +1142,7 @@
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(105deg, transparent 30%, rgba(196, 181, 160, 0.25) 45%, rgba(255, 255, 255, 0.35) 50%, rgba(196, 181, 160, 0.25) 55%, transparent 70%);
+  background: linear-gradient(105deg, transparent 30%, rgba(169, 178, 191, 0.25) 45%, rgba(255, 255, 255, 0.35) 50%, rgba(169, 178, 191, 0.25) 55%, transparent 70%);
   transition: none;
   pointer-events: none;
 }
@@ -1200,7 +1207,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1.5px;
-  background: conic-gradient(from var(--border-angle, 0deg), transparent 40%, rgba(196, 181, 160, 0.5) 50%, transparent 60%);
+  background: conic-gradient(from var(--border-angle, 0deg), transparent 40%, rgba(169, 178, 191, 0.5) 50%, transparent 60%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -1236,10 +1243,10 @@ button[class*="rounded-full"]:active,
    a measure taken, not a border drawn. Dark-canvas tone by default. */
 .drafting-rule {
   height: 14px;
-  border-bottom: 1px solid rgba(196, 181, 160, 0.45);
+  border-bottom: 1px solid rgba(169, 178, 191, 0.45);
   background-image:
-    repeating-linear-gradient(90deg, rgba(196, 181, 160, 0.30) 0 1px, transparent 1px 24px),
-    repeating-linear-gradient(90deg, rgba(196, 181, 160, 0.65) 0 1px, transparent 1px 120px);
+    repeating-linear-gradient(90deg, rgba(169, 178, 191, 0.30) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, rgba(169, 178, 191, 0.65) 0 1px, transparent 1px 120px);
   background-size: 100% 7px, 100% 14px;
   background-position: bottom left, bottom left;
   background-repeat: no-repeat;
@@ -1249,10 +1256,10 @@ button[class*="rounded-full"]:active,
 
 /* Cream-canvas variant — deeper sandstone so the ticks hold on bone. */
 .cream-canvas .drafting-rule {
-  border-bottom-color: rgba(168, 152, 128, 0.55);
+  border-bottom-color: rgba(138, 148, 164, 0.55);
   background-image:
-    repeating-linear-gradient(90deg, rgba(168, 152, 128, 0.40) 0 1px, transparent 1px 24px),
-    repeating-linear-gradient(90deg, rgba(138, 125, 107, 0.70) 0 1px, transparent 1px 120px);
+    repeating-linear-gradient(90deg, rgba(138, 148, 164, 0.40) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, rgba(106, 115, 130, 0.70) 0 1px, transparent 1px 120px);
 }
 
 /* Desktop nav underline — hairline grows from the left on hover, sandstone.
@@ -1264,7 +1271,7 @@ button[class*="rounded-full"]:active,
   right: 4px;
   bottom: 9px;
   height: 1px;
-  background: rgba(196, 181, 160, 0.9);
+  background: rgba(169, 178, 191, 0.9);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 220ms var(--ease-out-strong);
