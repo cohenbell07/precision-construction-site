@@ -159,7 +159,10 @@ export function Header() {
               >
                 {link.label}
                 {isActive && (
-                  <span className="absolute bottom-2 left-1/2 -translate-x-1/2 h-1 w-1 rounded-full bg-sandstone" aria-hidden="true" />
+                  <span className="absolute bottom-[9px] left-1 right-1 h-px bg-sandstone" aria-hidden="true">
+                    <span className="absolute left-0 bottom-0 h-[5px] w-px bg-sandstone" />
+                    <span className="absolute right-0 bottom-0 h-[5px] w-px bg-sandstone" />
+                  </span>
                 )}
               </Link>
             );
@@ -238,7 +241,7 @@ export function Header() {
             </p>
 
             <div className="flex-1">
-              {navLinks.map((link, idx) => {
+              {navLinks.map((link) => {
                 const isActive = pathname === link.href || (link.href !== "/" && pathname?.startsWith(link.href));
                 return (
                   <Link
@@ -252,15 +255,15 @@ export function Header() {
                     `}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <span className="flex items-baseline gap-4">
-                      <span className="font-mono text-[11px] tabular-nums text-sandstone/60" aria-hidden="true">
-                        {String(idx + 1).padStart(2, "0")}
-                      </span>
+                    <span className="flex items-center gap-4">
+                      {/* Measured dash — the drafting tick marks the page you're on. */}
+                      <span
+                        aria-hidden="true"
+                        className={`h-px transition-[width,background-color] duration-200 ${isActive ? "w-7 bg-sandstone" : "w-4 bg-white/20 group-hover:bg-sandstone/60"}`}
+                      />
                       <span className="text-[36px] font-hero font-extrabold uppercase leading-none">{link.label}</span>
                     </span>
-                    {isActive ? (
-                      <span className="h-1.5 w-1.5 rounded-full bg-sandstone" aria-hidden="true" />
-                    ) : (
+                    {!isActive && (
                       <ArrowRight className="w-5 h-5 text-white/25 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
                     )}
                   </Link>
@@ -293,7 +296,7 @@ export function Header() {
                 <Phone className="h-4 w-4 text-sandstone" aria-hidden="true" />
                 {BRAND_CONFIG.contact.phoneFormatted}
               </a>
-              <p className="font-mono text-[10px] font-mono tracking-[0.22em] uppercase text-white/35">
+              <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-white/35">
                 Calgary · Alberta — Est. 1968
               </p>
               {(BRAND_CONFIG.social?.facebook || BRAND_CONFIG.social?.instagram) && (
@@ -304,7 +307,7 @@ export function Header() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Facebook"
-                      className="w-11 h-11 rounded-full border border-white/[0.08] hover:border-sandstone/40 flex items-center justify-center text-white/60 hover:text-sandstone transition-all"
+                      className="w-11 h-11 rounded-full border border-white/[0.08] hover:border-sandstone/40 flex items-center justify-center text-white/60 hover:text-sandstone transition-colors"
                     >
                       <Facebook className="h-4 w-4" aria-hidden="true" />
                     </a>
@@ -315,7 +318,7 @@ export function Header() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Instagram"
-                      className="w-11 h-11 rounded-full border border-white/[0.08] hover:border-sandstone/40 flex items-center justify-center text-white/60 hover:text-sandstone transition-all"
+                      className="w-11 h-11 rounded-full border border-white/[0.08] hover:border-sandstone/40 flex items-center justify-center text-white/60 hover:text-sandstone transition-colors"
                     >
                       <Instagram className="h-4 w-4" aria-hidden="true" />
                     </a>

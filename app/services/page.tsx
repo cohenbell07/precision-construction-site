@@ -13,6 +13,7 @@ import { services } from "@/lib/services";
 import { getActivePromo } from "@/lib/promo";
 import Link from "next/link";
 import Image from "next/image";
+import { DARK_BLUR } from "@/lib/blur";
 import { ArrowRight, Phone, Shield } from "lucide-react";
 import { BlurReveal } from "@/components/BlurReveal";
 import { Section } from "@/components/Section";
@@ -51,14 +52,15 @@ type Tier = "primary" | "secondary" | "specialty";
 
 interface Category {
   id: string;
-  label: string;
   heading: string;
   desc: string;
   eyebrow: string;
   serviceIds: string[];
   tier: Tier;
-  /** Per-card layout. Tier 1 reno cards stay large (2-col); tier 2/3 compress to 3-col. */
-  gridCols: string;
+  /** Full grid class per tier. Tier 1 stays large (1-col mobile → 2-col);
+      tier 2/3 run compact two-up even on phones so the index doesn't become
+      a 14-screen single-file scroll. */
+  gridClass: string;
 }
 
 /* Renovation-first hierarchy: full renovations are tier 1 (the headline offering),
@@ -67,33 +69,30 @@ interface Category {
 const categories: Category[] = [
   {
     id: "renovations",
-    label: "Renovations",
     heading: "Renovations",
     desc: "Our headline offering — kitchen, bathroom, basement, and whole-home transformations. One crew handles design, demo, trades, finishes, and the final walkthrough.",
     eyebrow: "Most Requested",
     serviceIds: ["kitchens", "bathrooms", "basements", "renovations"],
     tier: "primary",
-    gridCols: "sm:grid-cols-2 lg:grid-cols-2",
+    gridClass: "grid-cols-1 sm:grid-cols-2",
   },
   {
     id: "components",
-    label: "Components & Finishes",
     heading: "Components & Finishes",
     desc: "Cabinetry, countertops, tile, flooring, trim, drywall, and paint — included inside every renovation, or hire us for any one of them standalone.",
     eyebrow: "Part of Any Reno — Or Hire Standalone",
     serviceIds: ["cabinets", "countertops", "showers", "flooring", "carpentry", "drywall", "painting"],
     tier: "secondary",
-    gridCols: "sm:grid-cols-2 lg:grid-cols-3",
+    gridClass: "grid-cols-2 lg:grid-cols-3",
   },
   {
     id: "specialty",
-    label: "Specialty & Trade Work",
     heading: "Exterior, Framing & Commercial",
     desc: "Garages, decks, fences, structural framing, and commercial tenant improvements. Same crew, same standards — different scope.",
     eyebrow: "Specialty & Trade Work",
     serviceIds: ["garages", "framing", "commercial"],
     tier: "specialty",
-    gridCols: "sm:grid-cols-2 lg:grid-cols-3",
+    gridClass: "grid-cols-2 lg:grid-cols-3",
   },
 ];
 
@@ -112,7 +111,7 @@ export default function ServicesPage() {
       {/* ━━━ HERO — DARK ━━━ */}
       <section ref={heroRef} className="relative w-full h-[60vh] sm:h-[60vh] md:h-[65vh] min-h-[480px] sm:min-h-[380px] max-h-[700px] overflow-hidden bg-black">
         <motion.div style={{ y: heroY }} className="absolute inset-0">
-          <Image src="/servicehero.webp" alt="Professional residential and commercial construction services in Calgary by PCND" fill className="object-cover object-center" sizes="100vw" priority quality={85} />
+          <Image src="/servicehero.webp" alt="Professional residential and commercial construction services in Calgary by PCND" fill className="object-cover object-center" sizes="100vw" priority placeholder="blur" blurDataURL={DARK_BLUR} quality={85} />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/90" />
         </motion.div>
         <motion.div style={{ opacity: heroOpacity }} className="absolute inset-0 flex items-end pb-10 sm:pb-14 md:pb-16 z-10">
@@ -172,18 +171,20 @@ export default function ServicesPage() {
                       isPrimary
                         ? "text-[32px] sm:text-5xl md:text-6xl lg:text-7xl"
                         : "text-[24px] sm:text-3xl md:text-4xl lg:text-[44px]"
-                    } font-heading font-black uppercase tracking-tight leading-[0.95] sm:leading-[0.92] mb-3 sm:mb-4`}
+                    } font-heading font-black uppercase tracking-tight leading-[0.95] sm:leading-[0.92] mb-4 sm:mb-5`}
                   >
                     {cat.heading}
                   </h2>
-                  <div className="h-[1.5px] w-16 bg-gradient-to-r from-sandstone to-transparent mb-5" />
+                  {/* Signature measure under every category head — ties the
+                      index back to the drafting-rule motif. */}
+                  <div className="drafting-rule opacity-45 max-w-sm mb-5" aria-hidden="true" />
                   <p className={`${isPrimary ? "text-white/75" : "text-white/60"} text-base sm:text-lg max-w-xl leading-relaxed`}>
                     {cat.desc}
                   </p>
                 </div>
               </Reveal>
 
-              <div className={`grid grid-cols-1 ${cat.gridCols} gap-5 sm:gap-6 ${isPrimary ? "md:gap-8" : "md:gap-6"} ${isPrimary ? "max-w-6xl" : "max-w-7xl"} mx-auto`}>
+              <div className={`grid ${cat.gridClass} ${isPrimary ? "gap-5 sm:gap-6 md:gap-8 max-w-6xl" : "gap-3 sm:gap-5 md:gap-6 max-w-7xl"} mx-auto`}>
                 {cat.serviceIds.map((id, idx) => {
                   const s = getService(id);
                   if (!s) return null;
@@ -194,8 +195,8 @@ export default function ServicesPage() {
                         title={s.title}
                         image={serviceImageMap[s.id] || "/service-millwork.webp"}
                         alt={`${s.title} services in Calgary by PCND`}
-                        eyebrow={cat.label}
-                        featuredBadge={activePromo ? "15% Off" : undefined}
+                        size={isPrimary ? "feature" : "compact"}
+                        featuredBadge={isPrimary && activePromo ? "15% Off" : undefined}
                       />
                     </BlurReveal>
                   );

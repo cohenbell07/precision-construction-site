@@ -15,6 +15,7 @@
 
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { DARK_BLUR } from "@/lib/blur";
 import Link from "next/link";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
@@ -123,7 +124,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
       {/* ━━━ HERO — DARK ━━━ */}
       <section className="relative w-full min-h-[640px] sm:min-h-[580px] md:min-h-[640px] md:h-[74vh] lg:h-[78vh] max-h-[820px] overflow-hidden bg-black">
-        <Image src={image} alt={`${service.title} - professional Calgary construction services by PCND`} fill className="object-cover object-center" sizes="100vw" priority quality={85} />
+        <Image src={image} alt={`${service.title} - professional Calgary construction services by PCND`} fill className="object-cover object-center" sizes="100vw" priority placeholder="blur" blurDataURL={DARK_BLUR} quality={85} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/95" />
         <div className="absolute inset-0 pointer-events-none opacity-50" style={{ background: "radial-gradient(ellipse at 25% 85%, rgba(169,178,191,0.20) 0%, rgba(0,0,0,0) 55%)" }} />
         {/* sandstone hairline top + bottom for editorial closure */}
@@ -143,7 +144,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                 >
                   <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-sandstone animate-pulse" aria-hidden="true" />
                   <span className="sm:hidden text-[10px] font-semibold uppercase tracking-[0.14em] leading-none whitespace-nowrap">
-                    15% Off · Jun 30
+                    15% Off · {activePromo.endsAtDisplay}
                   </span>
                   <span className="hidden sm:inline text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] leading-relaxed text-sandstone">
                     {activePromo.label} · 15% Off through {activePromo.endsAtDisplay}
@@ -193,8 +194,10 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight leading-[0.9] mb-5 text-ink">
               Your {service.title}, <span className="text-sandstone-dark">Done Once. Done Right.</span>
             </h2>
+            {/* Annotation voice — a distinct line, not a repeat of the hero
+                description the visitor just read two seconds ago. */}
             <p className="font-serif italic text-ink text-[20px] sm:text-2xl leading-snug max-w-2xl mb-6">
-              {service.description}
+              One crew, one standard — from the first measure to the final walkthrough.
             </p>
             <p className="text-ink-muted text-base sm:text-lg leading-relaxed max-w-2xl mb-9">
               Every {serviceLower} project is handled by our own crews — never subcontracted. One point of contact, fully accountable from the first quote to the final walkthrough. Same standards, same handshake, every time.
@@ -348,16 +351,17 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-black uppercase tracking-tight leading-[0.95] mb-10 sm:mb-14 text-white">From Quote to Walkthrough</h2>
             </Reveal>
             <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
-              {/* connecting line on desktop */}
-              <div className="hidden lg:block absolute top-[26px] left-[12%] right-[12%] h-px bg-gradient-to-r from-sandstone/0 via-sandstone/40 to-sandstone/0" aria-hidden="true" />
+              {/* connecting line on desktop — the measure the phases sit on */}
+              <div className="hidden lg:block absolute top-0 left-0 right-[12%] h-px bg-gradient-to-r from-sandstone/40 via-sandstone/40 to-sandstone/0" aria-hidden="true" />
               {service.process.map((step, idx) => (
                 <Reveal key={step.title} delay={idx * 0.1}>
-                  <div className="relative">
-                    <div className="flex items-center gap-4 mb-5">
-                      <span className="relative z-10 flex items-center justify-center w-12 h-12 shrink-0 rounded-full bg-[#0A0A0A] border border-sandstone/40 font-hero text-2xl text-sandstone tracking-wide">
-                        {String(step.step).padStart(2, "0")}
-                      </span>
-                      <div className="h-px flex-1 bg-white/10 lg:hidden" />
+                  {/* Survey-marker phase: a major tick dropped from the measure
+                      line — the drafting motif doing the sequencing, no numerals. */}
+                  <div className="relative lg:pt-7">
+                    <span className="hidden lg:block absolute top-0 left-0 h-7 w-px bg-sandstone/70" aria-hidden="true" />
+                    <div className="flex items-center gap-4 mb-4 lg:hidden">
+                      <span className="h-px w-8 bg-sandstone/70" aria-hidden="true" />
+                      <div className="h-px flex-1 bg-white/10" />
                     </div>
                     <h3 className="text-base font-heading font-bold uppercase tracking-tight text-white mb-2">{step.title}</h3>
                     <p className="text-white/55 text-sm leading-relaxed">{step.description}</p>

@@ -252,27 +252,25 @@ function GetQuoteForm() {
             <p className="text-center text-[10px] sm:text-[11px] font-mono tracking-[0.2em] uppercase font-medium text-sandstone-muted mb-4">
               Step {step === "selection" ? "1" : "2"} of 2 — {step === "selection" ? "Choose your service" : "Tell us about your project"}
             </p>
-            <div className="flex items-center justify-center gap-0">
+            {/* Segmented measure — two labeled track segments fill as you
+                advance. Reads like a progress rule off a drawing sheet. */}
+            <div className="flex items-start justify-center gap-3 max-w-xs mx-auto">
               {[
-                { num: "01", label: "Service", key: "selection" },
-                { num: "02", label: "Details", key: "details" },
-              ].map((s, i, arr) => {
+                { label: "Service", key: "selection" },
+                { label: "Details", key: "details" },
+              ].map((s) => {
                 const stepOrder = ["selection", "details", "summary"];
                 const currentIdx = stepOrder.indexOf(step);
                 const stepIdx = stepOrder.indexOf(s.key);
                 const isCompleted = currentIdx > stepIdx;
                 const isActive = currentIdx === stepIdx;
                 return (
-                  <div key={s.key} className="flex items-center">
-                    <div className="flex flex-col items-center gap-1.5">
-                      <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300 border-2 ${isCompleted ? 'bg-ink border-ink text-bone' : isActive ? 'border-sandstone-dark bg-bone-soft text-ink' : 'border-bone-hairline bg-bone-paper text-ink-muted'}`}>
-                        {isCompleted ? <CheckCircle aria-hidden="true" className="h-4 w-4" /> : s.num}
-                      </div>
-                      <span className={`text-[10px] font-black uppercase tracking-widest ${isActive ? 'text-ink' : isCompleted ? 'text-sandstone-dark' : 'text-ink-muted'}`}>{s.label}</span>
-                    </div>
-                    {i < arr.length - 1 && (
-                      <div className={`w-14 sm:w-20 h-[2px] mx-2 mb-5 rounded-full transition-all duration-500 ${isCompleted ? 'bg-sandstone-dark' : 'bg-bone-hairline'}`} />
-                    )}
+                  <div key={s.key} className="flex flex-1 flex-col items-center gap-2">
+                    <div className={`h-[3px] w-full rounded-full transition-colors duration-300 ${isCompleted || isActive ? "bg-ink" : "bg-bone-hairline"}`} />
+                    <span className={`inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${isActive ? "text-ink" : isCompleted ? "text-sandstone-dark" : "text-ink-muted"}`}>
+                      {isCompleted && <CheckCircle aria-hidden="true" className="h-3 w-3" />}
+                      {s.label}
+                    </span>
                   </div>
                 );
               })}
@@ -292,7 +290,7 @@ function GetQuoteForm() {
                   <div className="mb-7 sm:mb-8">
                     <div className="flex items-center gap-3 mb-3">
                       <div className="h-px w-8 cream-rule" />
-                      <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Step 01</p>
+                      <p className="cream-eyebrow text-[10px] font-mono tracking-[0.22em] uppercase font-medium">Start Here</p>
                     </div>
                     <h2 className="text-2xl sm:text-3xl font-heading font-black text-ink uppercase tracking-tight">Select a Service</h2>
                     <p className="font-serif italic text-ink-muted mt-3 text-base">Which service are you interested in?</p>
@@ -350,7 +348,7 @@ function GetQuoteForm() {
                         is pulled from lib/quote-questions.ts based on the
                         service the user picked in Step 1. */}
                     <ServiceQuestions
-                      eyebrow="Step 02"
+                      eyebrow="The Details"
                       heading={`About Your ${selectedService === "other" ? "Project" : (getServiceById(selectedService)?.title ?? "Project")}`}
                       questions={getQuestionSet(selectedService)}
                       answers={answers}
